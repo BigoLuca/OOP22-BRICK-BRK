@@ -8,24 +8,76 @@ import brickbreaker.model.gameObjects.Bar;
 import brickbreaker.model.gameObjects.Brick;
 import brickbreaker.model.gameObjects.bounding.RectBoundingBox;
 
+/**
+ * @author Bighini Luca
+ * @author Agostinelli Francesco
+ * 
+ * An interface to model the Game World. It defines the Object tha belongs to it: 
+ * Balls, Bar, Bricks, PowerUps and the main Bounding Box on the edge of the World.
+ * It also defines the Object movement and their collision.
+ */
 public interface World {
 
-    void setEventListener(final WorldEventListener listener);
+    /**
+     * Set the World Object collision listener.
+     * @param listener
+     */
+    void setEventListener(WorldEventListener listener);
 
-    void addBall(Ball ball);    // in addition to the first one created in the constructor
+    /**
+     * @param ball
+     */
+    void addBall(Ball ball);
+
+    /**
+     * @param ball
+     */
     void removeBall(Ball ball);
+
+    /**
+     * @return the list of ball in play
+     */
     List<Ball> getBalls();
 
+    /**
+     * @return the bar
+     */
     Bar getBar();
+
+    /**
+     * @param bar 
+     */
     void setBar(Bar bar);
 
+    /**
+     * @param bricks
+     */
     void addBricks(List<Brick> bricks);
-    void removeBrick(Brick brick);   // create a power Up in its place
-    List<Brick> getBricks(); // returns a list of bricks
 
+    /**
+     * Remove the brick hitted and create a power Up in its place.
+     * @param brick
+     */
+    void removeBrick(Brick brick);
+
+    /**
+     * @return the list of live bricks
+     */
+    List<Brick> getBricks();
+
+    /**
+     * @return the main Bounding Box
+     */
     RectBoundingBox getMainBBox();
 
-    void updateGame(final int elapsed);
+    /**
+     * Move object in the world at each frame.
+     * @param elapsed
+     */
+    void updateGame(int elapsed);
 
+    /**
+     * Comunicate to the Wolrd listener if a collision occurs between two objects.
+     */
     void checkCollision();
 }

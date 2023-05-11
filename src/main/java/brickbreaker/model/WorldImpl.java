@@ -23,7 +23,7 @@ import brickbreaker.model.gameObjects.power.applicator.PowerUpApplicator;
  * @author Agostinelli Francesco
  * 
  * {@inheritDoc}
- * Implementation of the GameSet interface.
+ * Implementation of the World interface.
  */
 public class WorldImpl implements World {
 

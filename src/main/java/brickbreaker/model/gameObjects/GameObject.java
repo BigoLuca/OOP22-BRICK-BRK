@@ -4,23 +4,57 @@ import brickbreaker.common.P2d;
 import brickbreaker.common.TypeObj;
 import brickbreaker.common.V2d;
 
+/**
+ * @author Bighini Luca
+ * 
+ * An interface to model the Game Objects. It implements the common methods
+ * for each game object: type, life, position, speed and bounding box.
+ * @param <T> the type of bounding box
+ */
 public interface GameObject<T> {
 
+    /**
+     * @return the object's lives
+     */
     int getLife();
-    
+
+    /**
+     * decrease lives by 1.
+     */
     void decLife();
 
+    /**
+     * increase lives by 1.
+     */
     void incLife();
 
+    /**
+     * @return the object's type
+     */
     TypeObj getType();
 
+    /**
+     * @return the object's position
+     */
     P2d getPosition();
 
-    void setPosition(final P2d newPosition);
+    /**
+     * @param newPosition
+     */
+    void setPosition(P2d newPosition);
 
+    /**
+     * @return the object's speed
+     */
     V2d getSpeed();
 
-    void setSpeed(final V2d speed);
+    /**
+     * @param speed
+     */
+    void setSpeed(V2d speed);
 
+    /**
+     * @return the object's bounding box
+     */
     T getBBox();
 }

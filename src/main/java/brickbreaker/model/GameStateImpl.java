@@ -9,13 +9,18 @@ import brickbreaker.model.timer.TimerImpl;
 import brickbreaker.model.timer.TimerThread;
 
 /**
- * This is the implementation of a game state.
- * For further informations, see the GameState interface documentation.
-*/
+ * {@inheritDoc}
+ * Implements the {@link GameState} interface.
+ * 
+ * @author Bighini Luca
+ * @author Agostinelli Francesco
+ */
 public class GameStateImpl implements GameState {
 
     private static final Integer TIME = 300;
-    public static enum State { PLAYING, WIN, LOST}
+
+    /** Rapresent the current state of the game. */
+    public enum State { PLAYING, WIN, LOST }
 
     private World currentWorld;
     private GameMap map = new GameMap();
@@ -28,8 +33,8 @@ public class GameStateImpl implements GameState {
      * {@inheritDoc}}
      */
     @Override
-    public final void init(String nameMap, Integer level) {
-        
+    public final void init(final String nameMap, final Integer level) {
+
 		score = 0;
         this.gameTimer = new TimerImpl(GameStateImpl.TIME);
         this.gameTimerThread = new TimerThread(this.gameTimer);
@@ -64,7 +69,7 @@ public class GameStateImpl implements GameState {
      * {@inheritDoc}}
      */
     @Override
-    public final void incScore(final int increment) {
+    public final void incScore(final Integer increment) {
         this.score += increment;
     }
 
@@ -72,7 +77,7 @@ public class GameStateImpl implements GameState {
      * {@inheritDoc}}
      */
     @Override
-    public final void decScore(final int decrement) {
+    public final void decScore(final Integer decrement) {
         this.score -= decrement;
     }
 
@@ -80,7 +85,7 @@ public class GameStateImpl implements GameState {
      * {@inheritDoc}}
      */
     @Override
-    public final void updateGame(final int elapsed) {
+    public final void updateGame(final Integer elapsed) {
         this.currentWorld.updateGame(elapsed);
     }
 
@@ -120,5 +125,5 @@ public class GameStateImpl implements GameState {
     public List<String> getNamesMap() {
         return Arrays.asList(new File(map.getPathMapFile()).list());
     }
-     
+
 }

@@ -9,12 +9,12 @@ import brickbreaker.model.gameObjects.Brick;
 import brickbreaker.model.gameObjects.bounding.RectBoundingBox;
 
 /**
- * @author Bighini Luca
- * @author Agostinelli Francesco
- * 
- * An interface to model the Game World. It defines the Object tha belongs to it: 
+ * Interface to model the Game World. It defines the Object tha belongs to it: 
  * Balls, Bar, Bricks, PowerUps and the main Bounding Box on the edge of the World.
  * It also defines the Object movement and their collision.
+ * 
+ * @author Bighini Luca
+ * @author Agostinelli Francesco
  */
 public interface World {
 

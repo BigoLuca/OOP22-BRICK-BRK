@@ -19,11 +19,11 @@ import brickbreaker.model.gameObjects.power.TypePower;
 import brickbreaker.model.gameObjects.power.applicator.PowerUpApplicator;
 
 /**
+ * {@inheritDoc}
+ * Implements the {@link World} interface.
+ * 
  * @author Bighini Luca
  * @author Agostinelli Francesco
- * 
- * {@inheritDoc}
- * Implementation of the World interface.
  */
 public class WorldImpl implements World {
 

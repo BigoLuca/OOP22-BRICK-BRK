@@ -8,8 +8,10 @@ import brickbreaker.model.gameObjects.bounding.RectBoundingBox;
 import brickbreaker.model.gameObjects.power.TypePower;
 
 /**
+ * Class to model the game object Brick.
+ * Extends {@link GameObjectImpl}.
+ * 
  * @author Bighini Luca
- * Class to model the game object Brick
  */
 public class Brick extends GameObjectImpl<RectBoundingBox> {
 

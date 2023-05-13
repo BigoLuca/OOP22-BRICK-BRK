@@ -7,13 +7,18 @@ import brickbreaker.model.timer.Timer;
 import brickbreaker.model.timer.TimerThread;
 
 /**
- * This is the definition of a game state, which is
- * the current game match state.
+ * Interface to model the Game State. It defines the state of the game.
+ * Initialized the world, keeps track of the score of the game and checkout the endgame.
+ * 
+ * @author Bighini Luca
+ * @author Agostinelli Francesco
  */
 public interface GameState {
 
     /**
      * Initialize the game world and data.
+     * @param nameMap
+     * @param level
      */
     void init(String nameMap, Integer level);
 
@@ -27,7 +32,7 @@ public interface GameState {
      * This method sets the current game state world.
      * @param newGameWorld A World object which will be the new game world.
      */
-    void setWorld(final World newGameWorld);
+    void setWorld(World newGameWorld);
 
     /**
      * This method gets the current points scored by the user.
@@ -40,19 +45,19 @@ public interface GameState {
      * specified by the increment parameter.
      * @param increment an integer value which is the increment.
      */
-    void incScore(final int increment);
+    void incScore(Integer increment);
 
     /**
      * This method decrements the current score by the value
      * specified by the decrement parameter.
      * @param decrement an integer value which is the decrement value.
      */
-    void decScore(final int decrement);
+    void decScore(Integer decrement);
 
     /**
      * {@inheritDoc}}
      */
-    void updateGame(final int elapsed);
+    void updateGame(Integer elapsed);
 
     /**
      * This method returns the current state.

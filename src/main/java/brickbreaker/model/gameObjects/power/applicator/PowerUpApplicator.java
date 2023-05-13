@@ -2,7 +2,16 @@ package brickbreaker.model.gameObjects.power.applicator;
 
 import brickbreaker.model.World;
 
+/**
+ * Interface for all powerUp to modify the world.
+ * 
+ * @author Agostinelli Francesco
+ */
 public interface PowerUpApplicator {
 
-    void applyPowerUp(final World gameWorld);
+    /**
+     * Method to modify the world objects with active powerUps.
+     * @param gameWorld
+     */
+    void applyPowerUp(World gameWorld);
 }

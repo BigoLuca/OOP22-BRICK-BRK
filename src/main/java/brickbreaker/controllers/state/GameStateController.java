@@ -4,16 +4,18 @@ import brickbreaker.controllers.Controller;
 
 /**
  * This interface defines the game state controller.
+ * 
+ * @author Agostinelli Francesco
  */
 public interface GameStateController extends Controller {
 
     /**
-     * This method closes the game.
+     * Quit fro the current game.
      */
     void quitGame();
 
     /**
-     * This method pauses the current game.
+     * Pauses the current game.
      */
     void pauseGame();
 

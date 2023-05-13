@@ -6,6 +6,11 @@ import brickbreaker.controllers.state.event.WorldEventListener;
 import brickbreaker.controllers.state.event.WorldEventListenerImpl;
 import brickbreaker.model.GameStateImpl.State;
 
+/**
+ * Implements the {@link GamStateController} interface.
+ * 
+ * @author Agostinelli Francesco
+ */
 public class GameStateControllerImpl extends ControllerImpl implements GameStateController, Runnable {
 
     private static final double PERIOD = 16.6666;
@@ -16,6 +21,9 @@ public class GameStateControllerImpl extends ControllerImpl implements GameState
     private boolean quit;
     private Thread game;
 
+    /**
+     * Game state controller constructor.
+     */
     public GameStateControllerImpl() {
         this.pause = false;
         this.quit = false;

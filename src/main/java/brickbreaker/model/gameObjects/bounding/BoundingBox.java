@@ -3,8 +3,9 @@ package brickbreaker.model.gameObjects.bounding;
 import brickbreaker.common.P2d;
 
 /**
+ * An Interface to model the objects bounding.
+ * 
  * @author Bighini Luca
- * An Interface to model the objects bounding 
  */
 public interface BoundingBox {
 

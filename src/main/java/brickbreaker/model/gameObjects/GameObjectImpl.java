@@ -6,10 +6,10 @@ import brickbreaker.common.V2d;
 import brickbreaker.model.gameObjects.bounding.BoundingBox;
 
 /**
- * @author Bighini Luca
- * 
  * {@inheritDoc}
- * Implementation of the GameObject interface. Abstract base class for all objects.
+ * Implements the {@link GameObject} interface. Abstract base class for all objects.
+ * 
+ * @author Bighini Luca
  * @param <T> the type of bounding box
  */
 public abstract class GameObjectImpl<T extends BoundingBox> implements GameObject<T> {

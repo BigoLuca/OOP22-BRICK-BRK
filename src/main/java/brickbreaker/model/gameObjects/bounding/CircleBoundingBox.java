@@ -3,8 +3,10 @@ package brickbreaker.model.gameObjects.bounding;
 import brickbreaker.common.P2d;
 
 /**
+ * Class to model a circle shape.
+ * Implements the {@link BoundingBox} interface.
+ * 
  * @author Bighini Luca
- * Class to model a circle shape
  */
 public class CircleBoundingBox implements BoundingBox {
 

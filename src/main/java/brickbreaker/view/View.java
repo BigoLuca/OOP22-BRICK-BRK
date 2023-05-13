@@ -24,9 +24,17 @@ public interface View {
      * @param controllerToAttach a Controller object which will be attached to
      * the current view.
      */
-    void setController(final Controller controllerToAttach);
+    void setController(Controller controllerToAttach);
 
+    /**
+     * This method returns the current stage.
+     * @return a stage object
+     */
     Stage getStage();
 
-    void setStage(final Stage stageToSet);
+    /**
+     * This method sets the view's stage to the one passed as parameter.
+     * @param stageToSet
+     */
+    void setStage(Stage stageToSet);
 }

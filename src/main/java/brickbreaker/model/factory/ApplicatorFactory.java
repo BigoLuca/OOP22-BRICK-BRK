@@ -19,7 +19,7 @@ public class ApplicatorFactory {
     public PowerUpApplicator createApplicator(final TypePower type) {
         if (type == TypePower.FASTBALL || type == TypePower.SLOWBALL) {
             return new BallSpeedApplicator(type == TypePower.FASTBALL);
-        }else if (type == TypePower.LONGBAR || type == TypePower.SHORTBAR) {
+        } else if (type == TypePower.LONGBAR || type == TypePower.SHORTBAR) {
             return new BarLengthApplicator(type == TypePower.LONGBAR);
         } else {
             return null;

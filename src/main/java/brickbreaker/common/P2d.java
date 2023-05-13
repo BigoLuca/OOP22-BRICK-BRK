@@ -2,44 +2,60 @@ package brickbreaker.common;
 
 // TODO unify with V2d
 /**
- * 2-dimensional point
+ * 2-dimensional point.
  */
 public class P2d {
 
-    private double x;
-    private double y;
+    private Double x;
+    private Double y;
 
-    public P2d(final double x, final double y){
+    /**
+     * P2d constructor.
+     * @param x
+     * @param y
+     */
+    public P2d(final double x, final double y) {
         this.x = x;
         this.y = y;
     }
 
-    public double getX() {
+    /**
+     * @return the x coordinate
+     */
+    public Double getX() {
         return this.x;
     }
 
-    public double getY() {
+    /**
+     * @return the y coordinate
+     */
+    public Double getY() {
         return this.y;
     }
 
-    public P2d sum(V2d v) {
+    /**
+     * Method to sum the velocity to the position.
+     * @param v
+     * @return a new position
+     */
+    public P2d sum(final V2d v) {
         return new P2d(x + v.getX(), y + v.getY());
     }
 
-    public V2d sub(P2d v) {
-        return new V2d(x - v.x, y - v.y);
+    /**
+     * @param xp
+     * @return the horizontal distance between two point
+     */
+    public Double orizDist(final P2d xp) {
+        return this.x - xp.getX();
     }
 
-    public String toString() {
-        return "P2d("+x+","+y+")";
-    }
-    
-    public Double orizDist(P2d xp) {
-        return x - xp.getX();
-    }
-
-    public Double vertDist(P2d yp) {
-        return y - yp.getY();
+    /**
+     * @param yp
+     * @return the vertical distance between two point
+     */
+    public Double vertDist(final P2d yp) {
+        return this.y - yp.getY();
     }
 
 }

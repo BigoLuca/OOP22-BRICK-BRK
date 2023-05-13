@@ -2,10 +2,17 @@ package brickbreaker.view;
 
 import brickbreaker.controllers.Controller;
 
+/**
+ * Implements the {@link View} interface.
+ */
 public abstract class ViewImpl implements View {
 
     private Controller currentController;
 
+    /**
+     * View constructor.
+     * @param controllerToAttach
+     */
     public ViewImpl(final Controller controllerToAttach) {
         this.setController(controllerToAttach);
     }

@@ -2,48 +2,52 @@ package brickbreaker.common;
 
 // TODO unify with P2d
 /**
- * 2-dimensional vector
+ * 2-dimensional vector.
  */
 public class V2d {
 
-    private Double x,y;
-    
-    public V2d(double x,double y) {
+    private Double x;
+    private Double y;
+
+    /**
+     * P2d constructor.
+     * @param x
+     * @param y
+     */
+    public V2d(final double x, final double y) {
         this.x = x;
         this.y = y;
     }
 
-    public V2d(P2d to, P2d from) {
-        this.x = to.getX() - from.getX();
-        this.y = to.getY() - from.getY();
-    }
-
+    /**
+     * @return the x vector component
+     */
     public Double getX() {
         return this.x;
     }
 
+    /**
+     * @return the y vector component
+     */
     public Double getY() {
         return this.y;
     }
 
-    public V2d sum(V2d v) {
+    /**
+     * Method to sum the acceleration to the velocity, increasing the velocity vector.
+     * @param v
+     * @return a new vector
+     */
+    public V2d sum(final V2d v) {
         return new V2d(x + v.x, y + v.y);
     }
-    
-    public double module() {
-        return (double) Math.sqrt(x*x+y*y);
-    }
 
-    public V2d getNormalized() {
-        double module = (double) Math.sqrt(x * x + y * y);
-        return new V2d(x / module, y / module);
-    }
-
-    public V2d mul(double fact) {
+    /**
+     * Method to multiply a factor by velocity.
+     * @param fact
+     * @return a new vector
+     */
+    public V2d mul(final double fact) {
         return new V2d(x * fact, y * fact);
-    }
-
-    public String toString() {
-        return "V2d(" + x + "," + y + ")";
     }
 }

@@ -5,10 +5,10 @@ import brickbreaker.common.TypeObj;
 import brickbreaker.common.V2d;
 
 /**
- * @author Bighini Luca
- * 
  * An interface to model the Game Objects. It implements the common methods
  * for each game object: type, life, position, speed and bounding box.
+ * 
+ * @author Bighini Luca
  * @param <T> the type of bounding box
  */
 public interface GameObject<T> {

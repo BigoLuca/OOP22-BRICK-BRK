@@ -7,8 +7,9 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * @author Bighini Luca
  * Class to work with map files.
+ * 
+ * @author Bighini Luca
  */
 public class GameMap {
 
@@ -21,7 +22,7 @@ public class GameMap {
     private String mapName;
 
     /**
-     * Construct method
+     * GameMap constructor.
      */
     public GameMap() {
         this.currentMap = new ArrayList<Integer>();

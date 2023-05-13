@@ -7,6 +7,8 @@ import java.util.Random;
 
 import brickbreaker.common.Difficulty;
 import brickbreaker.common.P2d;
+import brickbreaker.common.TypePowerUp;
+import brickbreaker.common.V2d;
 import brickbreaker.model.GameMap;
 import brickbreaker.model.World;
 import brickbreaker.model.WorldImpl;
@@ -14,6 +16,11 @@ import brickbreaker.model.gameObjects.Brick;
 import brickbreaker.model.gameObjects.bounding.RectBoundingBox;
 import brickbreaker.model.gameObjects.power.TypePower;
 
+/**
+ * Factory class for creating game World.
+ * 
+ * @author Agostinelli Francesco
+ */
 public class WorldFactory {
 
     private static final Double WORLD_WIDTH = 8.0;
@@ -21,10 +28,9 @@ public class WorldFactory {
 
     private static WorldFactory instance;
 
-    private WorldFactory() {
-
-    }
-
+    /**
+	 * @return the instance of WorldFactory if it not exists yet.
+	 */
     public static WorldFactory getInstance() {
         if (instance == null) {
             instance = new WorldFactory();
@@ -32,8 +38,8 @@ public class WorldFactory {
 
         return instance;
     }
-    
-    public World getBasicWorld(final String name) {
+
+    private World getBasicWorld(final String name) {
 
         GameMap map = new GameMap();
         GameFactory f = new GameFactory();
@@ -41,13 +47,19 @@ public class WorldFactory {
         World w = new WorldImpl(boundary);
 
         //TODO: Add actual parameters.
-        w.setBar(f.createBar(null));
-        w.addBall(f.createBall(null, null));
+        w.setBar(f.createBar(new P2d(0, 0)));
+        w.addBall(f.createBall(new P2d(0, 0), new V2d(0, 0)));
         w.addBricks(f.createBricks(map.loadMap(name), map.getMapColumns(), map.getMapLines()));
 
         return w;
     }
 
+    /**
+     * This method returns a new World with a percentage passed of positive powerUp.
+     * @param name
+     * @param bonusPercentage
+     * @return a World object
+     */
     public World getWorld(final String name, final Integer bonusPercentage) {
 
         World w = this.getBasicWorld(name);
@@ -58,18 +70,26 @@ public class WorldFactory {
 
             List<TypePower> typePowerList = getWorldPowerUp(bonusQuantity, true);
             typePowerList.addAll(getWorldPowerUp(malusQuantity / 2, false));
-            
+
             randomPowerUpAssignament(w.getBricks(), getWorldPowerUp(bonusQuantity, true));
         }
 
         return w;
     }
 
+    /**
+     * This method returns the world passed in with more positive 
+     * powerUp if easier is true or less if it is false.
+     * @param name
+     * @param current
+     * @param easier
+     * @return a World object
+     */
     public World getScalableDifficultyWorld(final String name, final World current, final boolean easier) {
 
         World w = this.getBasicWorld(name);
         Integer bonusQuantity = (int) current.getBricks().stream()
-        .filter(item -> item.getPowerUp().type == "POSITIVE").count();
+        .filter(item -> item.getPowerUp().getType() == TypePowerUp.POSITIVE).count();
 
         if (easier) {
             bonusQuantity++;
@@ -86,6 +106,12 @@ public class WorldFactory {
         return w;
     }
 
+    /**
+     * This method returns the world with a difficulty of diff.
+     * @param name
+     * @param diff
+     * @return a World object
+     */
     public World getDifficultyClassWorld(final String name, final Difficulty diff) {
         return this.getWorld(name, diff.getBonusPercentage());
     }
@@ -93,7 +119,7 @@ public class WorldFactory {
     private void randomPowerUpAssignament(final List<Brick> b, final List<TypePower> p) {
         Integer diff = b.size() - p.size();
         Random random = new Random();
-        if (diff > 0){
+        if (diff > 0) {
             p.addAll(Collections.nCopies(diff, TypePower.NULL));
         }
         for (Brick brick : b) {
@@ -106,12 +132,12 @@ public class WorldFactory {
      * present in the current World.
      * @param pQuantity is the power up quantity value.
      * @param bonus is true if the powerup to fill 
-     * @return
+     * @return a list of Typepower
      */
     private List<TypePower> getWorldPowerUp(final Integer pQuantity, final boolean bonus) {
         List<TypePower> p = new ArrayList<>();
         Random r = new Random();
-        List<TypePower> types = TypePower.getElement(bonus ? "POSITIVE" : "NEGATIVE");
+        List<TypePower> types = TypePower.getElement(bonus ? TypePowerUp.POSITIVE : TypePowerUp.NEGATIVE);
 
         for (int i = 0; i < pQuantity; i++) {
             Integer randomChoice = r.nextInt(types.size());

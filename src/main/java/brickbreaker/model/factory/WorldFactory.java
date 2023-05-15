@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-
 import brickbreaker.common.Difficulty;
 import brickbreaker.common.P2d;
 import brickbreaker.common.TypePowerUp;
@@ -25,6 +24,10 @@ public class WorldFactory {
 
     private static final Double WORLD_WIDTH = 8.0;
     private static final Double WORLD_HEIGHT = 6.0;
+
+    //TODO:Adapt speed.
+    private static final Double X_SPEED = 5.0;
+    private static final Double Y_SPEED = 5.0;
 
     private static WorldFactory instance;
 
@@ -48,7 +51,7 @@ public class WorldFactory {
 
         //TODO: Add actual parameters.
         w.setBar(f.createBar(new P2d(0, 0)));
-        w.addBall(f.createBall(new P2d(0, 0), new V2d(0, 0)));
+        w.addBall(f.createBall(new P2d(0, 0), new V2d(X_SPEED, Y_SPEED)));
         w.addBricks(f.createBricks(map.loadMap(name), map.getMapColumns(), map.getMapLines()));
 
         return w;

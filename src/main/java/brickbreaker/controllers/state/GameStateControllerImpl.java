@@ -70,13 +70,17 @@ public class GameStateControllerImpl extends ControllerImpl implements GameState
         return this.getModel().getScore();
     }
 
+    /**
+     * {@inheritDoc}
+     * Contains the loop for each game.
+     */
     @Override
     public void run() {
         long last = System.currentTimeMillis();
 
-        while(!quit){
-            
-            while(this.getModel().getState() == State.PLAYING && !this.pause) {
+        while (!quit) {
+
+            while (this.getModel().getState() == State.PLAYING && !this.pause) {
                 long current = System.currentTimeMillis();
                 int elapsed = (int) (current - last);
                 this.processCommands();
@@ -85,17 +89,15 @@ public class GameStateControllerImpl extends ControllerImpl implements GameState
                 this.waitUntilNextFrame(current);
                 last = current;
             }
-    
-            if(this.getModel().getState() == State.WIN){
+
+            if (this.getModel().getState() == State.WIN) {
                 this.quitGame();
                 //TODO: Add the user to a rank.
-            }else if(this.getModel().getState() == State.LOST){
+            } else if(this.getModel().getState() == State.LOST) {
                 this.quitGame();
-                
-            }else if(this.pause){
+            } else if(this.pause) {
                 // TODO when you need to stop the timer also in pause ??
-    
-                synchronized(game){
+                synchronized (game) {
                     try {
                         System.out.println("Game in pause...");
                         this.game.wait();
@@ -119,7 +121,7 @@ public class GameStateControllerImpl extends ControllerImpl implements GameState
             }
 
         }
-        
+
         try {
             this.game.interrupt();
             throw new InterruptedException();
@@ -150,7 +152,7 @@ public class GameStateControllerImpl extends ControllerImpl implements GameState
     /**
      * This method processes all the world events.
      */
-    void processEvents(){
+    void processEvents() {
         this.eventListener.processAll();
     }
 
@@ -168,10 +170,10 @@ public class GameStateControllerImpl extends ControllerImpl implements GameState
         if (dt < GameStateControllerImpl.PERIOD) {
             try {
                 Thread.sleep((long) PERIOD - dt);
-            } catch(Exception e) {
-
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
-    
+
 }

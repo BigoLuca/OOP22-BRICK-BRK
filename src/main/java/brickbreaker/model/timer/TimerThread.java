@@ -20,14 +20,6 @@ public class TimerThread extends Thread {
     }
 
     /**
-     * Method to set a new timer.
-     * @param newT
-     */
-    public void setTimer(final Timer newT) {
-        this.timer = newT;
-    }
-
-    /**
      * Method to stop the timer.
      */
     public void stopTimer() {

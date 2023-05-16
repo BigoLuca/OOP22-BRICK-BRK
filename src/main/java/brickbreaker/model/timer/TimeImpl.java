@@ -30,7 +30,7 @@ public class TimeImpl implements Time {
      */
     @Override
     public Integer getTotal() {
-        return this.total;    
+        return this.total;
     }
 
     /**

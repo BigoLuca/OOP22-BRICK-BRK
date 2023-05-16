@@ -1,6 +1,5 @@
 package brickbreaker.model.gameObjects;
 
-import brickbreaker.common.Dimension;
 import brickbreaker.common.P2d;
 import brickbreaker.common.TypeObj;
 import brickbreaker.common.V2d;
@@ -15,6 +14,8 @@ import brickbreaker.model.gameObjects.power.TypePower;
  */
 public class Brick extends GameObjectImpl<RectBoundingBox> {
 
+    private static final Double BRICK_WIDTH = 2.0;
+    private static final Double BRICK_HEIGHT = 1.0;
     private TypePower powerUp;
 
     /**
@@ -23,7 +24,7 @@ public class Brick extends GameObjectImpl<RectBoundingBox> {
      * @param lifeToSet
      */
     public Brick(final P2d pos, final int lifeToSet) {
-        super(lifeToSet, new V2d(0, 0), TypeObj.BRICK, new RectBoundingBox(pos, Dimension.BRICK_WIDTH, Dimension.BRICK_HEIGHT));
+        super(lifeToSet, new V2d(0, 0), TypeObj.BRICK, new RectBoundingBox(pos, BRICK_WIDTH, BRICK_HEIGHT));
         this.powerUp = TypePower.NULL;
     }
 

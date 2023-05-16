@@ -16,7 +16,7 @@ public abstract class GameObjectImpl<T extends BoundingBox> implements GameObjec
 
     private Integer lifes;
     private TypeObj type;
-	private V2d vel;
+    private V2d vel;
     private T bbox;
 
     /**
@@ -27,11 +27,11 @@ public abstract class GameObjectImpl<T extends BoundingBox> implements GameObjec
      * @param bboxToSet
      */
     public GameObjectImpl(final Integer lifesToSet, final V2d vel, final TypeObj typeToSet, final T bboxToSet) {
-		this.vel = vel;
-		this.type = typeToSet;
+        this.vel = vel;
+        this.type = typeToSet;
         this.lifes = lifesToSet;
         this.bbox = bboxToSet;
-	}
+    }
 
     /**
      * {@inheritDoc}
@@ -93,9 +93,9 @@ public abstract class GameObjectImpl<T extends BoundingBox> implements GameObjec
      * {@inheritDoc}
      */
     @Override
-	public void setSpeed(final V2d vel) {
-		this.vel = vel;
-	}
+    public void setSpeed(final V2d vel) {
+        this.vel = vel;
+    }
 
     /**
      * {@inheritDoc}

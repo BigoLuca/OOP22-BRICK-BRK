@@ -14,9 +14,9 @@ import brickbreaker.model.gameObjects.bounding.RectBoundingBox;
  */
 public class PowerUp extends GameObjectImpl<RectBoundingBox> {
 
-    private final static Double POWERUP_WIDTH = 1.5;
-    private final static Double POWERUP_HEIGHT = 0.8;
-    private final static Double POWERUP_FALLING = -5.0; //TODO: adapt falling speed
+    private static final Double POWERUP_WIDTH = 1.5;
+    private static final Double POWERUP_HEIGHT = 0.8;
+    private static final Double POWERUP_FALLING = -5.0; //TODO: adapt falling speed
     private final TypePower powerUp;
 
     /**

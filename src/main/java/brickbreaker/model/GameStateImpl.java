@@ -35,7 +35,7 @@ public class GameStateImpl implements GameState {
     @Override
     public final void init(final String nameMap, final Integer level) {
 
-		score = 0;
+        score = 0;
         this.gameTimer = new TimerImpl(GameStateImpl.TIME);
         this.gameTimerThread = new TimerThread(this.gameTimer);
         this.state = State.PLAYING;

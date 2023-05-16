@@ -37,7 +37,7 @@ public class WorldImpl implements World {
     private List<Brick> bricks;
     private List<PowerUp> activePowerUps;
     private RectBoundingBox mainBBox;
-	private WorldEventListener evListener;
+    private WorldEventListener evListener;
 
     private final Double mulELAPSED = 0.001;
 
@@ -160,7 +160,7 @@ public class WorldImpl implements World {
      */
     private void checkCollisionWithBall() {
         P2d ul = mainBBox.getULCorner();
-		P2d br = mainBBox.getBRCorner();
+        P2d br = mainBBox.getBRCorner();
 
         for (Ball ball : this.balls) {
             P2d pos = ball.getPosition();

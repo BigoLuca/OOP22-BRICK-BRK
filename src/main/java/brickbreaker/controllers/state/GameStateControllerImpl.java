@@ -93,9 +93,9 @@ public class GameStateControllerImpl extends ControllerImpl implements GameState
             if (this.getModel().getState() == State.WIN) {
                 this.quitGame();
                 //TODO: Add the user to a rank.
-            } else if(this.getModel().getState() == State.LOST) {
+            } else if (this.getModel().getState() == State.LOST) {
                 this.quitGame();
-            } else if(this.pause) {
+            } else if (this.pause) {
                 // TODO when you need to stop the timer also in pause ??
                 synchronized (game) {
                     try {
@@ -110,7 +110,6 @@ public class GameStateControllerImpl extends ControllerImpl implements GameState
                 /*to restart the thread
                 try {
                     Thread.sleep(5000);
-        
                     synchronized(game) {
                         this.game.notify(); //invia la notifica al thread in attesa
                     }
@@ -134,7 +133,8 @@ public class GameStateControllerImpl extends ControllerImpl implements GameState
      * This method processes all the commands triggered by the user.
      */
     private void processCommands() {
-        this.getModel().getWorld().getBar().updateInput(inputController, this.getModel().getWorld().getMainBBox().getBRCorner().getX());
+        this.getModel().getWorld().getBar()
+            .updateInput(inputController, this.getModel().getWorld().getMainBBox().getBRCorner().getX());
     }
 
     /**
@@ -159,7 +159,7 @@ public class GameStateControllerImpl extends ControllerImpl implements GameState
     /**
      * This method renders the attached view.
      */
-    private void render() {}
+    private void render() { }
 
     /**
      * This method wait end of the frame time before strting a new cicle.

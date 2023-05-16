@@ -5,10 +5,10 @@ package brickbreaker.common;
  */
 public enum TypePowerUp {
 
-    /** null. */
+    /** Null. */
     NULL,
-    /** positive. */
+    /** Positive. */
     POSITIVE,
-    /** negative. */
+    /** Negative. */
     NEGATIVE
 }

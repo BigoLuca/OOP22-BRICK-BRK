@@ -11,7 +11,7 @@ import brickbreaker.model.World;
  */
 public class BarLengthApplicator implements PowerUpApplicator {
 
-    private final static Double DELTA_BAR_LENGTH = 3.0;
+    private static final Double DELTA_BAR_LENGTH = 3.0;
     private boolean bonus;
 
     /**
@@ -32,5 +32,5 @@ public class BarLengthApplicator implements PowerUpApplicator {
         Double barWidth = gameWorld.getBar().getWidth();
         gameWorld.getBar().setWidth(barWidth + delta);
     }
-    
+
 }

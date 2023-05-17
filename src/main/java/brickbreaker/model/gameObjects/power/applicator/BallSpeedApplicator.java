@@ -1,7 +1,7 @@
 package brickbreaker.model.gameObjects.power.applicator;
 
 import brickbreaker.common.V2d;
-import brickbreaker.model.World;
+import brickbreaker.model.world.World;
 
 /**
  * Class to apply speed powerUp to Ball.

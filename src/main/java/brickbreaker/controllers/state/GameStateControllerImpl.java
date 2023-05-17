@@ -76,6 +76,10 @@ public class GameStateControllerImpl extends ControllerImpl implements GameState
         return this.getModel().getGameState().getScore();
     }
 
+    /**
+     * {@inheritDoc}
+     * Contains the loop for each game.
+     */
     @Override
     public void run() {
         long last = System.currentTimeMillis();
@@ -124,7 +128,6 @@ public class GameStateControllerImpl extends ControllerImpl implements GameState
                 /*to restart the thread
                 try {
                     Thread.sleep(5000);
-        
                     synchronized(game) {
                         this.game.notify(); //invia la notifica al thread in attesa
                     }
@@ -135,7 +138,7 @@ public class GameStateControllerImpl extends ControllerImpl implements GameState
             }
 
         }
-        
+
         try {
             this.game.interrupt();
             throw new InterruptedException();
@@ -167,14 +170,14 @@ public class GameStateControllerImpl extends ControllerImpl implements GameState
     /**
      * This method processes all the world events.
      */
-    void processEvents(){
+    void processEvents() {
         this.eventListener.processAll();
     }
 
     /**
      * This method renders the attached view.
      */
-    private void render() {}
+    private void render() { }
 
     /**
      * This method wait end of the frame time before strting a new cicle.
@@ -185,10 +188,10 @@ public class GameStateControllerImpl extends ControllerImpl implements GameState
         if (dt < GameStateControllerImpl.PERIOD) {
             try {
                 Thread.sleep((long) PERIOD - dt);
-            } catch(Exception e) {
-
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
-    
+
 }

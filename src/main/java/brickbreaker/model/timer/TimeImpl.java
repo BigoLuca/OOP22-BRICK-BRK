@@ -1,31 +1,51 @@
 package brickbreaker.model.timer;
 
+/**
+ * @inheritDoc
+ * Class that implements {@link Time} interface.
+ */
 public class TimeImpl implements Time {
 
-    private static final int SECONDS_IN_MINUTE = 60;
-    private int total;
+    private static final Integer SECONDS_IN_MINUTE = 60;
+    private Integer total;
 
+    /**
+     * Time constructor.
+     * @param time
+     */
     public TimeImpl(final int time) {
         this.setTotal(time);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setTotal(int totalTime) {
+    public void setTotal(final Integer totalTime) {
         this.total = totalTime;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public int getTotal() {
-        return this.total;    
+    public Integer getTotal() {
+        return this.total;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public int getMinutes() {
+    public Integer getMinutes() {
         return this.total / SECONDS_IN_MINUTE;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public int getSecondsInMinute() {
+    public Integer getSecondsInMinute() {
         return this.total % SECONDS_IN_MINUTE;
     }
 }

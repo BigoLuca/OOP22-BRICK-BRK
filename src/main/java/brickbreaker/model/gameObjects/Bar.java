@@ -58,5 +58,5 @@ public class Bar extends GameObjectImpl<RectBoundingBox> {
      */
     public void updateInput(final InputController c, final Double rightBorder) {
         input.update(this, rightBorder, c);
-	}
+    }
 }

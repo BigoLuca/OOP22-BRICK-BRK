@@ -63,5 +63,5 @@ public class WorldEventListenerImpl implements WorldEventListener {
     public GameState getGameState() {
         return this.state;
     }
-    
+
 }

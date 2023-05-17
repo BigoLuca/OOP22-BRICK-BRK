@@ -34,8 +34,8 @@ public class WorldFactory {
     private static WorldFactory instance;
 
     /**
-	 * @return the instance of WorldFactory if it not exists yet.
-	 */
+     * @return the instance of WorldFactory if it not exists yet.
+     */
     public static WorldFactory getInstance() {
         if (instance == null) {
             instance = new WorldFactory();

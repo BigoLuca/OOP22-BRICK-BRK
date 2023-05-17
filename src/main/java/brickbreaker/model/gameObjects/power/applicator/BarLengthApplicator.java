@@ -1,6 +1,6 @@
 package brickbreaker.model.gameObjects.power.applicator;
 
-import brickbreaker.model.World;
+import brickbreaker.model.world.World;
 
 /**
  * Class to apply lenght powerUp to Bar.
@@ -11,7 +11,7 @@ import brickbreaker.model.World;
  */
 public class BarLengthApplicator implements PowerUpApplicator {
 
-    private static final Double DELTA_BAR_LENGTH = 3.0;
+    private final static Double DELTA_BAR_LENGTH = 3.0;
     private boolean bonus;
 
     /**
@@ -32,5 +32,5 @@ public class BarLengthApplicator implements PowerUpApplicator {
         Double barWidth = gameWorld.getBar().getWidth();
         gameWorld.getBar().setWidth(barWidth + delta);
     }
-
+    
 }

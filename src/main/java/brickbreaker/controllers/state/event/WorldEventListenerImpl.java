@@ -3,7 +3,7 @@ package brickbreaker.controllers.state.event;
 import java.util.LinkedList;
 import java.util.List;
 
-import brickbreaker.model.GameState;
+import brickbreaker.model.state.GameState;
 
 /**
  * Implements the {@link WorldEventListener} interface.
@@ -63,5 +63,5 @@ public class WorldEventListenerImpl implements WorldEventListener {
     public GameState getGameState() {
         return this.state;
     }
-
+    
 }

@@ -1,7 +1,9 @@
 package brickbreaker.model.factory;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import brickbreaker.common.P2d;
 import brickbreaker.common.V2d;
@@ -60,6 +62,21 @@ public class GameFactory {
 			e.printStackTrace();
 		}
 		return result;
+	}
+
+	//TODO: Check probability distribution for life generation.
+	public List<Brick> createRandomBricks(final Integer maxBricks, final Integer cols, final Integer rows) {
+		Integer randomX, randomY;
+		Random r = new Random();
+		List<Brick> bricks = new LinkedList<>();
+
+		for(int i = 0; i < maxBricks; i++) {
+			randomX = r.nextInt(cols);
+			randomY = r.nextInt(rows);
+			bricks.add(new Brick(new P2d(randomX, randomY), 1));
+		}
+
+		return bricks;
 	}
 
 	/**

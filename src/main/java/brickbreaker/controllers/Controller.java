@@ -1,13 +1,13 @@
 package brickbreaker.controllers;
 
-import brickbreaker.model.GameState;
+import brickbreaker.model.GameModel;
 import brickbreaker.view.View;
 
 public interface Controller {
 
-    void setModel(final GameState modelToAttach);
+    void setModel(final GameModel modelToAttach);
 
-    GameState getModel();
+    GameModel getModel();
 
     void setView(final View viewToAttach);
 

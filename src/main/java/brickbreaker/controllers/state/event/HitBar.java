@@ -1,9 +1,9 @@
 package brickbreaker.controllers.state.event;
 
 import brickbreaker.common.V2d;
-import brickbreaker.model.GameState;
 import brickbreaker.model.gameObjects.Ball;
 import brickbreaker.model.gameObjects.Bar;
+import brickbreaker.model.state.GameState;
 
 /**
  * Class for update Bar after collision detection.

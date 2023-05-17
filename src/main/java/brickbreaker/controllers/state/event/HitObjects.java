@@ -1,6 +1,6 @@
 package brickbreaker.controllers.state.event;
 
-import brickbreaker.model.GameState;
+import brickbreaker.model.state.GameState;
 
 /**
  * Interface for Object events.

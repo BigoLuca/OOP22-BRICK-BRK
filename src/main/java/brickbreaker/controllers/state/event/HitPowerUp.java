@@ -1,8 +1,8 @@
 package brickbreaker.controllers.state.event;
 
-import brickbreaker.model.GameState;
 import brickbreaker.model.gameObjects.power.PowerUp;
 import brickbreaker.model.gameObjects.power.applicator.PowerUpApplicator;
+import brickbreaker.model.state.GameState;
 
 /**
  * Class for update PowerUp after collision detection.

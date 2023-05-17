@@ -1,10 +1,10 @@
 package brickbreaker.controllers.state.event;
 
 import brickbreaker.common.P2d;
-import brickbreaker.model.GameState;
-import brickbreaker.model.World;
-import brickbreaker.model.WorldImpl.SideCollision;
 import brickbreaker.model.gameObjects.Ball;
+import brickbreaker.model.state.GameState;
+import brickbreaker.model.world.World;
+import brickbreaker.model.world.WorldImpl.SideCollision;
 
 /**
  * Class for update Ball after collision detection.

@@ -1,6 +1,6 @@
 package brickbreaker.model.gameObjects.power.applicator;
 
-import brickbreaker.model.World;
+import brickbreaker.model.world.World;
 
 /**
  * Interface for all powerUp to modify the world.

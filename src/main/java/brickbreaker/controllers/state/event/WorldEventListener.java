@@ -2,7 +2,7 @@ package brickbreaker.controllers.state.event;
 
 import java.util.List;
 
-import brickbreaker.model.GameState;
+import brickbreaker.model.state.GameState;
 
 /**
  * Interface to control the events of the world.

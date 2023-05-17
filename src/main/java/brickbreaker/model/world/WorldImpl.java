@@ -2,8 +2,6 @@ package brickbreaker.model.world;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import brickbreaker.common.Difficulty;
 import brickbreaker.common.P2d;
 import brickbreaker.controllers.state.event.HitBar;
 import brickbreaker.controllers.state.event.HitBorder;

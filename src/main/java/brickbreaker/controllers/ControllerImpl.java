@@ -1,20 +1,20 @@
 package brickbreaker.controllers;
 
-import brickbreaker.model.GameState;
+import brickbreaker.model.GameModel;
 import brickbreaker.view.View;
 
 public abstract class ControllerImpl implements Controller{
 
-    private GameState model;
+    private GameModel model;
     private View view;
 
     public abstract void init();
 
-    public void setModel(final GameState modelToAttach) {
+    public void setModel(final GameModel modelToAttach) {
         this.model = modelToAttach;
     }
 
-    public GameState getModel() {
+    public GameModel getModel() {
         return this.model;
     }
 

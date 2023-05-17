@@ -1,10 +1,17 @@
 package brickbreaker.controllers.state;
 
+import brickbreaker.ResourceLoader;
+import brickbreaker.common.Mode;
 import brickbreaker.controllers.ControllerImpl;
 import brickbreaker.controllers.input.InputController;
 import brickbreaker.controllers.state.event.WorldEventListener;
 import brickbreaker.controllers.state.event.WorldEventListenerImpl;
-import brickbreaker.model.GameStateImpl.State;
+import brickbreaker.model.rank.GameRank;
+import brickbreaker.model.rank.PlayerStats;
+import brickbreaker.model.state.GameState;
+import brickbreaker.model.state.GameStateImpl;
+import brickbreaker.model.state.GameStateImpl.State;
+import brickbreaker.model.world.World;
 
 /**
  * Implements the {@link GamStateController} interface.
@@ -36,8 +43,7 @@ public class GameStateControllerImpl extends ControllerImpl implements GameState
      */
     @Override
     public void quitGame() {
-        //this.getModel().setGameOver(true);
-        this.getModel().getGameTimerThread().stopTimer();
+        this.getModel().getGameState().getGameTimerThread().stopTimer();
         this.quit = true;
     }
 
@@ -55,11 +61,11 @@ public class GameStateControllerImpl extends ControllerImpl implements GameState
     @Override
     public void init() {
         this.eventListener = new WorldEventListenerImpl();
-        this.eventListener.setGameState(getModel());
+        this.eventListener.setGameState(getModel().getGameState());
         this.getModel().init(null, null);   // TODO Add argoments
-        this.getModel().getWorld().setEventListener(this.eventListener);
+        this.getModel().getGameState().getWorld().setEventListener(this.eventListener);
         this.game.start();
-        this.getModel().getGameTimerThread().start();
+        this.getModel().getGameState().getGameTimerThread().start();
     }
 
     /**
@@ -67,7 +73,7 @@ public class GameStateControllerImpl extends ControllerImpl implements GameState
      */
     @Override
     public int getScore() {
-        return this.getModel().getScore();
+        return this.getModel().getGameState().getScore();
     }
 
     @Override
@@ -76,7 +82,7 @@ public class GameStateControllerImpl extends ControllerImpl implements GameState
 
         while(!quit){
             
-            while(this.getModel().getState() == State.PLAYING && !this.pause) {
+            while(this.getModel().getGameState().getState() == State.PLAYING && !this.pause) {
                 long current = System.currentTimeMillis();
                 int elapsed = (int) (current - last);
                 this.processCommands();
@@ -85,16 +91,26 @@ public class GameStateControllerImpl extends ControllerImpl implements GameState
                 this.waitUntilNextFrame(current);
                 last = current;
             }
-    
-            if(this.getModel().getState() == State.WIN){
-                this.quitGame();
-                //TODO: Add the user to a rank.
-            }else if(this.getModel().getState() == State.LOST){
-                this.quitGame();
-                
-            }else if(this.pause){
+
+            State gameState = this.getModel().getGameState().getState();
+            Boolean next = false;
+
+            if (gameState.equals(State.WIN)) {
+                next = this.getModel().getNextMatch();
+            }
+
+            if(gameState.equals(State.LOST) || !next) {
+               this.quitGame();
+            }
+
+            //TODO:fix
+            //Adds the player to rank.
+            GameRank r = this.getModel().getRank();
+            r.addPlayer(this.getModel().getGameState().getStats());
+            ResourceLoader.getInstance().writeRank(r.getRank(), this.getModel().getMode());
+
+            if(this.pause){
                 // TODO when you need to stop the timer also in pause ??
-    
                 synchronized(game){
                     try {
                         System.out.println("Game in pause...");
@@ -132,7 +148,8 @@ public class GameStateControllerImpl extends ControllerImpl implements GameState
      * This method processes all the commands triggered by the user.
      */
     private void processCommands() {
-        this.getModel().getWorld().getBar().updateInput(inputController, this.getModel().getWorld().getMainBBox().getBRCorner().getX());
+        World w = this.getModel().getGameState().getWorld();
+        w.getBar().updateInput(inputController, w.getMainBBox().getBRCorner().getX());
     }
 
     /**
@@ -140,9 +157,9 @@ public class GameStateControllerImpl extends ControllerImpl implements GameState
      * @param elapsed
      */
     private void updateGame(final int elapsed) {
-        this.getModel().updateGame(elapsed);
+        this.getModel().getGameState().updateGame(elapsed);
         this.processEvents();
-        this.getModel().getWorld().checkCollision();
+        this.getModel().getGameState().getWorld().checkCollision();
         this.processEvents();
         // PERCHE SI RICHIAMA DUE VOLTE IL PROCESSEVENT
     }

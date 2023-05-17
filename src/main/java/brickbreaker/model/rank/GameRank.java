@@ -13,6 +13,11 @@ public class GameRank implements Rank{
         this.capacity = rankCapacity;
     }
 
+    public GameRank(final SortedSet<PlayerStats> rankToSet, final Integer rankCapacity) {
+        this.rank = rankToSet;
+        this.capacity = rankCapacity;
+    }
+    
     @Override
     public SortedSet<PlayerStats> getRank() {
         return this.rank;

@@ -1,17 +1,14 @@
 package brickbreaker.controllers.state;
 
 import brickbreaker.ResourceLoader;
-import brickbreaker.common.Mode;
+import brickbreaker.model.world.World;
+import brickbreaker.model.rank.GameRank;
 import brickbreaker.controllers.ControllerImpl;
+import brickbreaker.model.state.GameStateImpl.State;
 import brickbreaker.controllers.input.InputController;
 import brickbreaker.controllers.state.event.WorldEventListener;
 import brickbreaker.controllers.state.event.WorldEventListenerImpl;
-import brickbreaker.model.rank.GameRank;
-import brickbreaker.model.rank.PlayerStats;
-import brickbreaker.model.state.GameState;
-import brickbreaker.model.state.GameStateImpl;
-import brickbreaker.model.state.GameStateImpl.State;
-import brickbreaker.model.world.World;
+
 
 /**
  * Implements the {@link GamStateController} interface.
@@ -62,7 +59,7 @@ public class GameStateControllerImpl extends ControllerImpl implements GameState
     public void init() {
         this.eventListener = new WorldEventListenerImpl();
         this.eventListener.setGameState(getModel().getGameState());
-        this.getModel().init(null, null);   // TODO Add argoments
+        this.getModel().getGameState().init();
         this.getModel().getGameState().getWorld().setEventListener(this.eventListener);
         this.game.start();
         this.getModel().getGameState().getGameTimerThread().start();
@@ -113,28 +110,29 @@ public class GameStateControllerImpl extends ControllerImpl implements GameState
             r.addPlayer(this.getModel().getGameState().getStats());
             ResourceLoader.getInstance().writeRank(r.getRank(), this.getModel().getMode());
 
+            //TODO: Discuss about game being a critical variable and check if the code is correct.
             if(this.pause){
-                // TODO when you need to stop the timer also in pause ??
+
                 synchronized(game){
                     try {
                         System.out.println("Game in pause...");
                         this.game.wait();
+                        this.getModel().getGameState().getGameTimerThread().stopTimer();
                         System.out.println("Resume game event...");
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
 
-                /*to restart the thread
                 try {
                     Thread.sleep(5000);
                     synchronized(game) {
-                        this.game.notify(); //invia la notifica al thread in attesa
+                        this.game.notify();
                     }
+                    this.getModel().getGameState().getGameTimerThread().resumeTimer();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                */
             }
 
         }

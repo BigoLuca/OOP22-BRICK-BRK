@@ -26,6 +26,9 @@ public class TimerThread extends Thread {
         this.running = false;
     }
 
+    public void resumeTimer() {
+        this.running = true;
+    }
     /**
      * Method to start the timer.
      */

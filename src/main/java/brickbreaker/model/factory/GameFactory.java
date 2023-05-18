@@ -3,6 +3,7 @@ package brickbreaker.model.factory;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 import brickbreaker.common.P2d;
@@ -42,24 +43,20 @@ public class GameFactory {
     /**
      * @param list of bricks life
      * @param col
-     * @param line
+     * @param row
      * @return a list of brick objects
      */
-    public List<Brick> createBricks(final List<Integer> list, final Integer col, final Integer line) {
+    public List<Brick> createBricks(final List<Integer> list, final Integer col, final Integer row) {
+        
         List<Brick> result = new ArrayList<>();
         Integer life;
-        try {
-            for (int y = 0; y < line; y++) {
-                for (int x = 0; x < col; x++) {
-                    life = list.get(x + y * col);
-                    if (life > 0) {
-                        result.add(new Brick(new P2d(x, y), life));
-                    }
+        for (int y = 0; y < row; y++) {
+            for (int x = 0; x < col; x++) {
+                life = list.get(x + y * col);
+                if (life > 0) {
+                    result.add(new Brick(new P2d(x, y), life));
                 }
             }
-        } catch (Exception e) {
-            System.out.println("Size of map not correct");
-            e.printStackTrace();
         }
         return result;
     }

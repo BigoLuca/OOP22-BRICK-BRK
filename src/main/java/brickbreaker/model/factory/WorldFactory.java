@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+
+import brickbreaker.ResourceLoader;
 import brickbreaker.common.Difficulty;
 import brickbreaker.common.P2d;
 import brickbreaker.common.TypePowerUp;
 import brickbreaker.common.V2d;
-import brickbreaker.model.GameMap;
 import brickbreaker.model.gameObjects.Ball;
 import brickbreaker.model.gameObjects.Bar;
 import brickbreaker.model.gameObjects.Brick;
@@ -58,17 +59,20 @@ public class WorldFactory {
 
     private World getBasicWorld(final MapName name) {
 
-        List<Brick> bricks;
+        List<Brick> bricks = new ArrayList<Brick>();
         World w = this.getEmptyWorld();
+        GameFactory g = GameFactory.getInstance();
+        ResourceLoader r = ResourceLoader.getInstance();
 
         if(name.isNull()) {
-            bricks = GameFactory.getInstance().createRandomBricks(100, 5, 5);
+            bricks = g.createRandomBricks(5, r.getMapColumns(), r.getMapRows());
+        } else if (r.loadMap(name.getName()).isEmpty()) {
+            bricks = g.createBricks(r.loadMap(name.getName()).get(), r.getMapColumns(), r.getMapRows());
         } else {
-            GameMap m = new GameMap();
-            bricks = GameFactory.getInstance().createBricks(m.loadMap(name.getName()), m.getMapColumns(), m.getMapLines());
+            System.out.println("Map not load correctly");
+            // TODO ADD VIEW ERROR
         }
-        
-        
+
         w.addBricks(bricks);
         return w;
     }

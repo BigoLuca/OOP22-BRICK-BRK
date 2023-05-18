@@ -15,6 +15,7 @@ import brickbreaker.controllers.state.event.WorldEventListenerImpl;
  * 
  * @author Agostinelli Francesco
  */
+//TODO: pre-match controller has to be implemented.
 public class GameStateControllerImpl extends ControllerImpl implements GameStateController, Runnable {
 
     private static final double PERIOD = 16.6666;
@@ -96,19 +97,17 @@ public class GameStateControllerImpl extends ControllerImpl implements GameState
             State gameState = this.getModel().getGameState().getState();
             Boolean next = false;
 
-            if (gameState.equals(State.WIN)) {
-                next = this.getModel().getNextMatch();
+            if (!gameState.equals(State.PLAYING)) {
+                GameRank r = this.getModel().getRank();
+                r.addPlayer(this.getModel().getGameState().getStats());
+                ResourceLoader.getInstance().writeRank(r.getRank(), this.getModel().getMode());
+
+                next = this.getModel().getNextMatch(); 
             }
 
             if(gameState.equals(State.LOST) || !next) {
                this.quitGame();
             }
-
-            //TODO:fix
-            //Adds the player to rank.
-            GameRank r = this.getModel().getRank();
-            r.addPlayer(this.getModel().getGameState().getStats());
-            ResourceLoader.getInstance().writeRank(r.getRank(), this.getModel().getMode());
 
             //TODO: Discuss about game being a critical variable and check if the code is correct.
             if(this.pause){

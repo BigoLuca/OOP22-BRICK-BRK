@@ -1,16 +1,16 @@
 package brickbreaker;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInput;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,8 +23,8 @@ import brickbreaker.model.rank.PlayerStats;
 
 public class ResourceLoader {
 
-    private static final Integer MAPCOL = 20;
-    private static final Integer MAPLINE = 10;
+    public static final Integer MAP_COLUMNS_FILE_FORMAT = 20;
+    public static final Integer MAP_ROWS_FILE_FORMAT = 10;
 
     private static ResourceLoader instance;
     private String mapsPath;
@@ -70,7 +70,7 @@ public class ResourceLoader {
                 return List.of();
             }
 
-            if (mapLayout.size() != MAPCOL * MAPLINE) {
+            if (mapLayout.size() != MAP_COLUMNS_FILE_FORMAT * MAP_ROWS_FILE_FORMAT) {
                 return List.of();
             }
         }

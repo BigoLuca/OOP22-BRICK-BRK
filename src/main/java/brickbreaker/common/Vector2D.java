@@ -1,9 +1,6 @@
 package brickbreaker.common;
 
-/**
- * 2-dimensional point.
- */
-public class P2d {
+public class Vector2D {
 
     private Double x;
     private Double y;
@@ -13,7 +10,7 @@ public class P2d {
      * @param x
      * @param y
      */
-    public P2d(final double x, final double y) {
+    public Vector2D(final double x, final double y) {
         this.x = x;
         this.y = y;
     }
@@ -37,15 +34,15 @@ public class P2d {
      * @param v
      * @return a new position
      */
-    public P2d sum(final V2d v) {
-        return new P2d(x + v.getX(), y + v.getY());
+    public Vector2D sum(final V2d v) {
+        return new Vector2D(x + v.getX(), y + v.getY());
     }
 
     /**
      * @param xp
      * @return the horizontal distance between two point
      */
-    public Double orizDist(final P2d xp) {
+    public Double orizDist(final Vector2D xp) {
         return this.x - xp.getX();
     }
 
@@ -53,8 +50,7 @@ public class P2d {
      * @param yp
      * @return the vertical distance between two point
      */
-    public Double vertDist(final P2d yp) {
+    public Double vertDist(final Vector2D yp) {
         return this.y - yp.getY();
     }
-
 }

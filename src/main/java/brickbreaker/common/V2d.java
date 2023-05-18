@@ -1,6 +1,5 @@
 package brickbreaker.common;
 
-// TODO unify with P2d
 /**
  * 2-dimensional vector.
  */

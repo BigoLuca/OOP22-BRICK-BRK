@@ -1,16 +1,16 @@
 package brickbreaker.model;
 
 import brickbreaker.common.Mode;
-import brickbreaker.model.rank.GameRank;
+import brickbreaker.model.rank.Rank;
 import brickbreaker.model.state.GameState;
 
 public abstract class AbstractGameModel implements GameModel {
 
     private Mode mode;
-    private GameRank rank;
+    private Rank rank;
     private GameState currentMatch;
 
-    public AbstractGameModel(Mode m, GameRank r) {
+    public AbstractGameModel(final Mode m, final Rank r) {
         this.mode = m;
         this.rank = r;
     }
@@ -24,12 +24,12 @@ public abstract class AbstractGameModel implements GameModel {
     }
 
     @Override
-    public GameRank getRank() {
+    public Rank getRank() {
         return this.rank;
     }
 
     @Override
-    public void setRank(GameRank rankToSet) {
+    public void setRank(Rank rankToSet) {
         this.rank = rankToSet;
     }
 

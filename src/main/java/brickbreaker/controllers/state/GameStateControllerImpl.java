@@ -3,6 +3,7 @@ package brickbreaker.controllers.state;
 import brickbreaker.ResourceLoader;
 import brickbreaker.model.world.World;
 import brickbreaker.model.rank.GameRank;
+import brickbreaker.model.rank.Rank;
 import brickbreaker.controllers.ControllerImpl;
 import brickbreaker.model.state.GameStateImpl.State;
 import brickbreaker.controllers.input.InputController;
@@ -123,6 +124,7 @@ public class GameStateControllerImpl extends ControllerImpl implements GameState
                     }
                 }
 
+                /* use to restart the game (after button press)
                 try {
                     Thread.sleep(5000);
                     synchronized(game) {
@@ -132,6 +134,7 @@ public class GameStateControllerImpl extends ControllerImpl implements GameState
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                */
             }
 
         }

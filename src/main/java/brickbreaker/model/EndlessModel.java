@@ -7,15 +7,15 @@ import brickbreaker.common.Difficulty;
 import brickbreaker.common.Mode;
 import brickbreaker.model.factory.NullMapName;
 import brickbreaker.model.factory.WorldFactory;
-import brickbreaker.model.rank.GameRank;
+import brickbreaker.model.rank.Rank;
 import brickbreaker.model.world.World;
 
 public class EndlessModel extends AbstractGameModel {
 
     private Optional<Difficulty> chosenDiff;
 
-    public EndlessModel(final Mode m, final GameRank r) {
-        super(m, r);
+    public EndlessModel(final Rank r) {
+        super(Mode.ENDLESS, r);
     }
 
     private World getVariousDiffWorld() {

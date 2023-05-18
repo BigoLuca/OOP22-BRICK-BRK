@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+
+import brickbreaker.ResourceLoader;
 import brickbreaker.common.Difficulty;
 import brickbreaker.common.P2d;
 import brickbreaker.common.TypePowerUp;
 import brickbreaker.common.V2d;
-import brickbreaker.model.GameMap;
 import brickbreaker.model.gameObjects.Ball;
 import brickbreaker.model.gameObjects.Bar;
 import brickbreaker.model.gameObjects.Brick;
@@ -64,8 +65,10 @@ public class WorldFactory {
         if(name.isNull()) {
             bricks = GameFactory.getInstance().createRandomBricks(100, 5, 5);
         } else {
-            GameMap m = new GameMap();
-            bricks = GameFactory.getInstance().createBricks(m.loadMap(name.getName()), m.getMapColumns(), m.getMapLines());
+            Integer r = ResourceLoader.MAP_ROWS_FILE_FORMAT;
+            Integer c = ResourceLoader.MAP_COLUMNS_FILE_FORMAT;
+            List<Integer> map = ResourceLoader.getInstance().loadMap(name.getName());
+            bricks = GameFactory.getInstance().createBricks(map, c, r);
         }
         
         

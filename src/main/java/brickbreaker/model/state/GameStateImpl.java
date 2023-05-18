@@ -22,20 +22,22 @@ public class GameStateImpl implements GameState {
 
     private PlayerStats userStats;
     private World currentWorld;
-    private Integer score;
     private State state;
     private Timer gameTimer;
     private TimerThread gameTimerThread;
 
+    public GameStateImpl(final World world, final PlayerStats currentUser) {
+        this.currentWorld = world;
+        this.userStats = currentUser;
+    }
+
     /**
      * {@inheritDoc}}
      */
-    //TODO:World creation (?)
     @Override
     public final void init() {
 
-		this.score = 0;
-        this.userStats = new PlayerStats();
+		this.userStats.setScore(0);
         this.gameTimer = new TimerImpl(GameStateImpl.TIME);
         this.gameTimerThread = new TimerThread(this.gameTimer);
         this.state = State.PLAYING;
@@ -70,7 +72,7 @@ public class GameStateImpl implements GameState {
      */
     @Override
     public final int getScore() {
-        return this.score;
+        return this.userStats.getScore();
     }
 
     /**
@@ -78,7 +80,7 @@ public class GameStateImpl implements GameState {
      */
     @Override
     public final void incScore(final Integer increment) {
-        this.score += increment;
+        this.userStats.incScore(increment);
     }
 
     /**
@@ -86,7 +88,7 @@ public class GameStateImpl implements GameState {
      */
     @Override
     public final void decScore(final Integer decrement) {
-        this.score -= decrement;
+        this.userStats.decScore(decrement);
     }
 
     /**

@@ -14,7 +14,23 @@ public class PlayerStats {
         return this.name;
     }
 
+    public void setUser(final String userName) {
+        this.name = userName;
+    }
+
     public Integer getScore() {
         return this.score;
+    }
+
+    public void setScore(final Integer score) {
+        this.score = score;
+    }
+
+    public void incScore(final Integer increment) {
+        this.score += increment;
+    }
+
+    public void decScore(final Integer decrement) {
+        this.score -= decrement;
     }
 }

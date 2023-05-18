@@ -1,25 +1,26 @@
 package brickbreaker.model.rank;
 
-import java.util.SortedSet;
+import java.util.Comparator;
+import java.util.Set;
 import java.util.TreeSet;
 
-public class GameRank implements Rank{
+public class GameRank implements Rank {
 
     private Integer capacity;
-    private SortedSet<PlayerStats> rank;
+    private Set<PlayerStats> rank;
 
     public GameRank(final Integer rankCapacity) {
-        this.rank = new TreeSet<PlayerStats>();
+        this.rank = new TreeSet<PlayerStats>(new RankComparator());
         this.capacity = rankCapacity;
     }
 
-    public GameRank(final SortedSet<PlayerStats> rankToSet, final Integer rankCapacity) {
+    public GameRank(final TreeSet<PlayerStats> rankToSet, final Integer rankCapacity) {
         this.rank = rankToSet;
         this.capacity = rankCapacity;
     }
     
     @Override
-    public SortedSet<PlayerStats> getRank() {
+    public Set<PlayerStats> getRank() {
         return this.rank;
     }
 
@@ -28,9 +29,16 @@ public class GameRank implements Rank{
 
         boolean result = this.rank.add(newStats);
         if (this.rank.size() >= capacity) {
-            this.rank.remove(this.rank.last());
+            ((TreeSet<PlayerStats>) this.rank).pollLast();
         }
         return result;
+    }
+
+    class RankComparator implements Comparator<PlayerStats> {
+        @Override
+        public int compare(PlayerStats p1, PlayerStats p2) {
+            return Integer.compare(p1.getScore(), p2.getScore());
+        }
     }
     
 }

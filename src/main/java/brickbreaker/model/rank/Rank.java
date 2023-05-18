@@ -1,10 +1,10 @@
 package brickbreaker.model.rank;
 
-import java.util.SortedSet;
+import java.util.Set;
 
 public interface Rank {
 
-    SortedSet<PlayerStats> getRank();
+    Set<PlayerStats> getRank();
 
     boolean addPlayer(final PlayerStats newStats);
 }

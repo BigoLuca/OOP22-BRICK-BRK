@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
-import java.util.SortedSet;
+import java.util.Set;
 import java.util.TreeSet;
 
 import brickbreaker.common.Mode;
@@ -108,16 +108,17 @@ public class ResourceLoader {
         return ResourceLoader.MAP_ROWS_FILE_FORMAT;
     }
 
+    //TODO change with json
     @SuppressWarnings("unchecked")
-    public SortedSet<PlayerStats> getRank(final Mode mode) {
+    public Set<PlayerStats> getRank(final Mode mode) {
 
-        SortedSet<PlayerStats> rank = new TreeSet<>();
+        Set<PlayerStats> rank = new TreeSet<>();
         String file = mode.equals(Mode.LEVEL) ? "levels.txt" : "endless.txt";
         String path = this.ranksPath + sep + file;
         
         try (ObjectInput input = new ObjectInputStream(
             new BufferedInputStream(new FileInputStream(path)))) {
-                rank.addAll((SortedSet<PlayerStats>) input.readObject());
+                rank.addAll((TreeSet<PlayerStats>) input.readObject());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -125,7 +126,7 @@ public class ResourceLoader {
         return rank;
     }
 
-    public void writeRank(final SortedSet<PlayerStats> rank, final Mode mode) {
+    public void writeRank(final Set<PlayerStats> rank, final Mode mode) {
         String file = mode.equals(Mode.LEVEL) ? "levels.txt" : "endless.txt";
         String path = this.ranksPath + sep + file;
         try(ObjectOutput output = new ObjectOutputStream(

@@ -136,4 +136,26 @@ public class ResourceLoader {
             e.printStackTrace();
         }
     }
+
+
+    public Integer[][] convertToListArray(List<Integer> list, int MCols, int MRows) {
+        Integer[][] array = new Integer[MRows][MCols];
+        Integer index = 0;
+
+        for (int row = 0; row < MRows; row++) {
+            for (int col = 0; col < MCols; col++) {
+                if (index < list.size()) {
+                    array[row][col] = list.get(index);
+                    index++;
+                } else {
+                    // If the list is shorter than the desired array size,
+                    // you can decide how to handle the remaining elements.
+                    // Here, we fill the remaining elements with 0.
+                    array[row][col] = 0;
+                }
+            }
+        }
+
+        return array;
+    }
 }

@@ -15,23 +15,32 @@ public final class JavaFXApp extends Application {
 
     @Override
     public void start(final Stage primaryStage) throws Exception {
+
+        new GameWindow().start(primaryStage);
+
+        // Label
         final Label message = new Label("Hello, JavaFX!"); 
         message.setFont(new Font(100));
 
+        // Button
         final Button button = new Button("Click me!");
         button.setOnAction(event -> {
             message.setText("Hello, World!");
             button.setText("Clicked!");
             PauseWindow.display();
         });
+
+
         
+        // Layout
         StackPane layout = new StackPane();
         layout.getChildren().add(message);
         layout.getChildren().add(button);
         
+        // Scene
         Scene scene = new Scene(layout, 800, 600);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Hello");
+        //primaryStage.setScene(scene);
+        primaryStage.setTitle("Game Window");
         primaryStage.show();
     }
 

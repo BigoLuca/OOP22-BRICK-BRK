@@ -25,6 +25,7 @@ import brickbreaker.model.world.WorldImpl;
  */
 public class WorldFactory {
 
+    //TODO remove static, the world with is related to map width
     private static final Double WORLD_WIDTH = 8.0;
     private static final Double WORLD_HEIGHT = 6.0;
 
@@ -57,18 +58,18 @@ public class WorldFactory {
         return w;
     }
 
-    private World getBasicWorld(final MapName name) {
+    private World getBasicWorld(final String name) {
 
-        List<Brick> bricks = new ArrayList<Brick>();
+        List<Brick> bricks;
         World w = this.getEmptyWorld();
-        GameFactory g = GameFactory.getInstance();
         ResourceLoader r = ResourceLoader.getInstance();
 
-        //TODO: Decide bricks quantity.
-        if (name.isNull()) {
-            bricks = g.createRandomBricks(5, r.getMapColumns(), r.getMapRows());
-        } else if (r.loadMap(name.getName()).isPresent()) {
-            bricks = g.createBricks(r.loadMap(name.getName()).get(), r.getMapColumns(), r.getMapRows());
+        if (r.loadMap(name).isPresent()) {
+            bricks = GameFactory.getInstance().createBricks(r.loadMap(name).get(), r.getMapColumns(), r.getMapRows());
+        } else {
+            System.out.println("Map not load correctly");
+            bricks = new ArrayList<Brick>();
+            // TODO ADD VIEW ERROR
         }
         
         w.addBricks(bricks);
@@ -81,7 +82,7 @@ public class WorldFactory {
      * @param bonusPercentage
      * @return a World object
      */
-    public World getWorld(final MapName name, final Integer bonusPercentage) {
+    public World getWorld(final String name, final Integer bonusPercentage) {
 
         World w = this.getBasicWorld(name);
         Integer bonusQuantity = (w.getBricks().size() / 100) * bonusPercentage;

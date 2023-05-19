@@ -43,6 +43,7 @@ dependencies {
             implementation("org.openjfx:javafx-$module:$javaFxVersion:$platform")
         }
     }
+    implementation("com.googlecode.json-simple:json-simple:1.1.1")
 
     val jUnitVersion = "5.9.2"
     // JUnit API and testing engine

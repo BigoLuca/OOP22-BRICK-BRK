@@ -1,22 +1,28 @@
 package brickbreaker.model;
 
+import java.util.List;
+import java.util.Optional;
+
+import brickbreaker.ResourceLoader;
 import brickbreaker.common.Mode;
+import brickbreaker.model.rank.GameRank;
 import brickbreaker.model.rank.Rank;
-import brickbreaker.model.state.GameState;
 
 public abstract class AbstractGameModel implements GameModel {
 
+    private final Integer LENRANK = 10;
     private Mode mode;
     private Rank rank;
-    private GameState currentMatch;
+    private List<String> mapList;
 
-    public AbstractGameModel(final Mode m, final Rank r) {
+    public AbstractGameModel(final Mode m) {
         this.mode = m;
-        this.rank = r;
+        this.rank = new GameRank(LENRANK);
+        this.mapList = ResourceLoader.getInstance().getMapsNames();
     }
 
     @Override
-    public abstract boolean getNextMatch();
+    public abstract Optional<Level> getNextMatch();
 
     @Override
     public Mode getMode() {
@@ -27,20 +33,20 @@ public abstract class AbstractGameModel implements GameModel {
     public Rank getRank() {
         return this.rank;
     }
-
+    
     @Override
-    public void setRank(Rank rankToSet) {
+    public void setRank(final Rank rankToSet) {
         this.rank = rankToSet;
     }
 
     @Override
-    public GameState getGameState() {
-        return this.currentMatch;
+    public String getNameMap(final Integer i) {
+        return this.mapList.get(i);
     }
 
     @Override
-    public void setGameState(GameState g) {
-        this.currentMatch = g;
+    public Integer getListMapLenght(){
+        return this.mapList.size();
     }
-    
+
 }

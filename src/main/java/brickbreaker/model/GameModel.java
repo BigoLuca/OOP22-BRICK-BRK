@@ -1,20 +1,22 @@
 package brickbreaker.model;
 
+import java.util.Optional;
+
 import brickbreaker.common.Mode;
 import brickbreaker.model.rank.Rank;
-import brickbreaker.model.state.GameState;
 
 public interface GameModel {
 
-    boolean getNextMatch();
+    Optional<Level> getNextMatch();
 
     Mode getMode();
 
     Rank getRank();
 
-    void setRank(final Rank rankToSet);
+    void setRank(Rank rankToSet);
 
-    GameState getGameState();
+    String getNameMap(Integer i);
 
-    public void setGameState(final GameState g);
+    Integer getListMapLenght();
+
 }

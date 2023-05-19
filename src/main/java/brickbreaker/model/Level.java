@@ -1,7 +1,9 @@
 package brickbreaker.model;
 
-import brickbreaker.model.rank.GameRank;
-import brickbreaker.model.rank.Rank;
+import brickbreaker.model.factory.WorldFactory;
+import brickbreaker.model.rank.PlayerStats;
+import brickbreaker.model.state.GameState;
+import brickbreaker.model.state.GameStateImpl;
 
 /**
  * Class representing a single level.
@@ -9,19 +11,18 @@ import brickbreaker.model.rank.Rank;
 public class Level {
 
     private final Integer id;
-    private final String nameMap;
-    private Rank rank;
+    private GameState gs;
+    private PlayerStats userStats;
 
     /**
      * Level constructor.
      * @param id
      * @param nameMap
      */
-    public Level(final Integer id, final String nameMap) {
+    public Level(final Integer id, final String nameMap, final Integer diff) {
         this.id = id;
-        this.nameMap = nameMap;
-        // TODO change GameRank
-        this.rank = new GameRank(10);
+        this.gs = new GameStateImpl(WorldFactory.getInstance().getWorld(nameMap, diff));
+        this.userStats.setScore(0);
     }
 
     /**
@@ -31,17 +32,45 @@ public class Level {
         return this.id;
     }
 
-    /**
-     * @return the level map name
-     */
-    public String getNameMap() {
-        return this.nameMap;
+    public GameState getGameState() {
+        return this.gs;
+    }
+
+    public void setGameState(GameState g) {
+        this.gs = g;
+    }
+
+    public void setStats(final PlayerStats p) {
+        this.userStats = p;
+    }
+
+    public PlayerStats getStats() {
+        return this.userStats;
     }
 
     /**
-     * @return the level rank
+     * This method gets the current points scored by the user.
+     * @return An integer value.
      */
-    public Rank getRank() {
-        return this.rank;
+    public final int getScore() {
+        return this.userStats.getScore();
+    }
+
+    /**
+     * This method increments the current score by the value
+     * specified by the increment parameter.
+     * @param increment an integer value which is the increment.
+     */
+    public final void incScore(final Integer increment) {
+        this.userStats.incScore(increment);
+    }
+
+    /**
+     * This method decrements the current score by the value
+     * specified by the decrement parameter.
+     * @param decrement an integer value which is the decrement value.
+     */
+    public final void decScore(final Integer decrement) {
+        this.userStats.decScore(decrement);
     }
 }

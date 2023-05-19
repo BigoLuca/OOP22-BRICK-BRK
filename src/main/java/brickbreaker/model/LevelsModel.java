@@ -1,43 +1,29 @@
 package brickbreaker.model;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.Optional;
+
 import brickbreaker.common.Mode;
-import brickbreaker.model.factory.MapName;
-import brickbreaker.model.factory.RealMapName;
-import brickbreaker.model.factory.WorldFactory;
-import brickbreaker.model.rank.Rank;
-import brickbreaker.model.world.World;
 
 public class LevelsModel extends AbstractGameModel {
 
-    private final Iterator<Level> level;
+    private Integer levelReached;
 
-    public LevelsModel(final List<String> names, final Rank r) {
-        super(Mode.LEVEL, r);
-        List<Level> levels = new ArrayList<Level>();
-        for (String n : names) {
-            levels.add(new Level(names.indexOf(n), n));
-        }
-        this.level = levels.iterator();
+    public LevelsModel() {
+        super(Mode.LEVEL);
+        this.levelReached = 0;  // change with the level of the player
     }
 
     @Override
-    public boolean getNextMatch() {
+    public Optional<Level> getNextMatch() {
 
-        if (level.hasNext()) {
-            World old = this.getGameState().getWorld();
-            Level l = level.next();
+        Integer diff = 1; // TODO calc the difficulty
+        levelReached++;
 
-            MapName m = new RealMapName(l.getNameMap());
-            this.getGameState().setWorld(WorldFactory.getInstance().createFromWorld(m, old, false));
-            this.getGameState().init();
+        if (levelReached <= this.getListMapLenght()) {
+            return Optional.of(new Level(levelReached, this.getNameMap(levelReached), diff));
         } else {
-            return false;
+            return Optional.empty();
         }
-
-        return true;
     }
     
 }

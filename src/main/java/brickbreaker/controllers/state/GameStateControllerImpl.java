@@ -2,7 +2,6 @@ package brickbreaker.controllers.state;
 
 import brickbreaker.ResourceLoader;
 import brickbreaker.model.world.World;
-import brickbreaker.model.rank.GameRank;
 import brickbreaker.model.rank.Rank;
 import brickbreaker.controllers.ControllerImpl;
 import brickbreaker.model.state.GameStateImpl.State;
@@ -99,7 +98,7 @@ public class GameStateControllerImpl extends ControllerImpl implements GameState
             Boolean next = false;
 
             if (!gameState.equals(State.PLAYING)) {
-                GameRank r = this.getModel().getRank();
+                Rank r = this.getModel().getRank();
                 r.addPlayer(this.getModel().getGameState().getStats());
                 ResourceLoader.getInstance().writeRank(r.getRank(), this.getModel().getMode());
 

@@ -3,9 +3,7 @@ package brickbreaker.model.factory;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
-
 import brickbreaker.common.P2d;
 import brickbreaker.common.V2d;
 import brickbreaker.model.gameObjects.Ball;

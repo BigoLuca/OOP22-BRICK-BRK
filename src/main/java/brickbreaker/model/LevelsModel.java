@@ -3,8 +3,6 @@ package brickbreaker.model;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Stream;
-
 import brickbreaker.common.Mode;
 import brickbreaker.model.factory.MapName;
 import brickbreaker.model.factory.RealMapName;
@@ -32,7 +30,8 @@ public class LevelsModel extends AbstractGameModel {
             World old = this.getGameState().getWorld();
             Level l = level.next();
 
-            this.getGameState().setWorld(WorldFactory.getInstance().createFromWorld(l.getNameMap(), old, false));
+            MapName m = new RealMapName(l.getNameMap());
+            this.getGameState().setWorld(WorldFactory.getInstance().createFromWorld(m, old, false));
             this.getGameState().init();
         } else {
             return false;

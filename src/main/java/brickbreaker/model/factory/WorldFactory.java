@@ -64,17 +64,13 @@ public class WorldFactory {
         GameFactory g = GameFactory.getInstance();
         ResourceLoader r = ResourceLoader.getInstance();
 
-        if(name.isNull()) {
+        //TODO: Decide bricks quantity.
+        if (name.isNull()) {
             bricks = g.createRandomBricks(5, r.getMapColumns(), r.getMapRows());
-        } else if (r.loadMap(name.getName()).isEmpty()) {
+        } else if (r.loadMap(name.getName()).isPresent()) {
             bricks = g.createBricks(r.loadMap(name.getName()).get(), r.getMapColumns(), r.getMapRows());
-        } else {
-            Integer r = ResourceLoader.MAP_ROWS_FILE_FORMAT;
-            Integer c = ResourceLoader.MAP_COLUMNS_FILE_FORMAT;
-            List<Integer> map = ResourceLoader.getInstance().loadMap(name.getName());
-            bricks = GameFactory.getInstance().createBricks(map, c, r);
         }
-
+        
         w.addBricks(bricks);
         return w;
     }

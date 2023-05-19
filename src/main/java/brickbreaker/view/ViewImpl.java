@@ -1,5 +1,6 @@
 package brickbreaker.view;
 
+import javafx.stage.Stage;
 import brickbreaker.controllers.Controller;
 
 /**
@@ -7,6 +8,7 @@ import brickbreaker.controllers.Controller;
  */
 public abstract class ViewImpl implements View {
 
+    private Stage currentStage;
     private Controller currentController;
 
     /**
@@ -15,6 +17,14 @@ public abstract class ViewImpl implements View {
      */
     public ViewImpl(final Controller controllerToAttach) {
         this.setController(controllerToAttach);
+    }
+
+    public Stage getStage() {
+        return this.currentStage;
+    }
+
+    public void setStage(final Stage stageToSet) {
+        this.currentStage = stageToSet;
     }
 
     /**

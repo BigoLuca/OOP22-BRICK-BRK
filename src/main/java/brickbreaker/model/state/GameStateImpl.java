@@ -1,6 +1,5 @@
 package brickbreaker.model.state;
 
-import brickbreaker.model.rank.PlayerStats;
 import brickbreaker.model.timer.Timer;
 import brickbreaker.model.timer.TimerImpl;
 import brickbreaker.model.timer.TimerThread;
@@ -20,15 +19,13 @@ public class GameStateImpl implements GameState {
     /** Rapresent the current state of the game. */
     public enum State { PLAYING, WIN, LOST }
 
-    private PlayerStats userStats;
     private World currentWorld;
     private State state;
     private Timer gameTimer;
     private TimerThread gameTimerThread;
 
-    public GameStateImpl(final World world, final PlayerStats currentUser) {
+    public GameStateImpl(final World world) {
         this.currentWorld = world;
-        this.userStats = currentUser;
     }
 
     /**
@@ -37,18 +34,9 @@ public class GameStateImpl implements GameState {
     @Override
     public final void init() {
 
-		this.userStats.setScore(0);
         this.gameTimer = new TimerImpl(GameStateImpl.TIME);
         this.gameTimerThread = new TimerThread(this.gameTimer);
         this.state = State.PLAYING;
-    }
-
-    public void setStats(final PlayerStats p) {
-        this.userStats = p;
-    }
-
-    public PlayerStats getStats() {
-        return this.userStats;
     }
 
     /**
@@ -65,30 +53,6 @@ public class GameStateImpl implements GameState {
     @Override
     public final void setWorld(final World newGameWorld) {
         this.currentWorld = newGameWorld;
-    }
-
-    /**
-     * {@inheritDoc}}
-     */
-    @Override
-    public final int getScore() {
-        return this.userStats.getScore();
-    }
-
-    /**
-     * {@inheritDoc}}
-     */
-    @Override
-    public final void incScore(final Integer increment) {
-        this.userStats.incScore(increment);
-    }
-
-    /**
-     * {@inheritDoc}}
-     */
-    @Override
-    public final void decScore(final Integer decrement) {
-        this.userStats.decScore(decrement);
     }
 
     /**

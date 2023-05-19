@@ -27,8 +27,8 @@ import brickbreaker.model.rank.PlayerStats;
  */
 public class ResourceLoader {
 
-    public static final Integer MAP_COLUMNS_FILE_FORMAT = 20;
-    public static final Integer MAP_ROWS_FILE_FORMAT = 10;
+    public final Integer MAP_COLUMNS_FILE_FORMAT = 20;
+    public final Integer MAP_ROWS_FILE_FORMAT = 10;
 
     private static ResourceLoader instance;
     private String mapsPath;
@@ -98,14 +98,14 @@ public class ResourceLoader {
      * @return the number of bricks for each line
      */
     public Integer getMapColumns() {
-        return ResourceLoader.MAP_COLUMNS_FILE_FORMAT;
+        return this.MAP_COLUMNS_FILE_FORMAT;
     }
 
     /**
      * @return the number of bricks for each column
      */
     public Integer getMapRows() {
-        return ResourceLoader.MAP_ROWS_FILE_FORMAT;
+        return this.MAP_ROWS_FILE_FORMAT;
     }
 
     //TODO change with json

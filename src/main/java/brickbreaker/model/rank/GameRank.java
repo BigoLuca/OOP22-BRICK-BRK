@@ -1,6 +1,5 @@
 package brickbreaker.model.rank;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -13,23 +12,27 @@ public class GameRank implements Rank {
     private List<PlayerStats> rank;
     private String fileName;
 
-
-    public GameRank(final Integer rankCapacity) {
-        this.rank = new ArrayList<PlayerStats>();
-        this.capacity = rankCapacity;
-    }
-
+    /**
+     * GameRank constructor.
+     * @param rankCapacity
+     */
     public GameRank(final Integer rankCapacity, final String fileName) {
         this.rank = ResourceLoader.getInstance().getRank(fileName);
         this.capacity = rankCapacity;
         this.fileName = fileName;
     }
-    
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<PlayerStats> getRank() {
         return this.rank;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean addPlayer(final PlayerStats newStats) {
 

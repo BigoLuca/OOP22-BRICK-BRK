@@ -5,19 +5,18 @@ import java.util.Optional;
 
 import brickbreaker.ResourceLoader;
 import brickbreaker.common.Mode;
-import brickbreaker.model.rank.GameRank;
 import brickbreaker.model.rank.Rank;
 
 public abstract class AbstractGameModel implements GameModel {
 
-    private final Integer LENRANK = 10;
+    protected final static Integer LENRANK = 10;
     private Mode mode;
     private Rank rank;
     private List<String> mapList;
 
-    public AbstractGameModel(final Mode m) {
+    public AbstractGameModel(final Mode m, final Rank r) {
         this.mode = m;
-        this.rank = new GameRank(LENRANK);
+        this.rank = r;
         this.mapList = ResourceLoader.getInstance().getMapsNames();
     }
 

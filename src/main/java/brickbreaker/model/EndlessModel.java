@@ -4,13 +4,14 @@ import java.util.Optional;
 import java.util.Random;
 
 import brickbreaker.common.Mode;
+import brickbreaker.model.rank.GameRank;
 
 public class EndlessModel extends AbstractGameModel {
 
     //private Optional<Difficulty> chosenDiff;
 
     public EndlessModel() {
-        super(Mode.ENDLESS);
+        super(Mode.ENDLESS, new GameRank(LENRANK, "endless.json"));
         //this.chosenDiff = chosenDiffToSet;
     }
 

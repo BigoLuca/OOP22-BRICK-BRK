@@ -3,6 +3,7 @@ package brickbreaker.model;
 import java.util.Optional;
 
 import brickbreaker.common.Mode;
+import brickbreaker.model.rank.GameRank;
 
 public class LevelsModel extends AbstractGameModel {
 
@@ -10,7 +11,7 @@ public class LevelsModel extends AbstractGameModel {
     //TODO private List<GameRank> levelRanks;
 
     public LevelsModel() {
-        super(Mode.LEVEL);
+        super(Mode.LEVEL,new GameRank(LENRANK, "globalLevel.json"));
         this.levelReached = 0;  // change with the level of the player
     }
 

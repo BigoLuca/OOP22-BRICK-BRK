@@ -7,6 +7,7 @@ import brickbreaker.common.Mode;
 public class LevelsModel extends AbstractGameModel {
 
     private Integer levelReached;
+    //TODO private List<GameRank> levelRanks;
 
     public LevelsModel() {
         super(Mode.LEVEL);

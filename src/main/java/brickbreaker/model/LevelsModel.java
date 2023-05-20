@@ -4,14 +4,15 @@ import java.util.Optional;
 
 import brickbreaker.common.Mode;
 import brickbreaker.model.rank.GameRank;
+import brickbreaker.model.user.User;
 
 public class LevelsModel extends AbstractGameModel {
 
     private Integer levelReached;
     //TODO private List<GameRank> levelRanks;
 
-    public LevelsModel() {
-        super(Mode.LEVEL,new GameRank(LENRANK, "globalLevel.json"));
+    public LevelsModel(final User user) {
+        super(Mode.LEVEL,new GameRank(LENRANK, "globalLevel.json"), user);
         this.levelReached = 0;  // change with the level of the player
     }
 

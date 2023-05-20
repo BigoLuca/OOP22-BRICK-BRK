@@ -1,8 +1,8 @@
 package brickbreaker.controllers.state;
 
-import brickbreaker.ResourceLoader;
 import brickbreaker.model.world.World;
-import brickbreaker.model.rank.Rank;
+import brickbreaker.model.Level;
+import brickbreaker.model.rank.PlayerStats;
 import brickbreaker.controllers.ControllerImpl;
 import brickbreaker.model.state.GameStateImpl.State;
 import brickbreaker.controllers.input.InputController;
@@ -15,8 +15,7 @@ import brickbreaker.controllers.state.event.WorldEventListenerImpl;
  * 
  * @author Agostinelli Francesco
  */
-//TODO: pre-match controller has to be implemented.
-public class GameStateControllerImpl extends ControllerImpl implements GameStateController, Runnable {
+public class LevelControllerImpl extends ControllerImpl implements LevelController, Runnable {
 
     private static final double PERIOD = 16.6666;
 
@@ -25,32 +24,17 @@ public class GameStateControllerImpl extends ControllerImpl implements GameState
     private boolean pause;
     private boolean quit;
     private Thread game;
+    private Level level;
 
     /**
      * Game state controller constructor.
      */
-    public GameStateControllerImpl() {
+    public LevelControllerImpl(final Level l) {
         this.pause = false;
         this.quit = false;
         this.game = new Thread(this);
         this.game.setName("GameLoop");
-    }
-
-    /**
-     * {@inheritDoc}}
-     */
-    @Override
-    public void quitGame() {
-        this.getModel().getGameState().getGameTimerThread().stopTimer();
-        this.quit = true;
-    }
-
-    /**
-     * {@inheritDoc}}
-     */
-    @Override
-    public void pauseGame() {
-        this.pause = !this.pause;
+        this.level = l;
     }
 
     /**
@@ -59,19 +43,58 @@ public class GameStateControllerImpl extends ControllerImpl implements GameState
     @Override
     public void init() {
         this.eventListener = new WorldEventListenerImpl();
-        this.eventListener.setGameState(getModel().getGameState());
-        this.getModel().getGameState().init();
-        this.getModel().getGameState().getWorld().setEventListener(this.eventListener);
+        this.eventListener.setGameState(this.level.getGameState());
+        this.level.getGameState().init();
+        this.level.getGameState().getWorld().setEventListener(this.eventListener);
         this.game.start();
-        this.getModel().getGameState().getGameTimerThread().start();
+        this.level.getGameState().getGameTimerThread().start();
     }
 
     /**
      * {@inheritDoc}}
      */
     @Override
-    public int getScore() {
-        return this.getModel().getGameState().getScore();
+    public void quitGame() {
+        this.quit = true;
+        synchronized(game) {
+            this.game.notify();
+        }
+    }
+
+    /**
+     * {@inheritDoc}}
+     */
+    @Override
+    public void pauseGame() {
+        this.pause = true;
+    }
+
+    /**
+     * {@inheritDoc}}
+     */
+    @Override
+    public void resumeGame() throws InterruptedException {
+        this.pause = false;
+        synchronized(game) {
+            this.game.notify();
+        }
+        this.level.getGameState().getGameTimerThread().resumeTimer();
+    }
+
+    /**
+     * {@inheritDoc}}
+     */
+    @Override
+    public Integer getScore() {
+        return this.level.getScore();
+    }
+
+    /**
+     * {@inheritDoc}}
+     */
+    @Override
+    public State getState() {
+        return this.level.getGameState().getState();
     }
 
     /**
@@ -84,7 +107,7 @@ public class GameStateControllerImpl extends ControllerImpl implements GameState
 
         while(!quit){
             
-            while(this.getModel().getGameState().getState() == State.PLAYING && !this.pause) {
+            while(this.level.getGameState().getState().equals(State.PLAYING) && !this.pause) {
                 long current = System.currentTimeMillis();
                 int elapsed = (int) (current - last);
                 this.processCommands();
@@ -94,48 +117,22 @@ public class GameStateControllerImpl extends ControllerImpl implements GameState
                 last = current;
             }
 
-            State gameState = this.getModel().getGameState().getState();
-            Boolean next = false;
-
-            if (!gameState.equals(State.PLAYING)) {
-                Rank r = this.getModel().getRank();
-                r.addPlayer(this.getModel().getGameState().getStats());
-                ResourceLoader.getInstance().writeRank(r.getRank(), this.getModel().getMode());
-
-                next = this.getModel().getNextMatch(); 
-            }
-
-            if(gameState.equals(State.LOST) || !next) {
-               this.quitGame();
-            }
-
-            //TODO: Discuss about game being a critical variable and check if the code is correct.
-            if(this.pause){
+            if (!this.level.getGameState().getState().equals(State.PLAYING)) {
+                this.getModel().getRank().addPlayer(new PlayerStats(this.getModel().getUser().getName(), this.getScore()));
+                quitGame();
+            } else if (this.pause) {
 
                 synchronized(game){
                     try {
                         System.out.println("Game in pause...");
+                        this.level.getGameState().getGameTimerThread().stopTimer();
                         this.game.wait();
-                        this.getModel().getGameState().getGameTimerThread().stopTimer();
                         System.out.println("Resume game event...");
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
-
-                /* use to restart the game (after button press)
-                try {
-                    Thread.sleep(5000);
-                    synchronized(game) {
-                        this.game.notify();
-                    }
-                    this.getModel().getGameState().getGameTimerThread().resumeTimer();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                */
             }
-
         }
 
         try {
@@ -150,7 +147,7 @@ public class GameStateControllerImpl extends ControllerImpl implements GameState
      * This method processes all the commands triggered by the user.
      */
     private void processCommands() {
-        World w = this.getModel().getGameState().getWorld();
+        World w = this.level.getGameState().getWorld();
         w.getBar().updateInput(inputController, w.getMainBBox().getBRCorner().getX());
     }
 
@@ -159,24 +156,15 @@ public class GameStateControllerImpl extends ControllerImpl implements GameState
      * @param elapsed
      */
     private void updateGame(final int elapsed) {
-        this.getModel().getGameState().updateGame(elapsed);
-        this.processEvents();
-        this.getModel().getGameState().getWorld().checkCollision();
-        this.processEvents();
-        // PERCHE SI RICHIAMA DUE VOLTE IL PROCESSEVENT
-    }
-
-    /**
-     * This method processes all the world events.
-     */
-    void processEvents() {
+        this.level.getGameState().updateGame(elapsed);
+        this.level.getGameState().getWorld().checkCollision();
         this.eventListener.processAll();
     }
 
     /**
      * This method renders the attached view.
      */
-    private void render() { }
+    private void render() {}
 
     /**
      * This method wait end of the frame time before strting a new cicle.
@@ -184,7 +172,7 @@ public class GameStateControllerImpl extends ControllerImpl implements GameState
      */
     private void waitUntilNextFrame(final long currentFrame) {
         long dt = System.currentTimeMillis() - currentFrame;
-        if (dt < GameStateControllerImpl.PERIOD) {
+        if (dt < LevelControllerImpl.PERIOD) {
             try {
                 Thread.sleep((long) PERIOD - dt);
             } catch (Exception e) {

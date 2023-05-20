@@ -1,4 +1,4 @@
-package brickbreaker.model.timer;
+package brickbreaker.model.state.timer;
 
 /**
  * Class to work with different timer simultaneously.

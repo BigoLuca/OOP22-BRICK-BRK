@@ -10,13 +10,13 @@ import brickbreaker.common.Difficulty;
 import brickbreaker.common.P2d;
 import brickbreaker.common.TypePowerUp;
 import brickbreaker.common.V2d;
-import brickbreaker.model.gameObjects.Ball;
-import brickbreaker.model.gameObjects.Bar;
-import brickbreaker.model.gameObjects.Brick;
-import brickbreaker.model.gameObjects.bounding.RectBoundingBox;
-import brickbreaker.model.gameObjects.power.TypePower;
 import brickbreaker.model.world.World;
 import brickbreaker.model.world.WorldImpl;
+import brickbreaker.model.world.gameObjects.Ball;
+import brickbreaker.model.world.gameObjects.Bar;
+import brickbreaker.model.world.gameObjects.Brick;
+import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
+import brickbreaker.model.world.gameObjects.power.TypePower;
 
 /**
  * Factory class for creating game World.

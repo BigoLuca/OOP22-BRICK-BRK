@@ -1,6 +1,6 @@
 package brickbreaker.controllers.input;
 
-import brickbreaker.model.gameObjects.Bar;
+import brickbreaker.model.world.gameObjects.Bar;
 
 /**
  * Interface with a common method for all input.

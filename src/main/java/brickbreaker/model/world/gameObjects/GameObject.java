@@ -1,4 +1,4 @@
-package brickbreaker.model.gameObjects;
+package brickbreaker.model.world.gameObjects;
 
 import brickbreaker.common.P2d;
 import brickbreaker.common.TypeObj;

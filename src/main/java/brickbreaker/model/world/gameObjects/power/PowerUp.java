@@ -1,10 +1,10 @@
-package brickbreaker.model.gameObjects.power;
+package brickbreaker.model.world.gameObjects.power;
 
 import brickbreaker.common.P2d;
 import brickbreaker.common.TypeObj;
 import brickbreaker.common.V2d;
-import brickbreaker.model.gameObjects.GameObjectImpl;
-import brickbreaker.model.gameObjects.bounding.RectBoundingBox;
+import brickbreaker.model.world.gameObjects.GameObjectImpl;
+import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
 
 /**
  * Class to model the game object PowerUp.

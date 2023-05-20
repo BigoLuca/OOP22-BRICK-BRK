@@ -1,11 +1,11 @@
-package brickbreaker.model.gameObjects;
+package brickbreaker.model.world.gameObjects;
 
 import brickbreaker.common.P2d;
 import brickbreaker.common.TypeObj;
 import brickbreaker.common.V2d;
 import brickbreaker.controllers.input.InputComponent;
 import brickbreaker.controllers.input.InputController;
-import brickbreaker.model.gameObjects.bounding.RectBoundingBox;
+import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
 
 /**
  * Class to model the game object Bar.

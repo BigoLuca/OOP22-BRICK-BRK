@@ -1,9 +1,9 @@
-package brickbreaker.model.gameObjects;
+package brickbreaker.model.world.gameObjects;
 
 import brickbreaker.common.P2d;
 import brickbreaker.common.TypeObj;
 import brickbreaker.common.V2d;
-import brickbreaker.model.gameObjects.bounding.BoundingBox;
+import brickbreaker.model.world.gameObjects.bounding.BoundingBox;
 
 /**
  * {@inheritDoc}

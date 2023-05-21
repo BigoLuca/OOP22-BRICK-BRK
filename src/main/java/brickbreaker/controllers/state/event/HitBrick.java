@@ -1,6 +1,6 @@
 package brickbreaker.controllers.state.event;
 
-import brickbreaker.common.P2d;
+import brickbreaker.common.Vector2D;
 import brickbreaker.model.gameObjects.Ball;
 import brickbreaker.model.gameObjects.Brick;
 import brickbreaker.model.state.GameState;
@@ -37,9 +37,9 @@ public class HitBrick implements HitObjects {
             currentGame.getWorld().removeBrick(this.hittedBrick);
         }
 
-        P2d ul = hittedBrick.getBBox().getULCorner();
-        P2d br = hittedBrick.getBBox().getBRCorner();
-        P2d bpoint = ball.getPosition();
+        Vector2D ul = hittedBrick.getBBox().getULCorner();
+        Vector2D br = hittedBrick.getBBox().getBRCorner();
+        Vector2D bpoint = ball.getPosition();
 
         if (ul.getY() > bpoint.getY()) {
             Double uly = Math.abs(ul.vertDist(bpoint));

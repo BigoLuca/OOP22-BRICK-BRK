@@ -1,6 +1,6 @@
 package brickbreaker.model.gameObjects.bounding;
 
-import brickbreaker.common.P2d;
+import brickbreaker.common.Vector2D;
 
 /**
  * Class to model a rectangular shape.
@@ -10,7 +10,7 @@ import brickbreaker.common.P2d;
  */
 public class RectBoundingBox implements BoundingBox {
 
-    private P2d pos;
+    private Vector2D pos;
     private Double width, height;
 
     /**
@@ -19,7 +19,7 @@ public class RectBoundingBox implements BoundingBox {
      * @param width
      * @param height
      */
-    public RectBoundingBox(final P2d pos, final Double width, final Double height) {
+    public RectBoundingBox(final Vector2D pos, final Double width, final Double height) {
         this.pos = pos;
         this.width = width;
         this.height = height;
@@ -29,7 +29,7 @@ public class RectBoundingBox implements BoundingBox {
      * {@inheritDoc}
      */
     @Override
-    public P2d getP2d() {
+    public Vector2D getP2d() {
         return this.pos;
     }
 
@@ -37,7 +37,7 @@ public class RectBoundingBox implements BoundingBox {
      * {@inheritDoc}
      */
     @Override
-    public void setP2d(final P2d pos) {
+    public void setP2d(final Vector2D pos) {
         this.pos = pos;
     }
 
@@ -66,15 +66,15 @@ public class RectBoundingBox implements BoundingBox {
     /**
      * @return the top-left corner
      */
-    public P2d getULCorner() {
-        return new P2d(pos.getX() - width / 2, pos.getY() - height / 2);
+    public Vector2D getULCorner() {
+        return new Vector2D(pos.getX() - width / 2, pos.getY() - height / 2);
     }
 
     /**
      * @return the bottom-right corner
      */
-    public P2d getBRCorner() {
-        return new P2d(pos.getX() + width / 2, pos.getY() + height / 2);
+    public Vector2D getBRCorner() {
+        return new Vector2D(pos.getX() + width / 2, pos.getY() + height / 2);
     }
 
     /**
@@ -86,10 +86,10 @@ public class RectBoundingBox implements BoundingBox {
         if (obj instanceof RectBoundingBox) {
 
             RectBoundingBox rect = (RectBoundingBox) obj;
-            P2d ul = getULCorner();
-            P2d br = getBRCorner();
-            P2d pul = new P2d(rect.pos.getX() - rect.width / 2, rect.pos.getY() - rect.height / 2);
-            P2d pbr = new P2d(rect.pos.getX() + rect.width / 2, rect.pos.getY() + rect.height / 2);
+            Vector2D ul = getULCorner();
+            Vector2D br = getBRCorner();
+            Vector2D pul = new Vector2D(rect.pos.getX() - rect.width / 2, rect.pos.getY() - rect.height / 2);
+            Vector2D pbr = new Vector2D(rect.pos.getX() + rect.width / 2, rect.pos.getY() + rect.height / 2);
 
             return (ul.getX() <= pul.getX()
                     && ul.getY() <= pul.getY() 

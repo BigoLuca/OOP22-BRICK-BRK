@@ -1,6 +1,6 @@
 package brickbreaker.controllers.state.event;
 
-import brickbreaker.common.P2d;
+import brickbreaker.common.Vector2D;
 import brickbreaker.model.gameObjects.Ball;
 import brickbreaker.model.state.GameState;
 import brickbreaker.model.world.World;
@@ -38,7 +38,7 @@ public class HitBorder implements HitObjects {
 
         switch (this.side) {
             case TOP:
-                ball.setPosition(new P2d(ball.getPosition().getX(), newPos + ball.getRadius()));
+                ball.setPosition(new Vector2D(ball.getPosition().getX(), newPos + ball.getRadius()));
                 ball.flipVelOnY();
                 break;
             case BOTTOM:
@@ -49,11 +49,11 @@ public class HitBorder implements HitObjects {
                 }
                 break;
             case LEFT:
-                ball.setPosition(new P2d(newPos + ball.getRadius(), ball.getPosition().getY()));
+                ball.setPosition(new Vector2D(newPos + ball.getRadius(), ball.getPosition().getY()));
                 ball.flipVelOnX();
                 break;
             case RIGHT:
-                ball.setPosition(new P2d(newPos - ball.getRadius(), ball.getPosition().getY()));
+                ball.setPosition(new Vector2D(newPos - ball.getRadius(), ball.getPosition().getY()));
                 ball.flipVelOnX();
                 break;
             default:

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import brickbreaker.common.P2d;
-import brickbreaker.common.V2d;
+
+import brickbreaker.common.Vector2D;
 import brickbreaker.model.gameObjects.Ball;
 import brickbreaker.model.gameObjects.Bar;
 import brickbreaker.model.gameObjects.Brick;
@@ -34,7 +34,7 @@ public class GameFactory {
      * @param velToSet
      * @return a new Ball object
      */
-    public Ball createBall(final P2d posToSet, final V2d velToSet) {
+    public Ball createBall(final Vector2D posToSet, final Vector2D velToSet) {
         return new Ball(posToSet, velToSet);
     }
 
@@ -52,7 +52,7 @@ public class GameFactory {
             for (int x = 0; x < col; x++) {
                 life = list.get(x + y * col);
                 if (life > 0) {
-                    result.add(new Brick(new P2d(x, y), life));
+                    result.add(new Brick(new Vector2D(x, y), life));
                 }
             }
         }
@@ -68,7 +68,7 @@ public class GameFactory {
 		for(int i = 0; i < maxBricks; i++) {
 			randomX = r.nextInt(cols);
 			randomY = r.nextInt(rows);
-			bricks.add(new Brick(new P2d(randomX, randomY), 1));
+			bricks.add(new Brick(new Vector2D(randomX, randomY), 1));
 		}
 
 		return bricks;
@@ -78,7 +78,7 @@ public class GameFactory {
 	 * @param posToSet
 	 * @return a new Bar object
 	 */
-    public Bar createBar(final P2d posToSet) {
+    public Bar createBar(final Vector2D posToSet) {
         return new Bar(posToSet, 1);
     }
 }

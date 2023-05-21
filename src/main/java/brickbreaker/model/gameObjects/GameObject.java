@@ -1,8 +1,7 @@
 package brickbreaker.model.gameObjects;
 
-import brickbreaker.common.P2d;
 import brickbreaker.common.TypeObj;
-import brickbreaker.common.V2d;
+import brickbreaker.common.Vector2D;
 
 /**
  * An interface to model the Game Objects. It implements the common methods
@@ -36,22 +35,22 @@ public interface GameObject<T> {
     /**
      * @return the object's position
      */
-    P2d getPosition();
+    Vector2D getPosition();
 
     /**
      * @param newPosition
      */
-    void setPosition(P2d newPosition);
+    void setPosition(Vector2D newPosition);
 
     /**
      * @return the object's speed
      */
-    V2d getSpeed();
+    Vector2D getSpeed();
 
     /**
      * @param speed
      */
-    void setSpeed(V2d speed);
+    void setSpeed(Vector2D speed);
 
     /**
      * @return the object's bounding box

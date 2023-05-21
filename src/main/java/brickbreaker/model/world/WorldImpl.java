@@ -1,8 +1,9 @@
 package brickbreaker.model.world;
 
-import java.util.ArrayList;
+
 import java.util.List;
-import brickbreaker.common.P2d;
+import java.util.ArrayList;
+import brickbreaker.common.Vector2D;
 import brickbreaker.controllers.state.event.HitBar;
 import brickbreaker.controllers.state.event.HitBorder;
 import brickbreaker.controllers.state.event.HitBrick;
@@ -159,11 +160,11 @@ public class WorldImpl implements World {
      * Ball collision with bricks
      */
     private void checkCollisionWithBall() {
-        P2d ul = mainBBox.getULCorner();
-        P2d br = mainBBox.getBRCorner();
+        Vector2D ul = mainBBox.getULCorner();
+        Vector2D br = mainBBox.getBRCorner();
 
         for (Ball ball : this.balls) {
-            P2d pos = ball.getPosition();
+            Vector2D pos = ball.getPosition();
             Double r = ball.getRadius();
 
             if (pos.getY() - r < ul.getY()) {

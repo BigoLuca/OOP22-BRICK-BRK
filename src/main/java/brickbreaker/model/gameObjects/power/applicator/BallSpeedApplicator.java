@@ -1,6 +1,6 @@
 package brickbreaker.model.gameObjects.power.applicator;
 
-import brickbreaker.common.V2d;
+import brickbreaker.common.Vector2D;
 import brickbreaker.model.world.World;
 
 /**
@@ -28,7 +28,7 @@ public final class BallSpeedApplicator implements PowerUpApplicator {
      */
     @Override
     public void applyPowerUp(final World gameWorld) {
-        V2d acceleration = bonus ? new V2d(DELTA, DELTA) : new V2d(-DELTA, -DELTA);
+        Vector2D acceleration = bonus ? new Vector2D(DELTA, DELTA) : new Vector2D(-DELTA, -DELTA);
         gameWorld.getBalls().stream().forEach(b -> b.setSpeed(b.getSpeed().sum(acceleration)));
     }
 }

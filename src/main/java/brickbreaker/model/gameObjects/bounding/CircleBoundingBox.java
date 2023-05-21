@@ -1,6 +1,6 @@
 package brickbreaker.model.gameObjects.bounding;
 
-import brickbreaker.common.P2d;
+import brickbreaker.common.Vector2D;
 
 /**
  * Class to model a circle shape.
@@ -10,7 +10,7 @@ import brickbreaker.common.P2d;
  */
 public class CircleBoundingBox implements BoundingBox {
 
-    private P2d pos;
+    private Vector2D pos;
     private Double radius;
 
     /**
@@ -18,7 +18,7 @@ public class CircleBoundingBox implements BoundingBox {
      * @param pos
      * @param radius
      */
-    public CircleBoundingBox(final P2d pos, final Double radius) {
+    public CircleBoundingBox(final Vector2D pos, final Double radius) {
         this.pos = pos;
         this.radius = radius;
     }
@@ -27,7 +27,7 @@ public class CircleBoundingBox implements BoundingBox {
      * {@inheritDoc}
      */
     @Override
-    public P2d getP2d() {
+    public Vector2D getP2d() {
         return this.pos;
     }
 
@@ -35,7 +35,7 @@ public class CircleBoundingBox implements BoundingBox {
      * {@inheritDoc}
      */
     @Override
-    public void setP2d(final P2d pos) {
+    public void setP2d(final Vector2D pos) {
         this.pos = pos;
     }
 

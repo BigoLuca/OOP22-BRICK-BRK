@@ -1,6 +1,6 @@
 package brickbreaker.controllers.state.event;
 
-import brickbreaker.common.V2d;
+import brickbreaker.common.Vector2D;
 import brickbreaker.model.gameObjects.Ball;
 import brickbreaker.model.gameObjects.Bar;
 import brickbreaker.model.state.GameState;
@@ -32,7 +32,7 @@ public class HitBar implements HitObjects {
 
         if (bar.getBBox().getULCorner().getY() > ball.getPosition().getY()) {
             ball.flipVelOnY();
-            ball.setSpeed(new V2d(bar.getPosition().orizDist(ball.getPosition()), ball.getSpeed().getY()));
+            ball.setSpeed(new Vector2D(bar.getPosition().orizDist(ball.getPosition()), ball.getSpeed().getY()));
         }
     }
 

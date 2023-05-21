@@ -1,8 +1,7 @@
 package brickbreaker.model.gameObjects;
 
-import brickbreaker.common.P2d;
 import brickbreaker.common.TypeObj;
-import brickbreaker.common.V2d;
+import brickbreaker.common.Vector2D;
 import brickbreaker.model.gameObjects.bounding.CircleBoundingBox;
 
 /**
@@ -20,7 +19,7 @@ public class Ball extends GameObjectImpl<CircleBoundingBox> {
      * @param center
      * @param vel
      */
-    public Ball(final P2d center, final V2d vel) {
+    public Ball(final Vector2D center, final Vector2D vel) {
         super(1, vel, TypeObj.BALL, new CircleBoundingBox(center, RADIUS));
     }
 
@@ -43,13 +42,13 @@ public class Ball extends GameObjectImpl<CircleBoundingBox> {
      * Method to invert the speed of the ball vertically.
      */
     public void flipVelOnY() {
-        this.setSpeed(new V2d(this.getSpeed().getX(), -this.getSpeed().getY()));
+        this.setSpeed(new Vector2D(this.getSpeed().getX(), -this.getSpeed().getY()));
     }
 
     /**
      * Method to invert the speed of the ball horizontally.
      */
     public void flipVelOnX() {
-        this.setSpeed(new V2d(-this.getSpeed().getX(), this.getSpeed().getY()));
+        this.setSpeed(new Vector2D(-this.getSpeed().getX(), this.getSpeed().getY()));
     }
 }

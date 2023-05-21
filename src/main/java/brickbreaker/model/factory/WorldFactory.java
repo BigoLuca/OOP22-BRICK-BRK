@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-
 import brickbreaker.ResourceLoader;
 import brickbreaker.common.Difficulty;
-import brickbreaker.common.P2d;
 import brickbreaker.common.TypePowerUp;
-import brickbreaker.common.V2d;
+import brickbreaker.common.Vector2D;
 import brickbreaker.model.gameObjects.Ball;
 import brickbreaker.model.gameObjects.Bar;
 import brickbreaker.model.gameObjects.Brick;
@@ -48,9 +46,9 @@ public class WorldFactory {
 
     //TODO: Add actual parameters.
     private World getEmptyWorld() {
-        Bar newBar = GameFactory.getInstance().createBar(new P2d(0,0));
-        Ball newBall = GameFactory.getInstance().createBall(new P2d(0,0), new V2d(X_SPEED, Y_SPEED));
-        RectBoundingBox boundary = new RectBoundingBox(new P2d(WORLD_WIDTH / 2, WORLD_HEIGHT / 2), WORLD_WIDTH, WORLD_HEIGHT);
+        Bar newBar = GameFactory.getInstance().createBar(new Vector2D(0,0));
+        Ball newBall = GameFactory.getInstance().createBall(new Vector2D(0,0), new Vector2D(X_SPEED, Y_SPEED));
+        RectBoundingBox boundary = new RectBoundingBox(new Vector2D(WORLD_WIDTH / 2, WORLD_HEIGHT / 2), WORLD_WIDTH, WORLD_HEIGHT);
         World w = new WorldImpl(boundary);
 
         w.setBar(newBar);
@@ -99,7 +97,7 @@ public class WorldFactory {
         return w;
     }
 
-    public World getWorld(final MapName name, final List<TypePower> p) {
+    public World getWorld(final String name, final List<TypePower> p) {
         World w = this.getBasicWorld(name);
         randomPowerUpAssignment(w.getBricks(), p);
         return w;
@@ -113,7 +111,7 @@ public class WorldFactory {
      * @param easier
      * @return a World object
      */
-    public World createFromWorld(final MapName name, final World current, final boolean easier) {
+    public World createFromWorld(final String name, final World current, final boolean easier) {
 
         World w = this.getBasicWorld(name);
         Integer bonusQuantity = (int) current.getBricks().stream()
@@ -140,7 +138,7 @@ public class WorldFactory {
      * @param diff
      * @return a World object
      */
-    public World createFromDifficulty(final MapName name, final Difficulty diff) {
+    public World createFromDifficulty(final String name, final Difficulty diff) {
         return this.getWorld(name, diff.getBonusPercentage());
     }
 

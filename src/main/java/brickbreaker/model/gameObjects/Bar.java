@@ -1,8 +1,7 @@
 package brickbreaker.model.gameObjects;
 
-import brickbreaker.common.P2d;
 import brickbreaker.common.TypeObj;
-import brickbreaker.common.V2d;
+import brickbreaker.common.Vector2D;
 import brickbreaker.controllers.input.InputComponent;
 import brickbreaker.controllers.input.InputController;
 import brickbreaker.model.gameObjects.bounding.RectBoundingBox;
@@ -24,8 +23,8 @@ public class Bar extends GameObjectImpl<RectBoundingBox> {
      * @param pos
      * @param lifeToset
      */
-    public Bar(final P2d pos, final Integer lifeToset) {
-        super(lifeToset, new V2d(0, 0), TypeObj.BAR, new RectBoundingBox(pos, BAR_WIDTH, BAR_HEIGHT));
+    public Bar(final Vector2D pos, final Integer lifeToset) {
+        super(lifeToset, new Vector2D(0, 0), TypeObj.BAR, new RectBoundingBox(pos, BAR_WIDTH, BAR_HEIGHT));
     }
 
     /**
@@ -48,7 +47,7 @@ public class Bar extends GameObjectImpl<RectBoundingBox> {
      * @param m
      */
     public void move(final Integer m) {
-        this.setPosition(new P2d(this.getPosition().getX() + m, this.getPosition().getY()));
+        this.setPosition(new Vector2D(this.getPosition().getX() + m, this.getPosition().getY()));
     }
 
     /**

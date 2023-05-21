@@ -34,8 +34,12 @@ public class Vector2D {
      * @param v
      * @return a new position
      */
-    public Vector2D sum(final V2d v) {
+    public Vector2D sum(final Vector2D v) {
         return new Vector2D(x + v.getX(), y + v.getY());
+    }
+
+    public Vector2D mul(final double value) {
+        return new Vector2D(value * this.x, value * this.y);
     }
 
     /**

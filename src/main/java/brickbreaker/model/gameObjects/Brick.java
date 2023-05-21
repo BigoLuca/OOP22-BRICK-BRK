@@ -1,8 +1,7 @@
 package brickbreaker.model.gameObjects;
 
-import brickbreaker.common.P2d;
 import brickbreaker.common.TypeObj;
-import brickbreaker.common.V2d;
+import brickbreaker.common.Vector2D;
 import brickbreaker.model.gameObjects.bounding.RectBoundingBox;
 import brickbreaker.model.gameObjects.power.TypePower;
 
@@ -23,8 +22,8 @@ public class Brick extends GameObjectImpl<RectBoundingBox> {
      * @param pos
      * @param lifeToSet
      */
-    public Brick(final P2d pos, final int lifeToSet) {
-        super(lifeToSet, new V2d(0, 0), TypeObj.BRICK, new RectBoundingBox(pos, BRICK_WIDTH, BRICK_HEIGHT));
+    public Brick(final Vector2D pos, final int lifeToSet) {
+        super(lifeToSet, new Vector2D(0, 0), TypeObj.BRICK, new RectBoundingBox(pos, BRICK_WIDTH, BRICK_HEIGHT));
         this.powerUp = TypePower.NULL;
     }
 

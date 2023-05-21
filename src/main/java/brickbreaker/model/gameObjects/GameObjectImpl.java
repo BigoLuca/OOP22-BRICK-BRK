@@ -1,8 +1,9 @@
 package brickbreaker.model.gameObjects;
 
-import brickbreaker.common.P2d;
+import java.util.Vector;
+
 import brickbreaker.common.TypeObj;
-import brickbreaker.common.V2d;
+import brickbreaker.common.Vector2D;
 import brickbreaker.model.gameObjects.bounding.BoundingBox;
 
 /**
@@ -16,7 +17,7 @@ public abstract class GameObjectImpl<T extends BoundingBox> implements GameObjec
 
     private Integer lifes;
     private TypeObj type;
-    private V2d vel;
+    private Vector2D vel;
     private T bbox;
 
     /**
@@ -26,7 +27,7 @@ public abstract class GameObjectImpl<T extends BoundingBox> implements GameObjec
      * @param typeToSet
      * @param bboxToSet
      */
-    public GameObjectImpl(final Integer lifesToSet, final V2d vel, final TypeObj typeToSet, final T bboxToSet) {
+    public GameObjectImpl(final Integer lifesToSet, final Vector2D vel, final TypeObj typeToSet, final T bboxToSet) {
         this.vel = vel;
         this.type = typeToSet;
         this.lifes = lifesToSet;
@@ -69,7 +70,7 @@ public abstract class GameObjectImpl<T extends BoundingBox> implements GameObjec
      * {@inheritDoc}
      */
     @Override
-    public P2d getPosition() {
+    public Vector2D getPosition() {
         return this.bbox.getP2d();
     }
 
@@ -77,7 +78,7 @@ public abstract class GameObjectImpl<T extends BoundingBox> implements GameObjec
      * {@inheritDoc}
      */
     @Override
-    public void setPosition(final P2d newPosition) {
+    public void setPosition(final Vector2D newPosition) {
         this.bbox.setP2d(newPosition);
     }
 
@@ -85,7 +86,7 @@ public abstract class GameObjectImpl<T extends BoundingBox> implements GameObjec
      * {@inheritDoc}
      */
     @Override
-    public V2d getSpeed() {
+    public Vector2D getSpeed() {
         return vel;
     }
 
@@ -93,7 +94,7 @@ public abstract class GameObjectImpl<T extends BoundingBox> implements GameObjec
      * {@inheritDoc}
      */
     @Override
-    public void setSpeed(final V2d vel) {
+    public void setSpeed(final Vector2D vel) {
         this.vel = vel;
     }
 

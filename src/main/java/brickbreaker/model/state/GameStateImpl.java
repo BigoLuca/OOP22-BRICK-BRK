@@ -1,8 +1,8 @@
 package brickbreaker.model.state;
 
-import brickbreaker.model.timer.Timer;
-import brickbreaker.model.timer.TimerImpl;
-import brickbreaker.model.timer.TimerThread;
+import brickbreaker.model.state.timer.Timer;
+import brickbreaker.model.state.timer.TimerImpl;
+import brickbreaker.model.state.timer.TimerThread;
 import brickbreaker.model.world.World;
 
 /**

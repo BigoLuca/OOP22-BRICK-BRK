@@ -1,4 +1,4 @@
-package brickbreaker.model.gameObjects;
+package brickbreaker.model.world.gameObjects;
 
 import java.util.Vector;
 

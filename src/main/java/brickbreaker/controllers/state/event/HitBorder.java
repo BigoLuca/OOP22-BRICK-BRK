@@ -5,6 +5,7 @@ import brickbreaker.model.gameObjects.Ball;
 import brickbreaker.model.state.GameState;
 import brickbreaker.model.world.World;
 import brickbreaker.model.world.WorldImpl.SideCollision;
+import brickbreaker.model.world.gameObjects.Ball;
 
 /**
  * Class for update Ball after collision detection.

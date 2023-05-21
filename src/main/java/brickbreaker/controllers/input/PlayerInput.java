@@ -1,6 +1,6 @@
 package brickbreaker.controllers.input;
 
-import brickbreaker.model.gameObjects.Bar;
+import brickbreaker.model.world.gameObjects.Bar;
 
 /**
  * Class to elaborate the player input and update the position of the respective object.

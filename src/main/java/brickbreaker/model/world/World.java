@@ -3,10 +3,10 @@ package brickbreaker.model.world;
 import java.util.List;
 
 import brickbreaker.controllers.state.event.WorldEventListener;
-import brickbreaker.model.gameObjects.Ball;
-import brickbreaker.model.gameObjects.Bar;
-import brickbreaker.model.gameObjects.Brick;
-import brickbreaker.model.gameObjects.bounding.RectBoundingBox;
+import brickbreaker.model.world.gameObjects.Ball;
+import brickbreaker.model.world.gameObjects.Bar;
+import brickbreaker.model.world.gameObjects.Brick;
+import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
 
 /**
  * Interface to model the Game World. It defines the Object tha belongs to it: 

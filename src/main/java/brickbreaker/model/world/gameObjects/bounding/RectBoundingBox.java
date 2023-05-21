@@ -1,4 +1,4 @@
-package brickbreaker.model.gameObjects.bounding;
+package brickbreaker.model.world.gameObjects.bounding;
 
 import brickbreaker.common.Vector2D;
 

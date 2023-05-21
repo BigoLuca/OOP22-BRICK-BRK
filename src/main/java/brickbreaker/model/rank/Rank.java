@@ -1,10 +1,22 @@
 package brickbreaker.model.rank;
 
-import java.util.Set;
+import java.util.List;
 
+/**
+ * Interface for work with rank
+ */
 public interface Rank {
 
-    Set<PlayerStats> getRank();
+    /**
+     * Method to get the current rank.
+     * @return a list of players stats
+     */
+    List<PlayerStats> getRank();
 
+    /**
+     * Method to add a new players stats to the rank.
+     * @param newStats
+     * @return true if correct insert and write on file, false otherwise
+     */
     boolean addPlayer(final PlayerStats newStats);
 }

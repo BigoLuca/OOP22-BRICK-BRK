@@ -1,4 +1,4 @@
-package brickbreaker.model.gameObjects;
+package brickbreaker.model.world.gameObjects;
 
 import brickbreaker.common.TypeObj;
 import brickbreaker.common.Vector2D;

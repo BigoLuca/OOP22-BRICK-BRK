@@ -1,7 +1,6 @@
 package brickbreaker.model;
 
 import brickbreaker.model.factory.WorldFactory;
-import brickbreaker.model.rank.PlayerStats;
 import brickbreaker.model.state.GameState;
 import brickbreaker.model.state.GameStateImpl;
 
@@ -12,7 +11,7 @@ public class Level {
 
     private final Integer id;
     private GameState gs;
-    private PlayerStats userStats;
+    private Integer score;
 
     /**
      * Level constructor.
@@ -22,7 +21,7 @@ public class Level {
     public Level(final Integer id, final String nameMap, final Integer diff) {
         this.id = id;
         this.gs = new GameStateImpl(WorldFactory.getInstance().getWorld(nameMap, diff));
-        this.userStats.setScore(0);
+        this.score = 0;
     }
 
     /**
@@ -40,20 +39,12 @@ public class Level {
         this.gs = g;
     }
 
-    public void setStats(final PlayerStats p) {
-        this.userStats = p;
-    }
-
-    public PlayerStats getStats() {
-        return this.userStats;
-    }
-
     /**
      * This method gets the current points scored by the user.
      * @return An integer value.
      */
     public final int getScore() {
-        return this.userStats.getScore();
+        return this.score;
     }
 
     /**
@@ -62,7 +53,7 @@ public class Level {
      * @param increment an integer value which is the increment.
      */
     public final void incScore(final Integer increment) {
-        this.userStats.incScore(increment);
+        this.score += increment;
     }
 
     /**
@@ -71,6 +62,6 @@ public class Level {
      * @param decrement an integer value which is the decrement value.
      */
     public final void decScore(final Integer decrement) {
-        this.userStats.decScore(decrement);
+        this.score -= decrement;
     }
 }

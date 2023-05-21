@@ -1,4 +1,4 @@
-package brickbreaker.model.gameObjects.power;
+package brickbreaker.model.world.gameObjects.power;
 
 import java.util.List;
 import java.util.stream.Stream;

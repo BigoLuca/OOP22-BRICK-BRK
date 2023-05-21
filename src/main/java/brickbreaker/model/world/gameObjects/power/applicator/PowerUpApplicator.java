@@ -1,4 +1,4 @@
-package brickbreaker.model.gameObjects.power.applicator;
+package brickbreaker.model.world.gameObjects.power.applicator;
 
 import brickbreaker.model.world.World;
 

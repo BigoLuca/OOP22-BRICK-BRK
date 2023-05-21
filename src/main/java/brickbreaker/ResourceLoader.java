@@ -2,24 +2,22 @@ package brickbreaker;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectOutput;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.Reader;
+import java.io.Writer;
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
-import java.util.Set;
-import java.util.TreeSet;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
-import brickbreaker.common.Mode;
 import brickbreaker.model.rank.PlayerStats;
 
 /**
@@ -108,32 +106,75 @@ public class ResourceLoader {
         return this.MAP_ROWS_FILE_FORMAT;
     }
 
-    //TODO change with json
-    @SuppressWarnings("unchecked")
-    public Set<PlayerStats> getRank(final Mode mode) {
-
-        Set<PlayerStats> rank = new TreeSet<>();
-        String file = mode.equals(Mode.LEVEL) ? "levels.txt" : "endless.txt";
-        String path = this.ranksPath + sep + file;
+    /**
+     * Method to get from a file a rank list of players.
+     * @param file
+     * @return a list of players stats
+     */
+    public List<PlayerStats> getRank(final String file) {
         
-        try (ObjectInput input = new ObjectInputStream(
-            new BufferedInputStream(new FileInputStream(path)))) {
-                rank.addAll((TreeSet<PlayerStats>) input.readObject());
-        } catch (Exception e) {
+        List<PlayerStats> rank = new ArrayList<>();
+
+        try (Reader br = new BufferedReader(new FileReader(this.ranksPath + sep + file))) {
+            JsonElement jsonElement = com.google.gson.JsonParser.parseReader(br);
+            
+            if (jsonElement.isJsonArray()) {
+                for (JsonElement element : jsonElement.getAsJsonArray()) {
+                    JsonObject jObj = element.getAsJsonObject();
+                    rank.add(new PlayerStats(
+                                jObj.get("nome").getAsString(), 
+                                jObj.get("punteggio").getAsInt())
+                            );
+                }
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
-
+        
         return rank;
     }
 
-    public void writeRank(final Set<PlayerStats> rank, final Mode mode) {
-        String file = mode.equals(Mode.LEVEL) ? "levels.txt" : "endless.txt";
-        String path = this.ranksPath + sep + file;
-        try(ObjectOutput output = new ObjectOutputStream(
-            new BufferedOutputStream(new FileOutputStream(path)))) {
-                output.writeObject(rank);
-        }catch (IOException e) {
-            e.printStackTrace();
+    /**
+     * Method to write on a file the list of players stats passed.
+     * @param rank
+     * @param file
+     * @return
+     */
+    public boolean writeRank(final List<PlayerStats> rank, final String file) {
+
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String json = gson.toJson(rank);
+
+        try (Writer writer = new FileWriter(this.ranksPath + sep + file)) {
+            writer.write(json);
+            writer.flush();
+            System.out.println("File JSON scritto con successo.");
+            return true;
+        } catch (IOException e) {
+            System.out.println("Errore durante la scrittura del file JSON: " + e.getMessage());
+            return false;
         }
+    }
+
+
+    public Integer[][] convertToListArray(List<Integer> list, int MCols, int MRows) {
+        Integer[][] array = new Integer[MRows][MCols];
+        Integer index = 0;
+
+        for (int row = 0; row < MRows; row++) {
+            for (int col = 0; col < MCols; col++) {
+                if (index < list.size()) {
+                    array[row][col] = list.get(index);
+                    index++;
+                } else {
+                    // If the list is shorter than the desired array size,
+                    // you can decide how to handle the remaining elements.
+                    // Here, we fill the remaining elements with 0.
+                    array[row][col] = 0;
+                }
+            }
+        }
+
+        return array;
     }
 }

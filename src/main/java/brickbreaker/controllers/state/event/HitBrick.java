@@ -4,6 +4,8 @@ import brickbreaker.common.Vector2D;
 import brickbreaker.model.gameObjects.Ball;
 import brickbreaker.model.gameObjects.Brick;
 import brickbreaker.model.state.GameState;
+import brickbreaker.model.world.gameObjects.Ball;
+import brickbreaker.model.world.gameObjects.Brick;
 
 /**
  * Class for update Brick after collision detection.

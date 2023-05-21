@@ -1,4 +1,4 @@
-package brickbreaker.model.gameObjects.power;
+package brickbreaker.model.world.gameObjects.power;
 
 import brickbreaker.common.TypeObj;
 import brickbreaker.common.Vector2D;

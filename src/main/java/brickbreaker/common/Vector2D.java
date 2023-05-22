@@ -38,6 +38,11 @@ public class Vector2D {
         return new Vector2D(x + v.getX(), y + v.getY());
     }
 
+    /**
+     * Method to multiply a factor by velocity.
+     * @param value
+     * @return a new vector
+     */
     public Vector2D mul(final double value) {
         return new Vector2D(value * this.x, value * this.y);
     }

@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Random;
 import brickbreaker.ResourceLoader;
 import brickbreaker.common.Difficulty;
+import brickbreaker.common.Error;
 import brickbreaker.common.TypePowerUp;
 import brickbreaker.common.Vector2D;
+import brickbreaker.controllers.state.ErrorListener;
 import brickbreaker.model.world.World;
 import brickbreaker.model.world.WorldImpl;
 import brickbreaker.model.world.gameObjects.Ball;
@@ -65,9 +67,8 @@ public class WorldFactory {
         if (r.loadMap(name).isPresent()) {
             bricks = GameFactory.getInstance().createBricks(r.loadMap(name).get(), r.getMapColumns(), r.getMapRows());
         } else {
-            System.out.println("Map not load correctly");
+            ErrorListener.notifyError(Error.MAPLOADER_ERROR);
             bricks = new ArrayList<Brick>();
-            // TODO ADD VIEW ERROR
         }
         
         w.addBricks(bricks);

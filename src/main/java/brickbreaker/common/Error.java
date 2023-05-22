@@ -1,0 +1,29 @@
+package brickbreaker.common;
+
+/**
+ * Enum of error types.
+ * Each Error have a string error message.
+ * 
+ * @author Bighini Luca
+ */
+public enum Error {
+    
+    /** Map load error. */
+    MAPLOADER_ERROR("Map not loaded correctly"),
+    /** Rank load error. */
+    RANKLOADER_ERROR("Ranking not loaded correctly"),
+    /** Rank load error. */
+    RANKWRITER_ERROR("Ranking not writed correctly");
+
+    private final String message;
+    Error(String m){
+        this.message = m;
+    }
+
+    /**
+     * @return the error message as a String
+     */
+    public String getMessage(){
+        return "Error: " + this.message;
+    }
+}

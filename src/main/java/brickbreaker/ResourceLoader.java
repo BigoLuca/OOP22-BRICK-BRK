@@ -18,6 +18,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import brickbreaker.common.Error;
+import brickbreaker.controllers.state.ErrorListener;
 import brickbreaker.model.rank.PlayerStats;
 
 /**
@@ -128,6 +130,7 @@ public class ResourceLoader {
                 }
             }
         } catch (IOException e) {
+            ErrorListener.notifyError(Error.RANKLOADER_ERROR);
             e.printStackTrace();
         }
         
@@ -140,7 +143,7 @@ public class ResourceLoader {
      * @param file
      * @return
      */
-    public boolean writeRank(final List<PlayerStats> rank, final String file) {
+    public void writeRank(final List<PlayerStats> rank, final String file) {
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String json = gson.toJson(rank);
@@ -148,11 +151,9 @@ public class ResourceLoader {
         try (Writer writer = new FileWriter(this.ranksPath + sep + file)) {
             writer.write(json);
             writer.flush();
-            System.out.println("File JSON scritto con successo.");
-            return true;
         } catch (IOException e) {
-            System.out.println("Errore durante la scrittura del file JSON: " + e.getMessage());
-            return false;
+            ErrorListener.notifyError(Error.RANKWRITER_ERROR);
+            e.printStackTrace();
         }
     }
 

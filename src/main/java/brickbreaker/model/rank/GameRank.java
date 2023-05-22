@@ -30,18 +30,19 @@ public class GameRank implements Rank {
         return this.rank;
     }
 
+    //TODO update if already present
     /**
      * {@inheritDoc}
      */
     @Override
-    public boolean addPlayer(final PlayerStats newStats) {
+    public void addPlayer(final PlayerStats newStats) {
 
         this.rank.add(newStats);
         Collections.sort(this.rank, Comparator.comparing(PlayerStats::getScore));
         if (this.rank.size() >= capacity) {
             this.rank.remove(this.rank.size() - 1);
         }
-        return ResourceLoader.getInstance().writeRank(this.rank, this.fileName);
+        ResourceLoader.getInstance().writeRank(this.rank, this.fileName);
     }
     
 }

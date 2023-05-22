@@ -18,5 +18,5 @@ public interface Rank {
      * @param newStats
      * @return true if correct insert and write on file, false otherwise
      */
-    boolean addPlayer(final PlayerStats newStats);
+    void addPlayer(final PlayerStats newStats);
 }

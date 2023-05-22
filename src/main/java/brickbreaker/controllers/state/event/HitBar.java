@@ -1,8 +1,6 @@
 package brickbreaker.controllers.state.event;
 
 import brickbreaker.common.Vector2D;
-import brickbreaker.model.gameObjects.Ball;
-import brickbreaker.model.gameObjects.Bar;
 import brickbreaker.model.state.GameState;
 import brickbreaker.model.world.gameObjects.Ball;
 import brickbreaker.model.world.gameObjects.Bar;

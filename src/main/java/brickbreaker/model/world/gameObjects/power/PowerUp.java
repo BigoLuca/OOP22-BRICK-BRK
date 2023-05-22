@@ -2,8 +2,8 @@ package brickbreaker.model.world.gameObjects.power;
 
 import brickbreaker.common.TypeObj;
 import brickbreaker.common.Vector2D;
-import brickbreaker.model.gameObjects.GameObjectImpl;
-import brickbreaker.model.gameObjects.bounding.RectBoundingBox;
+import brickbreaker.model.world.gameObjects.GameObjectImpl;
+import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
 
 /**
  * Class to model the game object PowerUp.

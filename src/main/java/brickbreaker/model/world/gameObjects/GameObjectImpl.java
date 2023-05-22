@@ -1,10 +1,8 @@
 package brickbreaker.model.world.gameObjects;
 
-import java.util.Vector;
-
 import brickbreaker.common.TypeObj;
 import brickbreaker.common.Vector2D;
-import brickbreaker.model.gameObjects.bounding.BoundingBox;
+import brickbreaker.model.world.gameObjects.bounding.BoundingBox;
 
 /**
  * {@inheritDoc}

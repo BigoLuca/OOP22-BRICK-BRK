@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Random;
 
 import brickbreaker.common.Vector2D;
-import brickbreaker.model.gameObjects.Ball;
-import brickbreaker.model.gameObjects.Bar;
-import brickbreaker.model.gameObjects.Brick;
+import brickbreaker.model.world.gameObjects.Ball;
+import brickbreaker.model.world.gameObjects.Bar;
+import brickbreaker.model.world.gameObjects.Brick;
 
 /**
  * Factory class for creating game objects: Ball, Bar, Bricks.

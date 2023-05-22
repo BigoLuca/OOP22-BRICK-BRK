@@ -2,7 +2,7 @@ package brickbreaker.model.world.gameObjects;
 
 import brickbreaker.common.TypeObj;
 import brickbreaker.common.Vector2D;
-import brickbreaker.model.gameObjects.bounding.CircleBoundingBox;
+import brickbreaker.model.world.gameObjects.bounding.CircleBoundingBox;
 
 /**
  * Class to model the game object Ball.

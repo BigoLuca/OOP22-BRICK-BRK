@@ -22,7 +22,7 @@ public class PlayerStats {
     /**
      * @return the user name
      */
-    public String getUser() {
+    public String getName() {
         return this.name;
     }
 

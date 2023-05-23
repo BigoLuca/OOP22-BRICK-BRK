@@ -12,8 +12,12 @@ public enum Error {
     MAPLOADER_ERROR("Map not loaded correctly"),
     /** Rank load error. */
     RANKLOADER_ERROR("Ranking not loaded correctly"),
+    /** Rank write error. */
+    RANKWRITER_ERROR("Ranking not writed correctly"),
     /** Rank load error. */
-    RANKWRITER_ERROR("Ranking not writed correctly");
+    USERLOADER_ERROR("User not loaded correctly"),
+    /** User write error. */
+    USERWRITER_ERROR("User not writed correctly");
 
     private final String message;
     Error(String m){

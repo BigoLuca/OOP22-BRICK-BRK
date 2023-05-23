@@ -1,38 +1,36 @@
 package brickbreaker;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.Reader;
-import java.io.Writer;
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Scanner;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+
+import javax.json.*;
 
 import brickbreaker.common.Error;
 import brickbreaker.controllers.state.ErrorListener;
 import brickbreaker.model.rank.PlayerStats;
+import brickbreaker.model.user.User;
 
 /**
  * Class to load the resources: map files, game icons, ranking stats.
  */
 public class ResourceLoader {
 
-    public final Integer MAP_COLUMNS_FILE_FORMAT = 20;
-    public final Integer MAP_ROWS_FILE_FORMAT = 10;
+    public final Integer MAP_COLUMNS_FILE_FORMAT = 6;
+    public final Integer MAP_ROWS_FILE_FORMAT = 3;
 
     private static ResourceLoader instance;
     private String mapsPath;
     private String ranksPath;
+    private String userPath;
     private String sep;
 
     private List<Integer> currentMapList;
@@ -56,7 +54,7 @@ public class ResourceLoader {
         this.sep = File.separator + File.separator;
         this.mapsPath = "." + sep + "src" + sep + "main" + sep + "resources" + sep + "mapsFile";
         this.ranksPath = "." + sep + "src" + sep + "main" + sep + "resources" + sep + "ranks";
-        
+        this.userPath = "." + sep + "src" + sep + "main" + sep + "resources" + sep + "users" + sep + "user.json";
         this.currentMapName = "";
         this.currentMapList = new ArrayList<>();
     }
@@ -108,6 +106,31 @@ public class ResourceLoader {
         return this.MAP_ROWS_FILE_FORMAT;
     }
 
+    private JsonArray loadJson(final String filePath, Error err) {
+        try (JsonReader reader = Json.createReader(new FileReader(filePath))) {
+            return reader.readArray();
+        } catch (Exception e) {
+            ErrorListener.notifyError(err);
+            e.printStackTrace();
+        }
+        return Json.createArrayBuilder().build();
+    }
+
+    private JsonArray addElem(final JsonArray jsonArray, final JsonObject elemento) {
+        JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder(jsonArray);
+        jsonArrayBuilder.add(elemento);
+        return jsonArrayBuilder.build();
+    }
+
+    private void writeJson(final String filePath, final JsonArray jsonArray, Error err) {
+        try (JsonWriter writer = Json.createWriter(new FileWriter(filePath))) {
+            writer.writeArray(jsonArray);
+        } catch (Exception e) {
+            ErrorListener.notifyError(err);
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Method to get from a file a rank list of players.
      * @param file
@@ -116,22 +139,13 @@ public class ResourceLoader {
     public List<PlayerStats> getRank(final String file) {
         
         List<PlayerStats> rank = new ArrayList<>();
-
-        try (Reader br = new BufferedReader(new FileReader(this.ranksPath + sep + file))) {
-            JsonElement jsonElement = com.google.gson.JsonParser.parseReader(br);
-            
-            if (jsonElement.isJsonArray()) {
-                for (JsonElement element : jsonElement.getAsJsonArray()) {
-                    JsonObject jObj = element.getAsJsonObject();
-                    rank.add(new PlayerStats(
-                                jObj.get("nome").getAsString(), 
-                                jObj.get("punteggio").getAsInt())
-                            );
-                }
-            }
-        } catch (IOException e) {
-            ErrorListener.notifyError(Error.RANKLOADER_ERROR);
-            e.printStackTrace();
+        JsonArray js = this.loadJson(this.ranksPath + sep + file, Error.RANKLOADER_ERROR);
+        for (JsonValue element : js) {
+            JsonObject jObj = element.asJsonObject();
+            rank.add(new PlayerStats(
+                        jObj.getString("name"), 
+                        jObj.getInt("score"))
+                    );
         }
         
         return rank;
@@ -141,20 +155,81 @@ public class ResourceLoader {
      * Method to write on a file the list of players stats passed.
      * @param rank
      * @param file
-     * @return
      */
     public void writeRank(final List<PlayerStats> rank, final String file) {
 
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String json = gson.toJson(rank);
-
-        try (Writer writer = new FileWriter(this.ranksPath + sep + file)) {
-            writer.write(json);
-            writer.flush();
-        } catch (IOException e) {
-            ErrorListener.notifyError(Error.RANKWRITER_ERROR);
-            e.printStackTrace();
+        JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
+        for (PlayerStats p : rank) {
+            JsonObject jsonObject = Json.createObjectBuilder()
+                    .add("name", p.getName())
+                    .add("score", p.getScore())
+                    .build();
+            jsonArrayBuilder.add(jsonObject);
         }
+        this.writeJson(this.ranksPath + sep + file, jsonArrayBuilder.build(), Error.RANKWRITER_ERROR);
+    }
+
+    /**
+     * Method to read on a file the list of users.
+     * @return a list of users
+     */
+    public List<User> getUsers() {
+
+        List<User> users = new ArrayList<>();
+        JsonArray js = this.loadJson(this.userPath, Error.USERLOADER_ERROR);
+
+        for (JsonValue element : js) {
+            JsonObject jObj = element.asJsonObject();
+            JsonArray scoresArray = jObj.getJsonArray("scores");
+            Map<Integer, Integer> map = new HashMap<>();
+            for(JsonValue j : scoresArray) {
+                JsonObject jo = j.asJsonObject();
+                map.put(jo.getInt("level"), jo.getInt("score"));
+            }
+            users.add(new User(jObj.getString("name"), map, jObj.getInt("levelReached")));
+        }
+
+        return users;
+    }
+
+    /**
+     * Method to add a user to the json user file.
+     * @param user
+     */
+    public void addUser(final User user) {
+
+        JsonArray js = this.loadJson(this.userPath, Error.USERLOADER_ERROR);
+        JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
+        JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
+        for (Map.Entry<Integer, Integer> entry : user.getScores().entrySet()){
+            jsonObjectBuilder.add("level", entry.getKey());
+            jsonObjectBuilder.add("score", entry.getValue());
+            jsonArrayBuilder.add(jsonObjectBuilder.build());
+        }
+        JsonObject newUser = Json.createObjectBuilder()
+                .add("name", user.getName())
+                .add("scores", jsonArrayBuilder.build())
+                .add("levelReached", user.getLevelReached())
+                .build();
+
+        this.writeJson(this.userPath, this.addElem(js, newUser), Error.USERWRITER_ERROR);
+    }
+
+    /**
+     * Method to remove a user from the json user file.
+     * @param user
+     */
+    public void removeUser(final User user) {
+        
+        JsonArray js = this.loadJson(this.userPath, Error.USERLOADER_ERROR);
+        JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
+        for (JsonValue jv : js){
+            JsonObject j = jv.asJsonObject();
+            if(!j.getString("name").equals(user.getName())){
+                jsonArrayBuilder.add(j);
+            }
+        }
+        this.writeJson(this.userPath, jsonArrayBuilder.build(), Error.USERWRITER_ERROR);
     }
 
 

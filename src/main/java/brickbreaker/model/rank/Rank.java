@@ -14,6 +14,12 @@ public interface Rank {
     List<PlayerStats> getRank();
 
     /**
+     * @param playerName
+     * @return the score of player name passed
+     */
+    Integer getPlayerScore(final String playerName);
+
+    /**
      * Method to add a new players stats to the rank.
      * @param newStats
      * @return true if correct insert and write on file, false otherwise

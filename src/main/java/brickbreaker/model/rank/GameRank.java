@@ -2,6 +2,7 @@ package brickbreaker.model.rank;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 
 import brickbreaker.ResourceLoader;
@@ -28,6 +29,17 @@ public class GameRank implements Rank {
     @Override
     public List<PlayerStats> getRank() {
         return this.rank;
+    }
+
+    public Integer getPlayerScore(final String playerName) {
+        Iterator<PlayerStats> i = this.rank.iterator();
+        while (i.hasNext()) {
+            PlayerStats p = i.next();
+            if (p.getName().equals(playerName)) {
+                return p.getScore();
+            }
+        }
+        return 0;
     }
 
     //TODO update if already present

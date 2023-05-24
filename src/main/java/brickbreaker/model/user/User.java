@@ -41,6 +41,10 @@ public class User {
         return this.levelReached;
     }
 
+    public void incLevelReached() {
+        this.levelReached++;
+    }
+
     public String toString() {
         return "UserName: " + userName + ", scores: " + scores.toString() + ", levelReached: " + levelReached;
     }

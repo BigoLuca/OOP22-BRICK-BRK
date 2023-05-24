@@ -231,13 +231,13 @@ public class ResourceLoader {
      * Method to remove a user from the json user file and from rank.
      * @param user
      */
-    public void removeUser(final User user) {
+    public void removeUser(final String username) {
         
         JsonArray js = this.loadJson(this.userPath, Error.USERLOADER_ERROR);
         JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
         for (JsonValue jv : js){
             JsonObject j = jv.asJsonObject();
-            if(!j.getString("name").equals(user.getName())){
+            if(!j.getString("name").equals(username)){
                 jsonArrayBuilder.add(j);
             }
         }
@@ -249,7 +249,7 @@ public class ResourceLoader {
             for (JsonValue jv : js){
                 JsonObject j = jv.asJsonObject();
                 System.out.println(j.getString("name"));
-                if(!j.getString("name").equals(user.getName())){
+                if(!j.getString("name").equals(username)){
                     jsonArrayBuilder.add(j);
                 }
             }

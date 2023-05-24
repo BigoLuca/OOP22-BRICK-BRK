@@ -28,8 +28,8 @@ public class GameRank implements Rank {
     /**
      * {@inheritDoc}
      */
-    public Integer getPlayerScore(final String username) {
-        return this.rank.get(username);
+    public Integer getPlayerScore(final String playerName) {
+        return this.rank.containsKey(playerName) ? this.rank.get(playerName) : 0;
     }
 
     //TODO update if already present

@@ -1,5 +1,6 @@
 package brickbreaker.model.state;
 
+import brickbreaker.common.State;
 import brickbreaker.model.state.timer.Timer;
 import brickbreaker.model.state.timer.TimerImpl;
 import brickbreaker.model.state.timer.TimerThread;
@@ -15,9 +16,6 @@ import brickbreaker.model.world.World;
 public class GameStateImpl implements GameState {
 
     private static final Integer TIME = 300;
-
-    /** Rapresent the current state of the game. */
-    public enum State { PLAYING, WIN, LOST }
 
     private World currentWorld;
     private State state;
@@ -74,6 +72,14 @@ public class GameStateImpl implements GameState {
             this.state = State.WIN;
         }
         return this.state;
+    }
+
+    /**
+     * {@inheritDoc}}
+     */
+    @Override
+    public void setState(final State s) {
+        this.state = s;
     }
 
     /**

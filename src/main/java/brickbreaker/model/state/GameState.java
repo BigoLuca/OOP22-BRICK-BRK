@@ -1,6 +1,6 @@
 package brickbreaker.model.state;
 
-import brickbreaker.model.state.GameStateImpl.State;
+import brickbreaker.common.State;
 import brickbreaker.model.state.timer.Timer;
 import brickbreaker.model.state.timer.TimerThread;
 import brickbreaker.model.world.World;
@@ -41,6 +41,12 @@ public interface GameState {
      * @return A State enum object
      */
     State getState();
+
+    /**
+     * This method sets the state passed.
+     * @param newState
+     */
+    void setState(State newState);
 
     /**
      * This method returns the game timer thread.

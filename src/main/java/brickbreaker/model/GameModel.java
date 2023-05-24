@@ -1,14 +1,10 @@
 package brickbreaker.model;
 
-import java.util.Optional;
-
 import brickbreaker.common.Mode;
 import brickbreaker.model.rank.Rank;
 import brickbreaker.model.user.User;
 
 public interface GameModel {
-
-    Optional<Level> getNextMatch();
 
     User getUser();
 

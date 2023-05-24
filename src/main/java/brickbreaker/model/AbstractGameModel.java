@@ -1,7 +1,6 @@
 package brickbreaker.model;
 
 import java.util.List;
-import java.util.Optional;
 
 import brickbreaker.ResourceLoader;
 import brickbreaker.common.Mode;
@@ -22,9 +21,6 @@ public abstract class AbstractGameModel implements GameModel {
         this.user = u;
         this.mapList = ResourceLoader.getInstance().getMapsNames();
     }
-
-    @Override
-    public abstract Optional<Level> getNextMatch();
 
     @Override
     public User getUser() {

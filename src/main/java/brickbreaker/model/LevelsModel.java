@@ -1,6 +1,8 @@
 package brickbreaker.model;
 
-import java.util.Optional;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import brickbreaker.common.Mode;
 import brickbreaker.model.rank.GameRank;
@@ -8,25 +10,19 @@ import brickbreaker.model.user.User;
 
 public class LevelsModel extends AbstractGameModel {
 
-    private Integer levelReached;
+    private List<Integer> difficulty;
     //TODO private List<GameRank> levelRanks;
 
     public LevelsModel(final User user) {
         super(Mode.LEVEL,new GameRank(LENRANK, "globalLevel.json"), user);
-        this.levelReached = 0;  // change with the level of the player
+        Integer step = Math.floorDiv(80, this.getListMapLenght());
+        difficulty = IntStream.rangeClosed(10, 90)
+                        .filter(n -> (90 - n) % step == 0).boxed()
+                        .sorted((a, b) -> b - a).collect(Collectors.toList());
     }
 
-    @Override
-    public Optional<Level> getNextMatch() {
-
-        Integer diff = 1; // TODO calc the difficulty
-        levelReached++;
-
-        if (levelReached <= this.getListMapLenght()) {
-            return Optional.of(new Level(levelReached, this.getNameMap(levelReached), diff));
-        } else {
-            return Optional.empty();
-        }
+    public Level getLevel(Integer level) {
+        return new Level(level, this.getNameMap(level), this.difficulty.get(level));
     }
     
 }

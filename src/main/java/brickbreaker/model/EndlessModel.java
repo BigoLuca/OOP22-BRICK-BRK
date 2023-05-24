@@ -1,6 +1,5 @@
 package brickbreaker.model;
 
-import java.util.Optional;
 import java.util.Random;
 
 import brickbreaker.common.Mode;
@@ -24,14 +23,13 @@ public class EndlessModel extends AbstractGameModel {
     }
     */
 
-    @Override
-    public Optional<Level> getNextMatch() {
+    public Level getNextMatch() {
 
         Random randomDiff = new Random();
         Integer diff = randomDiff.nextInt(90 - 10 + 1) + 10; // random between [10,90]
         Integer map = randomDiff.nextInt(this.getListMapLenght());
         
-        return Optional.of(new Level(0, this.getNameMap(map), diff));
+        return new Level(0, this.getNameMap(map), diff);
     }
     
 }

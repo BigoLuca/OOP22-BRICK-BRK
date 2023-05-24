@@ -1,6 +1,6 @@
 package brickbreaker.model.rank;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * Interface for work with rank
@@ -9,20 +9,20 @@ public interface Rank {
 
     /**
      * Method to get the current rank.
-     * @return a list of players stats
+     * @return a map of user names and their ranks
      */
-    List<PlayerStats> getRank();
+    Map<String, Integer> getRank();
 
     /**
      * @param playerName
      * @return the score of player name passed
      */
-    Integer getPlayerScore(final String playerName);
+    Integer getPlayerScore(String playerName);
 
     /**
-     * Method to add a new players stats to the rank.
-     * @param newStats
-     * @return true if correct insert and write on file, false otherwise
+     * Method to add a new player stats to the rank.
+     * @param playerName
+     * @param newScore
      */
-    void addPlayer(final PlayerStats newStats);
+    void addRank(String playerName, Integer newScore);
 }

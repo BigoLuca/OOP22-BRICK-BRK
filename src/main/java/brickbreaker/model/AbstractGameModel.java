@@ -9,7 +9,6 @@ import brickbreaker.model.user.User;
 
 public abstract class AbstractGameModel implements GameModel {
 
-    protected final static Integer LENRANK = 10;
     private Mode mode;
     private Rank rank;
     private User user;

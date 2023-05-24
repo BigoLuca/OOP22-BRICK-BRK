@@ -11,7 +11,7 @@ public class EndlessModel extends AbstractGameModel {
     //private Optional<Difficulty> chosenDiff;
 
     public EndlessModel(final User user) {
-        super(Mode.ENDLESS, new GameRank(LENRANK, "endless.json"), user);
+        super(Mode.ENDLESS, new GameRank("endless.json"), user);
         //this.chosenDiff = chosenDiffToSet;
     }
 

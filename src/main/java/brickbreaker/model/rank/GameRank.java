@@ -1,25 +1,19 @@
 package brickbreaker.model.rank;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
-
+import java.util.Map;
 import brickbreaker.ResourceLoader;
 
 public class GameRank implements Rank {
 
-    private Integer capacity;
-    private List<PlayerStats> rank;
+    private Map<String, Integer> rank;
     private String fileName;
 
     /**
      * GameRank constructor.
      * @param rankCapacity
      */
-    public GameRank(final Integer rankCapacity, final String fileName) {
+    public GameRank(final String fileName) {
         this.rank = ResourceLoader.getInstance().getRank(fileName);
-        this.capacity = rankCapacity;
         this.fileName = fileName;
     }
 
@@ -27,19 +21,15 @@ public class GameRank implements Rank {
      * {@inheritDoc}
      */
     @Override
-    public List<PlayerStats> getRank() {
+    public Map<String, Integer> getRank() {
         return this.rank;
     }
 
-    public Integer getPlayerScore(final String playerName) {
-        Iterator<PlayerStats> i = this.rank.iterator();
-        while (i.hasNext()) {
-            PlayerStats p = i.next();
-            if (p.getName().equals(playerName)) {
-                return p.getScore();
-            }
-        }
-        return 0;
+    /**
+     * {@inheritDoc}
+     */
+    public Integer getPlayerScore(final String username) {
+        return this.rank.get(username);
     }
 
     //TODO update if already present
@@ -47,14 +37,16 @@ public class GameRank implements Rank {
      * {@inheritDoc}
      */
     @Override
-    public void addPlayer(final PlayerStats newStats) {
+    public void addRank(final String playerName, final Integer newScore) {
 
-        this.rank.add(newStats);
-        Collections.sort(this.rank, Comparator.comparing(PlayerStats::getScore));
-        if (this.rank.size() >= capacity) {
-            this.rank.remove(this.rank.size() - 1);
+        Boolean c = this.rank.containsKey(playerName);
+
+        if (!c || (c && this.getPlayerScore(playerName) < newScore)) {
+            this.rank.put(playerName, newScore);
+            ResourceLoader.getInstance().writeRank(this.rank, this.fileName);
+            this.rank = ResourceLoader.getInstance().getRank(fileName);
         }
-        ResourceLoader.getInstance().writeRank(this.rank, this.fileName);
+
     }
     
 }

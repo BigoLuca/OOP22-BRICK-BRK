@@ -37,6 +37,9 @@ public class LevelControllerImpl extends ControllerImpl implements LevelControll
         this.level = l;
     }
 
+    public LevelControllerImpl() {
+    }
+
     /**
      * {@inheritDoc}}
      */

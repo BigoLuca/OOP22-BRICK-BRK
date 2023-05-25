@@ -1,7 +1,7 @@
 package brickbreaker.common;
 
 /**
- * Class representing a two-dimensional vector
+ * Class representing a two-dimensional vector.
  */
 public class Vector2D {
 

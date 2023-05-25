@@ -5,7 +5,7 @@ package brickbreaker.common;
  * Each Error have a string error message.
  */
 public enum Error {
-    
+
     /** Map load error. */
     MAPLOADER_ERROR("Map not loaded correctly"),
     /** Rank load error. */
@@ -18,14 +18,14 @@ public enum Error {
     USERWRITER_ERROR("User not writed correctly");
 
     private final String message;
-    Error(String m){
+    Error(final String m) {
         this.message = m;
     }
 
     /**
      * @return the error message as a String
      */
-    public String getMessage(){
+    public String getMessage() {
         return "Error: " + this.message;
     }
 }

@@ -17,8 +17,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-
+import brickbreaker.common.GameImages;
 import brickbreaker.model.rank.PlayerStats;
+import javafx.scene.image.Image;
+import javafx.scene.text.Font;
 
 /**
  * Class to load the resources: map files, game icons, ranking stats.
@@ -47,6 +49,23 @@ public class ResourceLoader {
         return instance;
     }
 
+    public GameImages getLevelImage(final Integer index) throws FileNotFoundException, IOException{
+        BufferedReader reader = new BufferedReader(new FileReader(this.getMapsNames().get(index)));
+        String landscape = reader.readLine();
+        reader.close();
+
+        return GameImages.valueOf(landscape);
+    }
+
+    public void loadImages() {
+        Arrays.stream(GameImages.values()).forEach(value -> {
+            value.setImage(new Image(ClassLoader.getSystemResourceAsStream(value.getFilePath())));
+        });
+    }
+
+    public Font getFont(final Integer size, final String fontFilePathName) {
+        return Font.loadFont(ClassLoader.getSystemResource(fontFilePathName).toString(), size);
+    }
     /**
      * Initializes path.
      */

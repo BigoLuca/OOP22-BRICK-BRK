@@ -10,6 +10,8 @@ import brickbreaker.model.user.User;
 
 public abstract class AbstractGameModel implements GameModel {
 
+    protected static final String NULL_WORLD_PLACEHOLDER = "DUNNO";
+
     protected final static Integer LENRANK = 10;
     private Mode mode;
     private Rank rank;
@@ -52,8 +54,8 @@ public abstract class AbstractGameModel implements GameModel {
     }
 
     @Override
-    public Integer getListMapLenght(){
-        return this.mapList.size();
+    public List<String> getListMapLenght(){
+        return this.mapList;
     }
 
 }

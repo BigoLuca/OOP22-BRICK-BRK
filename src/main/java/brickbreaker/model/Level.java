@@ -1,8 +1,8 @@
 package brickbreaker.model;
 
-import brickbreaker.model.factory.WorldFactory;
 import brickbreaker.model.state.GameState;
 import brickbreaker.model.state.GameStateImpl;
+import brickbreaker.model.world.World;
 
 /**
  * Class representing a single level.
@@ -18,9 +18,9 @@ public class Level {
      * @param id
      * @param nameMap
      */
-    public Level(final Integer id, final String nameMap, final Integer diff) {
+    public Level(final Integer id, final World levelWorld) {
         this.id = id;
-        this.gs = new GameStateImpl(WorldFactory.getInstance().getWorld(nameMap, diff));
+        this.gs = new GameStateImpl(levelWorld);
         this.score = 0;
     }
 

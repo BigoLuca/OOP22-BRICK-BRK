@@ -1,7 +1,7 @@
 package brickbreaker.model;
 
+import java.util.List;
 import java.util.Optional;
-
 import brickbreaker.common.Mode;
 import brickbreaker.model.rank.Rank;
 import brickbreaker.model.user.User;
@@ -20,6 +20,6 @@ public interface GameModel {
 
     String getNameMap(Integer i);
 
-    Integer getListMapLenght();
+    List<String> getListMapLenght();
 
 }

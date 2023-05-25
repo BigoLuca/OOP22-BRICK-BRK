@@ -4,22 +4,18 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import brickbreaker.ResourceLoader;
-
 public class GameRank implements Rank {
 
     private Integer capacity;
     private List<PlayerStats> rank;
-    private String fileName;
 
     /**
      * GameRank constructor.
      * @param rankCapacity
      */
-    public GameRank(final Integer rankCapacity, final String fileName) {
-        this.rank = ResourceLoader.getInstance().getRank(fileName);
+    public GameRank(final Integer rankCapacity, final List<PlayerStats> stats) {
+        this.rank = stats;
         this.capacity = rankCapacity;
-        this.fileName = fileName;
     }
 
     /**
@@ -41,7 +37,8 @@ public class GameRank implements Rank {
         if (this.rank.size() >= capacity) {
             this.rank.remove(this.rank.size() - 1);
         }
-        return ResourceLoader.getInstance().writeRank(this.rank, this.fileName);
+
+        return this.rank.contains(newStats);
     }
     
 }

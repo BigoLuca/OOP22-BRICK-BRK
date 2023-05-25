@@ -1,32 +1,38 @@
 package brickbreaker.model;
 
+import java.util.Iterator;
 import java.util.Optional;
-
+import brickbreaker.model.factory.WorldFactory;
+import brickbreaker.ResourceLoader;
+import brickbreaker.common.Difficulty;
 import brickbreaker.common.Mode;
-import brickbreaker.model.rank.GameRank;
 import brickbreaker.model.user.User;
+import brickbreaker.model.world.World;
+import brickbreaker.model.rank.Rank;
+
+//TODO: Extend Level object (to include a local leaderboard).
+//TODO: Elaborate Endless rank.
+//TODO: Delete mode field.
 
 public class LevelsModel extends AbstractGameModel {
 
-    private Integer levelReached;
-    //TODO private List<GameRank> levelRanks;
+    private World old;
+    private Iterator<String> levelsName;
 
-    public LevelsModel(final User user) {
-        super(Mode.LEVEL,new GameRank(LENRANK, "globalLevel.json"), user);
-        this.levelReached = 0;  // change with the level of the player
+    public LevelsModel(final Mode m, final Rank r, final User u) {
+        super(m, r, u);
+        this.old = WorldFactory.getInstance().createFromDifficulty(NULL_WORLD_PLACEHOLDER, Difficulty.EASY);
+        this.levelsName = ResourceLoader.getInstance().getMapsNames().iterator();
     }
 
     @Override
     public Optional<Level> getNextMatch() {
-
-        Integer diff = 1; // TODO calc the difficulty
-        levelReached++;
-
-        if (levelReached <= this.getListMapLenght()) {
-            return Optional.of(new Level(levelReached, this.getNameMap(levelReached), diff));
-        } else {
-            return Optional.empty();
+        if (this.levelsName.hasNext()) {
+            World n = WorldFactory.getInstance().createFromWorld(this.levelsName.next(), old, false);
+            this.old = n;
+            return Optional.of(new Level(0, n));
         }
+
+        return Optional.empty();
     }
-    
 }

@@ -3,7 +3,7 @@ package brickbreaker.model.rank;
 import java.util.Map;
 
 /**
- * Interface for work with rank
+ * Interface for work with rank.
  */
 public interface Rank {
 

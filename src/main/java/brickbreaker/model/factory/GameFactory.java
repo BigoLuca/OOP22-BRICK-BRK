@@ -12,8 +12,6 @@ import brickbreaker.model.world.gameObjects.Brick;
 
 /**
  * Factory class for creating game objects: Ball, Bar, Bricks.
- * 
- * @author Bighini Luca
  */
 public class GameFactory {
 

@@ -2,8 +2,6 @@ package brickbreaker.model.state.timer;
 
 /**
  * Interface to work with time.
- * 
- * @author Agostinelli Francesco
  */
 public interface Time {
 

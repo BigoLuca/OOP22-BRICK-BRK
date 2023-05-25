@@ -4,9 +4,6 @@ import brickbreaker.model.world.gameObjects.Bar;
 
 /**
  * Class to elaborate the player input and update the position of the respective object.
- * 
- * @author Bighini Luca
- * @author Tellarini Pietro
  */
 public class PlayerInput implements InputComponent {
 

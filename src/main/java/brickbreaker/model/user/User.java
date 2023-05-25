@@ -3,6 +3,9 @@ package brickbreaker.model.user;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Class representing a user.
+ */
 public class User {
 
     private String userName;
@@ -25,6 +28,7 @@ public class User {
         return this.userName;
     }
 
+    // TODO also wrote in the json file
     public void addScores(final Integer levelName, final Integer scoreToSet) {
         this.scores.put(levelName, scoreToSet);
     }

@@ -7,8 +7,6 @@ import brickbreaker.model.world.gameObjects.bounding.CircleBoundingBox;
 /**
  * Class to model the game object Ball.
  * Extends {@link GameObjectImpl}.
- * 
- * @author Vrabii Alexandru
  */
 public class Ball extends GameObjectImpl<CircleBoundingBox> {
 

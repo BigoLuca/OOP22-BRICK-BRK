@@ -3,8 +3,6 @@ package brickbreaker.common;
 /**
  * Enum of error types.
  * Each Error have a string error message.
- * 
- * @author Bighini Luca
  */
 public enum Error {
     

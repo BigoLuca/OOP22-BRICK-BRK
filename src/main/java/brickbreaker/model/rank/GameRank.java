@@ -3,6 +3,10 @@ package brickbreaker.model.rank;
 import java.util.Map;
 import brickbreaker.ResourceLoader;
 
+/**
+ * Class representing the rank.
+ * Implements the {@link Rank} interface.
+ */
 public class GameRank implements Rank {
 
     private Map<String, Integer> rank;

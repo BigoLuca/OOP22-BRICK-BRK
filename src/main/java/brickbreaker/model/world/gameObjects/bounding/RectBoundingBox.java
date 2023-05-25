@@ -5,8 +5,6 @@ import brickbreaker.common.Vector2D;
 /**
  * Class to model a rectangular shape.
  * Implements the {@link BoundingBox} interface.
- * 
- * @author Bighini Luca
  */
 public class RectBoundingBox implements BoundingBox {
 

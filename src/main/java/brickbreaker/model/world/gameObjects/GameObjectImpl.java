@@ -8,7 +8,6 @@ import brickbreaker.model.world.gameObjects.bounding.BoundingBox;
  * {@inheritDoc}
  * Implements the {@link GameObject} interface. Abstract base class for all objects.
  * 
- * @author Bighini Luca
  * @param <T> the type of bounding box
  */
 public abstract class GameObjectImpl<T extends BoundingBox> implements GameObject<T> {

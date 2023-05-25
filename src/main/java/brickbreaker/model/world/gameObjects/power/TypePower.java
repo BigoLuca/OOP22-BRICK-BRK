@@ -8,8 +8,6 @@ import brickbreaker.common.TypePowerUp;
 /**
  * Enum of type PowerUp.
  * Each powerUp have a duration and a type.
- * 
- * @author Bighini Luca
  */
 public enum TypePower {
 

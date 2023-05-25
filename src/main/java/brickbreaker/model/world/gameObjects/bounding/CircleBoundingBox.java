@@ -5,8 +5,6 @@ import brickbreaker.common.Vector2D;
 /**
  * Class to model a circle shape.
  * Implements the {@link BoundingBox} interface.
- * 
- * @author Bighini Luca
  */
 public class CircleBoundingBox implements BoundingBox {
 

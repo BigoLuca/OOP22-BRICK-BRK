@@ -2,9 +2,6 @@ package brickbreaker.controllers.input;
 
 /**
  * Controller calls which keeps track of input events.
- * 
- * @author Bighini Luca
- * @author Tellarini Pietro
  */
 public class InputController {
 

@@ -9,9 +9,6 @@ import brickbreaker.model.world.World;
 /**
  * {@inheritDoc}
  * Implements the {@link GameState} interface.
- * 
- * @author Bighini Luca
- * @author Agostinelli Francesco
  */
 public class GameStateImpl implements GameState {
 

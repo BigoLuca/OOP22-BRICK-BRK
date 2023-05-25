@@ -9,8 +9,6 @@ import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
 /**
  * Class to model the game object Bar.
  * Extends {@link GameObjectImpl}.
- * 
- * @author Tellarini Pietro
  */
 public class Bar extends GameObjectImpl<RectBoundingBox> {
 

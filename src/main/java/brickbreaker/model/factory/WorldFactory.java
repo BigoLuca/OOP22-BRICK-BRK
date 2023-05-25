@@ -20,8 +20,6 @@ import brickbreaker.model.world.gameObjects.power.TypePower;
 
 /**
  * Factory class for creating game World.
- * 
- * @author Agostinelli Francesco
  */
 public class WorldFactory {
 

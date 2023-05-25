@@ -2,8 +2,6 @@ package brickbreaker.model.state.timer;
 
 /**
  * Class to work with different timer simultaneously.
- * 
- * @author Agostinelli Francesco
  */
 public class TimerThread extends Thread {
 

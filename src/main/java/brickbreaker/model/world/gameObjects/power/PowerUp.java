@@ -8,8 +8,6 @@ import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
 /**
  * Class to model the game object PowerUp.
  * Extends {@link GameObjectImpl}.
- * 
- * @author Bighini Luca
  */
 public class PowerUp extends GameObjectImpl<RectBoundingBox> {
 

@@ -4,8 +4,6 @@ import brickbreaker.common.Vector2D;
 
 /**
  * An Interface to model the objects bounding.
- * 
- * @author Bighini Luca
  */
 public interface BoundingBox {
 

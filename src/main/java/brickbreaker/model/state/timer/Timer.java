@@ -2,8 +2,6 @@ package brickbreaker.model.state.timer;
 
 /**
  * Interface to create a timer.
- * 
- * @author Agostinelli Francesco
  */
 public interface Timer {
 

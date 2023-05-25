@@ -8,9 +8,6 @@ import brickbreaker.model.world.World;
 /**
  * Interface to model the Game State. It defines the state of the game.
  * Initialized the world, keeps track of the score of the game and checkout the endgame.
- * 
- * @author Bighini Luca
- * @author Agostinelli Francesco
  */
 public interface GameState {
 

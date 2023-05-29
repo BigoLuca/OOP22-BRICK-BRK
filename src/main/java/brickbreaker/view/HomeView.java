@@ -11,16 +11,13 @@ public class HomeView extends ViewImpl {
     private ImageView title;
 
     @FXML
-    private Button playButton;
+    private Button btnLevelMode;
 
     @FXML
-    private Button endlessPlayButton;
+    private Button btnEndless;
 
     @FXML
-    private Button globalRanksButton;
-
-    @FXML
-    private Button rulesButton;
+    private Button btnLeaderBoards;
 
     public HomeView(final Controller controllerToAttach) {
         super(controllerToAttach);
@@ -28,8 +25,14 @@ public class HomeView extends ViewImpl {
     
     @Override
     public void init() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'init'");
+
     }
-    
+
+    public void switchToPlay() {
+        ViewSwitcher.getInstance().switchView(this.getStage(), ViewType.SET_UP);
+    }
+
+    public void switchToRank() {
+        ViewSwitcher.getInstance().switchView(this.getStage(), ViewType.RANK);
+    }
 }

@@ -5,11 +5,11 @@ import java.io.IOException;
 
 import brickbreaker.ResourceLoader;
 import brickbreaker.controllers.Controller;
-import javafx.event.ActionEvent;
+import brickbreaker.model.LevelsModel;
+import brickbreaker.model.rank.GameRank;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -36,7 +36,7 @@ public final class LevelMenuView extends ViewImpl {
 
                         @Override
                         public void handle(Event event) {
-
+                            switchToLevelMatch();
                         }
                         
                     });
@@ -51,6 +51,12 @@ public final class LevelMenuView extends ViewImpl {
                 }
             }
         }
+    }
+
+    public void switchToLevelMatch() {
+        GameRank r = new GameRank(10, ResourceLoader.getInstance().getRank("levels.txt"));
+        this.getController().setModel(new LevelsModel(r, null));
+        ViewSwitcher.getInstance().switchView(this.getStage(), ViewType.MATCH);
     }
 
     @Override

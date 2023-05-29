@@ -1,11 +1,8 @@
 package brickbreaker.view;
 
 import java.io.IOException;
-
-import brickbreaker.ResourceLoader;
 import brickbreaker.common.GameImages;
 import brickbreaker.controllers.Controller;
-import brickbreaker.model.GameModel;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -62,11 +59,10 @@ public final class ViewSwitcher {
         return view;
     }
 
-    public void switchView(final Stage stage, final ViewType type, final GameModel model) {
+    public void switchView(final Stage stage, final ViewType type) {
         View view = this.loadStyle(stage, type);
         Controller c = type.getController();
         c.setView(view);
-        c.setModel(model);
         view.setController(c);
         view.setStage(stage);
         view.init();

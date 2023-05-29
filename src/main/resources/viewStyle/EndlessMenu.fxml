@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox layoutX="65.0" layoutY="98.0" prefHeight="99.0" prefWidth="321.0" spacing="30.0">
+         <children>
+            <ImageView id="imgChooseDifficulty" fitHeight="104.0" fitWidth="270.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/difficulty.png" />
+               </image>
+               <HBox.margin>
+                  <Insets top="30.0" />
+               </HBox.margin>
+            </ImageView>
+            <VBox prefHeight="99.0" prefWidth="157.0">
+               <children>
+                  <ImageView id="imgUpArrow" fitHeight="26.0" fitWidth="139.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#clickUpArrow"/>
+                  <ImageView id="imgDifficulty" fitHeight="44.0" fitWidth="146.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/mix.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView id="imgDownArrow" fitHeight="29.0" fitWidth="138.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#clickDownArrow"/>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <ImageView id="imgReadyGo" fitHeight="62.0" fitWidth="200.0" layoutX="200.0" layoutY="280.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#clickPlayButton">
+         <image>
+            <Image url="@../Images/ready.png" />
+         </image>
+      </ImageView>
+      <ImageView id="imgEndlessMode" fitHeight="62.0" fitWidth="309.0" layoutX="145.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/endlessModeTitle.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

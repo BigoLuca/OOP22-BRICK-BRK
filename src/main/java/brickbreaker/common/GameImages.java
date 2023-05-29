@@ -8,11 +8,33 @@ public enum GameImages {
 
     SPACE_LANDSCAPE("space.png"),
 
+    NIGHT_SKY("night-sky.png"),
+
     SEA_LANDSCAPE("sea.png"),
 
     CITY_LANDSCAPE("city.png"),
 
-    GAME_ICON("icon.png");
+    GAME_ICON("icon.png"),
+
+    EASY_DIFFICULTY("easy.png"),
+
+    MEDIUM_DIFFICULTY("medium.png"),
+
+    HARD_DIFFICULTY("hard.png"),
+
+    MIX_DIFFICULTY("mix.png"),
+
+    NICKNAME_LABEL("nickname.png"),
+    
+    TYPE_YOUR_NAME_LABEL("typeYourName.png"),
+
+    GLOBAL_LABEL("toChange.png"),
+
+    LOCAL_LABEL("toChange.png"),
+
+    NEXT("toChange.png"),
+
+    PREVIOUS("toChange.png");
 
     private static final String RES_PATH = "Images/";
     private String fileName;

@@ -2,9 +2,7 @@ package brickbreaker.controllers.state;
 
 import brickbreaker.model.world.World;
 import brickbreaker.model.Level;
-import brickbreaker.model.rank.PlayerStats;
-import brickbreaker.controllers.ControllerImpl;
-import brickbreaker.model.state.GameStateImpl.State;
+import brickbreaker.common.State;
 import brickbreaker.controllers.input.InputController;
 import brickbreaker.controllers.state.event.WorldEventListener;
 import brickbreaker.controllers.state.event.WorldEventListenerImpl;
@@ -15,7 +13,7 @@ import brickbreaker.controllers.state.event.WorldEventListenerImpl;
  * 
  * @author Agostinelli Francesco
  */
-public class LevelControllerImpl extends ControllerImpl implements LevelController, Runnable {
+public class LevelControllerImpl implements LevelController, Runnable {
 
     private static final double PERIOD = 16.6666;
 
@@ -23,7 +21,7 @@ public class LevelControllerImpl extends ControllerImpl implements LevelControll
     private InputController inputController;
     private boolean pause;
     private boolean quit;
-    private Thread game;
+    //private Thread game;
     private Level level;
 
     /**
@@ -32,22 +30,13 @@ public class LevelControllerImpl extends ControllerImpl implements LevelControll
     public LevelControllerImpl(final Level l) {
         this.pause = false;
         this.quit = false;
-        this.game = new Thread(this);
-        this.game.setName("GameLoop");
+        //this.game = new Thread(this);
+        //this.game.setName("GameLoop");
         this.level = l;
-    }
-
-    /**
-     * {@inheritDoc}}
-     */
-    @Override
-    public void init() {
         this.eventListener = new WorldEventListenerImpl();
         this.eventListener.setGameState(this.level.getGameState());
         this.level.getGameState().init();
         this.level.getGameState().getWorld().setEventListener(this.eventListener);
-        this.game.start();
-        this.level.getGameState().getGameTimerThread().start();
     }
 
     /**
@@ -55,9 +44,9 @@ public class LevelControllerImpl extends ControllerImpl implements LevelControll
      */
     @Override
     public void quitGame() {
-        this.quit = true;
-        synchronized(game) {
-            this.game.notify();
+        this.level.getGameState().setState(State.LOST);
+        synchronized(this) {
+            this.notify();
         }
     }
 
@@ -75,8 +64,8 @@ public class LevelControllerImpl extends ControllerImpl implements LevelControll
     @Override
     public void resumeGame() throws InterruptedException {
         this.pause = false;
-        synchronized(game) {
-            this.game.notify();
+        synchronized(this) {
+            this.notify();
         }
         this.level.getGameState().getGameTimerThread().resumeTimer();
     }
@@ -103,6 +92,7 @@ public class LevelControllerImpl extends ControllerImpl implements LevelControll
      */
     @Override
     public void run() {
+        this.level.getGameState().getGameTimerThread().start();
         long last = System.currentTimeMillis();
 
         while(!quit){
@@ -118,28 +108,20 @@ public class LevelControllerImpl extends ControllerImpl implements LevelControll
             }
 
             if (!this.level.getGameState().getState().equals(State.PLAYING)) {
-                this.getModel().getRank().addPlayer(new PlayerStats(this.getModel().getUser().getName(), this.getScore()));
-                quitGame();
+                this.quit = true;
+                this.level.getGameState().getGameTimerThread().stopTimer();
+
             } else if (this.pause) {
 
-                synchronized(game){
+                synchronized(this){
                     try {
-                        System.out.println("Game in pause...");
                         this.level.getGameState().getGameTimerThread().stopTimer();
-                        this.game.wait();
-                        System.out.println("Resume game event...");
+                        this.wait();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
             }
-        }
-
-        try {
-            this.game.interrupt();
-            throw new InterruptedException();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 
@@ -164,7 +146,9 @@ public class LevelControllerImpl extends ControllerImpl implements LevelControll
     /**
      * This method renders the attached view.
      */
-    private void render() {}
+    private void render() {
+        //this.getView().update(this.level.getGameState().getWorld());
+    }
 
     /**
      * This method wait end of the frame time before strting a new cicle.

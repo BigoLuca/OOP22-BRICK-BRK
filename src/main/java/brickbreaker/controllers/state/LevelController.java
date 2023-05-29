@@ -1,14 +1,13 @@
 package brickbreaker.controllers.state;
 
-import brickbreaker.controllers.Controller;
-import brickbreaker.model.state.GameStateImpl.State;
+import brickbreaker.common.State;
 
 /**
  * This interface defines the game state controller.
  * 
  * @author Agostinelli Francesco
  */
-public interface LevelController extends Controller {
+public interface LevelController {
 
     /**
      * Quit fro the current game.

@@ -5,22 +5,20 @@ import java.util.Optional;
 import brickbreaker.model.factory.WorldFactory;
 import brickbreaker.ResourceLoader;
 import brickbreaker.common.Difficulty;
-import brickbreaker.common.Mode;
 import brickbreaker.model.user.User;
 import brickbreaker.model.world.World;
 import brickbreaker.model.rank.Rank;
 
 //TODO: Extend Level object (to include a local leaderboard).
 //TODO: Elaborate Endless rank.
-//TODO: Delete mode field.
 
 public class LevelsModel extends AbstractGameModel {
 
     private World old;
     private Iterator<String> levelsName;
 
-    public LevelsModel(final Mode m, final Rank r, final User u) {
-        super(m, r, u);
+    public LevelsModel(final Rank r, final User u) {
+        super(r, u);
         this.old = WorldFactory.getInstance().createFromDifficulty(NULL_WORLD_PLACEHOLDER, Difficulty.EASY);
         this.levelsName = ResourceLoader.getInstance().getMapsNames().iterator();
     }

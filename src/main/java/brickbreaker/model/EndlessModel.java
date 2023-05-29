@@ -3,7 +3,6 @@ package brickbreaker.model;
 import java.util.Optional;
 import java.util.Random;
 import brickbreaker.common.Difficulty;
-import brickbreaker.common.Mode;
 import brickbreaker.model.factory.WorldFactory;
 import brickbreaker.model.rank.Rank;
 import brickbreaker.model.state.GameStateImpl.State;
@@ -15,8 +14,8 @@ public class EndlessModel extends AbstractGameModel {
     private Optional<Difficulty> chosen;
     private Level current;
 
-    public EndlessModel(final Mode m, final Rank r, final User u, final Optional<Difficulty> diffToSet) {
-        super(m, r, u);
+    public EndlessModel(final Rank r, final User u, final Optional<Difficulty> diffToSet) {
+        super(r, u);
         this.chosen = diffToSet;
         //TODO: Create a won initial level.
     }
@@ -33,6 +32,7 @@ public class EndlessModel extends AbstractGameModel {
         } else {
             Difficulty d = this.chosen.isPresent() ? this.chosen.get() : this.getRandomDifficulty();
             World w = WorldFactory.getInstance().createFromDifficulty(NULL_WORLD_PLACEHOLDER, d); 
+            return Optional.of(new Level(0, w));
         }
     }
 }

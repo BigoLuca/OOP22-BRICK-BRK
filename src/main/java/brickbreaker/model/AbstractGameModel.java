@@ -2,9 +2,7 @@ package brickbreaker.model;
 
 import java.util.List;
 import java.util.Optional;
-
 import brickbreaker.ResourceLoader;
-import brickbreaker.common.Mode;
 import brickbreaker.model.rank.Rank;
 import brickbreaker.model.user.User;
 
@@ -13,13 +11,11 @@ public abstract class AbstractGameModel implements GameModel {
     protected static final String NULL_WORLD_PLACEHOLDER = "DUNNO";
 
     protected final static Integer LENRANK = 10;
-    private Mode mode;
     private Rank rank;
     private User user;
     private List<String> mapList;
 
-    public AbstractGameModel(final Mode m, final Rank r, final User u) {
-        this.mode = m;
+    public AbstractGameModel(final Rank r, final User u) {
         this.rank = r;
         this.user = u;
         this.mapList = ResourceLoader.getInstance().getMapsNames();
@@ -31,11 +27,6 @@ public abstract class AbstractGameModel implements GameModel {
     @Override
     public User getUser() {
         return this.user;
-    }
-
-    @Override
-    public Mode getMode() {
-        return this.mode;
     }
 
     @Override

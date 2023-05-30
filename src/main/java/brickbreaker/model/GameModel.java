@@ -1,17 +1,13 @@
 package brickbreaker.model;
 
-import brickbreaker.model.rank.Rank;
-
 public interface GameModel {
 
     String getNameMap(Integer i);
 
     Integer getListMapLenght();
 
-    Rank getRank();
+    Level getRandomLevel();
 
-    Level getNextLevel();
-
-    Level getNextLevel(Integer level);
+    Level getLevel(Integer level);
 
 }

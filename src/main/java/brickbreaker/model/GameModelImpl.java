@@ -6,28 +6,19 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import brickbreaker.ResourceLoader;
-import brickbreaker.model.rank.GameRank;
-import brickbreaker.model.rank.Rank;
 
 public class GameModelImpl implements GameModel {
 
-    private Rank rank;
     private List<String> mapList;
     private List<Integer> difficulty;
 
-    public GameModelImpl(final String fileName) {
-        this.rank = new GameRank(fileName);
+    public GameModelImpl() {
         this.mapList = ResourceLoader.getInstance().getMapsNames();
         this.difficulty = IntStream.rangeClosed(10, 90)
                             .filter(n -> (90 - n) % Math.floorDiv(80, this.getListMapLenght()) == 0)
                             .boxed()
                             .sorted((a, b) -> b - a)
                             .collect(Collectors.toList());
-    }
-
-    @Override
-    public Rank getRank() {
-        return this.rank;
     }
 
     @Override
@@ -41,7 +32,7 @@ public class GameModelImpl implements GameModel {
     }
 
     @Override
-    public Level getNextLevel() {
+    public Level getRandomLevel() {
         Random randomDiff = new Random();
         Integer diff = randomDiff.nextInt(90 - 10 + 1) + 10; // random between [10,90]
         Integer map = randomDiff.nextInt(this.getListMapLenght());
@@ -50,7 +41,7 @@ public class GameModelImpl implements GameModel {
     }
 
     @Override
-    public Level getNextLevel(Integer level) {
+    public Level getLevel(Integer level) {
         return new Level(level, this.getNameMap(level), this.difficulty.get(level));
     }
 

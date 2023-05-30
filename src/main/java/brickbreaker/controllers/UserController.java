@@ -1,5 +1,6 @@
 package brickbreaker.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -10,6 +11,10 @@ import brickbreaker.model.user.User;
 public class UserController {
     
     private List<User> users;
+
+    public UserController() {
+        users = new ArrayList<>();
+    }
 
     public List<String> getUsersName() {
         return users.stream().map(User::getName).collect(Collectors.toList());

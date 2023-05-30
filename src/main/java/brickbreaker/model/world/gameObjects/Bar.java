@@ -4,6 +4,7 @@ import brickbreaker.common.TypeObj;
 import brickbreaker.common.Vector2D;
 import brickbreaker.controllers.input.InputComponent;
 import brickbreaker.controllers.input.InputController;
+import brickbreaker.controllers.input.PlayerInput;
 import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
 
 /**
@@ -23,6 +24,7 @@ public class Bar extends GameObjectImpl<RectBoundingBox> {
      */
     public Bar(final Vector2D pos, final Integer lifeToset) {
         super(lifeToset, new Vector2D(0, 0), TypeObj.BAR, new RectBoundingBox(pos, BAR_WIDTH, BAR_HEIGHT));
+        input = new PlayerInput();
     }
 
     /**

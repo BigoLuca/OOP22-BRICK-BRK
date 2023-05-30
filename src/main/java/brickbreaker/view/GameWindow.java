@@ -11,6 +11,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -19,9 +20,9 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class GameWindow extends Application {
-    private static final int WIDTH = 800;
+    private static final int WIDTH = 1000;
     private static final int HEIGHT = 600;
-    private static final int PADDLE_WIDTH = 100;
+    private static final int PADDLE_WIDTH = 600;
     private static final int PADDLE_HEIGHT = 20;
     private static final int BRICK_WIDTH = 80;
     private static final int BRICK_HEIGHT = 30;
@@ -76,12 +77,27 @@ public class GameWindow extends Application {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
 
+        // Create root layout and add canvas and static components to it
         StackPane root = new StackPane(canvas);
+        
+        // Button
+        Button pauseBUtton = new Button("Pause");
+        pauseBUtton.setOnAction(e -> paused());
+        pauseBUtton.setFocusTraversable(false);
+        StackPane.setAlignment(pauseBUtton, javafx.geometry.Pos.TOP_RIGHT);                                   // Set the alignment of the button to the top-right corner       
+        StackPane.setMargin(pauseBUtton, new javafx.geometry.Insets(10, 10, 0, 0));     // Set the margin of the button to create spacing from the top and right edges
+        
+        
+        // Add static component to root layout
+        root.getChildren().add(pauseBUtton);
         root.setAlignment(Pos.CENTER);
+
+        // Create the scene to add graphical components
         Scene scene = new Scene(root, WIDTH, HEIGHT);
         scene.setOnKeyPressed(e -> handleKeyPress(e.getCode()));
         scene.setOnKeyReleased(e -> handleKeyRelease(e.getCode()));
 
+        // Set the title of the primary stage (window)
         primaryStage.setTitle("Brick Breaker");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
@@ -101,7 +117,7 @@ public class GameWindow extends Application {
         for (int row = 0; row < BRICK_ROWS; row++) {
             for (int col = 0; col < BRICK_COLUMNS; col++) {
                 if (bricks[row][col] > 0) {
-                    gc.setFill(BRICK_COLOR[bricks[row][col] - 1]);
+                    gc.setFill(BRICK_COLOR[(bricks[row][col] % BRICK_COLOR.length) -1]); // Brutto modo per evitare di sforre il vettore dei colori
                     double brickX = col * (BRICK_WIDTH + 2) + 1;
                     double brickY = row * (BRICK_HEIGHT + 2) + 1;
                     gc.fillRect(brickX, brickY, BRICK_WIDTH, BRICK_HEIGHT);
@@ -109,21 +125,22 @@ public class GameWindow extends Application {
             }
         }
 
+        // LA DROW RIMANE COSI QUELLO CHE DEVE RITORNARE IL CONTROLLER SULL'UPDATE E' LA POSIZIONE DELLA PALLA
         // Draw ball
         gc.setFill(BALL_COLOR);
         gc.fillOval(ballX - BALL_RADIUS, ballY - BALL_RADIUS, BALL_RADIUS * 2, BALL_RADIUS * 2);
-
-        // Update ball position
+        // Update ball position da far fare al controller
         ballX += ballXSpeed;
         ballY += ballYSpeed;
 
-        // Check for collision with paddle
+
+        // Check for collision with paddle da far fare al controller non serivirà solo da ridisegnare mattoni
         if (ballY + BALL_RADIUS >= HEIGHT - PADDLE_HEIGHT && ballY + BALL_RADIUS <= HEIGHT &&
                 ballX >= paddleX && ballX <= paddleX + PADDLE_WIDTH) {
             ballYSpeed = -BALL_SPEED;
         }
 
-        // Check for collision with bricks
+        // Check for collision with bricks da far fare al controller
         // TO DO USING PROVIDED METHOD!!!!!!!!!
         for (int row = 0; row < BRICK_ROWS; row++) {
             for (int col = 0; col < BRICK_COLUMNS; col++) {
@@ -165,6 +182,9 @@ public class GameWindow extends Application {
             if (paddleX > WIDTH - PADDLE_WIDTH) {
                 paddleX = WIDTH - PADDLE_WIDTH;
             }
+        } else if (keyCode == KeyCode.SPACE) {
+            // Additional logic for space bar, if needed
+            paused();   
         }
     }
 
@@ -172,6 +192,13 @@ public class GameWindow extends Application {
         // Additional logic for key release, if needed
     }
 
+    private void paused() {
+        // Additional logic for pause, if needed
+
+        // Blocco il gioco TODO
+        PauseWindow.display();
+        // Riprendo il gioco TODO (con timer?)
+    }
     public static void main(String[] args) {
         launch(args);
     }

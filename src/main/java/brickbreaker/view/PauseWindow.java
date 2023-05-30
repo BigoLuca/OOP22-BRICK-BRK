@@ -9,7 +9,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class PauseWindow {
-    public static void display() {
+    public static boolean display() {
         Stage window = new Stage();
         System.out.println("PauseWindow.display() called!");
 
@@ -33,6 +33,6 @@ public class PauseWindow {
         Scene scene = new Scene(layout, 300, 250);
         window.setScene(scene);
         window.showAndWait();
-
+        return true;
     }
 }

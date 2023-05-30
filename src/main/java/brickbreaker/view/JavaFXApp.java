@@ -16,7 +16,7 @@ public final class JavaFXApp extends Application {
     @Override
     public void start(final Stage primaryStage) throws Exception {
 
-        new GameWindow().start(primaryStage);
+        new PlayerScene().start(primaryStage);
 
         // Label
         final Label message = new Label("Hello, JavaFX!"); 

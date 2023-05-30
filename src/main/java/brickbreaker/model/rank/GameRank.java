@@ -52,5 +52,10 @@ public class GameRank implements Rank {
         }
 
     }
+
+    @Override
+    public String getFileName() {
+        return this.fileName;
+    }
     
 }

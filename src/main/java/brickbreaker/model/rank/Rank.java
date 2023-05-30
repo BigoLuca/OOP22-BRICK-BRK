@@ -14,6 +14,11 @@ public interface Rank {
     Map<String, Integer> getRank();
 
     /**
+     * @return the file name of the rank
+     */
+    String getFileName();
+
+    /**
      * @param playerName
      * @return the score of player name passed
      */

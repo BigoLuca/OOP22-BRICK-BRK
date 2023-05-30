@@ -191,15 +191,4 @@ public class GameWindow extends Application {
     private void handleKeyRelease(KeyCode keyCode) {
         // Additional logic for key release, if needed
     }
-
-    private void paused() {
-        // Additional logic for pause, if needed
-
-        // Blocco il gioco TODO
-        PauseWindow.display();
-        // Riprendo il gioco TODO (con timer?)
-    }
-    public static void main(String[] args) {
-        launch(args);
-    }
 }

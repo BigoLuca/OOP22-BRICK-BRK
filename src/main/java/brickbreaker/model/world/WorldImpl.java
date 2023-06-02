@@ -4,11 +4,7 @@ package brickbreaker.model.world;
 import java.util.List;
 import java.util.ArrayList;
 import brickbreaker.common.Vector2D;
-import brickbreaker.controllers.state.event.HitBar;
-import brickbreaker.controllers.state.event.HitBorder;
-import brickbreaker.controllers.state.event.HitBrick;
-import brickbreaker.controllers.state.event.HitPowerUp;
-import brickbreaker.controllers.state.event.WorldEventListener;
+import brickbreaker.controllers.state.event.*;
 import brickbreaker.model.factory.ApplicatorFactory;
 import brickbreaker.model.world.gameObjects.Ball;
 import brickbreaker.model.world.gameObjects.Bar;
@@ -48,14 +44,15 @@ public class WorldImpl implements World {
         this.bricks = new ArrayList<>();
         this.activePowerUps = new ArrayList<>();
         this.mainBBox = mainBbox;
+        this.evListener = new WorldEventListenerImpl();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void setEventListener(final WorldEventListener listener) {
-        this.evListener = listener;
+    public WorldEventListener getWorldEventListener() {
+        return this.evListener;
     }
 
     /**
@@ -166,7 +163,7 @@ public class WorldImpl implements World {
 
             if (pos.getY() - r < ul.getY()) {
                 //TOP-BORDER
-                this.evListener.notifyEvent(new HitBorder(ball, SideCollision.TOP, ul.getY()));
+                this.evListener.notifyEvent(new HitBorder(ball, SideCollision.TOP, ul.getY())); //TODO this.balls.indexOf(ball);
             } else if (pos.getY() + r > br.getY()) {
                 //BOTTOM-BORDER
                 this.evListener.notifyEvent(new HitBorder(ball, SideCollision.BOTTOM, br.getY()));

@@ -16,10 +16,9 @@ import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
 public interface World {
 
     /**
-     * Set the World Object collision listener.
-     * @param listener
+     * @return the World event listener
      */
-    void setEventListener(WorldEventListener listener);
+    WorldEventListener getWorldEventListener();
 
     /**
      * @param ball

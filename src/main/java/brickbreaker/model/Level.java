@@ -1,7 +1,10 @@
 package brickbreaker.model;
 
 import brickbreaker.common.State;
+import brickbreaker.common.Vector2D;
+import brickbreaker.model.factory.GameFactory;
 import brickbreaker.model.world.World;
+import brickbreaker.model.world.gameObjects.Ball;
 
 /**
  * Class representing a single level.
@@ -55,10 +58,14 @@ public class Level {
         if (this.world.getBar().getLife() <= 0) {
             this.state = State.LOST;
         } else if (this.world.getBalls().size() <= 0) {
-            this.world.addBall(GameFactory.getInstance().createBall(null, null));
-            this.level.getWorld().getBar().setPosition(null); // TODO set bar and ball in center position
-            this.level.getWorld().addBall();
-            this.state = State.PAUSE;
+            
+            //set the new ball il the center of bar
+            Double h = this.world.getBar().getHeight() + Ball.RADIUS / 2;
+            Vector2D barPos = this.world.getBar().getPosition();
+            this.world.addBall(GameFactory.getInstance().createBall(
+                new Vector2D(barPos.getX(), barPos.getY() + h), 
+                new Vector2D(0, 0)));
+            this.state = State.WAIT;
         } else if (this.getWorld().getBricks().size() == 0) {
             this.state = State.WIN;
         }

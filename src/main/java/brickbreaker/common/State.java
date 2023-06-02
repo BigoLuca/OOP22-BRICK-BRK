@@ -14,5 +14,7 @@ public enum State {
     /** Lost. */
     LOST,
     /** Quit. */
-    QUIT
+    QUIT,
+    /** Wait */
+    WAIT
 }

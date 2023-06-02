@@ -11,8 +11,8 @@ import brickbreaker.model.world.gameObjects.power.TypePower;
  */
 public class Brick extends GameObjectImpl<RectBoundingBox> {
 
-    private static final Double BRICK_WIDTH = 2.0;
-    private static final Double BRICK_HEIGHT = 1.0;
+    public static final Double BRICK_WIDTH = 2.0;
+    public static final Double BRICK_HEIGHT = 1.0;
     private TypePower powerUp;
 
     /**

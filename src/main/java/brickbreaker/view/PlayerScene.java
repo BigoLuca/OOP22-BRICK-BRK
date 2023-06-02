@@ -1,31 +1,26 @@
 package brickbreaker.view;
 
-import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import brickbreaker.controllers.UserController;
+public class PlayerScene {
 
-public class PlayerScene extends Application {
-
+    private final JavaFXApp switcher;
     private List<String> players;
-    private final UserController userController;
 
-    public PlayerScene(UserController userController){
-        this.userController = userController;
+    public PlayerScene(JavaFXApp switcher){
+        this.switcher = switcher;
     }
 
-    @Override
-    public void start(Stage primaryStage) {
+    public void show() {
         // Create a VBox to hold the components
         VBox root = new VBox();
         root.setAlignment(Pos.CENTER);
@@ -40,13 +35,25 @@ public class PlayerScene extends Application {
         titleLabel.setFont(new javafx.scene.text.Font("Calibri", 40));
         root.getChildren().add(titleLabel);
 
-        // Create a list of players
-        players = new ArrayList<>();
-        players.add("Player 1");
-        players.add("Player 2");
-        players.add("Player 3");
-        players.add("Player 4");
-        // Add more players if needed
+        // Create a Button for add a new player
+        HBox addBox = new HBox();
+        TextField addText = new TextField("Add a new player: ");
+        addText.setStyle("-fx-text-fill: black; -fx-background-color: darkgrey;");
+        Button addPlayer = new Button("NEW");
+        addPlayer.setOnAction(event ->{
+            String newPlayer = addText.getText();
+            if (newPlayer != null && !newPlayer.isEmpty()) {
+                this.switcher.controller.getUserController().addUser(newPlayer);
+                show();
+            }
+        });
+        addBox.getChildren().addAll(addText, addPlayer);
+        root.getChildren().add(addBox);
+
+
+
+        // Get a list of players
+        players = this.switcher.controller.getUserController().getUsersName();
 
         // Create buttons for player selection
         for (String player : players) {
@@ -58,9 +65,9 @@ public class PlayerScene extends Application {
         Scene scene = new Scene(root, 400, 300);
 
         // Set the scene on the primary stage
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Player Selection");
-        primaryStage.show();
+        this.switcher.primaryStage.setScene(scene);
+        this.switcher.primaryStage.setTitle("Player Selection");
+        this.switcher.primaryStage.show();
     }
 
     private Button createPlayerButton(String player) {
@@ -82,6 +89,7 @@ public class PlayerScene extends Application {
             Button clickedButton = (Button) event.getSource();
             String selectedPlayer = clickedButton.getText();
             System.out.println("Selected Player: " + selectedPlayer);
+            this.switcher.switchToModeScene();
             // You can perform further actions based on the selected player
         });
 

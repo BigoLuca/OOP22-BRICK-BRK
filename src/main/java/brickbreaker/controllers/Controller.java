@@ -13,16 +13,16 @@ import brickbreaker.model.Level;
 import brickbreaker.model.rank.GameRank;
 import brickbreaker.model.rank.Rank;
 import brickbreaker.model.user.User;
-import brickbreaker.view.GameWindow;
+import brickbreaker.view.GameScene;
 
 public class Controller extends ModelController {
 
-    private GameWindow loopScene;
+    private GameScene loopScene;
     private boolean haveWin;
 
     private User user = new User("Pippo");
 
-    public Controller(final GameWindow gameWindow) {
+    public Controller(final GameScene gameWindow) {
         super();
         this.loopScene = gameWindow;
     }
@@ -49,7 +49,7 @@ public class Controller extends ModelController {
             if (it < maxIteration) {
                 LevelControllerImpl levCon = new LevelControllerImpl(level);
                 this.setLevelController(levCon);
-                //loopScene.init(); mostra la prima scena
+                loopScene.init();
                 this.getLevelController().gameLoop();
                 totalScore += levCon.getScore();
                 if(levCon.getLevel().getState().equals(State.WIN)) {

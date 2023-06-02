@@ -7,8 +7,6 @@ import brickbreaker.common.Error;
 
 /**
  * Class to save detected error.
- * 
- * @author Bighini Luca
  */
 public class ErrorListener {
 

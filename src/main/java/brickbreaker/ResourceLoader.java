@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Scanner;
 
-import javax.json.*;
+import com.google.gson.*;
 
 import brickbreaker.common.Error;
 import brickbreaker.controllers.state.ErrorListener;
@@ -29,7 +30,9 @@ public class ResourceLoader {
 
     private final String NAME = "name";
     private final String SCORE = "score";
+    private final String SCORES = "scores";
     private final String LEVEL_REACHED = "levelReached";
+    private final String LEVEL = "level";
 
     private static ResourceLoader instance;
     private String mapsPath;
@@ -111,28 +114,33 @@ public class ResourceLoader {
     }
 
     private JsonArray loadJson(final String filePath, Error err) {
-        try (JsonReader reader = Json.createReader(new FileReader(filePath))) {
-            return reader.readArray();
+        try {
+            return JsonParser.parseReader(new FileReader(filePath)).getAsJsonArray();
         } catch (Exception e) {
             ErrorListener.notifyError(err);
             e.printStackTrace();
         }
-        return Json.createArrayBuilder().build();
-    }
-
-    private JsonArray addElem(final JsonArray jsonArray, final JsonObject elemento) {
-        JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder(jsonArray);
-        jsonArrayBuilder.add(elemento);
-        return jsonArrayBuilder.build();
+        return new JsonArray();
     }
 
     private void writeJson(final String filePath, final JsonArray jsonArray, Error err) {
-        try (JsonWriter writer = Json.createWriter(new FileWriter(filePath))) {
-            writer.writeArray(jsonArray);
+        try (FileWriter fileWriter = new FileWriter(filePath)) {
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            gson.toJson(jsonArray, fileWriter);
         } catch (Exception e) {
             ErrorListener.notifyError(err);
             e.printStackTrace();
         }
+    }
+
+    private Integer getIdxUserName(final String playerName, final JsonArray js) {
+        for (int i = 0; i < js.size(); i++) {
+            JsonObject scoreObject = js.get(i).getAsJsonObject();
+            if (scoreObject.get(NAME).getAsString().equals(playerName)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     /**
@@ -143,22 +151,30 @@ public class ResourceLoader {
     }
 
     /**
-     * Method to get from a file a rank list of players.
+     * Method to get from a file a level rank list of players in descending order.
      * @param file
+     * @param level
      * @return a list of players stats
      */
-    public Map<String,Integer> getRank(final String file) {
-        
+    public Map<String,Integer> getRank(final String file, final Integer level) {
         Map<String,Integer> rank = new HashMap<>();
-        JsonArray js = this.loadJson(this.ranksPath + sep + file, Error.RANKLOADER_ERROR);
-
-        for (JsonValue element : js) {
-            JsonObject jObj = element.asJsonObject();
-            rank.put(jObj.getString(NAME), jObj.getInt(SCORE));
+        JsonArray js = loadJson(this.ranksPath + sep + file, Error.RANKLOADER_ERROR);
+        try {
+            JsonArray scoresArray = js.get(level).getAsJsonObject().getAsJsonArray(SCORES);
+            for (JsonElement scoreElement : scoresArray) {
+                JsonObject scoreObject = scoreElement.getAsJsonObject();
+                String name = scoreObject.get(NAME).getAsString();
+                Integer score = scoreObject.get(SCORE).getAsInt();
+                rank.put(name, score);
+            }
+        } catch (IndexOutOfBoundsException e) {
+            return new HashMap<>();
         }
 
         List<Map.Entry<String, Integer>> entryList = new ArrayList<>(rank.entrySet());
         entryList.sort(Map.Entry.comparingByValue());
+
+        Collections.reverse(entryList);
 
         LinkedHashMap<String, Integer> sortedMap = new LinkedHashMap<>();
         for (Map.Entry<String, Integer> entry : entryList) {
@@ -169,20 +185,47 @@ public class ResourceLoader {
 
     /**
      * Method to write on a file the list of players stats passed.
-     * @param rank
      * @param file
+     * @param level
+     * @param playerName
+     * @param newScore
      */
-    public void writeRank(final Map<String,Integer> rank, final String file) {
+    public Integer writeRank(final String file, final Integer level, final String playerName, final Integer newScore) {
 
-        JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
-        for (Map.Entry<String, Integer> e : rank.entrySet()) {
-            JsonObject jsonObject = Json.createObjectBuilder()
-                    .add(NAME, e.getKey())
-                    .add(SCORE, e.getValue())
-                    .build();
-            arrayBuilder.add(jsonObject);
+        Integer diff = 0;
+        JsonArray js = this.loadJson(this.ranksPath + sep + file, Error.RANKLOADER_ERROR);
+
+        try {
+            JsonArray scoresArray = js.get(level).getAsJsonObject().getAsJsonArray(SCORES);
+            Integer idx = getIdxUserName(playerName, scoresArray);
+            if (idx >= 0) {
+                JsonObject scoreObject = scoresArray.get(idx).getAsJsonObject();
+                int currentScore = scoreObject.get(SCORE).getAsInt();
+                if (newScore > currentScore) {
+                    scoreObject.addProperty(SCORE, newScore);
+                    diff = newScore - currentScore;
+                }
+            } else {
+                JsonObject newScoreObject = new JsonObject();
+                newScoreObject.addProperty(NAME, playerName);
+                newScoreObject.addProperty(SCORE, newScore);
+                scoresArray.add(newScoreObject);
+                diff = newScore;
+            }
+        } catch (IndexOutOfBoundsException e) {
+            JsonObject newLevelObject = new JsonObject();
+            newLevelObject.addProperty(LEVEL, level);
+            JsonArray scoresArray = new JsonArray();
+            JsonObject newScoreObject = new JsonObject();
+            newScoreObject.addProperty(NAME, playerName);
+            newScoreObject.addProperty(SCORE, newScore);
+            scoresArray.add(newScoreObject);
+            newLevelObject.add(SCORES, scoresArray);
+            js.add(newLevelObject);
+            diff = newScore;
         }
-        this.writeJson(this.ranksPath + sep + file, arrayBuilder.build(), Error.RANKWRITER_ERROR);
+        this.writeJson(this.ranksPath + sep + file, js, Error.RANKWRITER_ERROR);
+        return diff;
     }
 
     /**
@@ -193,89 +236,81 @@ public class ResourceLoader {
 
         List<User> users = new ArrayList<>();
         JsonArray js = this.loadJson(this.userPath, Error.USERLOADER_ERROR);
-
-        for (JsonValue element : js) {
-            users.add(new User(element.asJsonObject().getString(NAME)));
+        for (JsonElement element : js) {
+            JsonObject jObj = element.getAsJsonObject();
+            users.add(new User(jObj.get(NAME).getAsString()));
         }
         return users;
     }
 
     /**
      * Method to get the level reached by the user.
-     * @param username
+     * @param playerName
      * @return an Integer representing the level
      */
-    public Integer getLevelReached(final String username) {
+    public Integer getLevelReached(final String playerName) {
         JsonArray js = this.loadJson(this.userPath, Error.USERLOADER_ERROR);
-        for (JsonValue element : js) {
-            JsonObject jObj = element.asJsonObject();
-            if (jObj.getString(NAME).equals(username)) {
-                return jObj.getInt(LEVEL_REACHED);
-            }
+        try {
+            return js.get(getIdxUserName(playerName, js)).getAsJsonObject().get(LEVEL_REACHED).getAsInt();
+        } catch (IndexOutOfBoundsException e) {
+            return 0;
         }
-        return 1;
     }
 
     /**
      * Method to increment the level reached by the user.
-     * @param username
+     * @param playerName
      */
-    public void incLevelReached(final String username) {
+    public void incLevelReached(final String playerName) {
         JsonArray js = this.loadJson(this.userPath, Error.USERLOADER_ERROR);
-        for (int i = 0; i < js.size(); i++) {
-            JsonObject jsonObject = js.getJsonObject(i);
-            if (jsonObject.getString(NAME).equals(username)) {
-                int currentLevel = jsonObject.getInt(LEVEL_REACHED);
-                jsonObject = Json.createObjectBuilder(jsonObject)
-                        .add(LEVEL_REACHED, currentLevel + 1)
-                        .build();
-                js = (JsonArray) js.set(i, jsonObject);
-                break;
-            }
+        try {
+            JsonObject jObj = js.get(getIdxUserName(playerName, js)).getAsJsonObject();
+            int currentLevel = jObj.get(LEVEL_REACHED).getAsInt();
+            jObj.addProperty(LEVEL_REACHED, currentLevel + 1);
+            this.writeJson(this.userPath, js, Error.USERWRITER_ERROR);
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Method to add a new user to the json user file.
+     * @param playerName
+     */
+    public void addUser(final String playerName) {
+
+        JsonArray js = this.loadJson(this.userPath, Error.USERLOADER_ERROR);
+        if (getIdxUserName(playerName, js) < 0) {
+            JsonObject newUser = new JsonObject();
+            newUser.addProperty(NAME, playerName);
+            newUser.addProperty(LEVEL_REACHED, 1);
+            js.add(newUser);
         }
         this.writeJson(this.userPath, js, Error.USERWRITER_ERROR);
     }
 
     /**
-     * Method to add a new user to the json user file.
-     * @param user
-     */
-    public void addUser(final String user) {
-
-        JsonArray js = this.loadJson(this.userPath, Error.USERLOADER_ERROR);
-        JsonObject newUser = Json.createObjectBuilder()
-                .add(NAME, user)
-                .add(LEVEL_REACHED, 1)
-                .build();
-        this.writeJson(this.userPath, this.addElem(js, newUser), Error.USERWRITER_ERROR);
-    }
-
-    /**
      * Method to remove a user from the json user file and from rank.
-     * @param user
+     * @param playerName
      */
-    public void removeUser(final String username) {
+    public void removeUser(final String playerName) {
         
         JsonArray js = this.loadJson(this.userPath, Error.USERLOADER_ERROR);
-        JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
-        for (JsonValue jv : js){
-            JsonObject j = jv.asJsonObject();
-            if(!j.getString(NAME).equals(username)){
-                jsonArrayBuilder.add(j);
-            }
-        }
-        this.writeJson(this.userPath, jsonArrayBuilder.build(), Error.USERWRITER_ERROR);
+        try {
+            js.remove(getIdxUserName(playerName, js));
+        } catch (IndexOutOfBoundsException e) {}
+        this.writeJson(this.userPath, js, Error.USERWRITER_ERROR);
 
         for (String s : this.getRanksFileName()) {
             js = this.loadJson(this.ranksPath + sep + s, Error.RANKLOADER_ERROR);
-            jsonArrayBuilder = Json.createArrayBuilder();
-            for (JsonValue jv : js){
-                JsonObject j = jv.asJsonObject();
-                if(!j.getString(NAME).equals(username)){
-                    jsonArrayBuilder.add(j);
+            for (JsonElement element : js) {
+                JsonArray scoresArray = element.getAsJsonObject().get(SCORES).getAsJsonArray();
+                Integer idx = getIdxUserName(playerName, scoresArray);
+                if (idx >= 0) {
+                    scoresArray.remove(idx);
                 }
             }
-            this.writeJson(this.ranksPath + sep + s, jsonArrayBuilder.build(), Error.USERWRITER_ERROR);
+            this.writeJson(this.ranksPath + sep + s, js, Error.USERWRITER_ERROR);
         }
     }
 

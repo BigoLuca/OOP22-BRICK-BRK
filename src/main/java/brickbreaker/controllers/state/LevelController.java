@@ -1,29 +1,23 @@
 package brickbreaker.controllers.state;
 
-import brickbreaker.common.State;
+import brickbreaker.controllers.input.InputController;
+import brickbreaker.model.Level;
 
 /**
  * This interface defines the game state controller.
- * 
- * @author Agostinelli Francesco
  */
 public interface LevelController {
 
-    /**
-     * Quit fro the current game.
+    /*
+     * Get the current level
+     * @return the current level
      */
-    void quitGame();
+    Level getLevel();
 
     /**
-     * Pauses the current game.
+     * @return the input controller
      */
-    void pauseGame();
-
-    /**
-     * Resumes the current game.
-     * @throws InterruptedException
-     */
-    void resumeGame() throws InterruptedException;
+    InputController getInputController();
 
     /**
      * This method gets the current game score.
@@ -32,8 +26,7 @@ public interface LevelController {
     Integer getScore();
 
     /**
-     * Method to chek the exit state if win or lost.
-     * @return the current game state.
+     * This method run the current game
      */
-    State getState();
+    void gameLoop();
 }

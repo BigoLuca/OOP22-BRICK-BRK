@@ -2,72 +2,39 @@ package brickbreaker.controllers.state;
 
 import brickbreaker.model.world.World;
 import brickbreaker.model.Level;
-import brickbreaker.common.State;
 import brickbreaker.controllers.input.InputController;
-import brickbreaker.controllers.state.event.WorldEventListener;
-import brickbreaker.controllers.state.event.WorldEventListenerImpl;
 
 
 /**
  * Implements the {@link GamStateController} interface.
- * 
- * @author Agostinelli Francesco
  */
-public class LevelControllerImpl implements LevelController, Runnable {
+public class LevelControllerImpl implements LevelController {
 
     private static final double PERIOD = 16.6666;
 
-    private WorldEventListener eventListener;
     private InputController inputController;
-    private boolean pause;
     private boolean quit;
-    //private Thread game;
     private Level level;
 
     /**
      * Game state controller constructor.
      */
     public LevelControllerImpl(final Level l) {
-        this.pause = false;
-        this.quit = false;
-        //this.game = new Thread(this);
-        //this.game.setName("GameLoop");
         this.level = l;
-        this.eventListener = new WorldEventListenerImpl();
-        this.eventListener.setGameState(this.level.getGameState());
-        this.level.getGameState().init();
-        this.level.getGameState().getWorld().setEventListener(this.eventListener);
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
-    @Override
-    public void quitGame() {
-        this.level.getGameState().setState(State.LOST);
-        synchronized(this) {
-            this.notify();
-        }
+    public Level getLevel() {
+        return this.level;
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
-    @Override
-    public void pauseGame() {
-        this.pause = true;
-    }
-
-    /**
-     * {@inheritDoc}}
-     */
-    @Override
-    public void resumeGame() throws InterruptedException {
-        this.pause = false;
-        synchronized(this) {
-            this.notify();
-        }
-        this.level.getGameState().getGameTimerThread().resumeTimer();
+    public InputController getInputController() {
+        return this.inputController;
     }
 
     /**
@@ -79,48 +46,31 @@ public class LevelControllerImpl implements LevelController, Runnable {
     }
 
     /**
-     * {@inheritDoc}}
-     */
-    @Override
-    public State getState() {
-        return this.level.getGameState().getState();
-    }
-
-    /**
      * {@inheritDoc}
      * Contains the loop for each game.
      */
     @Override
-    public void run() {
-        this.level.getGameState().getGameTimerThread().start();
+    public void gameLoop() {
+        this.quit = false;
         long last = System.currentTimeMillis();
 
         while(!quit){
             
-            while(this.level.getGameState().getState().equals(State.PLAYING) && !this.pause) {
-                long current = System.currentTimeMillis();
-                int elapsed = (int) (current - last);
-                this.processCommands();
-                this.updateGame(elapsed);
-                this.render();
-                this.waitUntilNextFrame(current);
-                last = current;
-            }
-
-            if (!this.level.getGameState().getState().equals(State.PLAYING)) {
-                this.quit = true;
-                this.level.getGameState().getGameTimerThread().stopTimer();
-
-            } else if (this.pause) {
-
-                synchronized(this){
-                    try {
-                        this.level.getGameState().getGameTimerThread().stopTimer();
-                        this.wait();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
+            switch (this.level.getState()) {
+                case PLAYING:
+                    long current = System.currentTimeMillis();
+                    int elapsed = (int) (current - last);
+                    this.processCommands();
+                    this.updateGame(elapsed);
+                    this.render();
+                    this.waitUntilNextFrame(current);
+                    last = current;
+                    break;
+                case PAUSE:
+                    break;
+                default:
+                    this.quit = true;
+                    break;
             }
         }
     }
@@ -129,7 +79,7 @@ public class LevelControllerImpl implements LevelController, Runnable {
      * This method processes all the commands triggered by the user.
      */
     private void processCommands() {
-        World w = this.level.getGameState().getWorld();
+        World w = this.level.getWorld();
         w.getBar().updateInput(inputController, w.getMainBBox().getBRCorner().getX());
     }
 
@@ -138,9 +88,9 @@ public class LevelControllerImpl implements LevelController, Runnable {
      * @param elapsed
      */
     private void updateGame(final int elapsed) {
-        this.level.getGameState().updateGame(elapsed);
-        this.level.getGameState().getWorld().checkCollision();
-        this.eventListener.processAll();
+        this.level.updateGame(elapsed);
+        this.level.getWorld().checkCollision();
+        this.level.getWorld().getWorldEventListener().processAll(this.level);
     }
 
     /**

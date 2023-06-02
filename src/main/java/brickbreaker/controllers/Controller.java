@@ -15,21 +15,20 @@ import brickbreaker.model.rank.Rank;
 import brickbreaker.model.user.User;
 import brickbreaker.view.GameWindow;
 
-public class Controller {
+public class Controller extends ModelController {
 
-    private ModelController modelController;
     private GameWindow loopScene;
     private boolean haveWin;
 
     private User user = new User("Pippo");
 
     public Controller(final GameWindow gameWindow) {
-        this.modelController = new ModelController();
+        super();
         this.loopScene = gameWindow;
     }
 
     public void setUser(final String username) {
-        this.user = this.modelController.getUserController().getUser(username);
+        this.user = this.getUserController().getUser(username);
     }
 
     public void createEndless(final Difficulty d) {
@@ -42,16 +41,16 @@ public class Controller {
             Integer it = 0;
             Level level = null;
             do {
-                modelController.getErrorListener().getErrorList().clear();
-                level = modelController.getModel().getRandomLevel(Optional.of(d));
+                this.getErrorListener().getErrorList().clear();
+                level = this.getModel().getRandomLevel(Optional.of(d));
                 it++;
-            } while (modelController.getErrorListener().getErrorPresent() && it < maxIteration);
+            } while (this.getErrorListener().getErrorPresent() && it < maxIteration);
 
             if (it < maxIteration) {
                 LevelControllerImpl levCon = new LevelControllerImpl(level);
-                modelController.setLevelController(levCon);
+                this.setLevelController(levCon);
                 //loopScene.init(); mostra la prima scena
-                modelController.getLevelController().gameLoop();
+                this.getLevelController().gameLoop();
                 totalScore += levCon.getScore();
                 if(levCon.getLevel().getState().equals(State.WIN)) {
                     haveWin = true;

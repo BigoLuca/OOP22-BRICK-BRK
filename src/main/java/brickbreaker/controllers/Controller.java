@@ -20,7 +20,7 @@ public class Controller extends ModelController {
     private GameScene loopScene;
     private boolean haveWin;
 
-    private User user = new User("Pippo");
+    private User user = null;
 
     public Controller(final GameScene gameWindow) {
         super();
@@ -54,7 +54,7 @@ public class Controller extends ModelController {
                 totalScore += levCon.getScore();
                 if(levCon.getLevel().getState().equals(State.WIN)) {
                     haveWin = true;
-                } else if (levCon.getLevel().getState().equals(State.LOST)){
+                } else if (levCon.getLevel().getState().equals(State.LOST) && this.user != null){
                     r.addRank(user.getName(), totalScore);
                 }
             } else {

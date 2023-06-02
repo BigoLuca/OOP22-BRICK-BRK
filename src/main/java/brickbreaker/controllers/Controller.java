@@ -32,7 +32,7 @@ public class Controller extends ModelController {
     }
 
     public void createEndless(final Difficulty d) {
-        Rank r = new GameRank("endless.json");
+        Rank r = new GameRank("endless.json", d.ordinal());
         final Integer maxIteration = 10;
         Integer totalScore = 0;
 
@@ -47,14 +47,13 @@ public class Controller extends ModelController {
             } while (this.getErrorListener().getErrorPresent() && it < maxIteration);
 
             if (it < maxIteration) {
-                LevelControllerImpl levCon = new LevelControllerImpl(level);
-                this.setLevelController(levCon);
+                this.setLevelController(new LevelControllerImpl(level));
                 loopScene.init();
                 this.getLevelController().gameLoop();
-                totalScore += levCon.getScore();
-                if(levCon.getLevel().getState().equals(State.WIN)) {
+                totalScore += this.getLevelController().getScore();
+                if(this.getLevelController().getLevel().getState().equals(State.WIN)) {
                     haveWin = true;
-                } else if (levCon.getLevel().getState().equals(State.LOST) && this.user != null){
+                } else if (this.getLevelController().getLevel().getState().equals(State.LOST) && this.user != null){
                     r.addRank(user.getName(), totalScore);
                 }
             } else {
@@ -63,41 +62,16 @@ public class Controller extends ModelController {
         } while (haveWin);
     }
 
-    public synchronized void createLevel(final Integer id) {
-        //lock.lock();
-        Rank r = new GameRank("levels.json");
-        modelController.getErrorListener().getErrorList().clear();
-        Level level = modelController.getModel().getLevel(id);
-
-        if(!modelController.getErrorListener().getErrorPresent()){
-            LevelControllerImpl levCon = new LevelControllerImpl(level);
-            modelController.setLevelController(levCon);
-            gameLoop = new Thread(levCon);
-
-            /*
-            try {
-                condition.await();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } finally {
-                lock.unlock();
-            }
-            */
-
-            gameLoop.start();
-            // this.viewController.showLevel(level).show(); + while fino a quando non clicca play + ritorna l'angolo della pallina
-            try {
-                // Main thread wait the execution of "gameLoop" thread
-                gameLoop.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            if(levCon.getState().equals(State.WIN)) { 
-                r.addRank(
-                    user.getName(),
-                    r.getPlayerScore(user.getName()) + levCon.getScore());
-                //set level score
+    public synchronized void createLevels(final Integer id) {
+        Rank r = new GameRank("levels.json", id);
+        this.getErrorListener().getErrorList().clear();
+        Level level = this.getModel().getLevel(id);
+        if (!this.getErrorListener().getErrorPresent()) {
+            this.setLevelController(new LevelControllerImpl(level));
+            loopScene.init();
+            this.getLevelController().gameLoop();
+            if(this.getLevelController().getLevel().getState().equals(State.WIN) && this.user != null) {
+                r.addRank(user.getName(), this.getLevelController().getScore());
             }
         } else {
             // mostra errore caricamento

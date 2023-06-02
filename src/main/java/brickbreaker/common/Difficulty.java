@@ -10,7 +10,9 @@ public enum Difficulty {
     /** Medium. */
     MEDIUM(50),
     /** Hard. */
-    HARD(30);
+    HARD(30),
+    /** Random */
+    RANDOM(0);
 
     private final Integer percentage;
 

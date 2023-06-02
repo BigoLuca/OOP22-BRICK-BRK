@@ -1,11 +1,14 @@
 package brickbreaker.model;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import brickbreaker.ResourceLoader;
+import brickbreaker.common.Difficulty;
+import brickbreaker.model.factory.WorldFactory;
 
 public class GameModelImpl implements GameModel {
 
@@ -31,18 +34,21 @@ public class GameModelImpl implements GameModel {
         return this.mapList.size();
     }
 
-    @Override
-    public Level getRandomLevel() {
+    private Difficulty getRandomDifficulty() {
         Random randomDiff = new Random();
-        Integer diff = randomDiff.nextInt(90 - 10 + 1) + 10; // random between [10,90]
-        Integer map = randomDiff.nextInt(this.getListMapLenght());
-        
-        return new Level(0, this.getNameMap(map), diff);
+        return Difficulty.values()[randomDiff.nextInt(3)];
+    }
+
+    @Override
+    public Level getRandomLevel(final Optional<Difficulty> diff) {
+
+        Difficulty d = diff.isPresent() ? diff.get() : this.getRandomDifficulty();
+        return new Level(0, WorldFactory.getInstance().getWorld(d));
     }
 
     @Override
     public Level getLevel(Integer level) {
-        return new Level(level, this.getNameMap(level), this.difficulty.get(level));
+        return new Level(level, WorldFactory.getInstance().getWorld(this.getNameMap(level), this.difficulty.get(level)));
     }
 
 }

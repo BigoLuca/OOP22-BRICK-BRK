@@ -1,8 +1,7 @@
 package brickbreaker.model;
 
-import brickbreaker.model.factory.WorldFactory;
-import brickbreaker.model.state.GameState;
-import brickbreaker.model.state.GameStateImpl;
+import brickbreaker.common.State;
+import brickbreaker.model.world.World;
 
 /**
  * Class representing a single level.
@@ -10,7 +9,8 @@ import brickbreaker.model.state.GameStateImpl;
 public class Level {
 
     private final Integer id;
-    private GameState gs;
+    private World world;
+    private State state;
     private Integer score;
 
     /**
@@ -18,10 +18,11 @@ public class Level {
      * @param id
      * @param nameMap
      */
-    public Level(final Integer id, final String nameMap, final Integer diff) {
+    public Level(final Integer id, final World w) {
         this.id = id;
-        this.gs = new GameStateImpl(WorldFactory.getInstance().getWorld(nameMap, diff));
+        this.world = w;
         this.score = 0;
+        this.state = State.PAUSE;
     }
 
     /**
@@ -31,12 +32,47 @@ public class Level {
         return this.id;
     }
 
-    public GameState getGameState() {
-        return this.gs;
+    /**
+     * This method returns the current game world.
+     * @return A World object
+     */
+    public World getWorld() {
+        return this.world;
     }
 
-    public void setGameState(GameState g) {
-        this.gs = g;
+    /*
+     * This method updates all world objects of a frame.
+     */
+    public void updateGame(final Integer elapsed) {
+        this.world.updateGame(elapsed);
+    }
+
+    /**
+     * This method returns the current state.
+     * @return A State enum object
+     */
+    public State getState() {
+        if (this.world.getBar().getLife() <= 0) {
+            this.state = State.LOST;
+        } else if (this.world.getBalls().size() <= 0) {
+            this.world.addBall(GameFactory.getInstance().createBall(null, null));
+            this.level.getWorld().getBar().setPosition(null); // TODO set bar and ball in center position
+            this.level.getWorld().addBall();
+            this.state = State.PAUSE;
+        } else if (this.getWorld().getBricks().size() == 0) {
+            this.state = State.WIN;
+        }
+        return this.state;
+    }
+
+
+
+    /**
+     * This method sets the state passed.
+     * @param s
+     */
+    public void setState(final State s) {
+        this.state = s;
     }
 
     /**

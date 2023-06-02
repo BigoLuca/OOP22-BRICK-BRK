@@ -27,6 +27,10 @@ public class ResourceLoader {
     public final Integer MAP_COLUMNS_FILE_FORMAT = 6;
     public final Integer MAP_ROWS_FILE_FORMAT = 3;
 
+    private final String NAME = "name";
+    private final String SCORE = "score";
+    private final String LEVEL_REACHED = "levelReached";
+
     private static ResourceLoader instance;
     private String mapsPath;
     private String ranksPath;
@@ -132,6 +136,13 @@ public class ResourceLoader {
     }
 
     /**
+     * @return the list of name ranks files in the directory
+     */
+    private List<String> getRanksFileName() {
+        return Arrays.asList(new File(ranksPath).list());
+    }
+
+    /**
      * Method to get from a file a rank list of players.
      * @param file
      * @return a list of players stats
@@ -143,7 +154,7 @@ public class ResourceLoader {
 
         for (JsonValue element : js) {
             JsonObject jObj = element.asJsonObject();
-            rank.put(jObj.getString("name"), jObj.getInt("score"));
+            rank.put(jObj.getString(NAME), jObj.getInt(SCORE));
         }
 
         List<Map.Entry<String, Integer>> entryList = new ArrayList<>(rank.entrySet());
@@ -166,8 +177,8 @@ public class ResourceLoader {
         JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
         for (Map.Entry<String, Integer> e : rank.entrySet()) {
             JsonObject jsonObject = Json.createObjectBuilder()
-                    .add("name", e.getKey())
-                    .add("score", e.getValue())
+                    .add(NAME, e.getKey())
+                    .add(SCORE, e.getValue())
                     .build();
             arrayBuilder.add(jsonObject);
         }
@@ -184,47 +195,59 @@ public class ResourceLoader {
         JsonArray js = this.loadJson(this.userPath, Error.USERLOADER_ERROR);
 
         for (JsonValue element : js) {
-            JsonObject jObj = element.asJsonObject();
-            JsonArray scoresArray = jObj.getJsonArray("scores");
-            Map<Integer, Integer> map = new HashMap<>();
-            for(JsonValue j : scoresArray) {
-                JsonObject jo = j.asJsonObject();
-                map.put(jo.getInt("level"), jo.getInt("score"));
-            }
-            users.add(new User(jObj.getString("name"), map, jObj.getInt("levelReached")));
+            users.add(new User(element.asJsonObject().getString(NAME)));
         }
-
         return users;
     }
 
     /**
-     * Method to add a user to the json user file.
-     * @param user
+     * Method to get the level reached by the user.
+     * @param username
+     * @return an Integer representing the level
      */
-    public void addUser(final User user) {
-
+    public Integer getLevelReached(final String username) {
         JsonArray js = this.loadJson(this.userPath, Error.USERLOADER_ERROR);
-        JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
-        JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
-        for (Map.Entry<Integer, Integer> entry : user.getScores().entrySet()){
-            jsonObjectBuilder.add("level", entry.getKey());
-            jsonObjectBuilder.add("score", entry.getValue());
-            jsonArrayBuilder.add(jsonObjectBuilder.build());
+        for (JsonValue element : js) {
+            JsonObject jObj = element.asJsonObject();
+            if (jObj.getString(NAME).equals(username)) {
+                return jObj.getInt(LEVEL_REACHED);
+            }
         }
-        JsonObject newUser = Json.createObjectBuilder()
-                .add("name", user.getName())
-                .add("scores", jsonArrayBuilder.build())
-                .add("levelReached", user.getLevelReached())
-                .build();
-
-        this.writeJson(this.userPath, this.addElem(js, newUser), Error.USERWRITER_ERROR);
+        return 1;
     }
 
     /**
-     * @return the list of name ranks files in the directory
+     * Method to increment the level reached by the user.
+     * @param username
      */
-    private List<String> getRanksFileName() {
-        return Arrays.asList(new File(ranksPath).list());
+    public void incLevelReached(final String username) {
+        JsonArray js = this.loadJson(this.userPath, Error.USERLOADER_ERROR);
+        for (int i = 0; i < js.size(); i++) {
+            JsonObject jsonObject = js.getJsonObject(i);
+            if (jsonObject.getString(NAME).equals(username)) {
+                int currentLevel = jsonObject.getInt(LEVEL_REACHED);
+                jsonObject = Json.createObjectBuilder(jsonObject)
+                        .add(LEVEL_REACHED, currentLevel + 1)
+                        .build();
+                js = (JsonArray) js.set(i, jsonObject);
+                break;
+            }
+        }
+        this.writeJson(this.userPath, js, Error.USERWRITER_ERROR);
+    }
+
+    /**
+     * Method to add a new user to the json user file.
+     * @param user
+     */
+    public void addUser(final String user) {
+
+        JsonArray js = this.loadJson(this.userPath, Error.USERLOADER_ERROR);
+        JsonObject newUser = Json.createObjectBuilder()
+                .add(NAME, user)
+                .add(LEVEL_REACHED, 1)
+                .build();
+        this.writeJson(this.userPath, this.addElem(js, newUser), Error.USERWRITER_ERROR);
     }
 
     /**
@@ -237,7 +260,7 @@ public class ResourceLoader {
         JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
         for (JsonValue jv : js){
             JsonObject j = jv.asJsonObject();
-            if(!j.getString("name").equals(username)){
+            if(!j.getString(NAME).equals(username)){
                 jsonArrayBuilder.add(j);
             }
         }
@@ -248,8 +271,7 @@ public class ResourceLoader {
             jsonArrayBuilder = Json.createArrayBuilder();
             for (JsonValue jv : js){
                 JsonObject j = jv.asJsonObject();
-                System.out.println(j.getString("name"));
-                if(!j.getString("name").equals(username)){
+                if(!j.getString(NAME).equals(username)){
                     jsonArrayBuilder.add(j);
                 }
             }

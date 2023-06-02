@@ -13,9 +13,16 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 
+import brickbreaker.controllers.UserController;
+
 public class PlayerScene extends Application {
 
     private List<String> players;
+    private final UserController userController;
+
+    public PlayerScene(UserController userController){
+        this.userController = userController;
+    }
 
     @Override
     public void start(Stage primaryStage) {

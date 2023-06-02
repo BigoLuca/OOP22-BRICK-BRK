@@ -19,7 +19,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class GameWindow extends Application {
+public class GameScene extends Application {
     private static final int WIDTH = 1000;
     private static final int HEIGHT = 600;
     private static final int PADDLE_WIDTH = 600;
@@ -48,7 +48,7 @@ public class GameWindow extends Application {
     private static final ResourceLoader rl = ResourceLoader.getInstance();
 
     
-
+    @Override
     public void start(Stage primaryStage) {
         canvas = new Canvas(WIDTH, HEIGHT);
         gc = canvas.getGraphicsContext2D();
@@ -64,8 +64,8 @@ public class GameWindow extends Application {
         // TI ringrazio bigo di darmi una lista della quale non me ne faccio nulla        
         
         // Sti due metodi non funzionano o meglio sparano numeri strani?
-        GameWindow.BRICK_ROWS = 6;      //GameWindow.BRICK_ROWS; NOT WORKING
-        GameWindow.BRICK_COLUMNS = 4;   //GameWindow.BRICK_COLUMNS; NOT WORKING
+        GameScene.BRICK_ROWS = 6;      //GameWindow.BRICK_ROWS; NOT WORKING
+        GameScene.BRICK_COLUMNS = 4;   //GameWindow.BRICK_COLUMNS; NOT WORKING
         bricks = rl.convertToListArray(mattoni, BRICK_COLUMNS, BRICK_ROWS);
 
         System.out.println("Righe: " + BRICK_ROWS + " Colonne: " + BRICK_COLUMNS);

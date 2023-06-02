@@ -9,8 +9,22 @@ import javafx.stage.Stage;
  */
 public final class JavaFXApp extends Application {
 
+    GameScene gameWindow = new GameScene();
+    Controller controller = new Controller(gameWindow);
+    PlayerScene playerScene = new PlayerScene(controller.getUserController());
+    ModeScene modeScene = new ModeScene();
+    //LevelScene LevelScene = new LevelScene(controller.getModel().getListMapLenght());
+
+
     @Override
     public void start(final Stage primaryStage) throws Exception {
+
+        
+        playerScene.start(primaryStage);
+
+        modeScene.start(primaryStage);
+
+
 
         /*
         new PlayerScene().start(primaryStage);

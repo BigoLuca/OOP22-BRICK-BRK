@@ -2,6 +2,7 @@ package brickbreaker;
 
 import brickbreaker.view.JavaFXApp;
 import javafx.application.Application;
+import javafx.stage.Stage;
 
 /**
  * Main project class.
@@ -14,6 +15,9 @@ public final class App {
      * @param args command line args
      */
     public static void main(final String[] args) throws Exception {
-        Application.launch(JavaFXApp.class, args);
+        Application.launch(Application.class, args);
     }
+    
+
+
 }

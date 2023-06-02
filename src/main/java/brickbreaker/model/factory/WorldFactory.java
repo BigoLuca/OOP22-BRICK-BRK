@@ -82,6 +82,7 @@ public class WorldFactory {
 
         World w = getEmptyWorld();
         List<Brick> bricks;
+        ResourceLoader r = ResourceLoader.getInstance();
 
         if (r.loadMap(name).isPresent()) {
             bricks = GameFactory.getInstance().createBricks(r.loadMap(name).get(), r.getMapColumns(), r.getMapRows());

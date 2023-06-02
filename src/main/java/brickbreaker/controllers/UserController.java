@@ -8,7 +8,9 @@ import brickbreaker.model.user.User;
 
 public class UserController {
 
+    private static final int MAX_PLAYER = 5;
     public UserController() {}
+
 
     public List<String> getUsersName() {
         return ResourceLoader.getInstance().getUsers().stream().map(User::getName).collect(Collectors.toList());
@@ -24,5 +26,9 @@ public class UserController {
 
     public void removeUser(final String username) {
         ResourceLoader.getInstance().removeUser(username);
+    }
+
+    public boolean isMaxUser(){
+        return ResourceLoader.getInstance().getUsers().size() < UserController.MAX_PLAYER;
     }
 }

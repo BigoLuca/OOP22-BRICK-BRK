@@ -1,37 +1,38 @@
 package brickbreaker.controllers;
 
+import java.util.Optional;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import brickbreaker.common.Difficulty;
 import brickbreaker.common.State;
+import brickbreaker.common.Vector2D;
 import brickbreaker.controllers.state.LevelControllerImpl;
 import brickbreaker.model.Level;
 import brickbreaker.model.rank.GameRank;
 import brickbreaker.model.rank.Rank;
 import brickbreaker.model.user.User;
+import brickbreaker.view.GameWindow;
 
 public class Controller {
 
     private ModelController modelController;
-    //private ViewController viewController;
+    private GameWindow loopScene;
     private boolean haveWin;
-    private Thread gameLoop;
-    private Lock lock = new ReentrantLock();
-    private Condition condition = lock.newCondition();
 
     private User user = new User("Pippo");
 
-    public Controller() {
+    public Controller(final GameWindow gameWindow) {
         this.modelController = new ModelController();
+        this.loopScene = gameWindow;
     }
 
     public void setUser(final String username) {
         this.user = this.modelController.getUserController().getUser(username);
     }
 
-    public void createEndless() {
-        lock.lock();
+    public void createEndless(final Difficulty d) {
         Rank r = new GameRank("endless.json");
         final Integer maxIteration = 10;
         Integer totalScore = 0;
@@ -42,46 +43,29 @@ public class Controller {
             Level level = null;
             do {
                 modelController.getErrorListener().getErrorList().clear();
-                level = modelController.getModel().getRandomLevel();
+                level = modelController.getModel().getRandomLevel(Optional.of(d));
                 it++;
             } while (modelController.getErrorListener().getErrorPresent() && it < maxIteration);
 
             if (it < maxIteration) {
                 LevelControllerImpl levCon = new LevelControllerImpl(level);
                 modelController.setLevelController(levCon);
-                gameLoop = new Thread(levCon);
-
-                try {
-                    condition.await();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } finally {
-                    lock.unlock();
-                }
-                //dai il comando alla view:  
-                // this.viewController.showLevel(level).show(); + while fino a quando non clicca play + ritorna l'angolo della pallina
-                System.out.println("parto con il GameLoop");
-                
-                gameLoop.start();
-                try {
-                    // Main thread wait the execution of "gameLoop" thread
-                    gameLoop.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                //loopScene.init(); mostra la prima scena
+                modelController.getLevelController().gameLoop();
                 totalScore += levCon.getScore();
-                if(levCon.getState().equals(State.WIN)) {
+                if(levCon.getLevel().getState().equals(State.WIN)) {
                     haveWin = true;
+                } else if (levCon.getLevel().getState().equals(State.LOST)){
+                    r.addRank(user.getName(), totalScore);
                 }
             } else {
                 // mostra errore caricamento
             }
         } while (haveWin);
-        r.addRank(user.getName(), totalScore);
     }
 
     public synchronized void createLevel(final Integer id) {
-        lock.lock();
+        //lock.lock();
         Rank r = new GameRank("levels.json");
         modelController.getErrorListener().getErrorList().clear();
         Level level = modelController.getModel().getLevel(id);
@@ -91,6 +75,7 @@ public class Controller {
             modelController.setLevelController(levCon);
             gameLoop = new Thread(levCon);
 
+            /*
             try {
                 condition.await();
             } catch (InterruptedException e) {
@@ -98,10 +83,10 @@ public class Controller {
             } finally {
                 lock.unlock();
             }
+            */
 
-            // this.viewController.showLevel(level).show(); + while fino a quando non clicca play + ritorna l'angolo della pallina
-            
             gameLoop.start();
+            // this.viewController.showLevel(level).show(); + while fino a quando non clicca play + ritorna l'angolo della pallina
             try {
                 // Main thread wait the execution of "gameLoop" thread
                 gameLoop.join();
@@ -118,28 +103,5 @@ public class Controller {
         } else {
             // mostra errore caricamento
         }
-    }
-
-    public void play() {
-        lock.lock();
-        try {
-            condition.signal();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            lock.unlock();
-        }
-    }
-
-    public void pause() {
-        modelController.getLevelController().pauseGame();
-    }
-
-    public void resume() throws InterruptedException {
-        modelController.getLevelController().resumeGame();
-    }
-
-    public void quit() {
-        modelController.getLevelController().quitGame();
     }
 }

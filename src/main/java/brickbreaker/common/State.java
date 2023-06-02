@@ -5,10 +5,14 @@ package brickbreaker.common;
  */
 public enum State {
 
+    /** Pause. */
+    PAUSE,
     /** Playing. */
     PLAYING,
     /** Win. */
     WIN,
     /** Lost. */
-    LOST
+    LOST,
+    /** Quit. */
+    QUIT
 }

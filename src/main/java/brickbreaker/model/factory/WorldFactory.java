@@ -68,7 +68,6 @@ public class WorldFactory {
             ErrorListener.notifyError(Error.MAPLOADER_ERROR);
             bricks = new ArrayList<Brick>();
         }
-        
         w.addBricks(bricks);
         return w;
     }
@@ -81,7 +80,17 @@ public class WorldFactory {
      */
     public World getWorld(final String name, final Integer bonusPercentage) {
 
-        World w = this.getBasicWorld(name);
+        World w = getEmptyWorld();
+        List<Brick> bricks;
+
+        if (r.loadMap(name).isPresent()) {
+            bricks = GameFactory.getInstance().createBricks(r.loadMap(name).get(), r.getMapColumns(), r.getMapRows());
+        } else {
+            ErrorListener.notifyError(Error.MAPLOADER_ERROR);
+            bricks = new ArrayList<Brick>();
+        }
+        w.addBricks(bricks);
+
         Integer bonusQuantity = (w.getBricks().size() / 100) * bonusPercentage;
 
         if (bonusQuantity < w.getBricks().size()) {

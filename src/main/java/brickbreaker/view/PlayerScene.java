@@ -36,19 +36,22 @@ public class PlayerScene {
         root.getChildren().add(titleLabel);
 
         // Create a Button for add a new player
-        HBox addBox = new HBox();
-        TextField addText = new TextField("Add a new player: ");
-        addText.setStyle("-fx-text-fill: black; -fx-background-color: darkgrey;");
-        Button addPlayer = new Button("NEW");
-        addPlayer.setOnAction(event ->{
-            String newPlayer = addText.getText();
-            if (newPlayer != null && !newPlayer.isEmpty()) {
-                this.switcher.controller.getUserController().addUser(newPlayer);
-                show();
-            }
-        });
-        addBox.getChildren().addAll(addText, addPlayer);
-        root.getChildren().add(addBox);
+        if(this.switcher.controller.getUserController().isMaxUser()){
+            HBox addBox = new HBox();
+            addBox.setAlignment(Pos.CENTER);
+            TextField addText = new TextField("Add a new player: ");
+            addText.setStyle("-fx-text-fill: black; -fx-background-color: darkgrey;");
+            Button addPlayer = new Button("NEW");
+            addPlayer.setOnAction(event ->{
+                String newPlayer = addText.getText();
+                if (newPlayer != null && !newPlayer.isEmpty()) {
+                    this.switcher.controller.getUserController().addUser(newPlayer);
+                    show();
+                }
+            });
+            addBox.getChildren().addAll(addText, addPlayer);
+            root.getChildren().add(addBox);
+        }
 
 
 
@@ -57,12 +60,17 @@ public class PlayerScene {
 
         // Create buttons for player selection
         for (String player : players) {
+            HBox playerBox = new HBox(10);
+            playerBox.setAlignment(Pos.CENTER);
             Button playerButton = createPlayerButton(player);
-            root.getChildren().add(playerButton);
+            Button removerButton = createRemoverButton(player);
+            playerBox.getChildren().addAll(playerButton, removerButton);
+            root.getChildren().add(playerBox);
         }
 
         // Create a scene with the root VBox
-        Scene scene = new Scene(root, 400, 300);
+        Scene scene = new Scene(root, 800, 400);
+       
 
         // Set the scene on the primary stage
         this.switcher.primaryStage.setScene(scene);
@@ -94,6 +102,30 @@ public class PlayerScene {
         });
 
         return playerButton;
+    }
+
+    private Button createRemoverButton(String player){
+        Button removeButton = new Button("DELETE");
+        removeButton.setPrefWidth(100);
+        removeButton.setPrefHeight(100);
+        removeButton.setStyle("-fx-text-fill: black; -fx-background-color: red;");
+        // Hover effect
+        removeButton.hoverProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                removeButton.setStyle("-fx-text-fill: black; -fx-background-color: grey;");
+            } else {
+                removeButton.setStyle("-fx-text-fill: black; -fx-background-color: red;");
+            }
+        });
+        
+
+        removeButton.setOnAction(event -> {
+            this.switcher.controller.getUserController().removeUser(player);
+            show();
+            // You can perform further actions based on the selected player
+        });
+
+        return removeButton;
     }
 
 }

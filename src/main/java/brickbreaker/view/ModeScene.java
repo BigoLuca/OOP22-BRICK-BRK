@@ -1,16 +1,19 @@
 package brickbreaker.view;
 
-import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 
-public class ModeScene extends Application {
+public class ModeScene {
 
-    @Override
-    public void start(Stage primaryStage) {
+    private final JavaFXApp app;
+
+    public ModeScene(JavaFXApp app){
+        this.app = app;
+    }
+
+    public void show() {
         Button button = new Button();
         button.setPrefSize(200, 100);
 
@@ -23,13 +26,10 @@ public class ModeScene extends Application {
 
         StackPane root = new StackPane(button);
         Scene scene = new Scene(root, 400, 200);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Button with Background Image");
-        primaryStage.show();
-    }
 
-    public static void main(String[] args) {
-        launch(args);
+        app.primaryStage.setScene(scene);
+        app.primaryStage.setTitle("Button with Background Image");
+        app.primaryStage.show();
     }
 }
 

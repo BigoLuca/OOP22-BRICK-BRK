@@ -7,46 +7,30 @@ import javafx.stage.Stage;
 /**
  * Sample JavaFX application.
  */
-public final class JavaFXApp extends Application {
+public class JavaFXApp extends Application {
 
-    GameScene gameWindow = new GameScene();
-    Controller controller = new Controller(gameWindow);
-    PlayerScene playerScene = new PlayerScene(controller.getUserController());
-    ModeScene modeScene = new ModeScene();
     //LevelScene LevelScene = new LevelScene(controller.getModel().getListMapLenght());
+    protected Stage primaryStage;
+    protected Controller controller;
 
+    private GameScene gameWindow;
+    private PlayerScene playerScene = new PlayerScene(this);
+    private ModeScene modeScene = new ModeScene(this);
 
     @Override
     public void start(final Stage primaryStage) throws Exception {
+        this.primaryStage = primaryStage;
+        this.gameWindow = new GameScene(this.primaryStage);
+        this.controller = new Controller(gameWindow);
 
-        
-        playerScene.start(primaryStage);
+        switchToPlayerScene();
+    }
 
-        modeScene.start(primaryStage);
+    public void switchToPlayerScene(){
+        playerScene.show();
+    }
 
-
-
-        /*
-        new PlayerScene().start(primaryStage);
-
-        // Label
-        final Label message = new Label("Hello, JavaFX!"); 
-        message.setFont(new Font(100));
-
-        // Button
-        final Button button = new Button("Click me!");
-        button.setOnAction(event -> {
-            message.setText("Hello, World!");
-            button.setText("Clicked!");
-            PauseWindow.display();
-        });
-        */
-
-        Controller controller = new Controller();
-        Thread thread = new Thread(() -> controller.createEndless());
-        thread.start();
-        UserScene scene = new UserScene();
-        scene.show(primaryStage, controller);
-        
+    public void switchToModeScene(){
+        modeScene.show();
     }
 }

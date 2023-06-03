@@ -15,19 +15,9 @@ import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
 public interface World {
 
     /**
-     * @return the World event listener
-     */
-    WorldEventListener getWorldEventListener();
-
-    /**
      * @param ball
      */
     void addBall(Ball ball);
-
-    /**
-     * @param ball
-     */
-    void removeBall(Ball ball);
 
     /**
      * @return the list of ball in play
@@ -50,12 +40,6 @@ public interface World {
     void addBricks(List<Brick> bricks);
 
     /**
-     * Remove the brick hitted and create a power Up in its place.
-     * @param brick
-     */
-    void removeBrick(Brick brick);
-
-    /**
      * @return the list of live bricks
      */
     List<Brick> getBricks();
@@ -75,4 +59,26 @@ public interface World {
      * Comunicate to the Wolrd listener if a collision occurs between two objects.
      */
     void checkCollision();
+
+    /**
+     * This method gets the current points scored by the user.
+     * @return An integer value.
+     */
+    public Integer getScore();
+
+    /**
+     * This method increments the current score by the value
+     * specified by the increment parameter.
+     * @param increment an integer value which is the increment.
+     */
+    public void incScore(Integer increment);
+
+    /**
+     * This method decrements the current score by the value
+     * specified by the decrement parameter.
+     * @param decrement an integer value which is the decrement value.
+     */
+    public void decScore(Integer decrement);
+
+
 }

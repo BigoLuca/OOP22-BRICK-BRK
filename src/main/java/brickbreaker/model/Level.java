@@ -14,7 +14,6 @@ public class Level {
     private final Integer id;
     private World world;
     private State state;
-    private Integer score;
 
     /**
      * Level constructor.
@@ -24,7 +23,6 @@ public class Level {
     public Level(final Integer id, final World w) {
         this.id = id;
         this.world = w;
-        this.score = 0;
         this.state = State.PAUSE;
     }
 
@@ -80,31 +78,5 @@ public class Level {
      */
     public void setState(final State s) {
         this.state = s;
-    }
-
-    /**
-     * This method gets the current points scored by the user.
-     * @return An integer value.
-     */
-    public final int getScore() {
-        return this.score;
-    }
-
-    /**
-     * This method increments the current score by the value
-     * specified by the increment parameter.
-     * @param increment an integer value which is the increment.
-     */
-    public final void incScore(final Integer increment) {
-        this.score += increment;
-    }
-
-    /**
-     * This method decrements the current score by the value
-     * specified by the decrement parameter.
-     * @param decrement an integer value which is the decrement value.
-     */
-    public final void decScore(final Integer decrement) {
-        this.score -= decrement;
     }
 }

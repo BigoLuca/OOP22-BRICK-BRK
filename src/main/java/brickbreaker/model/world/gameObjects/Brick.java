@@ -1,9 +1,9 @@
 package brickbreaker.model.world.gameObjects;
 
 import brickbreaker.common.TypeObj;
+import brickbreaker.common.TypePower;
 import brickbreaker.common.Vector2D;
 import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
-import brickbreaker.model.world.gameObjects.power.TypePower;
 
 /**
  * Class to model the game object Brick.

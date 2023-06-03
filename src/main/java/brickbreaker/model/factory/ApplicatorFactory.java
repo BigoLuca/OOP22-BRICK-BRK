@@ -1,6 +1,6 @@
 package brickbreaker.model.factory;
 
-import brickbreaker.model.world.gameObjects.power.TypePower;
+import brickbreaker.common.TypePower;
 import brickbreaker.model.world.gameObjects.power.applicator.BallSpeedApplicator;
 import brickbreaker.model.world.gameObjects.power.applicator.BarLengthApplicator;
 import brickbreaker.model.world.gameObjects.power.applicator.PowerUpApplicator;

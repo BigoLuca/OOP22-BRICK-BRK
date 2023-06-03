@@ -1,9 +1,7 @@
-package brickbreaker.model.world.gameObjects.power;
+package brickbreaker.common;
 
 import java.util.List;
 import java.util.stream.Stream;
-
-import brickbreaker.common.TypePowerUp;
 
 /**
  * Enum of type PowerUp.

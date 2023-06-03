@@ -7,6 +7,7 @@ import java.util.Random;
 import brickbreaker.ResourceLoader;
 import brickbreaker.common.Difficulty;
 import brickbreaker.common.Error;
+import brickbreaker.common.TypePower;
 import brickbreaker.common.TypePowerUp;
 import brickbreaker.common.Vector2D;
 import brickbreaker.controllers.listener.ErrorListener;
@@ -16,7 +17,6 @@ import brickbreaker.model.world.gameObjects.Ball;
 import brickbreaker.model.world.gameObjects.Bar;
 import brickbreaker.model.world.gameObjects.Brick;
 import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
-import brickbreaker.model.world.gameObjects.power.TypePower;
 
 /**
  * Factory class for creating game World.

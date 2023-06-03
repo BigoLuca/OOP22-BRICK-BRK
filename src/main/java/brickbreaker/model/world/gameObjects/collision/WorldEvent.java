@@ -1,4 +1,4 @@
-package brickbreaker.model.world;
+package brickbreaker.model.world.gameObjects.collision;
 
 import brickbreaker.common.Vector2D;
 import brickbreaker.model.world.WorldImpl.SideCollision;
@@ -7,11 +7,16 @@ import brickbreaker.model.world.gameObjects.GameObject;
 import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
 
 /**
- * Interface to executed the events of the world.
+ * Interface to executed the collision events of the world.
  */
 public class WorldEvent {
-    
-    // Hit with a border
+
+    /**
+     * Process the collision of the ball with the border side.
+     * @param ball
+     * @param side
+     * @param newPos
+     */
     public void process(final Ball ball, final SideCollision side, final Double newPos) {
 
         switch (side) {
@@ -32,7 +37,12 @@ public class WorldEvent {
         }
     }
 
-    // hit with a brick or bar
+    /**
+     * Process the ball collision with and object [brick, bar].
+     * Flip the speed of the ball.
+     * @param ball
+     * @param obj
+     */
     public void process(final Ball ball, final GameObject<RectBoundingBox> obj) {
         
         switch (side(ball.getPosition(), obj.getBBox())) {
@@ -74,10 +84,5 @@ public class WorldEvent {
         } else {
             return SideCollision.LEFT;
         }
-    }
-
-    // collision with a powerUp
-    public void process() {
-
     }
 }

@@ -9,13 +9,13 @@ import java.util.Iterator;
 import brickbreaker.common.TypePower;
 import brickbreaker.common.Vector2D;
 import brickbreaker.model.factory.ApplicatorFactory;
-import brickbreaker.model.world.event.*;
 import brickbreaker.model.world.gameObjects.Ball;
 import brickbreaker.model.world.gameObjects.Bar;
 import brickbreaker.model.world.gameObjects.Brick;
 import brickbreaker.model.world.gameObjects.PowerUp;
 import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
-import brickbreaker.model.world.gameObjects.power.applicator.PowerUpApplicator;
+import brickbreaker.model.world.gameObjects.collision.WorldEvent;
+import brickbreaker.model.world.gameObjects.collision.powerUpApplicator.PowerUpApplicator;
 
 /**
  * {@inheritDoc}
@@ -23,6 +23,7 @@ import brickbreaker.model.world.gameObjects.power.applicator.PowerUpApplicator;
  */
 public class WorldImpl implements World {
 
+    private final Integer BRICK_SCORE = 5;
     /**
      * Indicates on which side the collision occurred.
      */
@@ -179,6 +180,7 @@ public class WorldImpl implements World {
                         brick.decLife();
                         if (brick.getLife() <= 0) {
                             this.removeBrick(brick);
+                            this.incScore(BRICK_SCORE);
                         }
                     }
                 }
@@ -196,8 +198,8 @@ public class WorldImpl implements World {
             if (p.getPosition().getY() - p.getHeight() / 2 < mainBBox.getBRCorner().getY()) {
                 this.activePowerUps.remove(p);
             } else if (p.getBBox().isCollidingWith(bar.getBBox())) {
-                //PowerUpApplicator a = ApplicatorFactory.getInstance().createApplicator(p.getPowerUp());
-                this.event.process(p,); // end power up applicator
+                PowerUpApplicator a = ApplicatorFactory.getInstance().createApplicator(p.getPowerUp());
+                a.applyPowerUp(this);
                 this.activePowerUps.remove(p);
             }
         }

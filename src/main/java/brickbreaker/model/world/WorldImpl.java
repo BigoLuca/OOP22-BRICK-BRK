@@ -21,7 +21,6 @@ import brickbreaker.model.world.gameObjects.power.applicator.PowerUpApplicator;
  * {@inheritDoc}
  * Implements the {@link World} interface.
  */
-//TODO: Discuss if implement a powerup list or stay with the difficulty field.
 public class WorldImpl implements World {
 
     /**

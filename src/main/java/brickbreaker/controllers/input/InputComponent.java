@@ -5,7 +5,6 @@ import brickbreaker.model.world.gameObjects.Bar;
 /**
  * Interface with a common method for all object input.
  */
-// TODO use generics instead of Bar
 public interface InputComponent {
 
     /**

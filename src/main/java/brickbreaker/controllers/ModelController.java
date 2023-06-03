@@ -1,7 +1,6 @@
 package brickbreaker.controllers;
 
-import brickbreaker.controllers.state.ErrorListener;
-import brickbreaker.controllers.state.LevelController;
+import brickbreaker.controllers.listener.ErrorListener;
 import brickbreaker.model.GameModel;
 import brickbreaker.model.GameModelImpl;
 

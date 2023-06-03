@@ -1,4 +1,4 @@
-package brickbreaker.controllers.state;
+package brickbreaker.controllers;
 
 import brickbreaker.model.world.World;
 import brickbreaker.model.Level;
@@ -90,7 +90,6 @@ public class LevelControllerImpl implements LevelController {
     private void updateGame(final int elapsed) {
         this.level.updateGame(elapsed);
         this.level.getWorld().checkCollision();
-        this.level.getWorld().getWorldEventListener().processAll(this.level);
     }
 
     /**

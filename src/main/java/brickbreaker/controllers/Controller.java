@@ -8,7 +8,6 @@ import java.util.concurrent.locks.ReentrantLock;
 import brickbreaker.common.Difficulty;
 import brickbreaker.common.State;
 import brickbreaker.common.Vector2D;
-import brickbreaker.controllers.state.LevelControllerImpl;
 import brickbreaker.model.Level;
 import brickbreaker.model.rank.GameRank;
 import brickbreaker.model.rank.Rank;

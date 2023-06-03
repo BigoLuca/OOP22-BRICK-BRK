@@ -1,4 +1,4 @@
-package brickbreaker.controllers.state;
+package brickbreaker.controllers;
 
 import brickbreaker.controllers.input.InputController;
 import brickbreaker.model.Level;

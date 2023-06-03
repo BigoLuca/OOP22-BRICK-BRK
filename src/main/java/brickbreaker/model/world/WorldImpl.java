@@ -2,16 +2,19 @@ package brickbreaker.model.world;
 
 
 import java.util.List;
+
 import java.util.ArrayList;
+import java.util.Iterator;
+
+import brickbreaker.common.TypePower;
 import brickbreaker.common.Vector2D;
 import brickbreaker.model.factory.ApplicatorFactory;
 import brickbreaker.model.world.event.*;
 import brickbreaker.model.world.gameObjects.Ball;
 import brickbreaker.model.world.gameObjects.Bar;
 import brickbreaker.model.world.gameObjects.Brick;
+import brickbreaker.model.world.gameObjects.PowerUp;
 import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
-import brickbreaker.model.world.gameObjects.power.PowerUp;
-import brickbreaker.model.world.gameObjects.power.TypePower;
 import brickbreaker.model.world.gameObjects.power.applicator.PowerUpApplicator;
 
 /**
@@ -31,7 +34,8 @@ public class WorldImpl implements World {
     private List<Brick> bricks;
     private List<PowerUp> activePowerUps;
     private RectBoundingBox mainBBox;
-    private WorldEventListener evListener;
+    private WorldEvent event;
+    private Integer score;
 
     private final Double mulELAPSED = 0.001;
 
@@ -44,15 +48,8 @@ public class WorldImpl implements World {
         this.bricks = new ArrayList<>();
         this.activePowerUps = new ArrayList<>();
         this.mainBBox = mainBbox;
-        this.evListener = new WorldEventListenerImpl();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public WorldEventListener getWorldEventListener() {
-        return this.evListener;
+        this.score = 0;
+        this.event = new WorldEvent();
     }
 
     /**
@@ -63,11 +60,7 @@ public class WorldImpl implements World {
         this.balls.add(ball);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void removeBall(final Ball ball) {
+    private void removeBall(final Ball ball) {
         this.balls.remove(ball);
     }
 
@@ -103,11 +96,7 @@ public class WorldImpl implements World {
         this.bricks.addAll(bricks);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void removeBrick(final Brick brick) {
+    private void removeBrick(final Brick brick) {
         if (brick.getPowerUp() != TypePower.NULL) {
             this.activePowerUps.add(new PowerUp(brick.getBBox().getP2d(), brick.getPowerUp()));
         }
@@ -157,31 +146,41 @@ public class WorldImpl implements World {
         Vector2D ul = mainBBox.getULCorner();
         Vector2D br = mainBBox.getBRCorner();
 
-        for (Ball ball : this.balls) {
+        Iterator<Ball> ballIt = balls.iterator();
+        while (ballIt.hasNext()) {
+            Ball ball = ballIt.next();
             Vector2D pos = ball.getPosition();
             Double r = ball.getRadius();
 
             if (pos.getY() - r < ul.getY()) {
                 //TOP-BORDER
-
-                this.evListener.notifyEvent(new HitBorder(ball, SideCollision.TOP, ul.getY())); //TODO this.balls.indexOf(ball);
+                this.event.process(ball, SideCollision.TOP, ul.getY());
             } else if (pos.getY() + r > br.getY()) {
                 //BOTTOM-BORDER
-                this.evListener.notifyEvent(new HitBorder(ball, SideCollision.BOTTOM, br.getY()));
+                this.removeBall(ball);
+                if (this.balls.size() <= 0) {
+                    this.bar.decLife();
+                }
             } else if (pos.getX() - r < ul.getX()) {
                 //LEFT-BORDER
-                this.evListener.notifyEvent(new HitBorder(ball, SideCollision.LEFT, ul.getX()));
+                this.event.process(ball, SideCollision.LEFT, ul.getX());
             } else if (pos.getX() + r > br.getX()) {
                 //RIGHT-BORDER
-                this.evListener.notifyEvent(new HitBorder(ball, SideCollision.RIGHT, br.getX()));
+                this.event.process(ball, SideCollision.RIGHT, br.getX());
             } else if (bar.getBBox().isCollidingWith(ball.getBBox())) {
                 //BAR
-                this.evListener.notifyEvent(new HitBar(ball));
+                this.event.process(ball, this.bar);
             } else {
                 //BRICK
-                for (Brick b : this.bricks) {
-                    if (b.getBBox().isCollidingWith(ball.getBBox())) {
-                        this.evListener.notifyEvent(new HitBrick(b, ball));
+                Iterator<Brick> brickIt = bricks.iterator();
+                while (brickIt.hasNext()) {
+                    Brick brick = brickIt.next();
+                    if (brick.getBBox().isCollidingWith(ball.getBBox())) {
+                        this.event.process(ball, brick);
+                        brick.decLife();
+                        if (brick.getLife() <= 0) {
+                            this.removeBrick(brick);
+                        }
                     }
                 }
             }
@@ -192,16 +191,42 @@ public class WorldImpl implements World {
      * Power up collision with bar
      */
     private void checkCollisionWithPowerUp() {
-        for (PowerUp p : this.activePowerUps) {
-
+        Iterator<PowerUp> powerIt = activePowerUps.iterator();
+        while (powerIt.hasNext()) {
+            PowerUp p = powerIt.next();
             if (p.getPosition().getY() - p.getHeight() / 2 < mainBBox.getBRCorner().getY()) {
                 this.activePowerUps.remove(p);
             } else if (p.getBBox().isCollidingWith(bar.getBBox())) {
-                PowerUpApplicator a = ApplicatorFactory.getInstance().createApplicator(p.getPowerUp());
-                this.evListener.notifyEvent(new HitPowerUp(p, a));
+                //PowerUpApplicator a = ApplicatorFactory.getInstance().createApplicator(p.getPowerUp());
+                this.event.process(p,); // end power up applicator
                 this.activePowerUps.remove(p);
             }
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Integer getScore() {
+        return this.score;
+    }
+
+    // TODO potrebbero essere privati
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final void incScore(final Integer increment) {
+        this.score += increment;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final void decScore(final Integer decrement) {
+        this.score -= decrement;
     }
 
 }

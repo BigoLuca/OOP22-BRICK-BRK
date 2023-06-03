@@ -1,13 +1,10 @@
-package brickbreaker.model.world.gameObjects.power.applicator;
+package brickbreaker.model.world.gameObjects.collision.powerUpApplicator;
 
 import brickbreaker.model.world.World;
 
 /**
  * Class to apply lenght powerUp to Bar.
  * Implements the {@link PowerUpApplicator} interface.
- * 
- * @author Bighini Luca
- * @author Agostinelli Francesco
  */
 public class BarLengthApplicator implements PowerUpApplicator {
 

@@ -1,4 +1,4 @@
-package brickbreaker.model.world.gameObjects.power.applicator;
+package brickbreaker.model.world.gameObjects.collision.powerUpApplicator;
 
 import brickbreaker.common.Vector2D;
 import brickbreaker.model.world.World;
@@ -6,9 +6,6 @@ import brickbreaker.model.world.World;
 /**
  * Class to apply speed powerUp to Ball.
  * Implements the {@link PowerUpApplicator} interface.
- * 
- * @author Bighini Luca
- * @author Agostinelli Francesco
  */
 public final class BallSpeedApplicator implements PowerUpApplicator {
 

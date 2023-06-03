@@ -1,9 +1,9 @@
 package brickbreaker.model.factory;
 
 import brickbreaker.common.TypePower;
-import brickbreaker.model.world.gameObjects.power.applicator.BallSpeedApplicator;
-import brickbreaker.model.world.gameObjects.power.applicator.BarLengthApplicator;
-import brickbreaker.model.world.gameObjects.power.applicator.PowerUpApplicator;
+import brickbreaker.model.world.gameObjects.collision.powerUpApplicator.BallSpeedApplicator;
+import brickbreaker.model.world.gameObjects.collision.powerUpApplicator.BarLengthApplicator;
+import brickbreaker.model.world.gameObjects.collision.powerUpApplicator.PowerUpApplicator;
 
 /**
  * Class to apply powerUp.

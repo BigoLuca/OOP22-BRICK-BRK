@@ -1,11 +1,9 @@
-package brickbreaker.model.world.gameObjects.power.applicator;
+package brickbreaker.model.world.gameObjects.collision.powerUpApplicator;
 
 import brickbreaker.model.world.World;
 
 /**
  * Interface for all powerUp to modify the world.
- * 
- * @author Agostinelli Francesco
  */
 public interface PowerUpApplicator {
 

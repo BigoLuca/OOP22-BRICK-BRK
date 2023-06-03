@@ -42,7 +42,7 @@ public class LevelControllerImpl implements LevelController {
      */
     @Override
     public Integer getScore() {
-        return this.level.getScore();
+        return this.level.getWorld().getScore();
     }
 
     /**

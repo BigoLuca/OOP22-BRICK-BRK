@@ -1,14 +1,12 @@
-package brickbreaker.controllers.state.event;
+package brickbreaker.model.world.event;
 
-import brickbreaker.model.state.GameState;
+import brickbreaker.model.Level;
 import brickbreaker.model.world.gameObjects.power.PowerUp;
 import brickbreaker.model.world.gameObjects.power.applicator.PowerUpApplicator;
 
 /**
  * Class for update PowerUp after collision detection.
  * Implements the {@link HitObjects} interface.
- * 
- * @author Bighini Luca
  */
 public class HitPowerUp implements HitObjects {
 
@@ -36,8 +34,8 @@ public class HitPowerUp implements HitObjects {
      * {@inheritDoc}
      */
     @Override
-    public void process(final GameState currentGame) {
-        this.applicator.applyPowerUp(currentGame.getWorld());
+    public void process(final Level level) {
+        this.applicator.applyPowerUp(level.getWorld());
     }
 
 }

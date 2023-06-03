@@ -1,17 +1,17 @@
-package brickbreaker.controllers.state.event;
+package brickbreaker.model.world.event;
 
 import brickbreaker.common.Vector2D;
-import brickbreaker.model.state.GameState;
+import brickbreaker.model.Level;
 import brickbreaker.model.world.gameObjects.Ball;
 import brickbreaker.model.world.gameObjects.Brick;
 
 /**
  * Class for update Brick after collision detection.
  * Implements the {@link HitObjects} interface.
- * 
- * @author Bighini Luca
  */
 public class HitBrick implements HitObjects {
+
+    private final Integer point = 5;
 
     private Brick hittedBrick;
     private Ball ball;
@@ -26,15 +26,19 @@ public class HitBrick implements HitObjects {
         this.ball = ball;
     }
 
+    //TODO passa la posizione non l'oggetto
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void process(final GameState currentGame) {
+    public void process(final Level level) {
+        //level.getWorld().getBricks().get(0).decLife();
         this.hittedBrick.decLife();
 
         if (this.hittedBrick.getLife() <= 0) {
-            currentGame.getWorld().removeBrick(this.hittedBrick);
+            level.getWorld().removeBrick(this.hittedBrick); // create a list of remove brick
+            level.incScore(point);
         }
 
         Vector2D ul = hittedBrick.getBBox().getULCorner();

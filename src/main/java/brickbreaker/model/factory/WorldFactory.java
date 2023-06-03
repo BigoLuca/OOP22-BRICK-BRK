@@ -9,7 +9,7 @@ import brickbreaker.common.Difficulty;
 import brickbreaker.common.Error;
 import brickbreaker.common.TypePowerUp;
 import brickbreaker.common.Vector2D;
-import brickbreaker.controllers.state.ErrorListener;
+import brickbreaker.controllers.listener.ErrorListener;
 import brickbreaker.model.world.World;
 import brickbreaker.model.world.WorldImpl;
 import brickbreaker.model.world.gameObjects.Ball;

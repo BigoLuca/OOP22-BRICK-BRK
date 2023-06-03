@@ -1,7 +1,6 @@
-package brickbreaker.controllers.state.event;
+package brickbreaker.model.world.event;
 
 import brickbreaker.common.Vector2D;
-import brickbreaker.model.state.GameState;
 import brickbreaker.model.world.World;
 import brickbreaker.model.world.WorldImpl.SideCollision;
 import brickbreaker.model.world.gameObjects.Ball;
@@ -9,40 +8,18 @@ import brickbreaker.model.world.gameObjects.Ball;
 /**
  * Class for update Ball after collision detection.
  * Implements the {@link HitObjects} interface.
- * 
- * @author Bighini Luca
  */
-public class HitBorder implements HitObjects {
+public abstract class HitBorder {
 
-    private Ball ball;
-    private SideCollision side;
-    private Double newPos;
+    //@Override
+    public void process(final World w, final Ball ball, final SideCollision side, final Double newPos) {
 
-    /**
-     * HitBorder constructor.
-     * @param ball
-     * @param side
-     * @param pos
-     */
-    public HitBorder(final Ball ball, final SideCollision side, final Double pos) {
-        this.ball = ball;
-        this.side = side;
-        this.newPos = pos;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void process(final GameState currentGame) {
-
-        switch (this.side) {
+        switch (side) {
             case TOP:
                 ball.setPosition(new Vector2D(ball.getPosition().getX(), newPos + ball.getRadius()));
                 ball.flipVelOnY();
                 break;
             case BOTTOM:
-                World w = currentGame.getWorld();
                 w.removeBall(ball);
                 if (w.getBalls().size() <= 0) {
                     w.getBar().decLife();

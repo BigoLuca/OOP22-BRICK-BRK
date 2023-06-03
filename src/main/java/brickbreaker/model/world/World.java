@@ -2,7 +2,6 @@ package brickbreaker.model.world;
 
 import java.util.List;
 
-import brickbreaker.controllers.state.event.WorldEventListener;
 import brickbreaker.model.world.gameObjects.Ball;
 import brickbreaker.model.world.gameObjects.Bar;
 import brickbreaker.model.world.gameObjects.Brick;

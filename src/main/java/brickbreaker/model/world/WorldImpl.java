@@ -4,8 +4,8 @@ package brickbreaker.model.world;
 import java.util.List;
 import java.util.ArrayList;
 import brickbreaker.common.Vector2D;
-import brickbreaker.controllers.state.event.*;
 import brickbreaker.model.factory.ApplicatorFactory;
+import brickbreaker.model.world.event.*;
 import brickbreaker.model.world.gameObjects.Ball;
 import brickbreaker.model.world.gameObjects.Bar;
 import brickbreaker.model.world.gameObjects.Brick;
@@ -163,6 +163,7 @@ public class WorldImpl implements World {
 
             if (pos.getY() - r < ul.getY()) {
                 //TOP-BORDER
+
                 this.evListener.notifyEvent(new HitBorder(ball, SideCollision.TOP, ul.getY())); //TODO this.balls.indexOf(ball);
             } else if (pos.getY() + r > br.getY()) {
                 //BOTTOM-BORDER

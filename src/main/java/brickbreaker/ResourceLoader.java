@@ -17,7 +17,7 @@ import java.util.Scanner;
 import com.google.gson.*;
 
 import brickbreaker.common.Error;
-import brickbreaker.controllers.state.ErrorListener;
+import brickbreaker.controllers.listener.ErrorListener;
 import brickbreaker.model.user.User;
 
 /**

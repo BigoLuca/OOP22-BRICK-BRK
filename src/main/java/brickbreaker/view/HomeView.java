@@ -19,9 +19,6 @@ public class HomeView extends ViewImpl {
     @FXML
     private Button globalRanksButton;
 
-    @FXML
-    private Button rulesButton;
-
     public HomeView(final Controller controllerToAttach) {
         super(controllerToAttach);
     }

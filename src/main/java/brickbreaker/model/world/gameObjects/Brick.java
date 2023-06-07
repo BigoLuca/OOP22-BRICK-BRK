@@ -38,5 +38,4 @@ public class Brick extends GameObjectImpl<RectBoundingBox> {
     public void setPowerUp(final TypePower powerUpToSet) {
         this.powerUp = powerUpToSet;
     }
-
 }

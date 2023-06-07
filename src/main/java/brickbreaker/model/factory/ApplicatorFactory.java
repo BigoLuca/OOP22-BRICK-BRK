@@ -3,6 +3,7 @@ package brickbreaker.model.factory;
 import brickbreaker.common.TypePower;
 import brickbreaker.model.world.gameObjects.collision.powerUpApplicator.BallSpeedApplicator;
 import brickbreaker.model.world.gameObjects.collision.powerUpApplicator.BarLengthApplicator;
+import brickbreaker.model.world.gameObjects.collision.powerUpApplicator.NullApplicator;
 import brickbreaker.model.world.gameObjects.collision.powerUpApplicator.PowerUpApplicator;
 
 /**
@@ -28,14 +29,17 @@ public class ApplicatorFactory {
      * @param type
      * @return a PowerUpApplicator
      */
-    public PowerUpApplicator createApplicator(final TypePower type) {
-        if (type == TypePower.FASTBALL || type == TypePower.SLOWBALL) {
-            return new BallSpeedApplicator(type == TypePower.FASTBALL);
-        } else if (type == TypePower.LONGBAR || type == TypePower.SHORTBAR) {
-            return new BarLengthApplicator(type == TypePower.LONGBAR);
-        } else {
-            //TODO: Remove the last else statement, it's only a temporary placeholder for clarity purposes.
-            return null;
+    public PowerUpApplicator createApplicator(final TypePower power, final boolean type) {
+        
+        switch (power) {
+            case FASTBALL:
+            case SLOWBALL:
+                return new BallSpeedApplicator(type);
+            case LONGBAR:
+            case SHORTBAR:
+                return new BarLengthApplicator(type);
+            default:
+                return new NullApplicator();
         }
     }
 }

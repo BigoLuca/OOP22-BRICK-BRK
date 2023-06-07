@@ -23,13 +23,13 @@ import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
  */
 public class WorldFactory {
 
-    //TODO remove static, the world with is related to map width
-    private static final Double WORLD_WIDTH = 8.0;
-    private static final Double WORLD_HEIGHT = 6.0;
+    //proportioned to world (1000, 800)
+    private final Double WORLD_WIDTH = 38.0;
+    private final Double WORLD_HEIGHT = 30.4;
 
     //TODO:Adapt speed.
-    private static final Double X_SPEED = 5.0;
-    private static final Double Y_SPEED = 5.0;
+    private final Double X_SPEED = 5.0;
+    private final Double Y_SPEED = 5.0;
 
     private static WorldFactory instance;
 

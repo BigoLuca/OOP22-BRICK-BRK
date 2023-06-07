@@ -25,8 +25,8 @@ import brickbreaker.model.user.User;
  */
 public class ResourceLoader {
 
-    public final Integer MAP_COLUMNS_FILE_FORMAT = 6;
-    public final Integer MAP_ROWS_FILE_FORMAT = 3;
+    public final Integer MAP_COLUMNS_FILE_FORMAT = 18;
+    public final Integer MAP_ROWS_FILE_FORMAT = 12;
 
     private final String NAME = "name";
     private final String SCORE = "score";

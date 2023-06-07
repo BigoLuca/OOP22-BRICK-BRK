@@ -24,9 +24,9 @@ public final class BallSpeedApplicator implements PowerUpApplicator {
      * {@inheritDoc}
      */
     @Override
-    public void applyPowerUp(final World gameWorld) {
+    public void applyPowerUp(final World world) {
         Vector2D acceleration = bonus ? new Vector2D(DELTA, DELTA) : new Vector2D(-DELTA, -DELTA);
         //TODO not alwais: una pallisa che si muove verso il basso ha vettore negativo e togliendo la aumenti
-        gameWorld.getBalls().stream().forEach(b -> b.setSpeed(b.getSpeed().sum(acceleration)));
+        world.getBalls().stream().forEach(b -> b.setSpeed(b.getSpeed().sum(acceleration)));
     }
 }

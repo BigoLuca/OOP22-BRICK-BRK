@@ -1,11 +1,7 @@
 package brickbreaker.model.factory;
 
 import brickbreaker.common.TypePower;
-import brickbreaker.model.world.gameObjects.collision.powerUpApplicator.BallDimApplicator;
-import brickbreaker.model.world.gameObjects.collision.powerUpApplicator.BallSpeedApplicator;
-import brickbreaker.model.world.gameObjects.collision.powerUpApplicator.BarLengthApplicator;
-import brickbreaker.model.world.gameObjects.collision.powerUpApplicator.NullApplicator;
-import brickbreaker.model.world.gameObjects.collision.powerUpApplicator.PowerUpApplicator;
+import brickbreaker.model.world.gameObjects.collision.powerUpApplicator.*;
 
 /**
  * Class to apply powerUp.
@@ -39,9 +35,14 @@ public class ApplicatorFactory {
             case SMALLBALL:
             case BIGBALL:
                 return new BallDimApplicator(type);
+            case MULTIBALL:
+                return new MultiBallApplicator();
             case LONGBAR:
             case SHORTBAR:
                 return new BarLengthApplicator(type);
+            case SCORE_INC:
+            case SCORE_DEC:
+                return new ScoreApplicator(type);
             default:
                 return new NullApplicator();
         }

@@ -8,8 +8,8 @@ public class BallDimApplicator implements PowerUpApplicator {
     private boolean bonus;
 
     /**
-     * Ball Speed constructor.
-     * @param bonusToSet if increase or decrease the Ball speed
+     * Ball Dimension constructor.
+     * @param bonusToSet if increase or decrease the Ball dimension
      */
     public BallDimApplicator(final boolean bonusToSet) {
         this.bonus = bonusToSet;
@@ -19,8 +19,8 @@ public class BallDimApplicator implements PowerUpApplicator {
      * {@inheritDoc}
      */
     @Override
-    public void applyPowerUp(final World gameWorld) {
+    public void applyPowerUp(final World world) {
         Double d = bonus ? DELTA : -DELTA;
-        gameWorld.getBalls().stream().forEach(b -> b.setRadius(b.getRadius() + d));
+        world.getBalls().stream().forEach(b -> b.setRadius(b.getRadius() + d));
     }
 }

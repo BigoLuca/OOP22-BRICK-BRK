@@ -20,11 +20,18 @@ public enum TypePower {
     BIGBALL(10, TypePowerUp.POSITIVE),
     /** FastBall. */
     SMALLBALL(10, TypePowerUp.NEGATIVE),
+    /** Multi ball. */
+    MULTIBALL(-1, TypePowerUp.POSITIVE),
 
     /** LongBar. */
     LONGBAR(10, TypePowerUp.POSITIVE),
     /** ShortBar. */
-    SHORTBAR(10, TypePowerUp.NEGATIVE);
+    SHORTBAR(10, TypePowerUp.NEGATIVE),
+    
+    /** Score increase. */
+    SCORE_INC(-1, TypePowerUp.POSITIVE),
+    /** Score decrease. */
+    SCORE_DEC(-1, TypePowerUp.NEGATIVE);
 
     private final Integer duration;
     private final TypePowerUp type;

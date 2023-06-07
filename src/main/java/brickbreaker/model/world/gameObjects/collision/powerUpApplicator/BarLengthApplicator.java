@@ -8,7 +8,7 @@ import brickbreaker.model.world.World;
  */
 public class BarLengthApplicator implements PowerUpApplicator {
 
-    private final Double DELTA_BAR_LENGTH = 1.0;
+    private final Double DELTA = 1.0;
     private boolean bonus;
 
     /**
@@ -23,11 +23,11 @@ public class BarLengthApplicator implements PowerUpApplicator {
      * {@inheritDoc}
      */
     @Override
-    public void applyPowerUp(final World gameWorld) {
-        Double delta = bonus ? DELTA_BAR_LENGTH : -DELTA_BAR_LENGTH;
+    public void applyPowerUp(final World world) {
+        Double delta = bonus ? DELTA : -DELTA;
 
-        Double barWidth = gameWorld.getBar().getWidth();
-        gameWorld.getBar().setWidth(barWidth + delta);
+        Double barWidth = world.getBar().getWidth();
+        world.getBar().setWidth(barWidth + delta);
     }
     
 }

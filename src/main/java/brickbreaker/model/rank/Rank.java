@@ -10,5 +10,5 @@ public interface Rank {
      * @param playerName
      * @param newScore
      */
-    void addRank(String playerName, Integer newScore);
+    void addToRank(String playerName, Integer newScore);
 }

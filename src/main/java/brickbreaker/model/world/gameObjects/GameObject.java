@@ -17,6 +17,11 @@ public interface GameObject<T> {
     int getLife();
 
     /**
+     * Sets the lifes of the current game object.
+     */
+    void setLife(final Integer lifes);
+
+    /**
      * decrease lives by 1.
      */
     void decLife();

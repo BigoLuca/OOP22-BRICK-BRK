@@ -6,25 +6,41 @@ package brickbreaker.common;
 public enum Difficulty {
 
     /** Easy. */
-    EASY(70),
+    EASY(20, 30, 70, 0),
     /** Medium. */
-    MEDIUM(50),
+    MEDIUM(30, 50, 50, 30),
     /** Hard. */
-    HARD(30),
-    /** Random */
-    RANDOM(0);
+    HARD(50, 70, 30, 50);
 
-    private final Integer percentage;
+    private final Integer min;
+    private final Integer max;
+    private final Integer bP;
+    private final Integer mlP;
 
-    Difficulty(final Integer value) {
-        this.percentage = value;
+    Difficulty(final int minBricks, final int maxBricks, final int bonusPercentage, final int moreLifePercentage) {
+        this.min = minBricks;
+        this.max = maxBricks;
+        this.bP = bonusPercentage;
+        this.mlP = moreLifePercentage;
     }
 
     /**
      * This method returns the percentage of the difficulty.
      * @return an integer representing the difficulty
      */
-    public Integer getBonusPercentage() {
-        return this.percentage;
+    public Integer getBonusPercentage(final Integer bricksQuantity) {
+        return (bricksQuantity / 100) * this.bP; 
+    }
+
+    public Integer getMoreLifePercentage(final Integer bricksQuantity) {
+        return (bricksQuantity / 100) * this.mlP;
+    }
+
+    public Integer getMinimumBricksQuantity() {
+        return this.min;
+    }
+
+    public Integer getMaximumBricksQuantity() {
+        return this.max;
     }
 }

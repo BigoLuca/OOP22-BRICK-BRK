@@ -67,8 +67,5 @@ public class EndlessMenuView extends ViewImpl {
         } else {
             od = Optional.of(Difficulty.values()[this.difficultyIndex]);
         }
-
-        GameRank g = new GameRank(10, ResourceLoader.getInstance().getRank("endless.txt"));
-        
     }
 }

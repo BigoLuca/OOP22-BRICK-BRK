@@ -64,21 +64,26 @@ public interface World {
      * This method gets the current points scored by the user.
      * @return An integer value.
      */
-    public Integer getScore();
+    Integer getScore();
 
     /**
      * This method increments the current score by the value
      * specified by the increment parameter.
      * @param increment an integer value which is the increment.
      */
-    public void incScore(Integer increment);
+    void incScore(Integer increment);
 
     /**
      * This method decrements the current score by the value
      * specified by the decrement parameter.
      * @param decrement an integer value which is the decrement value.
      */
-    public void decScore(Integer decrement);
+    void decScore(Integer decrement);
 
+    /**
+     * This method change states of indestructible brick.
+     * @param b
+     */
+    void setDestructibleBrick(boolean b);
 
 }

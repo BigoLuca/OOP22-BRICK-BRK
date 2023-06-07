@@ -39,6 +39,7 @@ public class WorldImpl implements World {
     private Map<PowerUpApplicator, Integer> activePowerUps;
     private WorldEvent event;
     private Integer score;
+    private boolean destructibleBrick;
 
     private final Double mulELAPSED = 0.001;
 
@@ -54,6 +55,7 @@ public class WorldImpl implements World {
         this.activePowerUps = new HashMap<>();
         this.score = 0;
         this.event = new WorldEvent();
+        destructibleBrick = true;
     }
 
     /**
@@ -178,10 +180,12 @@ public class WorldImpl implements World {
                     Brick brick = brickIt.next();
                     if (brick.getBBox().isCollidingWith(ball.getBBox())) {
                         this.event.process(ball, brick);
-                        brick.decLife();
-                        if (brick.getLife() <= 0) {
-                            this.removeBrick(brick);
-                            this.incScore(BRICK_SCORE);
+                        if (destructibleBrick) {
+                            brick.decLife();
+                            if (brick.getLife() <= 0) {
+                                this.removeBrick(brick);
+                                this.incScore(BRICK_SCORE);
+                            }
                         }
                     }
                 }
@@ -247,6 +251,14 @@ public class WorldImpl implements World {
     @Override
     public final void decScore(final Integer decrement) {
         this.score -= decrement;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setDestructibleBrick(boolean b) {
+        this.destructibleBrick = b;
     }
 
 }

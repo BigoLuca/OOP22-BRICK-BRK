@@ -2,6 +2,10 @@ package brickbreaker.model.world.gameObjects.collision.powerUpApplicator;
 
 import brickbreaker.model.world.World;
 
+/**
+ * Class to apply increment or decreement powerUp to the score.
+ * Implements the {@link PowerUpApplicator} interface.
+ */
 public class ScoreApplicator implements PowerUpApplicator {
     
     private final Integer INC = 8;

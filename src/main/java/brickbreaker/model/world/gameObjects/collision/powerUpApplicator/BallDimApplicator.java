@@ -2,6 +2,10 @@ package brickbreaker.model.world.gameObjects.collision.powerUpApplicator;
 
 import brickbreaker.model.world.World;
 
+/**
+ * Class to apply ball dimension powerUp to Ball.
+ * Implements the {@link PowerUpApplicator} interface.
+ */
 public class BallDimApplicator implements PowerUpApplicator {
     
     private final Double DELTA = 0.13;

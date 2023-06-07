@@ -27,11 +27,17 @@ public enum TypePower {
     LONGBAR(10, TypePowerUp.POSITIVE),
     /** ShortBar. */
     SHORTBAR(10, TypePowerUp.NEGATIVE),
+
+    /** Indestructible brick. */
+    INDBRICK(5, TypePowerUp.NEGATIVE),
     
     /** Score increase. */
     SCORE_INC(-1, TypePowerUp.POSITIVE),
     /** Score decrease. */
-    SCORE_DEC(-1, TypePowerUp.NEGATIVE);
+    SCORE_DEC(-1, TypePowerUp.NEGATIVE),
+    
+    /** Life increese. */
+    LIFE_INC(-1, TypePowerUp.POSITIVE);
 
     private final Integer duration;
     private final TypePowerUp type;

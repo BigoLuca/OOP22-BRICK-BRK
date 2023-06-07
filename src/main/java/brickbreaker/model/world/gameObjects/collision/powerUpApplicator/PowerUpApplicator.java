@@ -9,7 +9,7 @@ public interface PowerUpApplicator {
 
     /**
      * Method to modify the world objects with active powerUps.
-     * @param gameWorld
+     * @param world
      */
-    void applyPowerUp(World gameWorld);
+    void applyPowerUp(World world);
 }

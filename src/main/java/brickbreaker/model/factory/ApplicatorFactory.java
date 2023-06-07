@@ -40,9 +40,13 @@ public class ApplicatorFactory {
             case LONGBAR:
             case SHORTBAR:
                 return new BarLengthApplicator(type);
+            case INDBRICK:
+                return new DestructibleBrickApplicator(type);
             case SCORE_INC:
             case SCORE_DEC:
                 return new ScoreApplicator(type);
+            case LIFE_INC:
+                return new LifeIncApplicator();
             default:
                 return new NullApplicator();
         }

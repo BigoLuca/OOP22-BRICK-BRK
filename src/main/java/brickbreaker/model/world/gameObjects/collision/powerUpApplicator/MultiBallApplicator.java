@@ -4,6 +4,10 @@ import brickbreaker.common.Vector2D;
 import brickbreaker.model.factory.GameFactory;
 import brickbreaker.model.world.World;
 
+/**
+ * Class to apply multi Ball powerUp.
+ * Implements the {@link PowerUpApplicator} interface.
+ */
 public class MultiBallApplicator implements PowerUpApplicator {
 
     /**

@@ -40,8 +40,8 @@ public class GameModelImpl implements GameModel {
     }
 
     @Override
-    public Level getRandomLevel(final Optional<Difficulty> diff) {
-        Difficulty d = diff.isPresent() ? diff.get() : this.getRandomDifficulty();
+    public Level getRandomLevel(final Difficulty diff) {
+        Difficulty d = diff.equals(Difficulty.RANDOM) ? this.getRandomDifficulty() : diff;
         return new Level(0, WorldFactory.getInstance().getWorld(d));
     }
 

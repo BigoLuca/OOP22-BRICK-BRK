@@ -40,7 +40,7 @@ public class Controller extends ModelController {
             Level level = null;
             do {
                 this.getErrorListener().getErrorList().clear();
-                level = this.getModel().getRandomLevel(Optional.of(d));
+                level = this.getModel().getRandomLevel(d);
                 it++;
             } while (this.getErrorListener().getErrorPresent() && it < maxIteration);
 

@@ -1,7 +1,5 @@
 package brickbreaker.model;
 
-import java.util.Optional;
-
 import brickbreaker.common.Difficulty;
 
 public interface GameModel {
@@ -10,7 +8,7 @@ public interface GameModel {
 
     Integer getListMapLenght();
 
-    Level getRandomLevel(Optional<Difficulty> difficulty);
+    Level getRandomLevel(Difficulty difficulty);
 
     Level getLevel(Integer level);
 

@@ -7,21 +7,17 @@ import brickbreaker.model.GameModelImpl;
 public class ModelController {
     
     private UserController userController;
-    private RankController rankController;
     private LevelController levelController;
     private ErrorListener errListener;
     private GameModel model;
 
     public ModelController() {
         this.userController = new UserController();
-        this.rankController = new RankController();
         this.errListener = new ErrorListener();
         this.model = new GameModelImpl();
     }
 
     public UserController getUserController() { return this.userController; }
-
-    public RankController getRankController() { return this.rankController; }
 
     public LevelController getLevelController() { return this.levelController; }
 

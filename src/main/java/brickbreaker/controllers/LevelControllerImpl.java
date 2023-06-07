@@ -66,6 +66,7 @@ public class LevelControllerImpl implements LevelController {
                     this.waitUntilNextFrame(current);
                     last = current;
                     break;
+                case WAIT:
                 case PAUSE:
                     break;
                 default:

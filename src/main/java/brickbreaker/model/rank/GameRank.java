@@ -23,7 +23,7 @@ public class GameRank implements Rank {
      * {@inheritDoc}
      */
     @Override
-    public void addRank(final String playerName, final Integer newScore) {
+    public void addToRank(final String playerName, final Integer newScore) {
         Integer diff = ResourceLoader.getInstance().writeRank(this.filename, level, playerName, newScore);
         if (diff > 0 && this.filename.equals("levels.json")) {
             Integer i = 0;

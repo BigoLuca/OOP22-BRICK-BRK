@@ -31,7 +31,6 @@ public class Controller extends ModelController {
     }
 
     public void createEndless(final Difficulty d) {
-        Rank r = new GameRank("endless.json", d.ordinal());
         final Integer maxIteration = 10;
         Integer totalScore = 0;
 
@@ -53,7 +52,7 @@ public class Controller extends ModelController {
                 if(this.getLevelController().getLevel().getState().equals(State.WIN)) {
                     haveWin = true;
                 } else if (this.getLevelController().getLevel().getState().equals(State.LOST) && this.user != null){
-                    r.addRank(user.getName(), totalScore);
+                    new GameRank("endless.json", d.ordinal()).addToRank(user.getName(), totalScore);
                 }
             } else {
                 // mostra errore caricamento
@@ -62,7 +61,6 @@ public class Controller extends ModelController {
     }
 
     public synchronized void createLevels(final Integer id) {
-        Rank r = new GameRank("levels.json", id);
         this.getErrorListener().getErrorList().clear();
         Level level = this.getModel().getLevel(id);
         if (!this.getErrorListener().getErrorPresent()) {
@@ -70,7 +68,7 @@ public class Controller extends ModelController {
             loopScene.init();
             this.getLevelController().gameLoop();
             if(this.getLevelController().getLevel().getState().equals(State.WIN) && this.user != null) {
-                r.addRank(user.getName(), this.getLevelController().getScore());
+                new GameRank("levels.json", id).addToRank(user.getName(), this.getLevelController().getScore());
             }
         } else {
             // mostra errore caricamento

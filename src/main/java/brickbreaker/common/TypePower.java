@@ -10,21 +10,21 @@ import java.util.stream.Stream;
 public enum TypePower {
 
     /** Null. */
-    NULL(0.0, TypePowerUp.NULL),
+    NULL(0, TypePowerUp.NULL),
     /** SlowBall. */
-    SLOWBALL(10.0, TypePowerUp.POSITIVE),
+    SLOWBALL(10, TypePowerUp.POSITIVE),
     /** FastBall. */
-    FASTBALL(10.0, TypePowerUp.NEGATIVE),
+    FASTBALL(10, TypePowerUp.NEGATIVE),
     /** LongBar. */
-    LONGBAR(10.0, TypePowerUp.POSITIVE),
+    LONGBAR(10, TypePowerUp.POSITIVE),
     /** ShortBar. */
-    SHORTBAR(10.0, TypePowerUp.NEGATIVE);
+    SHORTBAR(10, TypePowerUp.NEGATIVE);
 
-    private final Double timeAmount;
+    private final Integer duration;
     private final TypePowerUp type;
 
-    TypePower(final Double time, final TypePowerUp typePower) {
-        this.timeAmount = time;
+    TypePower(final Integer time, final TypePowerUp typePower) {
+        this.duration = time;
         this.type = typePower;
     }
 
@@ -40,8 +40,8 @@ public enum TypePower {
     /**
      * @return the duration of the powerUp
      */
-    public Double getTimeAmount() {
-        return this.timeAmount;
+    public Integer getDuration() {
+        return this.duration;
     }
 
     /**

@@ -1,5 +1,7 @@
 package brickbreaker.model.rank;
 
+import java.util.Map;
+
 import brickbreaker.ResourceLoader;
 
 /**
@@ -17,6 +19,14 @@ public class GameRank implements Rank {
     public GameRank(final String fileName, final Integer level) {
         this.filename = fileName;
         this.level = level;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Map<String, Integer> getRank(final String fileName, final Integer level) {
+        return ResourceLoader.getInstance().getRank(fileName, level);
     }
     
     /**

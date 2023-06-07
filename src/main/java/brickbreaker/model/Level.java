@@ -23,7 +23,7 @@ public class Level {
     public Level(final Integer id, final World w) {
         this.id = id;
         this.world = w;
-        this.state = State.PAUSE;
+        this.state = State.WAIT;
     }
 
     /**

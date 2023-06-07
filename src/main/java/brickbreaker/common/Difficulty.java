@@ -10,7 +10,9 @@ public enum Difficulty {
     /** Medium. */
     MEDIUM(30, 50, 50, 30),
     /** Hard. */
-    HARD(50, 70, 30, 50);
+    HARD(50, 70, 30, 50),
+    /** Random. */ //TODO: need to have this order for write ranking.
+    RANDOM(0,0,0,0);
 
     private final Integer min;
     private final Integer max;

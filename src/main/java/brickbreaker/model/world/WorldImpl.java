@@ -2,11 +2,13 @@ package brickbreaker.model.world;
 
 
 import java.util.List;
-
+import java.util.Map;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import brickbreaker.common.TypePower;
+import brickbreaker.common.TypePowerUp;
 import brickbreaker.common.Vector2D;
 import brickbreaker.model.factory.ApplicatorFactory;
 import brickbreaker.model.world.gameObjects.Ball;
@@ -32,8 +34,9 @@ public class WorldImpl implements World {
     private List<Ball> balls;
     private Bar bar;
     private List<Brick> bricks;
-    private List<PowerUp> activePowerUps;
+    private List<PowerUp> powerUps;
     private RectBoundingBox mainBBox;
+    private Map<PowerUpApplicator, Integer> activePowerUps;
     private WorldEvent event;
     private Integer score;
 
@@ -46,8 +49,9 @@ public class WorldImpl implements World {
     public WorldImpl(final RectBoundingBox mainBbox) {
         this.balls = new ArrayList<>();
         this.bricks = new ArrayList<>();
-        this.activePowerUps = new ArrayList<>();
+        this.powerUps = new ArrayList<>();
         this.mainBBox = mainBbox;
+        this.activePowerUps = new HashMap<>();
         this.score = 0;
         this.event = new WorldEvent();
     }
@@ -58,10 +62,6 @@ public class WorldImpl implements World {
     @Override
     public void addBall(final Ball ball) {
         this.balls.add(ball);
-    }
-
-    private void removeBall(final Ball ball) {
-        this.balls.remove(ball);
     }
 
     /**
@@ -98,7 +98,7 @@ public class WorldImpl implements World {
 
     private void removeBrick(final Brick brick) {
         if (brick.getPowerUp() != TypePower.NULL) {
-            this.activePowerUps.add(new PowerUp(brick.getBBox().getP2d(), brick.getPowerUp()));
+            this.powerUps.add(new PowerUp(brick.getBBox().getP2d(), brick.getPowerUp()));
         }
         this.bricks.remove(brick);
     }
@@ -125,7 +125,7 @@ public class WorldImpl implements World {
     @Override
     public void updateGame(final int elapsed) {
         balls.stream().forEach(t -> t.setPosition(t.getPosition().sum(t.getSpeed().mul(mulELAPSED * elapsed))));
-        activePowerUps.stream().forEach(t -> t.setPosition(t.getPosition().sum(t.getSpeed().mul(mulELAPSED * elapsed))));
+        powerUps.stream().forEach(t -> t.setPosition(t.getPosition().sum(t.getSpeed().mul(mulELAPSED * elapsed))));
     }
 
     /**
@@ -135,6 +135,7 @@ public class WorldImpl implements World {
     public void checkCollision() {
         checkCollisionWithBall();
         checkCollisionWithPowerUp();
+        disablePowerUp();
     }
 
     /*
@@ -157,7 +158,7 @@ public class WorldImpl implements World {
                 this.event.process(ball, SideCollision.TOP, ul.getY());
             } else if (pos.getY() + r > br.getY()) {
                 //BOTTOM-BORDER
-                this.removeBall(ball);
+                ballIt.remove();
                 if (this.balls.size() <= 0) {
                     this.bar.decLife();
                 }
@@ -192,15 +193,34 @@ public class WorldImpl implements World {
      * Power up collision with bar
      */
     private void checkCollisionWithPowerUp() {
-        Iterator<PowerUp> powerIt = activePowerUps.iterator();
+        Iterator<PowerUp> powerIt = powerUps.iterator();
         while (powerIt.hasNext()) {
             PowerUp p = powerIt.next();
             if (p.getPosition().getY() - p.getHeight() / 2 < mainBBox.getBRCorner().getY()) {
-                this.activePowerUps.remove(p);
+                powerIt.remove();
             } else if (p.getBBox().isCollidingWith(bar.getBBox())) {
-                PowerUpApplicator a = ApplicatorFactory.getInstance().createApplicator(p.getPowerUp());
-                a.applyPowerUp(this);
-                this.activePowerUps.remove(p);
+                Boolean type = p.getPowerUp().getType().equals(TypePowerUp.POSITIVE);
+                ApplicatorFactory.getInstance().createApplicator(p.getPowerUp(), type).applyPowerUp(this);
+                if (p.getPowerUp().getDuration() > 0) {
+                    this.activePowerUps.put(
+                        ApplicatorFactory.getInstance().createApplicator(p.getPowerUp(), !type), 
+                        p.getPowerUp().getDuration());
+                }
+                powerIt.remove();
+            }
+        }
+    }
+
+    private void disablePowerUp() {
+        Iterator<PowerUpApplicator> iterator = this.activePowerUps.keySet().iterator();
+        while (iterator.hasNext()) {
+            PowerUpApplicator key = iterator.next();
+            int value = activePowerUps.get(key) - 1;
+            if (value <= 0) {
+                key.applyPowerUp(this);
+                iterator.remove();
+            } else {
+                activePowerUps.put(key, value);
             }
         }
     }
@@ -213,7 +233,6 @@ public class WorldImpl implements World {
         return this.score;
     }
 
-    // TODO potrebbero essere privati
     /**
      * {@inheritDoc}
      */

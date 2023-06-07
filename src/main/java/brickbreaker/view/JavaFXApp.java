@@ -3,6 +3,7 @@ package brickbreaker.view;
 import brickbreaker.controllers.Controller;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import brickbreaker.view.PlayerScene;
 
 /**
  * Sample JavaFX application.

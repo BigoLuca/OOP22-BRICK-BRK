@@ -8,7 +8,7 @@ import brickbreaker.model.world.World;
  */
 public class BarLengthApplicator implements PowerUpApplicator {
 
-    private final static Double DELTA_BAR_LENGTH = 1.0;
+    private final Double DELTA_BAR_LENGTH = 1.0;
     private boolean bonus;
 
     /**

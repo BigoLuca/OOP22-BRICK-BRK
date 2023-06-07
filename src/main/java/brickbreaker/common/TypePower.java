@@ -11,10 +11,16 @@ public enum TypePower {
 
     /** Null. */
     NULL(0, TypePowerUp.NULL),
+
     /** SlowBall. */
     SLOWBALL(10, TypePowerUp.POSITIVE),
     /** FastBall. */
     FASTBALL(10, TypePowerUp.NEGATIVE),
+    /** SlowBall. */
+    BIGBALL(10, TypePowerUp.POSITIVE),
+    /** FastBall. */
+    SMALLBALL(10, TypePowerUp.NEGATIVE),
+
     /** LongBar. */
     LONGBAR(10, TypePowerUp.POSITIVE),
     /** ShortBar. */

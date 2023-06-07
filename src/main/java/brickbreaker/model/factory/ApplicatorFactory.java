@@ -1,6 +1,7 @@
 package brickbreaker.model.factory;
 
 import brickbreaker.common.TypePower;
+import brickbreaker.model.world.gameObjects.collision.powerUpApplicator.BallDimApplicator;
 import brickbreaker.model.world.gameObjects.collision.powerUpApplicator.BallSpeedApplicator;
 import brickbreaker.model.world.gameObjects.collision.powerUpApplicator.BarLengthApplicator;
 import brickbreaker.model.world.gameObjects.collision.powerUpApplicator.NullApplicator;
@@ -35,6 +36,9 @@ public class ApplicatorFactory {
             case FASTBALL:
             case SLOWBALL:
                 return new BallSpeedApplicator(type);
+            case SMALLBALL:
+            case BIGBALL:
+                return new BallDimApplicator(type);
             case LONGBAR:
             case SHORTBAR:
                 return new BarLengthApplicator(type);

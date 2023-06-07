@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import brickbreaker.common.Difficulty;
 import brickbreaker.common.Vector2D;
 import brickbreaker.model.world.gameObjects.Ball;
 import brickbreaker.model.world.gameObjects.Bar;
@@ -57,17 +58,22 @@ public class GameFactory {
         return result;
     }
 
-	//TODO: Check probability distribution for life generation.
-	public List<Brick> createRandomBricks(final Integer maxBricks, final Integer cols, final Integer rows) {
-		Integer randomX, randomY;
+	public List<Brick> createRandomBricks(final Difficulty d, final Integer cols, final Integer rows) {
 		Random r = new Random();
 		List<Brick> bricks = new LinkedList<>();
+        Integer max = d.getMaximumBricksQuantity();
+        Integer min = d.getMinimumBricksQuantity();
+        Integer bricksQ = r.nextInt((max - min) + 1) + min;
+        Integer mLQ = d.getMoreLifePercentage(bricksQ);
 
-		for(int i = 0; i < maxBricks; i++) {
-			randomX = r.nextInt(cols);
-			randomY = r.nextInt(rows);
-			bricks.add(new Brick(new Vector2D(randomX, randomY), 1));
+		for(int i = 0; i < bricksQ; i++) {
+			bricks.add(new Brick(new Vector2D(r.nextInt(cols), r.nextInt(rows)), 1));
 		}
+
+        while (mLQ > 0) {
+            bricks.get(r.nextInt(bricksQ)).setLife(r.nextInt((5 - 1) + 1) + 1);
+            mLQ--;
+        }
 
 		return bricks;
 	}

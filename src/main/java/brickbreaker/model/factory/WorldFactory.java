@@ -29,8 +29,8 @@ public class WorldFactory {
     private final Double BOTTOM_GAP = 1.5;
 
     //TODO:Adapt speed.
-    private final Double X_SPEED = 5.0;
-    private final Double Y_SPEED = 5.0;
+    private final Double X_SPEED = 0.0;
+    private final Double Y_SPEED = -1.0;
 
     private static WorldFactory instance;
 

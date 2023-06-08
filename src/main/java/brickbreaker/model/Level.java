@@ -62,7 +62,7 @@ public class Level {
             Vector2D barPos = this.world.getBar().getPosition();
             this.world.addBall(GameFactory.getInstance().createBall(
                 new Vector2D(barPos.getX(), barPos.getY() + h), 
-                new Vector2D(0, 0)));
+                new Vector2D(0, -1)));   //TODO adapt speed
             this.state = State.WAIT;
         } else if (this.getWorld().getBricks().size() == 0) {
             this.state = State.WIN;

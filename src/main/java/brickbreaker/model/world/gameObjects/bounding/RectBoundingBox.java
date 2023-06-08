@@ -91,13 +91,13 @@ public class RectBoundingBox implements BoundingBox {
 
             return (ul.getX() <= pul.getX()
                     && ul.getY() <= pul.getY() 
-                    && br.getX() >= pul.getX() 
-                    && br.getY() >= pul.getY()
+                    && br.getX() >= pbr.getX() 
+                    && br.getY() >= pbr.getY()
                     ) || (
                     ul.getX() <= pbr.getX() 
                     && ul.getY() <= pbr.getY() 
-                    && br.getX() >= pbr.getX() 
-                    && br.getY() >= pbr.getY());
+                    && br.getX() >= pul.getX() 
+                    && br.getY() >= pul.getY());
 
         } else if (obj instanceof CircleBoundingBox) {
 

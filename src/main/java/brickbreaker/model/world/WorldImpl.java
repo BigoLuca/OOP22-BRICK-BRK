@@ -98,13 +98,6 @@ public class WorldImpl implements World {
         this.bricks.addAll(bricks);
     }
 
-    private void removeBrick(final Brick brick) {
-        if (brick.getPowerUp() != TypePower.NULL) {
-            this.powerUps.add(new PowerUp(brick.getBBox().getP2d(), brick.getPowerUp()));
-        }
-        this.bricks.remove(brick);
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -135,8 +128,8 @@ public class WorldImpl implements World {
      */
     @Override
     public void checkCollision() {
-        checkCollisionWithBall();
         checkCollisionWithPowerUp();
+        checkCollisionWithBall();
         disablePowerUp();
     }
 
@@ -183,7 +176,10 @@ public class WorldImpl implements World {
                         if (destructibleBrick) {
                             brick.decLife();
                             if (brick.getLife() <= 0) {
-                                this.removeBrick(brick);
+                                if (brick.getPowerUp() != TypePower.NULL) {
+                                    this.powerUps.add(new PowerUp(brick.getBBox().getP2d(), brick.getPowerUp()));
+                                }
+                                brickIt.remove();
                                 this.incScore(BRICK_SCORE);
                             }
                         }

@@ -2,6 +2,7 @@ package brickbreaker.controllers;
 
 import brickbreaker.model.world.World;
 import brickbreaker.model.Level;
+import brickbreaker.common.Chronometer;
 import brickbreaker.controllers.input.InputController;
 
 
@@ -15,12 +16,16 @@ public class LevelControllerImpl implements LevelController {
     private InputController inputController;
     private boolean quit;
     private Level level;
+    Chronometer c;
+    Thread t;
 
     /**
      * Game state controller constructor.
      */
     public LevelControllerImpl(final Level l) {
         this.level = l;
+        this.c = new Chronometer();
+        t = new Thread(c);
     }
 
     /**
@@ -50,14 +55,17 @@ public class LevelControllerImpl implements LevelController {
      * Contains the loop for each game.
      */
     @Override
-    public void gameLoop() {
+    public long gameLoop() {
         this.quit = false;
         long last = System.currentTimeMillis();
+        long time = 1;
+        t.start();
 
         while(!quit){
             
             switch (this.level.getState()) {
                 case PLAYING:
+                    c.resume();
                     long current = System.currentTimeMillis();
                     int elapsed = (int) (current - last);
                     this.processCommands();
@@ -68,12 +76,17 @@ public class LevelControllerImpl implements LevelController {
                     break;
                 case WAIT:
                 case PAUSE:
+                    c.pause();
                     break;
                 default:
+                    time = c.stop();
                     this.quit = true;
                     break;
             }
         }
+        while (t.isAlive()) {}
+        t.interrupt();
+        return time;
     }
 
     /**

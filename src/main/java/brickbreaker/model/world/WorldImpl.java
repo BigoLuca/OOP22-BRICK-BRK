@@ -25,7 +25,6 @@ import brickbreaker.model.world.gameObjects.collision.powerUpApplicator.PowerUpA
  */
 public class WorldImpl implements World {
 
-    private final Integer BRICK_SCORE = 5;
     /**
      * Indicates on which side the collision occurred.
      */
@@ -40,8 +39,9 @@ public class WorldImpl implements World {
     private WorldEvent event;
     private Integer score;
     private boolean destructibleBrick;
-
+    
     private final Double mulELAPSED = 0.001;
+    private final Integer BRICK_SCORE = 5;
 
     /**
      * World constructor.

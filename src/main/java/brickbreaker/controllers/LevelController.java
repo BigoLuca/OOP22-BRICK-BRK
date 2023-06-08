@@ -28,5 +28,5 @@ public interface LevelController {
     /**
      * This method run the current game
      */
-    void gameLoop();
+    long gameLoop();
 }

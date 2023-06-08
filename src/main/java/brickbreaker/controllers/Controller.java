@@ -1,16 +1,9 @@
 package brickbreaker.controllers;
 
-import java.util.Optional;
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
 import brickbreaker.common.Difficulty;
 import brickbreaker.common.State;
-import brickbreaker.common.Vector2D;
 import brickbreaker.model.Level;
 import brickbreaker.model.rank.GameRank;
-import brickbreaker.model.rank.Rank;
 import brickbreaker.model.user.User;
 import brickbreaker.view.GameScene;
 
@@ -46,7 +39,7 @@ public class Controller extends ModelController {
 
             if (it < maxIteration) {
                 this.setLevelController(new LevelControllerImpl(level));
-                loopScene.init();
+                loopScene.init(getLevelController().getLevel());
                 this.getLevelController().gameLoop();
                 totalScore += this.getLevelController().getScore();
                 if(this.getLevelController().getLevel().getState().equals(State.WIN)) {
@@ -65,7 +58,7 @@ public class Controller extends ModelController {
         Level level = this.getModel().getLevel(id);
         if (!this.getErrorListener().getErrorPresent()) {
             this.setLevelController(new LevelControllerImpl(level));
-            loopScene.init();
+            loopScene.init(getLevelController().getLevel());
             this.getLevelController().gameLoop();
             if(this.getLevelController().getLevel().getState().equals(State.WIN) && this.user != null) {
                 new GameRank("levels.json", id).addToRank(user.getName(), this.getLevelController().getScore());

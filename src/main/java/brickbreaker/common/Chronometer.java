@@ -1,11 +1,19 @@
 package brickbreaker.common;
 
+/**
+ * Class representing a chronometer.
+ * Method: 
+ */
 public class Chronometer implements Runnable {
+
     private long startTime;
     private long pausedTime;
     private boolean isRunning;
     private boolean isStopped;
 
+    /**
+     * Chronometer constructor.
+     */
     public Chronometer() {
         startTime = 0;
         pausedTime = 0;
@@ -13,14 +21,9 @@ public class Chronometer implements Runnable {
         isStopped = false;
     }
 
-    public void start() {
-        if (!isRunning) {
-            startTime = System.currentTimeMillis();
-            isRunning = true;
-            isStopped = false;
-        }
-    }
-
+    /**
+     * Method to put the chronometer in pause.
+     */
     public void pause() {
         if (isRunning) {
             pausedTime = System.currentTimeMillis();
@@ -28,6 +31,9 @@ public class Chronometer implements Runnable {
         }
     }
 
+    /**
+     * Method to start and resume the chronometer.
+     */
     public void resume() {
         if (!isRunning && !isStopped) {
             long currentTime = System.currentTimeMillis();
@@ -37,6 +43,10 @@ public class Chronometer implements Runnable {
         }
     }
 
+    /**
+     * Method to stop the chronometer.
+     * @return the time elapsed from the start in seconds
+     */
     public long stop() {
         if (isRunning || !isStopped) {
             long tempoTrascorso = getTimeElapsed() / 1000;
@@ -48,7 +58,7 @@ public class Chronometer implements Runnable {
         return 1;
     }
 
-    public long getTimeElapsed() {
+    private long getTimeElapsed() {
         long currentTime = System.currentTimeMillis();
         if (isRunning) {
             return currentTime - startTime;

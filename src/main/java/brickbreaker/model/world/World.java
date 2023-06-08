@@ -5,6 +5,7 @@ import java.util.List;
 import brickbreaker.model.world.gameObjects.Ball;
 import brickbreaker.model.world.gameObjects.Bar;
 import brickbreaker.model.world.gameObjects.Brick;
+import brickbreaker.model.world.gameObjects.PowerUp;
 import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
 
 /**
@@ -43,6 +44,11 @@ public interface World {
      * @return the list of live bricks
      */
     List<Brick> getBricks();
+
+    /**
+     * @return the list of falling powerUps
+     */
+    List<PowerUp> getPowerUp();
 
     /**
      * @return the main Bounding Box

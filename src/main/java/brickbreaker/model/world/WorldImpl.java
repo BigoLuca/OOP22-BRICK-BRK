@@ -110,6 +110,14 @@ public class WorldImpl implements World {
      * {@inheritDoc}
      */
     @Override
+    public List<PowerUp> getPowerUp() {
+        return this.powerUps;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public RectBoundingBox getMainBBox() {
         return this.mainBBox;
     }

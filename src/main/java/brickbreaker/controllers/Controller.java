@@ -64,6 +64,9 @@ public class Controller extends ModelController {
             playTime = this.getLevelController().gameLoop();
             if(this.getLevelController().getLevel().getState().equals(State.WIN) && this.user != null) {
                 new GameRank("levels.json", id).addToRank(user.getName(), (int) (this.getLevelController().getScore() / playTime));
+                if (user.getLevelReached() == id) {
+                    user.incLevelReached();
+                }
             }
         } else {
             // mostra errore caricamento

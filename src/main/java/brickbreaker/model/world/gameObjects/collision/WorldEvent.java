@@ -51,7 +51,6 @@ public class WorldEvent {
             ball.flipVelOnX();
             break;
             case TOP:
-                ball.setPosition(new Vector2D(ball.getPosition().getX(), ball.getPosition().getY() - 30));
             case BOTTOM:
                 ball.flipVelOnY();
                 break;

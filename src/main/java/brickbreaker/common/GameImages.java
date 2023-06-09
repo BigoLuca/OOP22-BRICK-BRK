@@ -1,20 +1,21 @@
 package brickbreaker.common;
 
+
 import javafx.scene.image.Image;
 
 public enum GameImages {
 
     FOREST_LANDSCAPE("forest.png"),
 
-    SPACE_LANDSCAPE("space.png"),
+    SPACE_LANDSCAPE("background.jpg"),
 
-    NIGHT_SKY("night-sky.png"),
+    NIGHT_SKY("night-sky.jpg"),
 
-    SEA_LANDSCAPE("sea.png"),
+    SEA_LANDSCAPE("nickname.png"),
 
-    CITY_LANDSCAPE("city.png"),
+    CITY_LANDSCAPE("City.png"),
 
-    GAME_ICON("icon.png"),
+    GAME_ICON("nickname.png"),
 
     EASY_DIFFICULTY("easy.png"),
 
@@ -28,15 +29,35 @@ public enum GameImages {
     
     TYPE_YOUR_NAME_LABEL("typeYourName.png"),
 
-    GLOBAL_LABEL("toChange.png"),
+    PICK_A_LEVEL("pickALevel.png"),
 
-    LOCAL_LABEL("toChange.png"),
+    GLOBAL_LABEL("nickname.png"),
 
-    NEXT("toChange.png"),
+    LOCAL_LABEL("nickname.png"),
 
-    PREVIOUS("toChange.png");
+    NEXT("nickname.png"),
 
-    private static final String RES_PATH = "Images/";
+    PREVIOUS("nickname.png"),
+
+    NOT_LOADED_ITEM("nickname.png"),
+    
+    TITLE("Title.png"),
+
+    ENDLESS_MODE_CHOICE("endless.png"),
+
+    LEVELS_MODE_CHOICE("start.png"),
+
+    LEADERBOARD_CHOICE("leaderboards.png"),
+
+    UP_ARROW("upArrow.png"),
+
+    DOWN_ARROW("downArrow.png"),
+
+    RIGHT_ARROW("rightArrow.png"),
+
+    LEFT_ARROW("leftArrow.png");
+
+    private static final String RES_PATH = "images/";
     private String fileName;
     private Image image;
 

@@ -1,6 +1,7 @@
 package brickbreaker.common;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -53,7 +54,7 @@ public enum TypePower {
      * @return a list of powerUp type
      */
     public static List<TypePower> getElement(final TypePowerUp typePass) {
-        return Stream.of(TypePower.values()).filter(t -> t.type.equals(typePass)).toList();
+        return Stream.of(TypePower.values()).filter(t -> t.type.equals(typePass)).collect(Collectors.toList());
     }
 
     /**

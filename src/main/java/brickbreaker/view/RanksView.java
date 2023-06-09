@@ -1,8 +1,7 @@
 package brickbreaker.view;
 
 import brickbreaker.common.GameImages;
-import brickbreaker.controllers.Controller;
-import brickbreaker.model.rank.PlayerStats;
+import brickbreaker.controllers.GameController;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -33,7 +32,7 @@ public class RanksView extends ViewImpl {
     @FXML
     private ImageView imgChangeGlobalLocal;
 
-    public RanksView(Controller controllerToAttach) {
+    public RanksView(GameController controllerToAttach) {
         super(controllerToAttach);
     }
 

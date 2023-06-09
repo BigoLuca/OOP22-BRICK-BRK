@@ -1,16 +1,15 @@
 package brickbreaker.model.factory;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+
+import brickbreaker.MapInfo;
 import brickbreaker.ResourceLoader;
 import brickbreaker.common.Difficulty;
-import brickbreaker.common.Error;
 import brickbreaker.common.TypePower;
 import brickbreaker.common.TypePowerUp;
 import brickbreaker.common.Vector2D;
-import brickbreaker.controllers.listener.ErrorListener;
 import brickbreaker.model.world.World;
 import brickbreaker.model.world.WorldImpl;
 import brickbreaker.model.world.gameObjects.Ball;
@@ -23,13 +22,9 @@ import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
  */
 public class WorldFactory {
 
-    //proportioned to world (1000, 800)
-    private final Double WORLD_WIDTH = 38.0;
-    private final Double WORLD_HEIGHT = 30.4;
-
     //TODO:Adapt speed.
-    private final Double X_SPEED = 5.0;
-    private final Double Y_SPEED = 5.0;
+    private final Double X_SPEED = 15.0;
+    private final Double Y_SPEED = 15.0;
 
     private static WorldFactory instance;
 
@@ -46,9 +41,9 @@ public class WorldFactory {
 
     //TODO: Add actual parameters.
     private World getEmptyWorld() {
-        Bar newBar = GameFactory.getInstance().createBar(new Vector2D(0,0));
-        Ball newBall = GameFactory.getInstance().createBall(new Vector2D(0,0), new Vector2D(X_SPEED, Y_SPEED));
-        RectBoundingBox boundary = new RectBoundingBox(new Vector2D(WORLD_WIDTH / 2, WORLD_HEIGHT / 2), WORLD_WIDTH, WORLD_HEIGHT);
+        Bar newBar = GameFactory.getInstance().createBar(new Vector2D(150,300));
+        Ball newBall = GameFactory.getInstance().createBall(new Vector2D(140, 140), new Vector2D(X_SPEED, Y_SPEED));
+        RectBoundingBox boundary = new RectBoundingBox(new Vector2D(0, 0), 576.0, 576.0);
         World w = new WorldImpl(boundary);
 
         w.setBar(newBar);
@@ -56,109 +51,31 @@ public class WorldFactory {
         return w;
     }
 
-    private World getBasicWorld(final String name) {
-
-        List<Brick> bricks;
+    public World getRandomWorld(final Difficulty d) {
         World w = this.getEmptyWorld();
-        ResourceLoader r = ResourceLoader.getInstance();
-
-        if (r.loadMap(name).isPresent()) {
-            bricks = GameFactory.getInstance().createBricks(r.loadMap(name).get(), r.getMapColumns(), r.getMapRows());
-        } else {
-            ErrorListener.notifyError(Error.MAPLOADER_ERROR);
-            bricks = new ArrayList<Brick>();
-        }
-        w.addBricks(bricks);
+        w.addBricks(GameFactory.getInstance().createRandomBricks(d, 10, 10));
+        randomPowerUpAssignment(d, w.getBricks());
         return w;
     }
 
-    /**
-     * This method returns a new World with a percentage passed of positive powerUp.
-     * @param name
-     * @param bonusPercentage
-     * @return a World object
-     */
-    public World getWorld(final String name, final Integer bonusPercentage) {
-
-        World w = getEmptyWorld();
-        List<Brick> bricks;
-        ResourceLoader r = ResourceLoader.getInstance();
-
-        if (r.loadMap(name).isPresent()) {
-            bricks = GameFactory.getInstance().createBricks(r.loadMap(name).get(), r.getMapColumns(), r.getMapRows());
-        } else {
-            ErrorListener.notifyError(Error.MAPLOADER_ERROR);
-            bricks = new ArrayList<Brick>();
-        }
-        w.addBricks(bricks);
-
-        Integer bonusQuantity = (w.getBricks().size() / 100) * bonusPercentage;
-
-        if (bonusQuantity < w.getBricks().size()) {
-            Integer malusQuantity = (w.getBricks().size() - bonusQuantity) / 2;
-
-            List<TypePower> typePowerList = getWorldPowerUp(bonusQuantity, true);
-            typePowerList.addAll(getWorldPowerUp(malusQuantity / 2, false));
-
-            randomPowerUpAssignment(w.getBricks(), getWorldPowerUp(bonusQuantity, true));
-        }
-
-        return w;
-    }
-
-    public World getWorld(final String name, final List<TypePower> p) {
-        World w = this.getBasicWorld(name);
-        randomPowerUpAssignment(w.getBricks(), p);
+    public World getWorld(final Integer index) {
+        World w = this.getEmptyWorld();
+        MapInfo i = ResourceLoader.getInstance().getMapsInfo().stream().filter(item -> item.getIndex() == index).findFirst().get();
+        w.addBricks(GameFactory.getInstance().createBricks(i.getBricksData(), ResourceLoader.getInstance().MAP_COLUMNS_FILE_FORMAT, ResourceLoader.getInstance().MAP_ROWS_FILE_FORMAT));
+        randomPowerUpAssignment(i.getDifficulty(), w.getBricks());
         return w;
     }
     
-    /**
-     * This method returns the world passed in with more positive 
-     * powerUp if easier is true or less if it is false.
-     * @param name
-     * @param current
-     * @param easier
-     * @return a World object
-     */
-    public World createFromWorld(final String name, final World current, final boolean easier) {
+    private void randomPowerUpAssignment(final Difficulty d, final List<Brick> b) {
+        Random r = new Random();
 
-        World w = this.getBasicWorld(name);
-        Integer bonusQuantity = (int) current.getBricks().stream()
-        .filter(item -> item.getPowerUp().getType() == TypePowerUp.POSITIVE).count();
+        Integer other = (b.size() - d.getBonusPercentage(b.size()));
+        List<TypePower> p = this.getWorldPowerUp(d.getBonusPercentage(b.size()), true);
+        p.addAll(this.getWorldPowerUp(other, false));
 
-        if (easier) {
-            bonusQuantity++;
-            bonusQuantity = bonusQuantity > w.getBricks().size() ? w.getBricks().size() : bonusQuantity;
-        } else {
-            bonusQuantity--;
-            bonusQuantity = bonusQuantity < 0 ? 0 : bonusQuantity;
-        }
 
-        List<TypePower> p = getWorldPowerUp(bonusQuantity, true);
-        p.addAll(getWorldPowerUp(w.getBricks().size() - bonusQuantity, false));
-        randomPowerUpAssignment(w.getBricks(), p);
-
-        return w;
-    }
-
-    /**
-     * This method returns the world with a difficulty of diff.
-     * @param name
-     * @param diff
-     * @return a World object
-     */
-    public World createFromDifficulty(final String name, final Difficulty diff) {
-        return this.getWorld(name, diff.getBonusPercentage());
-    }
-
-    private void randomPowerUpAssignment(final List<Brick> b, final List<TypePower> p) {
-        Integer diff = b.size() - p.size();
-        Random random = new Random();
-        if (diff > 0) {
-            p.addAll(Collections.nCopies(diff, TypePower.NULL));
-        }
-        for (Brick brick : b) {
-            brick.setPowerUp(p.remove(random.nextInt(p.size())));
+        for (Brick i : b) {
+            i.setPowerUp(p.get(r.nextInt(b.size())));
         }
     }
 

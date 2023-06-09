@@ -1,6 +1,6 @@
 package brickbreaker.view;
 
-import brickbreaker.controllers.Controller;
+import brickbreaker.controllers.GenericController;
 import javafx.stage.Stage;
 
 /**
@@ -17,14 +17,14 @@ public interface View {
      * This method gets the current attached controller.
      * @return the current attached Controller object.
      */
-    Controller getController();
+    GenericController getController();
 
     /**
      * This method sets the view's controller to the one passed as parameter.
      * @param controllerToAttach a Controller object which will be attached to
      * the current view.
      */
-    void setController(Controller controllerToAttach);
+    void setController(GenericController controllerToAttach);
 
     /**
      * This method returns the current stage.

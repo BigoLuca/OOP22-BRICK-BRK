@@ -1,35 +1,57 @@
 package brickbreaker.controllers;
 
 import brickbreaker.model.world.World;
+import brickbreaker.model.world.gameObjects.Ball;
+import brickbreaker.model.world.gameObjects.Bar;
+import brickbreaker.model.world.gameObjects.Brick;
 import brickbreaker.model.Level;
+import brickbreaker.view.GameView;
+
+import java.util.List;
+
+import brickbreaker.common.State;
 import brickbreaker.controllers.input.InputController;
 
 
 /**
  * Implements the {@link GamStateController} interface.
  */
-public class LevelControllerImpl implements LevelController {
+public class LevelControllerImpl extends GenericController implements LevelController, Runnable {
 
     private static final double PERIOD = 16.6666;
 
     private InputController inputController;
     private boolean quit;
-    private Level level;
+    private Thread game;
 
-    /**
-     * Game state controller constructor.
-     */
-    public LevelControllerImpl(final Level l) {
-        this.level = l;
+    public void init() {
+        this.game = new Thread(this);
+        this.game.setName("game");
+        this.game.start();
+
+        this.inputController = new InputController();
+        this.getModel().getLevel().setState(State.PLAYING);
     }
 
     /**
      * {@inheritDoc}
      */
     public Level getLevel() {
-        return this.level;
+        return this.getModel().getLevel();
     }
 
+    public List<Brick> getBricks() {
+        return this.getModel().getLevel().getWorld().getBricks();
+    }
+
+    public Ball getBall() {
+        return this.getModel().getLevel().getWorld().getBalls().get(0);
+    }
+
+    public Bar getBar() {
+        return this.getModel().getLevel().getWorld().getBar();
+    }
+    
     /**
      * {@inheritDoc}
      */
@@ -42,21 +64,20 @@ public class LevelControllerImpl implements LevelController {
      */
     @Override
     public Integer getScore() {
-        return this.level.getWorld().getScore();
+        return this.getModel().getLevel().getWorld().getScore();
     }
 
     /**
      * {@inheritDoc}
-     * Contains the loop for each game.
      */
     @Override
-    public void gameLoop() {
+    public void run() {
         this.quit = false;
         long last = System.currentTimeMillis();
 
         while(!quit){
             
-            switch (this.level.getState()) {
+            switch (this.getModel().getLevel().getState()) {
                 case PLAYING:
                     long current = System.currentTimeMillis();
                     int elapsed = (int) (current - last);
@@ -80,7 +101,7 @@ public class LevelControllerImpl implements LevelController {
      * This method processes all the commands triggered by the user.
      */
     private void processCommands() {
-        World w = this.level.getWorld();
+        World w = this.getModel().getLevel().getWorld();
         w.getBar().updateInput(inputController, w.getMainBBox().getBRCorner().getX());
     }
 
@@ -89,15 +110,15 @@ public class LevelControllerImpl implements LevelController {
      * @param elapsed
      */
     private void updateGame(final int elapsed) {
-        this.level.updateGame(elapsed);
-        this.level.getWorld().checkCollision();
+        this.getModel().getLevel().updateGame(elapsed);
+        this.getModel().getLevel().getWorld().checkCollision();
     }
 
     /**
      * This method renders the attached view.
      */
     private void render() {
-        //this.getView().update(this.level.getGameState().getWorld());
+        ((GameView) this.getView()).render();
     }
 
     /**

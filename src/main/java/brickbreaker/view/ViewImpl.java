@@ -1,7 +1,7 @@
 package brickbreaker.view;
 
 import javafx.stage.Stage;
-import brickbreaker.controllers.Controller;
+import brickbreaker.controllers.GenericController;
 
 /**
  * Implements the {@link View} interface.
@@ -9,15 +9,7 @@ import brickbreaker.controllers.Controller;
 public abstract class ViewImpl implements View {
 
     private Stage currentStage;
-    private Controller currentController;
-
-    /**
-     * View constructor.
-     * @param controllerToAttach
-     */
-    public ViewImpl(final Controller controllerToAttach) {
-        this.setController(controllerToAttach);
-    }
+    private GenericController currentController;
 
     public Stage getStage() {
         return this.currentStage;
@@ -31,7 +23,7 @@ public abstract class ViewImpl implements View {
      * {@inheritDoc}}
      */
     @Override
-    public void setController(final Controller controllerToAttach) {
+    public void setController(final GenericController controllerToAttach) {
         this.currentController = controllerToAttach;
     }
 
@@ -39,7 +31,7 @@ public abstract class ViewImpl implements View {
      * {@inheritDoc}}
      */
     @Override
-    public Controller getController() {
+    public GenericController getController() {
         return this.currentController;
     }
 

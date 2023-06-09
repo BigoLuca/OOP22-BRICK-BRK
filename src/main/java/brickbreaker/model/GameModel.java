@@ -4,12 +4,14 @@ import brickbreaker.common.Difficulty;
 
 public interface GameModel {
 
+    Level getLevel();
+    
     String getNameMap(Integer i);
 
     Integer getListMapLenght();
 
-    Level getRandomLevel(Difficulty difficulty);
+    void createRandomLevel(Difficulty difficulty);
 
-    Level getLevel(Integer level);
+    void createLevel(Integer level);
 
 }

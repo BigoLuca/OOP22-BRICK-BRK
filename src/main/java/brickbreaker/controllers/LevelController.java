@@ -6,7 +6,7 @@ import brickbreaker.model.Level;
 /**
  * This interface defines the game state controller.
  */
-public interface LevelController {
+public interface LevelController extends Controller {
 
     /*
      * Get the current level
@@ -24,9 +24,4 @@ public interface LevelController {
      * @return an integer value that represents the score.
      */
     Integer getScore();
-
-    /**
-     * This method run the current game
-     */
-    void gameLoop();
 }

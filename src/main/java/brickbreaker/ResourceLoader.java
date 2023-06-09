@@ -14,11 +14,17 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Scanner;
 
+import java.util.Iterator;
+
 import com.google.gson.*;
 
+import brickbreaker.common.Difficulty;
 import brickbreaker.common.Error;
+import brickbreaker.common.GameImages;
+import brickbreaker.common.GameObjectsImages;
 import brickbreaker.controllers.listener.ErrorListener;
 import brickbreaker.model.user.User;
+import javafx.scene.image.Image;
 
 /**
  * Class to load the resources: map files, game icons, ranking stats.
@@ -66,12 +72,45 @@ public class ResourceLoader {
         this.currentMapList = new ArrayList<>();
     }
 
+    public void start() {
+        Arrays.stream(GameImages.values()).forEach(value -> {
+            value.setImage(new Image(ClassLoader.getSystemResourceAsStream(value.getFilePath())));
+        });
+
+        Arrays.stream(GameObjectsImages.values()).forEach(value -> {
+            value.setImage(new Image(ClassLoader.getSystemResourceAsStream(value.getFilePath())));
+        });
+    }
+    
     /**
      * @return the list of name map files in the directory
      */
-    public List<String> getMapsNames() {
-        return Arrays.asList(new File(mapsPath).list());
+    public List<MapInfo> getMapsInfo() {
+        List<MapInfo> m = new ArrayList<>();
+        JsonArray a = this.loadJson(this.mapsPath + sep + "levels.json", Error.MAPLOADER_ERROR);
+        Iterator<JsonElement> iterator = a.iterator();
+
+        while (iterator.hasNext()) {
+            JsonObject e = iterator.next().getAsJsonObject();
+            Integer index = e.get("index").getAsInt();
+            String landScape = e.get("landscape").getAsString();
+            List<Integer> map = new ArrayList<>();
+
+            for (Integer i = 0; i < e.get("map").getAsJsonArray().size(); i++) {
+                map.add(e.get("map").getAsJsonArray().get(i).getAsInt());
+                System.out.println(map.get(i));
+            }
+
+            Difficulty d = Difficulty.valueOf(e.get("difficulty").getAsString());
+            String name = e.get("name").getAsString();
+            MapInfo i = new MapInfo(index, map, d, name, landScape);
+
+            m.add(i);
+        }
+
+        return m;
     }
+
 
     /**
      * Retunr the game map request, if new: load the new map, else return the same in memory.
@@ -141,6 +180,29 @@ public class ResourceLoader {
             }
         }
         return -1;
+    }
+
+    public GameImages getMapLandscape(final String mapName) {
+        try {
+            JsonObject f = JsonParser.parseReader(new FileReader(mapsPath + sep + mapName)).getAsJsonObject();
+            return GameImages.valueOf(f.get("landscape").getAsString());
+        } catch (FileNotFoundException e) {
+            ErrorListener.notifyError(Error.MAPLOADER_ERROR);
+            return GameImages.NOT_LOADED_ITEM;
+        }
+    }
+
+    public Optional<Difficulty> getMapDifficulty(final String mapName) {
+        try {
+            JsonObject f =  JsonParser.parseReader(new FileReader(mapsPath + sep + mapName)).getAsJsonObject();
+            String d = f.get("difficulty").getAsString();
+            return Optional.of(Difficulty.valueOf(d));
+        } catch (FileNotFoundException e) {
+            ErrorListener.notifyError(Error.MAPLOADER_ERROR);
+            return null;
+        } catch (NullPointerException n) {
+            return Optional.empty();
+        }
     }
 
     /**
@@ -238,7 +300,7 @@ public class ResourceLoader {
         JsonArray js = this.loadJson(this.userPath, Error.USERLOADER_ERROR);
         for (JsonElement element : js) {
             JsonObject jObj = element.getAsJsonObject();
-            users.add(new User(jObj.get(NAME).getAsString()));
+            users.add(new User(jObj.get(NAME).getAsString(), jObj.get(LEVEL_REACHED).getAsInt()));
         }
         return users;
     }
@@ -277,16 +339,15 @@ public class ResourceLoader {
      * Method to add a new user to the json user file.
      * @param playerName
      */
-    public void addUser(final String playerName) {
+    public void addUser(final User newUser) {
 
         JsonArray js = this.loadJson(this.userPath, Error.USERLOADER_ERROR);
-        if (getIdxUserName(playerName, js) < 0) {
-            JsonObject newUser = new JsonObject();
-            newUser.addProperty(NAME, playerName);
-            newUser.addProperty(LEVEL_REACHED, 1);
-            js.add(newUser);
+        if (getIdxUserName(newUser.getName(), js) < 0) {
+            JsonObject u = new JsonObject();
+            u.addProperty(NAME, newUser.getName());
+            u.addProperty(LEVEL_REACHED, 1);
+            js.add(u);
         }
-        this.writeJson(this.userPath, js, Error.USERWRITER_ERROR);
     }
 
     /**

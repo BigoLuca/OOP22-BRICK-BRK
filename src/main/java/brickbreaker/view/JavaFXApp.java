@@ -1,6 +1,6 @@
 package brickbreaker.view;
 
-import brickbreaker.controllers.Controller;
+import brickbreaker.controllers.GameController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import brickbreaker.view.PlayerScene;
@@ -12,7 +12,7 @@ public class JavaFXApp extends Application {
 
     //LevelScene LevelScene = new LevelScene(controller.getModel().getListMapLenght());
     protected Stage primaryStage;
-    protected Controller controller;
+    protected GameController controller;
 
     private GameScene gameWindow;
     private PlayerScene playerScene = new PlayerScene(this);
@@ -22,7 +22,7 @@ public class JavaFXApp extends Application {
     public void start(final Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         this.gameWindow = new GameScene(this.primaryStage);
-        this.controller = new Controller(gameWindow);
+        this.controller = new GameController(gameWindow);
 
         switchToPlayerScene();
     }

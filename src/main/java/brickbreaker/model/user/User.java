@@ -1,16 +1,16 @@
 package brickbreaker.model.user;
 
-import brickbreaker.ResourceLoader;
-
 /**
  * Class representing a user.
  */
 public class User {
 
     private String userName;
+    private Integer levelReached;
 
-    public User(final String nameToSet) {
+    public User(final String nameToSet, final Integer levelReached) {
         this.userName = nameToSet;
+        this.levelReached = levelReached;
     }
 
     public String getName() {
@@ -18,10 +18,10 @@ public class User {
     }
 
     public Integer getLevelReached() {
-        return ResourceLoader.getInstance().getLevelReached(this.userName);
+        return this.levelReached;
     }
 
     public void incLevelReached() {
-        ResourceLoader.getInstance().incLevelReached(this.userName);
+        this.levelReached++;
     }
 }

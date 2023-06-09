@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import brickbreaker.ResourceLoader;
 import brickbreaker.model.user.User;
 
-public class UserController {
+public class UserController extends GenericController{
 
     private static final int MAX_PLAYER = 5;
     public UserController() {}
@@ -20,12 +20,8 @@ public class UserController {
         return ResourceLoader.getInstance().getUsers().stream().filter(user -> user.getName().equals(username)).findFirst().get();
     }
 
-    public void addUser(final String username) {
-        ResourceLoader.getInstance().addUser(username);
-    }
-
-    public void removeUser(final String username) {
-        ResourceLoader.getInstance().removeUser(username);
+    public void addUser(final User newUser) {
+        ResourceLoader.getInstance().addUser(newUser);
     }
 
     public boolean isMaxUser(){

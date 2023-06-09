@@ -2,41 +2,56 @@ package brickbreaker.view;
 
 import java.util.List;
 
-import brickbreaker.common.GameImages;
-import brickbreaker.controllers.Controller;
+import brickbreaker.controllers.UserController;
+import brickbreaker.model.user.User;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class SetUpView extends ViewImpl {
 
-    @FXML private ComboBox<String> cbUsersList;
-    @FXML private ImageView addButton;
+    @FXML
+    private AnchorPane root;
 
-    private final JavaFXApp s;
-    private List<String> users;
+    @FXML private VBox vBoxMainContainer;
     
-    public SetUpView(final JavaFXApp s, final Controller controllerToAttach) {
-        super(controllerToAttach);
-        this.s = s;
-        this.users = s.controller.getUserController().getUsersName();
-    }
+    @FXML
+    private HBox hBoxNicknameInsertion;
+
+    @FXML 
+    private ImageView imgChoose;
+
+    @FXML 
+    private ImageView imgNickname;
+
+    @FXML 
+    private ComboBox<String> cbUsersList;
+    
+    @FXML 
+    private Button btnAdd;
+
+    private List<String> users;
 
     @Override
     public void init() {
+
+        this.getController().init();
+        this.users = ((UserController) this.getController()).getUsersName();
 
         //Setting up the combo box.
         cbUsersList.getItems().addAll(this.users);
         cbUsersList.setPromptText("Type your nick");
         cbUsersList.setEditable(true);
-
-        //Setting up the images.
-        addButton.setImage(GameImages.GAME_ICON.getImage());
     }
 
+    @FXML
     public void switchToHome() {
         String nick = cbUsersList.getEditor().getText();
 
@@ -46,10 +61,13 @@ public class SetUpView extends ViewImpl {
             d.setContentText("You cannot play without an user name!");
             d.getDialogPane().getButtonTypes().add(new ButtonType("Retry", ButtonData.BACK_PREVIOUS));
             d.showAndWait();
-        } else if (!this.users.contains(nick)) {
-            s.controller.getUserController().addUser(nick);
+        } else {
+            if (!this.users.contains(nick)) {
+                User u = new User(nick, 1);
+                ((UserController) this.getController()).addUser(u);
+                this.getController().getSession().setUser(u);
+            }
+            ViewSwitcher.getInstance().switchView(getStage(), ViewType.HOME, this.getController().getModel());
         }
-
-        s.switchToHome();
     }
 }

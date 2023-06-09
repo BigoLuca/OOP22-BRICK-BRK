@@ -1,9 +1,6 @@
 package brickbreaker.controllers;
 
-import javax.swing.text.View;
-
 import brickbreaker.common.Chronometer;
-import brickbreaker.view.ViewController;
 import javafx.animation.AnimationTimer;
 
 public class GameController extends AnimationTimer {

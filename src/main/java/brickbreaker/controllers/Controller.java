@@ -3,7 +3,6 @@ package brickbreaker.controllers;
 import brickbreaker.model.Level;
 import brickbreaker.model.user.User;
 import brickbreaker.model.world.World;
-import brickbreaker.view.ViewController;
 import brickbreaker.view.ViewSwitcher;
 
 public class Controller extends AbstractController {
@@ -12,15 +11,13 @@ public class Controller extends AbstractController {
 
     private final GameController gameController;
     private Level model;
-    private ViewSwitcher view;
     private User user;
 
-    public Controller(final ViewSwitcher v) {
+    public Controller() {
         super();
         this.gameController = new GameController(this);
         this.model = null;
         this.user = null;
-        this.view = v;
     }
 
     public void setUser(final String username) {
@@ -52,18 +49,12 @@ public class Controller extends AbstractController {
         this.model.getWorld().checkCollision();
     }
 
-    public void playLevel(final Integer id) {
-        this.errListener.getErrorList().clear();
-        if(errListener.getErrorPresent()){
-            // mostra errore caricamento
-        } else {
-            gameController.startGame();
-        }
-
+    public void play() {
+        gameController.startGame();
     }
 
     public void render() {
-        this.view.render();
+        ViewSwitcher.getInstance().render();
     }
 
     public void stop() {

@@ -15,7 +15,7 @@ public final class ViewSwitcher {
     private boolean firstSwitch = true;
     private static ViewSwitcher instance;
     private View currentView;
-    private Controller mainController = new Controller(instance);
+    private Controller mainController = new Controller();
 
     public static ViewSwitcher getInstance() {
         if (instance == null) {

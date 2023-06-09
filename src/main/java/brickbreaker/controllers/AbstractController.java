@@ -2,8 +2,6 @@ package brickbreaker.controllers;
 
 import brickbreaker.controllers.input.InputController;
 import brickbreaker.controllers.listener.ErrorListener;
-import brickbreaker.model.Level;
-import brickbreaker.model.user.User;
 
 public abstract class AbstractController {
     
@@ -11,9 +9,6 @@ public abstract class AbstractController {
     protected ErrorListener errListener;
     protected InputController inputController;
     protected LevelController levelController;
-
-    protected Level currentLevel;
-    protected User currentUser;
     
     public AbstractController() {
         this.userController = new UserController();

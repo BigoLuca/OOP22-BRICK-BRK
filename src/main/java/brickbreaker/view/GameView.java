@@ -10,6 +10,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import brickbreaker.model.world.gameObjects.Ball;
 import brickbreaker.model.world.gameObjects.Bar;
 import brickbreaker.model.world.gameObjects.Brick;
@@ -48,6 +49,8 @@ public class GameView extends ViewImpl {
         this.backGround.setImage(GameImages.CITY_LANDSCAPE.getImage());
         this.gcF = foreGround.getGraphicsContext2D();
         this.setUpBrickImages();
+        this.getStage().getScene().setOnKeyPressed(e -> handleKeyPressed(e.getCode()));
+        this.getController().play();
     }
 
     public void setUpBrickImages() {
@@ -75,5 +78,13 @@ public class GameView extends ViewImpl {
             this.gcF.drawImage(GameObjectsImages.BAR.getImage(), bar.getPosition().getX(), bar.getPosition().getY(), 128, 32);
             this.gcF.drawImage(GameObjectsImages.BALL.getImage(), ball.getPosition().getX(), ball.getPosition().getY(), 32, 32);
         });
+    }
+
+    public void handleKeyPressed(KeyCode keyCode) {
+        if (keyCode == KeyCode.LEFT) {
+            this.getController().getInputController().notifyMoveLeft();
+        } else if (keyCode == KeyCode.RIGHT) {
+            this.getController().getInputController().notifyMoveRight();
+        }
     }
 }

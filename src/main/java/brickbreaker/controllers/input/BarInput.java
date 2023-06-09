@@ -6,7 +6,7 @@ import brickbreaker.model.world.gameObjects.Bar;
  */
 public class BarInput implements InputComponent {
 
-    private final Integer move = 1;
+    private final Integer move = 20;
 
     /**
      * {@inheritDoc}

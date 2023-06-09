@@ -48,9 +48,10 @@ public class WorldEvent {
         switch (side(ball.getPosition(), obj.getBBox())) {
             case LEFT:
             case RIGHT:
-                ball.flipVelOnX();
-                break;
+            ball.flipVelOnX();
+            break;
             case TOP:
+                ball.setPosition(new Vector2D(ball.getPosition().getX(), ball.getPosition().getY() - 30));
             case BOTTOM:
                 ball.flipVelOnY();
                 break;
@@ -68,21 +69,21 @@ public class WorldEvent {
             if ((ul.getX() > ballPos.getX() && uly < Math.abs(ul.orizDist(ballPos)))
                 || (br.getX() < ballPos.getX() && uly < Math.abs(br.orizDist(ballPos)))
             ) {
-                return SideCollision.LEFT;
-            } else {
                 return SideCollision.TOP;
+            } else {
+                return SideCollision.LEFT;
             }
         } else if (br.getY() < ballPos.getY()) {
             Double bry = Math.abs(br.vertDist(ballPos));
             if ((ul.getX() > ballPos.getX() && bry < Math.abs(ul.orizDist(ballPos)))
                 || (br.getX() < ballPos.getX() && bry < Math.abs(br.orizDist(ballPos)))
             ) {
-                return SideCollision.RIGHT;
-            } else {
                 return SideCollision.BOTTOM;
+            } else {
+                return SideCollision.RIGHT;
             }
         } else {
-            return SideCollision.LEFT;
+            return SideCollision.TOP;
         }
     }
 }

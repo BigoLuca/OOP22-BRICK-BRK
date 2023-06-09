@@ -1,5 +1,7 @@
 package brickbreaker;
 
+import javafx.application.Application;
+
 public class Launcher {
 
     private Launcher() {
@@ -7,6 +9,6 @@ public class Launcher {
     }
 
     public static void main(final String[] args) {
-        App.main(args);
+        Application.launch(App.class, args);
     }
 }

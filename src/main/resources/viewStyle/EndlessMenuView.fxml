@@ -7,41 +7,53 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="root" maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="brickbreaker.view.EndlessMenuView">
    <children>
-      <HBox layoutX="65.0" layoutY="98.0" prefHeight="99.0" prefWidth="321.0" spacing="30.0">
+      <VBox fx:id="vbLayout" layoutX="38.0" layoutY="51.0" prefHeight="297.0" prefWidth="524.0" spacing="30.0">
          <children>
-            <ImageView id="imgChooseDifficulty" fitHeight="104.0" fitWidth="270.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView id="imgEndlessMode" fx:id="imgModeTitle" fitHeight="62.0" fitWidth="309.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
                <image>
-                  <Image url="@../Images/difficulty.png" />
+                  <Image url="@../Images/endlessModeTitle.png" />
                </image>
-               <HBox.margin>
-                  <Insets top="30.0" />
-               </HBox.margin>
+               <VBox.margin>
+                  <Insets left="100.0" />
+               </VBox.margin>
             </ImageView>
-            <VBox prefHeight="99.0" prefWidth="157.0">
+            <HBox fx:id="hbDifficulty" prefHeight="159.0" prefWidth="524.0" spacing="30.0" VBox.vgrow="ALWAYS">
                <children>
-                  <ImageView id="imgUpArrow" fitHeight="26.0" fitWidth="139.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#clickUpArrow"/>
-                  <ImageView id="imgDifficulty" fitHeight="44.0" fitWidth="146.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgDifficulty" fitHeight="104.0" fitWidth="270.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                      <image>
-                        <Image url="@../Images/mix.png" />
+                        <Image url="@../Images/difficulty.png" />
                      </image>
+                     <HBox.margin>
+                        <Insets top="30.0" />
+                     </HBox.margin>
                   </ImageView>
-                  <ImageView id="imgDownArrow" fitHeight="29.0" fitWidth="138.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#clickDownArrow"/>
+                  <VBox fx:id="vbDifficultySelection" prefHeight="99.0" prefWidth="157.0">
+                     <children>
+                        <ImageView fx:id="imgUpArrow" fitHeight="26.0" fitWidth="142.0" onMouseClicked="#clickUpArrow" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="imgSelectedDifficulty" fitHeight="44.0" fitWidth="146.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/mix.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="imgDownArrow" fitHeight="29.0" fitWidth="138.0" onMouseClicked="#clickDownArrow" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </VBox>
                </children>
-            </VBox>
+               <VBox.margin>
+                  <Insets left="30.0" />
+               </VBox.margin>
+            </HBox>
+            <ImageView fx:id="imgReady" fitHeight="62.0" fitWidth="200.0" onMouseClicked="#clickPlayButton" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+               <image>
+                  <Image url="@../Images/ready.png" />
+               </image>
+               <VBox.margin>
+                  <Insets left="150.0" />
+               </VBox.margin>
+            </ImageView>
          </children>
-      </HBox>
-      <ImageView id="imgReadyGo" fitHeight="62.0" fitWidth="200.0" layoutX="200.0" layoutY="280.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#clickPlayButton">
-         <image>
-            <Image url="@../Images/ready.png" />
-         </image>
-      </ImageView>
-      <ImageView id="imgEndlessMode" fitHeight="62.0" fitWidth="309.0" layoutX="145.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../Images/endlessModeTitle.png" />
-         </image>
-      </ImageView>
+      </VBox>
    </children>
 </AnchorPane>

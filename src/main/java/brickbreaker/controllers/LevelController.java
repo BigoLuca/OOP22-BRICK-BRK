@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import brickbreaker.MapInfo;
 import brickbreaker.ResourceLoader;
 import brickbreaker.common.Difficulty;
 import brickbreaker.model.Level;
@@ -13,20 +14,19 @@ import brickbreaker.model.factory.WorldFactory;
 
 public class LevelController {
 
-    private List<String> mapList;
-    private List<Integer> difficulty;
+    private List<MapInfo> mapList;
+    private Level currentLevel;
 
     public LevelController() {
-        this.mapList = ResourceLoader.getInstance().getMapsNames();
-        this.difficulty = IntStream.rangeClosed(10, 90)
-                            .filter(n -> (90 - n) % Math.floorDiv(80, this.getListMapLenght()) == 0)
-                            .boxed()
-                            .sorted((a, b) -> b - a)
-                            .collect(Collectors.toList());
+        this.mapList = ResourceLoader.getInstance().getMapsInfo();
+    }
+    
+    protected Level getCurrentLevel() {
+        return this.currentLevel;
     }
 
     public String getNameMap(final Integer i) {
-        return this.mapList.get(i);
+        return this.mapList.get(i).getName();
     }
 
     public Integer getListMapLenght(){
@@ -38,13 +38,12 @@ public class LevelController {
         return Difficulty.values()[randomDiff.nextInt(3)];
     }
 
-    public Level getRandomLevel(final Difficulty diff) {
+    public void setRandomLevel(final Difficulty diff) {
         Difficulty d = diff.equals(Difficulty.RANDOM) ? this.getRandomDifficulty() : diff;
-        return new Level(0, WorldFactory.getInstance().getWorld(d));
+        this.currentLevel = new Level(0, WorldFactory.getInstance().getRandomWorld(d));
     }
 
-    public Level getLevel(Integer level) {
-        return new Level(level, WorldFactory.getInstance().getWorld(this.getNameMap(level), this.difficulty.get(level)));
+    public void setLevel(Integer level) {
+        this.currentLevel = new Level(level, WorldFactory.getInstance().getWorld(level));
     }
-
 }

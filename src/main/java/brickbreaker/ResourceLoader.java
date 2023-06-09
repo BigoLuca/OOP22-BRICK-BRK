@@ -300,7 +300,7 @@ public class ResourceLoader {
         JsonArray js = this.loadJson(this.userPath, Error.USERLOADER_ERROR);
         for (JsonElement element : js) {
             JsonObject jObj = element.getAsJsonObject();
-            users.add(new User(jObj.get(NAME).getAsString(), jObj.get(LEVEL_REACHED).getAsInt()));
+            users.add(new User(jObj.get(NAME).getAsString()));
         }
         return users;
     }

@@ -14,7 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
-public final class LevelMenuView extends ViewImpl {
+public final class LevelsMenuView extends ViewImpl {
 
     @FXML
     private ImageView imgChooseLevel;
@@ -22,7 +22,7 @@ public final class LevelMenuView extends ViewImpl {
     @FXML
     private GridPane gplevelsGrid;
 
-    public LevelMenuView(final Controller controllerToAttach) {
+    public LevelsMenuView(final Controller controllerToAttach) {
         super(controllerToAttach);
         
         Integer levelsQuantity = ResourceLoader.getInstance().getMapsNames().size();

@@ -1,32 +1,50 @@
 package brickbreaker.controllers;
 
-import brickbreaker.controllers.input.InputController;
+import java.util.List;
+import java.util.Optional;
+import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import brickbreaker.ResourceLoader;
+import brickbreaker.common.Difficulty;
 import brickbreaker.model.Level;
+import brickbreaker.model.factory.WorldFactory;
 
-/**
- * This interface defines the game state controller.
- */
-public interface LevelController {
+public class LevelController {
 
-    /*
-     * Get the current level
-     * @return the current level
-     */
-    Level getLevel();
+    private List<String> mapList;
+    private List<Integer> difficulty;
 
-    /**
-     * @return the input controller
-     */
-    InputController getInputController();
+    public LevelController() {
+        this.mapList = ResourceLoader.getInstance().getMapsNames();
+        this.difficulty = IntStream.rangeClosed(10, 90)
+                            .filter(n -> (90 - n) % Math.floorDiv(80, this.getListMapLenght()) == 0)
+                            .boxed()
+                            .sorted((a, b) -> b - a)
+                            .collect(Collectors.toList());
+    }
 
-    /**
-     * This method gets the current game score.
-     * @return an integer value that represents the score.
-     */
-    Integer getScore();
+    public String getNameMap(final Integer i) {
+        return this.mapList.get(i);
+    }
 
-    /**
-     * This method run the current game
-     */
-    long gameLoop();
+    public Integer getListMapLenght(){
+        return this.mapList.size();
+    }
+
+    private Difficulty getRandomDifficulty() {
+        Random randomDiff = new Random();
+        return Difficulty.values()[randomDiff.nextInt(3)];
+    }
+
+    public Level getRandomLevel(final Difficulty diff) {
+        Difficulty d = diff.equals(Difficulty.RANDOM) ? this.getRandomDifficulty() : diff;
+        return new Level(0, WorldFactory.getInstance().getWorld(d));
+    }
+
+    public Level getLevel(Integer level) {
+        return new Level(level, WorldFactory.getInstance().getWorld(this.getNameMap(level), this.difficulty.get(level)));
+    }
+
 }

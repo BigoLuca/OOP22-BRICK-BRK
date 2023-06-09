@@ -31,6 +31,7 @@ public class GameScene {
     private static int BRICK_COLUMNS = 8;
 
     private final Stage primaryStage;
+    private final ViewController app;
     private Canvas canvas;
     private GraphicsContext gc;
     private double paddleX;
@@ -39,12 +40,10 @@ public class GameScene {
 
 
 
-    public GameScene(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-    }    
-    
-
-    public void init(Level lv) {
+    public GameScene(ViewController app) {
+        this.app = app;
+        this.primaryStage = app.primaryStage;
+        
         canvas = new Canvas(WIDTH, HEIGHT);
         gc = canvas.getGraphicsContext2D();
 
@@ -62,7 +61,7 @@ public class GameScene {
         pauseBUtton.setFocusTraversable(false);
         StackPane.setAlignment(pauseBUtton, javafx.geometry.Pos.TOP_RIGHT);                                   // Set the alignment of the button to the top-right corner       
         StackPane.setMargin(pauseBUtton, new javafx.geometry.Insets(10, 10, 0, 0));     // Set the margin of the button to create spacing from the top and right edges
-        
+
         
         // Add static component to root layout
         root.getChildren().add(pauseBUtton);
@@ -81,13 +80,15 @@ public class GameScene {
         primaryStage.show();
     }
 
-    public void update(World world) { // Level level
+    public void update() { // Level level
         // Clear canvas
         gc.setFill(BACKGROUND_COLOR);
         gc.fillRect(0, 0, WIDTH, HEIGHT);
 
         // Draw paddle
         gc.setFill(PADDLE_COLOR);
+
+        World world = this.app.controller.getModel().getWorld();
         var paddle = world.getBar().getPosition();
         gc.fillRect(paddle.getX(), HEIGHT - PADDLE_HEIGHT, PADDLE_WIDTH, PADDLE_HEIGHT);
 

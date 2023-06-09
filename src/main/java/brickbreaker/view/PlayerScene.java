@@ -13,11 +13,11 @@ import java.util.List;
 
 public class PlayerScene {
 
-    private final JavaFXApp switcher;
+    private final ViewController app;
     private List<String> players;
 
-    public PlayerScene(JavaFXApp switcher){
-        this.switcher = switcher;
+    public PlayerScene(ViewController switcher){
+        this.app = switcher;
     }
 
     public void show() {
@@ -36,7 +36,7 @@ public class PlayerScene {
         root.getChildren().add(titleLabel);
 
         // Create a Button for add a new player
-        if(this.switcher.controller.getUserController().isMaxUser()){
+        if(this.app.controller.getUserController().isMaxUser()){
             HBox addBox = new HBox();
             addBox.setAlignment(Pos.CENTER);
             TextField addText = new TextField("Add a new player: ");
@@ -45,7 +45,7 @@ public class PlayerScene {
             addPlayer.setOnAction(event ->{
                 String newPlayer = addText.getText();
                 if (newPlayer != null && !newPlayer.isEmpty()) {
-                    this.switcher.controller.getUserController().addUser(newPlayer);
+                    this.app.controller.getUserController().addUser(newPlayer);
                     show();
                 }
             });
@@ -56,7 +56,7 @@ public class PlayerScene {
 
 
         // Get a list of players
-        players = this.switcher.controller.getUserController().getUsersName();
+        players = this.app.controller.getUserController().getUsersName();
 
         // Create buttons for player selection
         for (String player : players) {
@@ -73,9 +73,9 @@ public class PlayerScene {
        
 
         // Set the scene on the primary stage
-        this.switcher.primaryStage.setScene(scene);
-        this.switcher.primaryStage.setTitle("Player Selection");
-        this.switcher.primaryStage.show();
+        this.app.primaryStage.setScene(scene);
+        this.app.primaryStage.setTitle("Player Selection");
+        this.app.primaryStage.show();
     }
 
     private Button createPlayerButton(String player) {
@@ -97,7 +97,8 @@ public class PlayerScene {
             Button clickedButton = (Button) event.getSource();
             String selectedPlayer = clickedButton.getText();
             System.out.println("Selected Player: " + selectedPlayer);
-            this.switcher.switchToModeScene();
+            //this.switcher.switchToModeScene();
+            this.app.switchToLevelMatch();
             // You can perform further actions based on the selected player
         });
 
@@ -120,7 +121,7 @@ public class PlayerScene {
         
 
         removeButton.setOnAction(event -> {
-            this.switcher.controller.getUserController().removeUser(player);
+            this.app.controller.getUserController().removeUser(player);
             show();
             // You can perform further actions based on the selected player
         });

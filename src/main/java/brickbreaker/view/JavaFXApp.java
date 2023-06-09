@@ -1,5 +1,6 @@
 package brickbreaker.view;
 
+import brickbreaker.common.Difficulty;
 import brickbreaker.controllers.Controller;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -33,5 +34,9 @@ public class JavaFXApp extends Application {
 
     public void switchToModeScene(){
         modeScene.show();
+    }
+
+    public void switchToLevelMatch(){
+        //controller.createLevels(0);
     }
 }

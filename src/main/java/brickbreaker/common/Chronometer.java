@@ -4,7 +4,7 @@ package brickbreaker.common;
  * Class representing a chronometer.
  * Method: 
  */
-public class Chronometer implements Runnable {
+public class Chronometer extends Thread {
 
     private long startTime;
     private long pausedTime;
@@ -24,7 +24,7 @@ public class Chronometer implements Runnable {
     /**
      * Method to put the chronometer in pause.
      */
-    public void pause() {
+    public void pauseChrono() {
         if (isRunning) {
             pausedTime = System.currentTimeMillis();
             isRunning = false;
@@ -34,7 +34,7 @@ public class Chronometer implements Runnable {
     /**
      * Method to start and resume the chronometer.
      */
-    public void resume() {
+    public void resumeChrono() {
         if (!isRunning && !isStopped) {
             long currentTime = System.currentTimeMillis();
             startTime += currentTime - pausedTime;
@@ -47,7 +47,7 @@ public class Chronometer implements Runnable {
      * Method to stop the chronometer.
      * @return the time elapsed from the start in seconds
      */
-    public long stop() {
+    public long stopChrono() {
         if (isRunning || !isStopped) {
             long tempoTrascorso = getTimeElapsed() / 1000;
             isRunning = false;

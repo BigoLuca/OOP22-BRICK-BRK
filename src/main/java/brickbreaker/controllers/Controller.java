@@ -1,28 +1,62 @@
 package brickbreaker.controllers;
 
-import brickbreaker.common.Difficulty;
-import brickbreaker.common.State;
 import brickbreaker.model.Level;
-import brickbreaker.model.rank.GameRank;
 import brickbreaker.model.user.User;
-import brickbreaker.view.GameScene;
+import brickbreaker.model.world.World;
 
-public class Controller extends ModelController {
+public class Controller extends AbstractController {
 
-    private GameScene loopScene;
-    private boolean haveWin;
+    private static final int ELAPSED = 16;
 
-    private User user = null;
+    private final GameController gameController;
+    private Level model;
+    private User user;
 
-    public Controller(final GameScene gameWindow) {
+    public Controller() {
         super();
-        this.loopScene = gameWindow;
+        this.gameController = new GameController(this);
+        this.model = null;
+        this.user = null;
     }
 
     public void setUser(final String username) {
-        this.user = this.getUserController().getUser(username);
+        this.user = this.userController.getUser(username);
     }
 
+    public Level getModel() {
+        return this.model;
+    }
+
+
+     /**
+     * This method processes all the commands triggered by the user.
+     */
+    protected void processCommands() {
+        World w = this.model.getWorld();
+        w.getBar().updateInput(this.inputController, w.getMainBBox().getBRCorner().getX());
+    }
+
+    /**
+     * This method updates the current Game.
+     * @param elapsed
+     */
+    protected void updateGame() {
+        this.model.updateGame(ELAPSED);
+        this.model.getWorld().checkCollision();
+    }
+
+    public void playLevel(final Integer id) {
+        this.errListener.getErrorList().clear();
+        this.model = this.levelController.getLevel(id);
+        if(errListener.getErrorPresent()){
+            // mostra errore caricamento
+        } else {
+            gameController.startGame();
+        }
+
+    }
+
+    /*
     public void createEndless(final Difficulty d) {
         final Integer maxIteration = 10;
         Integer totalScore = 0;
@@ -59,7 +93,7 @@ public class Controller extends ModelController {
         this.getErrorListener().getErrorList().clear();
         Level level = this.getModel().getLevel(id);
         if (!this.getErrorListener().getErrorPresent()) {
-            this.setLevelController(new LevelControllerImpl(level));
+            this.setLevelController(new LevelControllerImpl(level, loopScene));
             loopScene.init(getLevelController().getLevel());
             playTime = this.getLevelController().gameLoop();
             if(this.getLevelController().getLevel().getState().equals(State.WIN) && this.user != null) {
@@ -71,5 +105,5 @@ public class Controller extends ModelController {
         } else {
             // mostra errore caricamento
         }
-    }
+    } */
 }

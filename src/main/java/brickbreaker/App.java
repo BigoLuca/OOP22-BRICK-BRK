@@ -1,6 +1,6 @@
 package brickbreaker;
 
-import brickbreaker.view.JavaFXApp;
+import brickbreaker.view.ViewController;
 import javafx.application.Application;
 
 /**
@@ -15,7 +15,7 @@ public final class App {
      * @param args command line args
      */
     public static void main(final String[] args) throws Exception {
-        Application.launch(JavaFXApp.class, args);
+        Application.launch(ViewController.class, args);
     }
     
 

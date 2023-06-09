@@ -37,4 +37,10 @@ public interface View {
      * @param stageToSet
      */
     void setStage(Stage stageToSet);
+
+    /**
+     * This method render the view.
+     */
+    void render();
+    
 }

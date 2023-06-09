@@ -4,6 +4,7 @@ import brickbreaker.model.Level;
 import brickbreaker.model.user.User;
 import brickbreaker.model.world.World;
 import brickbreaker.view.ViewController;
+import brickbreaker.view.ViewSwitcher;
 
 public class Controller extends AbstractController {
 
@@ -11,10 +12,10 @@ public class Controller extends AbstractController {
 
     private final GameController gameController;
     private Level model;
-    private ViewController view;
+    private ViewSwitcher view;
     private User user;
 
-    public Controller(final ViewController v) {
+    public Controller(final ViewSwitcher v) {
         super();
         this.gameController = new GameController(this);
         this.model = null;
@@ -24,6 +25,10 @@ public class Controller extends AbstractController {
 
     public void setUser(final String username) {
         this.user = this.userController.getUser(username);
+    }
+
+    public void setModel() {
+        this.model = this.levelController.getCurrentLevel();
     }
 
     public Level getModel() {
@@ -49,7 +54,6 @@ public class Controller extends AbstractController {
 
     public void playLevel(final Integer id) {
         this.errListener.getErrorList().clear();
-        this.model = this.levelController.getLevel(id);
         if(errListener.getErrorPresent()){
             // mostra errore caricamento
         } else {

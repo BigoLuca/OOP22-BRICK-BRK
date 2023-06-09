@@ -9,15 +9,7 @@ import brickbreaker.controllers.Controller;
 public abstract class ViewImpl implements View {
 
     private Stage currentStage;
-    private Controller currentController;
-
-    /**
-     * View constructor.
-     * @param controllerToAttach
-     */
-    public ViewImpl(final Controller controllerToAttach) {
-        this.setController(controllerToAttach);
-    }
+    private Controller controller;
 
     public Stage getStage() {
         return this.currentStage;
@@ -32,7 +24,7 @@ public abstract class ViewImpl implements View {
      */
     @Override
     public void setController(final Controller controllerToAttach) {
-        this.currentController = controllerToAttach;
+        this.controller = controllerToAttach;
     }
 
     /**
@@ -40,7 +32,7 @@ public abstract class ViewImpl implements View {
      */
     @Override
     public Controller getController() {
-        return this.currentController;
+        return this.controller;
     }
 
     /**

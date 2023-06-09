@@ -1,20 +1,36 @@
 package brickbreaker.view;
 
-import java.util.Optional;
-import brickbreaker.ResourceLoader;
 import brickbreaker.common.Difficulty;
 import brickbreaker.common.GameImages;
-import brickbreaker.controllers.Controller;
-import brickbreaker.model.GameModel;
-import brickbreaker.model.rank.GameRank;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class EndlessMenuView extends ViewImpl {
 
     @FXML
-    private ImageView imgChooseDifficulty;
+    private AnchorPane root;
+
+    @FXML
+    private VBox vbLayout;
+
+    @FXML
+    private ImageView imgEndlessMode;
+
+    @FXML
+    private HBox hbDifficulty;
+
+    @FXML
+    private ImageView imgDifficulty;
+
+    @FXML
+    private ImageView imgSelectedDifficulty;
+
+    @FXML
+    private VBox vbDifficultySelection;
 
     @FXML
     private ImageView imgUpArrow;
@@ -23,17 +39,10 @@ public class EndlessMenuView extends ViewImpl {
     private ImageView imgDownArrow;
 
     @FXML
-    private ImageView imgDifficulty;
-
-    @FXML
-    private ImageView imgReadyGo;
+    private ImageView imgReady;
 
     private Image[] imgDifficulties;
     private Integer difficultyIndex;
-
-    public EndlessMenuView(Controller controllerToAttach) {
-        super(controllerToAttach);
-    }
 
     @Override
     public void init() {
@@ -44,11 +53,17 @@ public class EndlessMenuView extends ViewImpl {
         this.imgDifficulties[0] = GameImages.EASY_DIFFICULTY.getImage();
         this.imgDifficulties[1] = GameImages.MEDIUM_DIFFICULTY.getImage();
         this.imgDifficulties[2] = GameImages.HARD_DIFFICULTY.getImage();
+
+        this.imgSelectedDifficulty.setImage(this.imgDifficulties[0]);
+
+        this.imgUpArrow.setImage(GameImages.UP_ARROW.getImage());
+        this.imgDownArrow.setImage(GameImages.DOWN_ARROW.getImage());
     }
 
     public void chooseDifficulty(final boolean up) {
         Integer d = up ? 1 : -1;
         this.difficultyIndex = (this.difficultyIndex + d) % 4;
+        this.imgSelectedDifficulty.setImage(this.imgDifficulties[this.difficultyIndex]);
     }
 
     public void clickUpArrow() {
@@ -60,12 +75,15 @@ public class EndlessMenuView extends ViewImpl {
     }
 
     public void clickPlayButton() {
-        Optional<Difficulty> od;
+        Difficulty d = this.difficultyIndex == 3 ? Difficulty.RANDOM : Difficulty.values()[this.difficultyIndex];
+        this.getController().getLevelController().setRandomLevel(d);
+        this.getController().setModel();
+        ViewSwitcher.getInstance().switchView(getStage(), ViewType.MATCH);
+    }
 
-        if (this.difficultyIndex == 3) {
-            od = Optional.empty();
-        } else {
-            od = Optional.of(Difficulty.values()[this.difficultyIndex]);
-        }
+    @Override
+    public void render() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'render'");
     }
 }

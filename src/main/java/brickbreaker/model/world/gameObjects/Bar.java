@@ -13,8 +13,8 @@ import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
  */
 public class Bar extends GameObjectImpl<RectBoundingBox> {
 
-    public static final Double BAR_WIDTH = 4.0;
-    public static final Double BAR_HEIGHT = 0.6;
+    public static final Double BAR_WIDTH = 400.0;
+    public static final Double BAR_HEIGHT = 60.0;
     private InputComponent input;
 
     /**

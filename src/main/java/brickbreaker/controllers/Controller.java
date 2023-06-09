@@ -1,5 +1,6 @@
 package brickbreaker.controllers;
 
+import brickbreaker.common.State;
 import brickbreaker.model.Level;
 import brickbreaker.model.user.User;
 import brickbreaker.model.world.World;
@@ -7,7 +8,7 @@ import brickbreaker.view.ViewSwitcher;
 
 public class Controller extends AbstractController {
 
-    private static final int ELAPSED = 16;
+    private static final int ELAPSED = 200;
 
     private final GameController gameController;
     private Level model;
@@ -47,6 +48,9 @@ public class Controller extends AbstractController {
     protected void updateGame() {
         this.model.updateGame(ELAPSED);
         this.model.getWorld().checkCollision();
+        if (this.getModel().getState().equals(State.LOST)) {
+            this.stop();
+        }
     }
 
     public void play() {

@@ -11,9 +11,11 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.paint.Color;
 import brickbreaker.model.world.gameObjects.Ball;
 import brickbreaker.model.world.gameObjects.Bar;
 import brickbreaker.model.world.gameObjects.Brick;
+import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
 
 import java.util.HashMap;
 import java.util.List;
@@ -46,10 +48,14 @@ public class GameView extends ViewImpl {
 
     @Override
     public void init() {
-        this.backGround.setImage(GameImages.CITY_LANDSCAPE.getImage());
+        //this.backGround.setImage(GameImages.CITY_LANDSCAPE.getImage());
         this.gcF = foreGround.getGraphicsContext2D();
+        RectBoundingBox b = this.getController().getModel().getWorld().getMainBBox();
+        gcF.setFill(Color.WHITE);
+        gcF.fillRect(b.getP2d().getX(), b.getP2d().getY(), b.getWidth(), b.getHeight());
         this.setUpBrickImages();
         this.getStage().getScene().setOnKeyPressed(e -> handleKeyPressed(e.getCode()));
+        //this.getStage().getScene().setWidth(this.getController().getModel().getWorld().getMainBBox().getULCorner().getX());
         this.getController().play();
     }
 
@@ -75,8 +81,8 @@ public class GameView extends ViewImpl {
 
             Bar bar = this.getController().getModel().getWorld().getBar();
             Ball ball = this.getController().getModel().getWorld().getBalls().get(0);
-            this.gcF.drawImage(GameObjectsImages.BAR.getImage(), bar.getPosition().getX(), bar.getPosition().getY(), 128, 32);
-            this.gcF.drawImage(GameObjectsImages.BALL.getImage(), ball.getPosition().getX(), ball.getPosition().getY(), 32, 32);
+            this.gcF.drawImage(GameObjectsImages.BAR.getImage(), bar.getPosition().getX(), bar.getPosition().getY(), bar.getWidth(), bar.getHeight());
+            this.gcF.drawImage(GameObjectsImages.BALL.getImage(), ball.getPosition().getX(), ball.getPosition().getY(), ball.getRadius()*2, ball.getRadius()*2);
         });
     }
 

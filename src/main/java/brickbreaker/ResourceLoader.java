@@ -17,8 +17,11 @@ import java.util.Scanner;
 import com.google.gson.*;
 
 import brickbreaker.common.Error;
+import brickbreaker.common.GameImages;
+import brickbreaker.common.GameObjectsImages;
 import brickbreaker.controllers.listener.ErrorListener;
 import brickbreaker.model.user.User;
+import javafx.scene.image.Image;
 
 /**
  * Class to load the resources: map files, game icons, ranking stats.
@@ -64,6 +67,16 @@ public class ResourceLoader {
         this.userPath = "." + sep + "src" + sep + "main" + sep + "resources" + sep + "users" + sep + "user.json";
         this.currentMapName = "";
         this.currentMapList = new ArrayList<>();
+    }
+
+    public void start() {
+        Arrays.stream(GameImages.values()).forEach(value -> {
+            value.setImage(new Image(ClassLoader.getSystemResourceAsStream(value.getFilePath())));
+        });
+
+        Arrays.stream(GameObjectsImages.values()).forEach(value -> {
+            value.setImage(new Image(ClassLoader.getSystemResourceAsStream(value.getFilePath())));
+        });
     }
 
     /**

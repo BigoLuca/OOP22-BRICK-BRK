@@ -45,7 +45,7 @@ public class GameController extends AnimationTimer {
     public void handle(long now) {
         this.controller.processCommands();
         this.controller.updateGame();
-        ViewController.getInstance().render();
+        this.controller.render();
     }
 
 }

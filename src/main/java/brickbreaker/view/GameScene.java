@@ -134,6 +134,7 @@ public class GameScene {
 
     private void paused() {
         // Additional logic for pause, if needed
+        System.out.println("Pause");
     }
 
     private void handleKeyRelease(KeyCode keyCode) {

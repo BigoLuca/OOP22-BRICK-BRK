@@ -5,40 +5,35 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class ViewController extends Application {
-    
-    private static ViewController INSTANCE;
+
     protected Stage primaryStage;
     protected Controller controller;
-    
 
-    private PlayerScene playerScene = new PlayerScene(this);
-    private GameScene gameScene = new GameScene(this);
-
-    
-    public static ViewController getInstance() {
-        if (INSTANCE == null) {
-            return new ViewController();
-        }
-        return INSTANCE;
-    }
+    private PlayerScene playerScene;
+    private GameScene gameScene;
     
     @Override
     public void start(Stage primaryStage) throws Exception {
-        this.controller = new Controller();
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("BrickBreaker");
+        this.primaryStage.setOnCloseRequest(e -> {
+            this.controller.stop();
+        });
+        this.controller = new Controller(this);
         switchToPlayerScene();
-    };
-
+    }
+    
     public void switchToPlayerScene(){
+        this.playerScene = new PlayerScene(this);
         playerScene.show();
     }
-
+    
     public void switchToModeScene(){
         //modeScene.show();
     }
-
+    
     public void switchToLevelMatch(){
+        this.gameScene = new GameScene(this);
         controller.playLevel(0);
     }
 

@@ -3,6 +3,7 @@ package brickbreaker.controllers;
 import brickbreaker.model.Level;
 import brickbreaker.model.user.User;
 import brickbreaker.model.world.World;
+import brickbreaker.view.ViewController;
 
 public class Controller extends AbstractController {
 
@@ -10,13 +11,15 @@ public class Controller extends AbstractController {
 
     private final GameController gameController;
     private Level model;
+    private ViewController view;
     private User user;
 
-    public Controller() {
+    public Controller(final ViewController v) {
         super();
         this.gameController = new GameController(this);
         this.model = null;
         this.user = null;
+        this.view = v;
     }
 
     public void setUser(final String username) {
@@ -26,7 +29,6 @@ public class Controller extends AbstractController {
     public Level getModel() {
         return this.model;
     }
-
 
      /**
      * This method processes all the commands triggered by the user.
@@ -54,6 +56,14 @@ public class Controller extends AbstractController {
             gameController.startGame();
         }
 
+    }
+
+    public void render() {
+        this.view.render();
+    }
+
+    public void stop() {
+        this.gameController.stopGame();
     }
 
     /*

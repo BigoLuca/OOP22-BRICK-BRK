@@ -85,7 +85,7 @@ public class GameView extends ViewImpl {
             for (Brick item : b) {
                 Image i = this.brickImages.get(item.getLife());
                 Vector2D p = item.getPosition();
-                this.gcF.drawImage(i, p.getX() - BRICK_HEIGHT , p.getY() - BRICK_WIDTH , BRICK_WIDTH, BRICK_HEIGHT);
+                this.gcF.drawImage(i, p.getX() - BRICK_WIDTH/2 , p.getY() - BRICK_HEIGHT/2 , BRICK_WIDTH, BRICK_HEIGHT);
             }
 
             Bar bar = this.getController().getModel().getWorld().getBar();

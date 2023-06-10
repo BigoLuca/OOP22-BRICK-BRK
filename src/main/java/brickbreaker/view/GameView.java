@@ -12,6 +12,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import brickbreaker.model.factory.WorldFactory;
+import brickbreaker.model.world.World;
 import brickbreaker.model.world.gameObjects.Ball;
 import brickbreaker.model.world.gameObjects.Bar;
 import brickbreaker.model.world.gameObjects.Brick;
@@ -22,11 +24,11 @@ import java.util.List;
 
 public class GameView extends ViewImpl {
 
-    private static final Integer CANVAS_HEIGHT = 576;
-    private static final Integer CANVAS_WIDTH = 576;
+    private static final Double CANVAS_HEIGHT = WorldFactory.BOUNDARIES_SIZE;
+    private static final Double CANVAS_WIDTH = WorldFactory.BOUNDARIES_SIZE;
 
-    private static final Integer BRICK_WIDTH = 64;
-    private static final Integer BRICK_HEIGHT = 32;
+    private static final Double BRICK_WIDTH = Brick.BRICK_WIDTH;
+    private static final Double BRICK_HEIGHT = Brick.BRICK_HEIGHT;
 
     @FXML 
     private Label scoreLabel;
@@ -48,7 +50,7 @@ public class GameView extends ViewImpl {
 
     @Override
     public void init() {
-        //this.backGround.setImage(GameImages.CITY_LANDSCAPE.getImage());
+        this.backGround.setImage(GameImages.CITY_LANDSCAPE.getImage());
         this.gcF = foreGround.getGraphicsContext2D();
         RectBoundingBox b = this.getController().getModel().getWorld().getMainBBox();
         gcF.setFill(Color.WHITE);
@@ -76,7 +78,7 @@ public class GameView extends ViewImpl {
             for (Brick item : b) {
                 Image i = this.brickImages.get(item.getLife());
                 Vector2D p = item.getPosition();
-                this.gcF.drawImage(i, p.getX()*BRICK_WIDTH, p.getY()*BRICK_HEIGHT, BRICK_WIDTH, BRICK_HEIGHT);
+                this.gcF.drawImage(i, p.getX(), p.getY(), BRICK_WIDTH, BRICK_HEIGHT);
             }
 
             Bar bar = this.getController().getModel().getWorld().getBar();

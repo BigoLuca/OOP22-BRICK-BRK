@@ -26,6 +26,8 @@ public class WorldFactory {
     private final Double X_SPEED = 15.0;
     private final Double Y_SPEED = -15.0;
 
+    public static final Double BOUNDARIES_SIZE = 600.0;
+
     private static WorldFactory instance;
 
     /**
@@ -41,9 +43,9 @@ public class WorldFactory {
 
     //TODO: Add actual parameters.
     private World getEmptyWorld() {
-        Bar newBar = GameFactory.getInstance().createBar(new Vector2D(288,500));
-        Ball newBall = GameFactory.getInstance().createBall(new Vector2D(140, 140), new Vector2D(X_SPEED, Y_SPEED));
-        RectBoundingBox boundary = new RectBoundingBox(new Vector2D(288, 288), 576.0, 576.0);
+        Bar newBar = GameFactory.getInstance().createBar(new Vector2D(BOUNDARIES_SIZE/2, BOUNDARIES_SIZE - 20));
+        Ball newBall = GameFactory.getInstance().createBall(new Vector2D(BOUNDARIES_SIZE/3, BOUNDARIES_SIZE/3), new Vector2D(X_SPEED, Y_SPEED));
+        RectBoundingBox boundary = new RectBoundingBox(new Vector2D(BOUNDARIES_SIZE/2, BOUNDARIES_SIZE/2), BOUNDARIES_SIZE, BOUNDARIES_SIZE);
         World w = new WorldImpl(boundary);
 
         w.setBar(newBar);

@@ -5,17 +5,24 @@ import java.util.Random;
 import brickbreaker.MapInfo;
 import brickbreaker.ResourceLoader;
 import brickbreaker.common.Difficulty;
+import brickbreaker.common.Mode;
 import brickbreaker.model.factory.WorldFactory;
 
 public class GameModelImpl implements GameModel {
 
     private List<MapInfo> mapList;
     private Level currentLevel;
+    private Mode currentMode;
 
-    public GameModelImpl() {
+    public GameModelImpl(final Mode m) {
         this.mapList = ResourceLoader.getInstance().getMapsInfo();
+        this.currentMode = m;
     }
 
+    public Mode getMode() {
+        return this.currentMode;
+    }
+    
     public Level getLevel() {
         return this.currentLevel;
     }

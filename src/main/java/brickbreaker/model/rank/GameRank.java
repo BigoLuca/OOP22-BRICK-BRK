@@ -2,46 +2,43 @@ package brickbreaker.model.rank;
 
 import java.util.Map;
 
-import brickbreaker.ResourceLoader;
-
 /**
  * Class representing the rank.
  * Implements the {@link Rank} interface.
  */
 public class GameRank implements Rank {
 
-    private String filename;
-    private Integer level;
+    private Map<String, Integer> r;
 
-    /**
-     * GameRank constructor.
-     */
-    public GameRank(final String fileName, final Integer level) {
-        this.filename = fileName;
-        this.level = level;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Map<String, Integer> getRank(final String fileName, final Integer level) {
-        return ResourceLoader.getInstance().getRank(fileName, level);
+    public GameRank(Map<String, Integer> r) {
+        this.r = r;
     }
     
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public void addToRank(final String playerName, final Integer newScore) {
-        Integer diff = ResourceLoader.getInstance().writeRank(this.filename, level, playerName, newScore);
-        if (diff > 0 && this.filename.equals("levels.json")) {
-            Integer i = 0;
-            try {
-                i = ResourceLoader.getInstance().getRank(filename, 0).get(playerName);
-            } catch (Exception e) {}
-            ResourceLoader.getInstance().writeRank(filename, 0, playerName, diff + i);
+    public Map<String, Integer> getRank() {
+        return this.r;
+    }
+
+    @Override
+    public void setRank(Map<String, Integer> r) {
+        this.r = r;
+    }
+
+    @Override
+    public boolean addUser(String user, Integer score) {
+        boolean result = false;
+
+        if (this.r.containsKey(user) && this.r.get(user) < score) {
+            this.r.put(user, score);
+            result = true;
         }
+
+        if (this.r.size() > 10) {
+            String key = this.r.keySet().stream().skip(this.r.size() - 1).findFirst().get();
+            this.r.remove(key);
+            result = false;
+        }
+
+        return result;
     }
-    
 }

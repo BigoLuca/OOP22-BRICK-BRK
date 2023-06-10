@@ -126,6 +126,7 @@ public class WorldImpl implements World {
      */
     @Override
     public void updateGame(final int elapsed) {
+        this.checkCollision();
         balls.stream().forEach(t -> t.setPosition(t.getPosition().sum(t.getSpeed().mul(mulELAPSED * elapsed))));
         powerUps.stream().forEach(t -> t.setPosition(t.getPosition().sum(t.getSpeed().mul(mulELAPSED * elapsed))));
     }

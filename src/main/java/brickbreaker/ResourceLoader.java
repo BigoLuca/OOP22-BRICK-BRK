@@ -111,33 +111,6 @@ public class ResourceLoader {
         return m;
     }
 
-
-    /**
-     * Retunr the game map request, if new: load the new map, else return the same in memory.
-     * If name map is absent catch exception and return an optional empty.
-     * If size map is not correct return an optional empty.
-     * @param fileName is the name of map file to load
-     * @return a list of bricks num life
-     */
-    public Optional<List<Integer>> loadMap(final String fileName) {
-
-        if (!this.currentMapName.equals(fileName)) {
-            try (Scanner sc = new Scanner(new File(this.mapsPath + sep + fileName))) {
-                currentMapList.clear();
-                while (sc.hasNextInt()) {
-                    this.currentMapList.add(sc.nextInt());
-                }
-                sc.close();
-                this.currentMapName = fileName;
-            } catch (FileNotFoundException e) {
-                this.currentMapName = "";
-                e.printStackTrace();
-                return Optional.empty();
-            }
-        }
-        return Optional.of(this.currentMapList);
-    }
-
     /**
      * @return the number of bricks for each line
      */
@@ -192,19 +165,6 @@ public class ResourceLoader {
         }
     }
 
-    public Optional<Difficulty> getMapDifficulty(final String mapName) {
-        try {
-            JsonObject f =  JsonParser.parseReader(new FileReader(mapsPath + sep + mapName)).getAsJsonObject();
-            String d = f.get("difficulty").getAsString();
-            return Optional.of(Difficulty.valueOf(d));
-        } catch (FileNotFoundException e) {
-            ErrorListener.notifyError(Error.MAPLOADER_ERROR);
-            return null;
-        } catch (NullPointerException n) {
-            return Optional.empty();
-        }
-    }
-
     /**
      * @return the list of name ranks files in the directory
      */
@@ -243,6 +203,17 @@ public class ResourceLoader {
             sortedMap.put(entry.getKey(), entry.getValue());
         }
         return sortedMap;
+    }
+
+    public List<Map<String, Integer>> getAllRanks(final String filename) {
+        List<Map<String, Integer>> rawRanks = new ArrayList<>();
+
+        try {
+            rawRanks.add(this.getRank(filename, 0));
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("end");
+        }
+        return rawRanks;
     }
 
     /**

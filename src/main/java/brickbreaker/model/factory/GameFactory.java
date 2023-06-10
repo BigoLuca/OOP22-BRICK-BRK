@@ -51,7 +51,7 @@ public class GameFactory {
             for (int x = 0; x < col; x++) {
                 life = list.get(x + y * col);
                 if (life > 0) {
-                    result.add(new Brick(new Vector2D(x + Brick.BRICK_WIDTH / 2, y + Brick.BRICK_HEIGHT / 2), life));
+                    result.add(new Brick(new Vector2D(x*Brick.BRICK_WIDTH + (Brick.BRICK_WIDTH / 2), y*Brick.BRICK_HEIGHT + (Brick.BRICK_HEIGHT / 2)), life));
                 }
             }
         }

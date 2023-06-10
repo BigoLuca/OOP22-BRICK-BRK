@@ -12,13 +12,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="670.0" minWidth="600.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="brickbreaker.view.GameView">
+<AnchorPane minHeight="800.0" minWidth="800.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="brickbreaker.view.GameView">
    <children>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox alignment="TOP_CENTER" minHeight="56.0" minWidth="576.0">
+            <HBox alignment="TOP_CENTER" minHeight="56.0" minWidth="600.0">
                <children>
-                  <HBox alignment="CENTER" minHeight="56.0" minWidth="576.0" style="-fx-background-color: LightSlateGrey; -fx-border-color: black; -fx-border-width: 2;">
+                  <HBox alignment="CENTER" minHeight="56.0" minWidth="600.0" style="-fx-background-color: LightSlateGrey; -fx-border-color: black; -fx-border-width: 2;">
                      <children>
                         <ImageView fx:id="imgBall" fitHeight="37.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                            <HBox.margin>
@@ -40,10 +40,10 @@
                   </HBox>
                </children>
             </HBox>
-            <Pane maxWidth="-Infinity" minHeight="576.0" minWidth="576.0">
+            <Pane fx:id="gamePane" maxWidth="-Infinity" minHeight="600.0" minWidth="600.0">
                <children>
-                  <ImageView fx:id="backGround" fitHeight="576.0" fitWidth="576.0" />
-                  <Canvas fx:id="foreGround" height="576.0" width="576.0" />
+                  <ImageView fx:id="backGround" fitHeight="600.0" fitWidth="600.0" />
+                  <Canvas fx:id="foreGround" height="600.0" width="600.0" />
                </children>
             </Pane>
          </children>

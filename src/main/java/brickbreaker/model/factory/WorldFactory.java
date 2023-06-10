@@ -43,8 +43,8 @@ public class WorldFactory {
 
     //TODO: Add actual parameters.
     private World getEmptyWorld() {
-        Bar newBar = GameFactory.getInstance().createBar(new Vector2D(BOUNDARIES_SIZE/2, BOUNDARIES_SIZE - 20));
-        Ball newBall = GameFactory.getInstance().createBall(new Vector2D(BOUNDARIES_SIZE/3, BOUNDARIES_SIZE/3), new Vector2D(X_SPEED, Y_SPEED));
+        Bar newBar = GameFactory.getInstance().createBar(new Vector2D(BOUNDARIES_SIZE/2, BOUNDARIES_SIZE - 50));
+        Ball newBall = GameFactory.getInstance().createBall(new Vector2D(BOUNDARIES_SIZE/2, BOUNDARIES_SIZE/2), new Vector2D(2, 2));
         RectBoundingBox boundary = new RectBoundingBox(new Vector2D(BOUNDARIES_SIZE/2, BOUNDARIES_SIZE/2), BOUNDARIES_SIZE, BOUNDARIES_SIZE);
         World w = new WorldImpl(boundary);
 
@@ -55,7 +55,7 @@ public class WorldFactory {
 
     public World getRandomWorld(final Difficulty d) {
         World w = this.getEmptyWorld();
-        w.addBricks(GameFactory.getInstance().createRandomBricks(d, 10, 10));
+        w.addBricks(GameFactory.getInstance().createRandomBricks(d, Brick.BRICKS_COL, Brick.BRICKS_ROW));
         randomPowerUpAssignment(d, w.getBricks());
         return w;
     }

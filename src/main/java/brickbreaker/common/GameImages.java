@@ -55,7 +55,11 @@ public enum GameImages {
 
     RIGHT_ARROW("rightArrow.png"),
 
-    LEFT_ARROW("leftArrow.png");
+    LEFT_ARROW("leftArrow.png"),
+
+    PLAYER_LOST("youLost.png"),
+    
+    PLAYER_WIN("youWin.png");
 
     private static final String RES_PATH = "images/";
     private String fileName;

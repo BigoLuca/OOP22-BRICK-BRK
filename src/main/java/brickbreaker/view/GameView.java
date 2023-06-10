@@ -53,6 +53,8 @@ public class GameView extends ViewImpl {
 
     @Override
     public void init() {
+        this.getController().setGameView(this);
+
         this.backGround.setImage(GameImages.CITY_LANDSCAPE.getImage());
         this.foreGround.setHeight(CANVAS_HEIGHT);
         this.foreGround.setWidth(CANVAS_WIDTH);
@@ -64,7 +66,8 @@ public class GameView extends ViewImpl {
         this.gcF.fillRect(b.getULCorner().getX(), b.getULCorner().getY(), b.getWidth(), b.getHeight());
         this.setUpBrickImages();
         this.getStage().getScene().setOnKeyPressed(e -> handleKeyPressed(e.getCode()));
-        //this.getStage().getScene().setWidth(this.getController().getModel().getWorld().getMainBBox().getULCorner().getX());
+
+        // Start the game
         this.getController().play();
     }
 
@@ -78,7 +81,10 @@ public class GameView extends ViewImpl {
 
     public void render() {
 
+        
         Platform.runLater(() -> {
+            
+            
             this.gcF.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
             List<Brick> b = this.getController().getModel().getWorld().getBricks();
@@ -90,9 +96,13 @@ public class GameView extends ViewImpl {
 
             Bar bar = this.getController().getModel().getWorld().getBar();
             Ball ball = this.getController().getModel().getWorld().getBalls().get(0);
-            this.gcF.drawImage(GameObjectsImages.BAR.getImage(), bar.getPosition().getX() - bar.getWidth()/2, bar.getPosition().getY() - bar.getHeight(), bar.getWidth(), bar.getHeight());
+            this.gcF.drawImage(GameObjectsImages.BAR.getImage(), bar.getPosition().getX() - bar.getWidth()/2, bar.getPosition().getY() - bar.getHeight() / 2, bar.getWidth(), bar.getHeight());
             this.gcF.drawImage(GameObjectsImages.BALL.getImage(), ball.getPosition().getX() - ball.getRadius(), ball.getPosition().getY() - ball.getRadius(), ball.getRadius()*2, ball.getRadius()*2);
         });
+    }
+
+    public void isOver() {
+        System.out.println("Error while switching to GameOverView");
     }
 
     public void handleKeyPressed(KeyCode keyCode) {

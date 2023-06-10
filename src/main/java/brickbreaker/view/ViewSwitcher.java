@@ -70,9 +70,4 @@ public final class ViewSwitcher {
         stage.setTitle("Brick-Breaker");
         stage.show();
     }
-
-
-    public void render(){
-        this.currentView.render();
-    }
 }

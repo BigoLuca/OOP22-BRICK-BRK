@@ -1,14 +1,9 @@
 package brickbreaker.view;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import brickbreaker.ResourceLoader;
-import brickbreaker.common.Difficulty;
 import brickbreaker.common.GameImages;
-import brickbreaker.controllers.LevelMenuController;
-import brickbreaker.controllers.session.EndlessSession;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -82,7 +77,7 @@ public final class LevelsMenuView extends ViewImpl {
                 this.rowIndex++;
             }
         } catch(ArrayIndexOutOfBoundsException a) {
-            System.out.println("Level loading endend.");
+            System.out.println("Levels loading endend.");
         }
     }
 
@@ -95,7 +90,7 @@ public final class LevelsMenuView extends ViewImpl {
     }
 
     public void switchToLevelMatch() {
-        this.getController().getLevelController().setLevel(this.mapsName.indexOf(this.currentLevelSelected));
-        this.getController().setModel();
+        this.getController().getLevelController().setLevel((Optional.of(this.getController().getLevelController().getMapIndex(currentLevelSelected))));
+        ViewSwitcher.getInstance().switchView(this.getStage(), ViewType.DIFFICULTY);
     }
 }

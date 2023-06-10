@@ -1,7 +1,5 @@
 package brickbreaker.view;
 
-import java.util.Optional;
-
 import brickbreaker.common.Difficulty;
 import brickbreaker.common.GameImages;
 import javafx.fxml.FXML;
@@ -11,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class EndlessMenuView extends ViewImpl {
+public class DifficultyMenuView extends ViewImpl {
 
     @FXML
     private AnchorPane root;
@@ -63,7 +61,7 @@ public class EndlessMenuView extends ViewImpl {
     }
 
     public void chooseDifficulty(final boolean up) {
-        Integer d = up ? 1 : -1;
+        Integer d = up ? 1 : (difficultyIndex == 0 ? 3 : -1);
         this.difficultyIndex = (this.difficultyIndex + d) % 4;
         this.imgSelectedDifficulty.setImage(this.imgDifficulties[this.difficultyIndex]);
     }
@@ -77,15 +75,9 @@ public class EndlessMenuView extends ViewImpl {
     }
 
     public void clickPlayButton() {
-        Difficulty d = this.difficultyIndex == 3 ? Difficulty.RANDOM : Difficulty.values()[this.difficultyIndex];
-        this.getController().getLevelController().setDifficultyLevel(d);
-        this.getController().setModel(Optional.empty());
+        System.out.println("Difficulty: " + Difficulty.values()[this.difficultyIndex]);
+        this.getController().getLevelController().setDifficultyLevel(Difficulty.values()[this.difficultyIndex]);
+        this.getController().setModel(this.mode);
         ViewSwitcher.getInstance().switchView(getStage(), ViewType.MATCH);
-    }
-
-    @Override
-    public void render() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'render'");
     }
 }

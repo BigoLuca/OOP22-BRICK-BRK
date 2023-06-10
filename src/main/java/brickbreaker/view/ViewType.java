@@ -6,13 +6,15 @@ public enum ViewType {
 
     LEVEL("LevelsMenuView"),
 
-    ENDLESS("EndlessMenuView"),
+    DIFFICULTY("DifficultyMenuView"),
 
     RANK("RankView"),
 
     MATCH("GameView"),
 
-    SETUP("SetUpView");
+    SETUP("SetUpView"),
+
+    GAMEOVER("EndGameView");
     
     private static final String DIRECTORY = "viewStyle/";
     private static final String FORMAT = ".fxml";

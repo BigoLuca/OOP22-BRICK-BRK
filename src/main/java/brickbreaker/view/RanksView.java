@@ -134,9 +134,4 @@ public class RanksView extends ViewImpl {
             this.currentRank.setItems(obRank);
         }
     }
-
-    @Override
-    public void render() {
-        
-    }
 }

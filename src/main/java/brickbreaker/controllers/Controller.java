@@ -2,10 +2,12 @@ package brickbreaker.controllers;
 
 import java.util.Optional;
 
+import brickbreaker.common.Mode;
 import brickbreaker.common.State;
 import brickbreaker.model.Level;
 import brickbreaker.model.user.User;
 import brickbreaker.model.world.World;
+import brickbreaker.view.GameView;
 import brickbreaker.view.ViewSwitcher;
 
 public class Controller extends AbstractController {
@@ -13,8 +15,10 @@ public class Controller extends AbstractController {
     private static final int ELAPSED = 200;
 
     private final GameController gameController;
+    private GameView gameView;
+    private boolean isRunning;
     private Level model;
-    private boolean endless = false;
+    private Mode mode;
     private User user;
 
     public Controller() {
@@ -28,11 +32,13 @@ public class Controller extends AbstractController {
         this.user = this.userController.getUser(username);
     }
 
-    public void setModel(Optional<Integer> level) {
-        if(level.isEmpty()){
-            this.endless = true;
-        }
-        this.model = this.levelController.getLevel(level);
+    public void setGameView(final GameView gameView) {
+        this.gameView = gameView;
+    }
+
+    public void setModel(Mode mode) {
+        this.mode = mode;
+        this.model = this.levelController.getLevel();
     }
 
     public Level getModel() {
@@ -57,8 +63,8 @@ public class Controller extends AbstractController {
         if (this.getModel().getState().equals(State.LOST)) {
             this.stop();
         } else if (this.getModel().getState().equals(State.WIN)) {
-            if(this.endless){
-                this.model = this.levelController.getLevel(Optional.empty());
+            if(this.mode.equals(Mode.ENDLESS)){
+                this.model = this.levelController.getLevel();
             } else {
                 this.stop();
             }
@@ -66,16 +72,25 @@ public class Controller extends AbstractController {
     }
 
     public void play() {
+        this.isRunning = true;
         gameController.startGame();
     }
 
-    public void render() {
-        ViewSwitcher.getInstance().render();
+    public void pause() {
+        this.isRunning = false;
+        gameController.pauseGame();
     }
 
     public void stop() {
+        this.isRunning = false;
         this.gameController.stopGame();
+        this.gameView.isOver();
     }
+    
+    public void render() {
+        gameView.render();
+    }
+
 
     /*
     public void createEndless(final Difficulty d) {

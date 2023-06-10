@@ -32,14 +32,24 @@ public class EndGameView extends ViewImpl {
         Mode m = this.getController().getModel().getMode();
 
         if (m.equals(Mode.ENDLESS)) {
-            Optional<Difficulty> od = ((EndlessSession) this.getController().getSession()).getDifficulty();
-            this.getController().getModel().createRandomLevel(od.get());
+            ViewSwitcher.getInstance().switchView(getStage(), ViewType.HOME);
         } else {
-            Integer index = this.getController().getModel().getLevel().getId() + 1;
-            this.getController().getModel().createLevel(index);
+            if(this.getController().getModel().getState() == State.WIN) {
+                if(this.getController().getLevelController().hasNextLevel()){
+                    // Next level
+                    this.getController().getLevelController().nextLevel();
+                    this.getController().setModel(Mode.LEVELS);
+                    ViewSwitcher.getInstance().switchView(getStage(), ViewType.MATCH);
+                } else {
+                    // Lvels are over
+                    ViewSwitcher.getInstance().switchView(getStage(), ViewType.HOME);
+                }
+            } else {
+                // Lost
+                this.getController().setModel(Mode.LEVELS);
+                ViewSwitcher.getInstance().switchView(getStage(), ViewType.MATCH);
+            }
         }
-
-        ViewSwitcher.getInstance().switchView(getStage(), ViewType.MATCH);
     }
 
     public void clickQuit() {

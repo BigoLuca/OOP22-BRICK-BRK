@@ -6,36 +6,27 @@ import javafx.animation.AnimationTimer;
 public class GameController extends AnimationTimer {
 
     private final Controller controller;
-    private boolean isRunning;
-    private final Chronometer chrono;
+    //private final Chronometer chrono;
 
     public GameController(final Controller controller) {
         this.controller = controller;
-        this.isRunning = false;
-        this.chrono = new Chronometer();
-        chrono.start();
+        //this.chrono = new Chronometer();
+        //chrono.start();
     }
 
     public void startGame() {
-        this.isRunning = true;
         this.start();
-        chrono.resumeChrono();
+        //chrono.resumeChrono();
     }
 
     public void pauseGame() {
-        this.isRunning = false;
         this.stop();
-        chrono.pauseChrono();
+        //chrono.pauseChrono();
     }
 
     public void stopGame() {
-        this.isRunning = false;
         this.stop();
-        chrono.stopChrono();
-    }
-
-    public boolean isRunning() {
-        return this.isRunning;
+        //chrono.stopChrono();
     }
 
     @Override

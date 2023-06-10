@@ -1,6 +1,9 @@
 package brickbreaker.view;
 
+import java.util.Optional;
+
 import brickbreaker.common.GameImages;
+import brickbreaker.common.Mode;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -43,20 +46,16 @@ public class HomeView extends ViewImpl {
     }
 
     public void switchToLevel() {
+        this.mode = Mode.LEVELS;
         ViewSwitcher.getInstance().switchView(getStage(), ViewType.LEVEL);
     }
 
     public void switchToEndless() {
-        ViewSwitcher.getInstance().switchView(getStage(), ViewType.ENDLESS);
+        this.mode = Mode.ENDLESS;
+        ViewSwitcher.getInstance().switchView(getStage(), ViewType.DIFFICULTY);
     }
 
     public void switchToLeaderboards() {
         ViewSwitcher.getInstance().switchView(getStage(), ViewType.RANK);
-    }
-
-    @Override
-    public void render() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'render'");
     }
 }

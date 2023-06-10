@@ -68,10 +68,4 @@ public class SetUpView extends ViewImpl {
             ViewSwitcher.getInstance().switchView(getStage(), ViewType.HOME);
         }
     }
-
-    @Override
-    public void render() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'render'");
-    }
 }

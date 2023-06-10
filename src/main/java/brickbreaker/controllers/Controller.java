@@ -1,5 +1,7 @@
 package brickbreaker.controllers;
 
+import java.util.Optional;
+
 import brickbreaker.common.State;
 import brickbreaker.model.Level;
 import brickbreaker.model.user.User;
@@ -12,6 +14,7 @@ public class Controller extends AbstractController {
 
     private final GameController gameController;
     private Level model;
+    private boolean endless = false;
     private User user;
 
     public Controller() {
@@ -25,8 +28,11 @@ public class Controller extends AbstractController {
         this.user = this.userController.getUser(username);
     }
 
-    public void setModel() {
-        this.model = this.levelController.getCurrentLevel();
+    public void setModel(Optional<Integer> level) {
+        if(level.isEmpty()){
+            this.endless = true;
+        }
+        this.model = this.levelController.getLevel(level);
     }
 
     public Level getModel() {
@@ -50,6 +56,12 @@ public class Controller extends AbstractController {
         this.model.getWorld().checkCollision();
         if (this.getModel().getState().equals(State.LOST)) {
             this.stop();
+        } else if (this.getModel().getState().equals(State.WIN)) {
+            if(this.endless){
+                this.model = this.levelController.getLevel(Optional.empty());
+            } else {
+                this.stop();
+            }
         }
     }
 

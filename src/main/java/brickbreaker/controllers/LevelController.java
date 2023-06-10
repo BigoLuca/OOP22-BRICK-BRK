@@ -1,6 +1,7 @@
 package brickbreaker.controllers;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 import brickbreaker.MapInfo;
@@ -12,14 +13,10 @@ import brickbreaker.model.factory.WorldFactory;
 public class LevelController {
 
     private List<MapInfo> mapList;
-    private Level currentLevel;
+    private Difficulty difficulty;
 
     public LevelController() {
         this.mapList = ResourceLoader.getInstance().getMapsInfo();
-    }
-    
-    protected Level getCurrentLevel() {
-        return this.currentLevel;
     }
 
     public String getNameMap(final Integer i) {
@@ -32,15 +29,18 @@ public class LevelController {
 
     private Difficulty getRandomDifficulty() {
         Random randomDiff = new Random();
-        return Difficulty.values()[randomDiff.nextInt(3)];
+        return Difficulty.values()[randomDiff.nextInt(Difficulty.values().length)];
     }
 
-    public void setRandomLevel(final Difficulty diff) {
-        Difficulty d = diff.equals(Difficulty.RANDOM) ? this.getRandomDifficulty() : diff;
-        this.currentLevel = new Level(0, WorldFactory.getInstance().getRandomWorld(d));
+    public void setDifficultyLevel(final Difficulty diff) {
+        this.difficulty = diff.equals(Difficulty.RANDOM) ? this.getRandomDifficulty() : diff;
     }
 
-    public void setLevel(Integer level) {
-        this.currentLevel = new Level(level, WorldFactory.getInstance().getWorld(level));
+    public Level getLevel(Optional<Integer> level) {
+        if(level.isPresent() && level.get() < this.mapList.size()){
+            return new Level(level.get(), WorldFactory.getInstance().getWorld(level.get()));
+        }
+        
+        return new Level(0, WorldFactory.getInstance().getRandomWorld(this.difficulty));
     }
 }

@@ -1,5 +1,7 @@
 package brickbreaker.view;
 
+import java.util.Optional;
+
 import brickbreaker.common.Difficulty;
 import brickbreaker.common.GameImages;
 import javafx.fxml.FXML;
@@ -76,8 +78,8 @@ public class EndlessMenuView extends ViewImpl {
 
     public void clickPlayButton() {
         Difficulty d = this.difficultyIndex == 3 ? Difficulty.RANDOM : Difficulty.values()[this.difficultyIndex];
-        this.getController().getLevelController().setRandomLevel(d);
-        this.getController().setModel();
+        this.getController().getLevelController().setDifficultyLevel(d);
+        this.getController().setModel(Optional.empty());
         ViewSwitcher.getInstance().switchView(getStage(), ViewType.MATCH);
     }
 

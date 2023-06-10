@@ -5,6 +5,7 @@ import brickbreaker.common.Vector2D;
 import brickbreaker.controllers.input.BarInput;
 import brickbreaker.controllers.input.InputComponent;
 import brickbreaker.controllers.input.InputController;
+import brickbreaker.model.factory.WorldFactory;
 import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
 
 /**
@@ -13,8 +14,8 @@ import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
  */
 public class Bar extends GameObjectImpl<RectBoundingBox> {
 
-    public static final Double BAR_WIDTH = 400.0;
-    public static final Double BAR_HEIGHT = 60.0;
+    public static final Double BAR_WIDTH = WorldFactory.BOUNDARIES_SIZE / 5;
+    public static final Double BAR_HEIGHT = WorldFactory.BOUNDARIES_SIZE / 20;
     private InputComponent input;
 
     /**

@@ -12,8 +12,8 @@ import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
  */
 public class Brick extends GameObjectImpl<RectBoundingBox> {
 
-    private static final Integer BRICKS_COL = 6;
-    private static final Integer BRICKS_ROW = 6;
+    public static final Integer BRICKS_COL = 6;
+    public static final Integer BRICKS_ROW = 6;
 
     public static final Double BRICK_WIDTH = WorldFactory.BOUNDARIES_SIZE/ BRICKS_COL;
     public static final Double BRICK_HEIGHT = WorldFactory.BOUNDARIES_SIZE/ (BRICKS_ROW*2); // Times two since we use half of the height

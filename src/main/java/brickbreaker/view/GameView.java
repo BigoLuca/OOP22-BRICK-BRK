@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import brickbreaker.model.factory.WorldFactory;
 import brickbreaker.model.world.gameObjects.Ball;
@@ -31,6 +32,9 @@ public class GameView extends ViewImpl {
 
     @FXML 
     private Label scoreLabel;
+
+    @FXML
+    private Pane gamePane;
     
     @FXML 
     private ImageView backGround;
@@ -50,10 +54,14 @@ public class GameView extends ViewImpl {
     @Override
     public void init() {
         this.backGround.setImage(GameImages.CITY_LANDSCAPE.getImage());
+        this.foreGround.setHeight(CANVAS_HEIGHT);
+        this.foreGround.setWidth(CANVAS_WIDTH);
+        this.foreGround.widthProperty().bind(this.gamePane.widthProperty());
+        this.foreGround.heightProperty().bind(this.gamePane.heightProperty());
         this.gcF = foreGround.getGraphicsContext2D();
         RectBoundingBox b = this.getController().getModel().getWorld().getMainBBox();
-        gcF.setFill(Color.WHITE);
-        gcF.fillRect(b.getP2d().getX(), b.getP2d().getY(), b.getWidth(), b.getHeight());
+        this.gcF.setFill(Color.BLACK);
+        this.gcF.fillRect(b.getULCorner().getX(), b.getULCorner().getY(), b.getWidth(), b.getHeight());
         this.setUpBrickImages();
         this.getStage().getScene().setOnKeyPressed(e -> handleKeyPressed(e.getCode()));
         //this.getStage().getScene().setWidth(this.getController().getModel().getWorld().getMainBBox().getULCorner().getX());
@@ -77,13 +85,13 @@ public class GameView extends ViewImpl {
             for (Brick item : b) {
                 Image i = this.brickImages.get(item.getLife());
                 Vector2D p = item.getPosition();
-                this.gcF.drawImage(i, p.getX(), p.getY(), BRICK_WIDTH, BRICK_HEIGHT);
+                this.gcF.drawImage(i, p.getX() - BRICK_WIDTH/2 , p.getY() - BRICK_HEIGHT/2 , BRICK_WIDTH, BRICK_HEIGHT);
             }
 
             Bar bar = this.getController().getModel().getWorld().getBar();
             Ball ball = this.getController().getModel().getWorld().getBalls().get(0);
-            this.gcF.drawImage(GameObjectsImages.BAR.getImage(), bar.getPosition().getX(), bar.getPosition().getY(), bar.getWidth(), bar.getHeight());
-            this.gcF.drawImage(GameObjectsImages.BALL.getImage(), ball.getPosition().getX(), ball.getPosition().getY(), ball.getRadius()*2, ball.getRadius()*2);
+            this.gcF.drawImage(GameObjectsImages.BAR.getImage(), bar.getPosition().getX() - bar.getWidth()/2, bar.getPosition().getY() - bar.getHeight(), bar.getWidth(), bar.getHeight());
+            this.gcF.drawImage(GameObjectsImages.BALL.getImage(), ball.getPosition().getX() - ball.getRadius(), ball.getPosition().getY() - ball.getRadius(), ball.getRadius()*2, ball.getRadius()*2);
         });
     }
 

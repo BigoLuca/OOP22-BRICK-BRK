@@ -245,6 +245,17 @@ public class ResourceLoader {
         return sortedMap;
     }
 
+    public List<Map<String, Integer>> getAllRanks(final String filename) {
+        List<Map<String, Integer>> rawRanks = new ArrayList<>();
+
+        try {
+            rawRanks.add(this.getRank(filename, 0));
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("end");
+        }
+        return rawRanks;
+    }
+    
     /**
      * Method to write on a file the list of players stats passed.
      * @param file

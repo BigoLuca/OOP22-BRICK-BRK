@@ -9,6 +9,7 @@ public abstract class AbstractController {
     protected ErrorListener errListener;
     protected InputController inputController;
     protected LevelController levelController;
+    protected RankController rankController;
     
     public AbstractController() {
         this.userController = new UserController();
@@ -24,5 +25,7 @@ public abstract class AbstractController {
     public ErrorListener getErrorListener() { return this.errListener; }
 
     public LevelController getLevelController() { return this.levelController; }
+
+    public RankController getRankController() { return this.rankController; }
 
 }

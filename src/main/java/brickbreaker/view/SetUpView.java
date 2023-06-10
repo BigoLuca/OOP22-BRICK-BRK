@@ -2,7 +2,6 @@ package brickbreaker.view;
 
 import java.util.List;
 
-import brickbreaker.controllers.UserController;
 import brickbreaker.model.user.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

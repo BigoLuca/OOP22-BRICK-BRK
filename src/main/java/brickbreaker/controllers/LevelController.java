@@ -1,10 +1,7 @@
 package brickbreaker.controllers;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import brickbreaker.MapInfo;
 import brickbreaker.ResourceLoader;

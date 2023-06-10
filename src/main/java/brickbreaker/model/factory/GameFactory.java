@@ -67,7 +67,7 @@ public class GameFactory {
         Integer mLQ = d.getMoreLifePercentage(bricksQ);
 
 		for(int i = 0; i < bricksQ; i++) {
-			bricks.add(new Brick(new Vector2D(r.nextInt(cols), r.nextInt(rows)), 1));
+			bricks.add(new Brick(new Vector2D(r.nextInt(cols) * Brick.BRICK_WIDTH + Brick.BRICK_WIDTH / 2, r.nextInt(rows) * Brick.BRICK_HEIGHT + Brick.BRICK_HEIGHT / 2), 1));
 		}
 
         while (mLQ > 0) {

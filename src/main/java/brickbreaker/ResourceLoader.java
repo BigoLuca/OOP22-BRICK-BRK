@@ -249,7 +249,9 @@ public class ResourceLoader {
         List<Map<String, Integer>> rawRanks = new ArrayList<>();
 
         try {
-            rawRanks.add(this.getRank(filename, 0));
+            for (Integer i = 0; i < 4; i++) {
+                rawRanks.add(this.getRank(filename, i));
+            }
         } catch (IndexOutOfBoundsException e) {
             System.out.println("end");
         }

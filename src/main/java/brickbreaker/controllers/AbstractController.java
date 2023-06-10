@@ -16,6 +16,7 @@ public abstract class AbstractController {
         this.errListener = new ErrorListener();
         this.inputController = new InputController();
         this.levelController = new LevelController();
+        this.rankController = new RankController();
     }
 
     public UserController getUserController() { return this.userController; }

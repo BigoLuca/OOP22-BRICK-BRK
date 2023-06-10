@@ -31,19 +31,17 @@ public enum GameImages {
 
     PICK_A_LEVEL("pickALevel.png"),
 
-    GLOBAL_LABEL("nickname.png"),
+    NEXT("next.png"),
 
-    LOCAL_LABEL("nickname.png"),
-
-    NEXT("nickname.png"),
-
-    PREVIOUS("nickname.png"),
+    PREVIOUS("previous.png"),
 
     NOT_LOADED_ITEM("nickname.png"),
     
     TITLE("Title.png"),
 
     ENDLESS_MODE_CHOICE("endless.png"),
+
+    LEVELS_LABEL("levels.png"),
 
     LEVELS_MODE_CHOICE("start.png"),
 

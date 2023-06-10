@@ -1,67 +1,101 @@
 package brickbreaker.view;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 import brickbreaker.ResourceLoader;
-import brickbreaker.controllers.Controller;
-import brickbreaker.model.GameModel;
-import brickbreaker.model.rank.GameRank;
+import brickbreaker.common.Difficulty;
+import brickbreaker.common.GameImages;
+import brickbreaker.controllers.LevelMenuController;
+import brickbreaker.controllers.session.EndlessSession;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public final class LevelsMenuView extends ViewImpl {
 
-    @FXML
-    private ImageView imgChooseLevel;
+    @FXML private AnchorPane root;
+    @FXML private VBox vbContainer;
+    @FXML private ImageView imgChooseLevel;
+    @FXML private GridPane gplevelsGrid;
+    @FXML private HBox hbButtons;
+    @FXML private ImageView imgGoBack;
+    @FXML private ImageView imgGoForward;
 
-    @FXML
-    private GridPane gplevelsGrid;
-
-    public LevelsMenuView(final Controller controllerToAttach) {
-        super(controllerToAttach);
-        
-        Integer levelsQuantity = ResourceLoader.getInstance().getMapsNames().size();
-
-        for (Integer i = 0; i < levelsQuantity - 5; i++) {
-            for (Integer j = 0; j < 5; j++) {
-                try {
-                    Image img = ResourceLoader.getInstance().getLevelImage(j*i).getImage();
-                    ImageView levelControl = new ImageView(img);
-                    levelControl.setOnMouseClicked(new EventHandler<Event>() {
-
-                        @Override
-                        public void handle(Event event) {
-                            switchToLevelMatch();
-                        }
-                        
-                    });
-                    
-                    this.gplevelsGrid.add(levelControl, j, i, 0, 0);
-                } catch (FileNotFoundException  e) {
-                    System.out.println("[ERROR] Some images are not present.");
-                    System.out.println("Some files may have been corrupted.");
-                } catch (IOException e) {
-                    System.out.println("[ERROR] Occured while loading some images.");
-                    System.out.println("Exit the program and relaunch it.");
-                }
-            }
-        }
-    }
-
-    public void switchToLevelMatch() {
-        GameRank r = new GameRank(10, ResourceLoader.getInstance().getRank("levels.txt"));
-        this.getController().setModel(new LevelsModel(r, null));
-        ViewSwitcher.getInstance().switchView(this.getStage(), ViewType.MATCH);
-    }
+    private List<GameImages> landscapes;
+    private Image currentLandscapeSelected;
+    private String currentLevelSelected;
+    private Integer rowIndex;
+    private Integer columnIndex;
 
     @Override
     public void init() {
+        rowIndex = columnIndex = 0;
 
+        this.imgChooseLevel.setImage(GameImages.PICK_A_LEVEL.getImage());
+        this.imgGoBack.setImage(GameImages.LEFT_ARROW.getImage());
+        this.imgGoForward.setImage(GameImages.RIGHT_ARROW.getImage());
+        
+        refreshLevels(true);
     }
+
+    private void refreshLevels(final boolean forward) {
+
+        if (!forward) {
+            this.columnIndex -= 2;
+            this.rowIndex -= 4;
+        }
+
+        try {
+            for (Integer i = 0; i < this.gplevelsGrid.getRowCount(); i++) {
+                for (Integer j = 0; j < this.gplevelsGrid.getColumnCount(); j++) {
+                    ImageView imgLevel = new ImageView(landscapes.get(i * j).getImage());
+                    Label mapName = new Label(this.getController().getLevelController().getNameMap(i + j));
+                    VBox levelControl = new VBox();
+
+                    imgLevel.setPreserveRatio(true);
+                    imgLevel.setFitHeight(82.0);
+                    imgLevel.setFitWidth(100.0);
     
+                    levelControl.getChildren().addAll(imgLevel, mapName);
+                    levelControl.setOnMouseEntered(new EventHandler<Event>() {
+    
+                        @Override
+                        public void handle(Event event) {
+                            currentLevelSelected = ((Label) levelControl.getChildren().get(1)).getText();
+                            currentLandscapeSelected = ((ImageView) levelControl.getChildren().get(0)).getImage();
+                        }
+                        
+                    });
+    
+                    this.gplevelsGrid.getChildren().add(i + j, levelControl);
+                    this.columnIndex++;
+                }
+                this.rowIndex++;
+            }
+        } catch(ArrayIndexOutOfBoundsException a) {
+            System.out.println("Level loading endend.");
+        }
+    }
+
+    public void clickGoForward() {
+        refreshLevels(true);
+    }
+
+    public void clickBackForward() {
+        refreshLevels(false);
+    }
+
+    public void switchToLevelMatch() {
+        this.getController().getLevelController().setLevel(this.mapsName.indexOf(this.currentLevelSelected));
+        this.getController().setModel();
+    }
 }

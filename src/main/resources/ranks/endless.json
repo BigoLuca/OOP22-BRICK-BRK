@@ -1,11 +1,21 @@
 [
   {
     "level": "easy",
-    "scores": []
+    "scores": [
+      {
+        "name":"Fabretti",
+        "score":0
+      }
+    ]
   },
   {
     "level": "medium",
-    "scores": []
+    "scores": [
+      {
+        "name":"Giancarlo",
+        "score":100
+      }
+    ]
   },
   {
     "level": "hard",

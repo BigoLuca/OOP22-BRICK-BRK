@@ -8,13 +8,13 @@ import brickbreaker.model.rank.GameRank;
 
 public class RankController {
 
-    private static final String ENDLESS_RANKS = "ranks/endless.json";
-    private static final String LEVEL_RANKS = "ranks/levels.json";
+    private static final String ENDLESS_RANKS = "endless.json";
+    private static final String LEVEL_RANKS = "levels.json";
 
     private List<GameRank> endlessRanks;
     private List<GameRank> levelsRanks;
 
-    public void init() {
+    public RankController() {
         //Loading all the global ranks.
         this.endlessRanks = this.loadEndless();
         this.levelsRanks = this.loadLevels();
@@ -33,7 +33,15 @@ public class RankController {
     }
 
     public Integer getEndlessRankQuantity() {
-        return this.endlessRanks.size();
+        Integer q;
+
+        try {
+            q = this.endlessRanks.size();
+        } catch(NullPointerException e) {
+            q = 0;
+        }
+
+        return q;
     }
 
     public GameRank getLevelsRank(Integer index)  {
@@ -41,6 +49,14 @@ public class RankController {
     }
 
     public Integer getLevelsRankQuantity() {
-        return this.levelsRanks.size();
+        Integer q;
+
+        try {
+            q = this.levelsRanks.size();
+        } catch(NullPointerException e) {
+            q = 0;
+        }
+
+        return q;
     }
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import brickbreaker.ResourceLoader;
+import brickbreaker.common.Mode;
 import brickbreaker.model.rank.GameRank;
 
 public class RankController {
@@ -26,6 +27,14 @@ public class RankController {
 
     private List<GameRank> loadLevels() {
         return ResourceLoader.getInstance().getAllRanks(LEVEL_RANKS).stream().map(item -> new GameRank(item)).collect(Collectors.toList());
+    }
+
+    protected void addRank(Mode mode, Integer level, String username, Integer newScore) {
+        if (mode.equals(Mode.ENDLESS)) {
+            ResourceLoader.getInstance().writeRank(ENDLESS_RANKS, level, username, newScore);
+        } else {
+            ResourceLoader.getInstance().writeRank(LEVEL_RANKS, level, username, newScore);
+        }
     }
 
     public GameRank getEndlessRank(Integer index) {

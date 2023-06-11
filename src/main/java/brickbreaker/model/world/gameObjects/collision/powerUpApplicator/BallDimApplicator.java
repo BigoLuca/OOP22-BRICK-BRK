@@ -1,6 +1,7 @@
 package brickbreaker.model.world.gameObjects.collision.powerUpApplicator;
 
 import brickbreaker.model.world.World;
+import brickbreaker.model.world.gameObjects.Ball;
 
 /**
  * Class to apply ball dimension powerUp to Ball.
@@ -8,7 +9,7 @@ import brickbreaker.model.world.World;
  */
 public class BallDimApplicator implements PowerUpApplicator {
     
-    private final Double DELTA = 0.13;
+    private final Double DELTA = Ball.RADIUS / 3;
     private boolean bonus;
 
     /**

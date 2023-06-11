@@ -1,6 +1,7 @@
 package brickbreaker.model.world.gameObjects.collision.powerUpApplicator;
 
 import brickbreaker.model.world.World;
+import brickbreaker.model.world.gameObjects.Bar;
 
 /**
  * Class to apply lenght powerUp to Bar.
@@ -8,7 +9,7 @@ import brickbreaker.model.world.World;
  */
 public class BarLengthApplicator implements PowerUpApplicator {
 
-    private final Double DELTA = 1.0;
+    private final Double DELTA = Bar.BAR_WIDTH / 3;
     private boolean bonus;
 
     /**

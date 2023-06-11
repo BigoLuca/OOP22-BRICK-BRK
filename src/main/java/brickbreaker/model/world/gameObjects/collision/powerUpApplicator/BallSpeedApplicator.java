@@ -1,6 +1,5 @@
 package brickbreaker.model.world.gameObjects.collision.powerUpApplicator;
 
-import brickbreaker.common.Vector2D;
 import brickbreaker.model.world.World;
 
 /**
@@ -9,7 +8,7 @@ import brickbreaker.model.world.World;
  */
 public final class BallSpeedApplicator implements PowerUpApplicator {
 
-    private final Double DELTA = 2.0;
+    private final Double DELTA = 3.0;
     private boolean bonus;
 
     /**
@@ -25,8 +24,7 @@ public final class BallSpeedApplicator implements PowerUpApplicator {
      */
     @Override
     public void applyPowerUp(final World world) {
-        Vector2D acceleration = bonus ? new Vector2D(DELTA, DELTA) : new Vector2D(-DELTA, -DELTA);
-        //TODO not alwais: una pallisa che si muove verso il basso ha vettore negativo e togliendo la aumenti
-        world.getBalls().stream().forEach(b -> b.setSpeed(b.getSpeed().sum(acceleration)));
+        Double acceleration = bonus ? 1/DELTA : DELTA;
+        world.getBalls().stream().forEach(b -> b.setSpeed(b.getSpeed().mul(acceleration)));
     }
 }

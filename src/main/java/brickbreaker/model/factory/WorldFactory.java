@@ -3,6 +3,8 @@ package brickbreaker.model.factory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import brickbreaker.MapInfo;
 import brickbreaker.ResourceLoader;
@@ -23,8 +25,8 @@ import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
 public class WorldFactory {
 
     //TODO:Adapt speed.
-    private final Double X_SPEED = 0.1;
-    private final Double Y_SPEED = -15.0;
+    public static Double X_SPEED = 0.1;
+    public static final Double Y_SPEED = -15.0;
 
     public static final Double BOUNDARIES_SIZE = 600.0;
 
@@ -71,14 +73,17 @@ public class WorldFactory {
     private void randomPowerUpAssignment(final Difficulty d, final List<Brick> b) {
         Random r = new Random();
 
-        Integer other = (b.size() - d.getBonusPercentage(b.size()));
-        List<TypePower> p = this.getWorldPowerUp(d.getBonusPercentage(b.size()), true);
-        p.addAll(this.getWorldPowerUp(other, false));
-
-
-        for (Brick i : b) {
-            i.setPowerUp(p.get(r.nextInt(b.size())));
+        Integer numPowerUp = b.size() - ( b.size() / 5);
+        List<TypePower> p = this.getWorldPowerUp(numPowerUp, d.getBonusPercentage());
+        
+        List<Integer> val = IntStream.range(0, b.size())
+        .boxed()
+        .collect(Collectors.toList());
+        
+        for (TypePower i : p) {
+            b.get(val.remove(r.nextInt(val.size()))).setPowerUp(i);
         }
+        System.out.println("Bonus: " + p.toString());
     }
 
     /**
@@ -88,16 +93,21 @@ public class WorldFactory {
      * @param bonus is true if the powerup to fill 
      * @return a list of Typepower
      */
-    private List<TypePower> getWorldPowerUp(final Integer pQuantity, final boolean bonus) {
-        List<TypePower> p = new ArrayList<>();
+    private List<TypePower> getWorldPowerUp(final Integer pQuantity, final Integer bonus) {
         Random r = new Random();
-        List<TypePower> types = TypePower.getElement(bonus ? TypePowerUp.POSITIVE : TypePowerUp.NEGATIVE);
-
-        for (int i = 0; i < pQuantity; i++) {
-            Integer randomChoice = r.nextInt(types.size());
-            p.add(types.get(randomChoice));
+        List<TypePower> ret = new ArrayList<>();
+        
+        Integer positive = pQuantity * bonus / 100;
+        List<TypePower> p = TypePower.getElement(TypePowerUp.POSITIVE);
+        for (int i=0; i < positive; i++) {
+            ret.add(p.get(r.nextInt(p.size())));
         }
 
-        return p;
+        List<TypePower> n = TypePower.getElement(TypePowerUp.NEGATIVE);
+        for (int i=0; i < (pQuantity - positive); i++) {
+            ret.add(n.get(r.nextInt(n.size())));
+        }
+
+        return ret;
     }
 }

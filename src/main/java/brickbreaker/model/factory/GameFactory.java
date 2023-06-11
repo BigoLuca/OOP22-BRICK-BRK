@@ -16,6 +16,7 @@ import brickbreaker.model.world.gameObjects.Brick;
  */
 public class GameFactory {
 
+    public static final Integer LIFE_BAR = 3;
     private static GameFactory instance;
 
     /**
@@ -77,6 +78,6 @@ public class GameFactory {
 	 * @return a new Bar object
 	 */
     public Bar createBar(final Vector2D posToSet) {
-        return new Bar(posToSet, 1);
+        return new Bar(posToSet, LIFE_BAR);
     }
 }

@@ -42,7 +42,11 @@ public enum GameObjectsImages {
 
     BALL("ball.png"),
 
-    BAR("bar.png");
+    BAR_ANIMATION_1("bar.png"),
+
+    BAR_ANIMATION_2("barAnimation1.png"),
+
+    BAR_ANIMATION_3("barAnimation2.png");
 
     private static final String RES_PATH = "images//sprites/";
     private String fileName;

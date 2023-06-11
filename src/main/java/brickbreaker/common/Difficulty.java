@@ -28,8 +28,8 @@ public enum Difficulty {
      * This method returns the percentage of the difficulty.
      * @return an integer representing the difficulty
      */
-    public Integer getBonusPercentage(final Integer bricksQuantity) {
-        return (bricksQuantity / 100) * this.bP; 
+    public Integer getBonusPercentage() {
+        return this.bP; 
     }
 
     public Integer getMaxBrickLife() {

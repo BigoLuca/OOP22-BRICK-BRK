@@ -71,7 +71,7 @@ public final class LevelsMenuView extends ViewImpl {
                         
                     });
     
-                    this.gplevelsGrid.getChildren().add(i + j, levelControl);
+                this.gplevelsGrid.add(levelControl, j, i);
                     this.columnIndex++;
                 }
                 this.rowIndex++;

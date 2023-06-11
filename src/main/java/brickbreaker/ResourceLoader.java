@@ -12,10 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Scanner;
-
 import java.util.Iterator;
-
 import com.google.gson.*;
 
 import brickbreaker.common.Difficulty;
@@ -96,8 +93,10 @@ public class ResourceLoader {
             String landScape = e.get("landscape").getAsString();
             List<Integer> map = new ArrayList<>();
 
-            for (Integer i = 0; i < e.get("map").getAsJsonArray().size(); i++) {
-                map.add(e.get("map").getAsJsonArray().get(i).getAsInt());
+            for (Integer i = 0; i < 5; i++) {
+                for (Integer j = 0; j < MAP_COLUMNS_FILE_FORMAT; j++) {
+                    map.add(e.get("map").getAsJsonArray().get(i).getAsJsonArray().get(j).getAsInt());
+                }
             }
 
             Difficulty d = Difficulty.valueOf(e.get("difficulty").getAsString());
@@ -108,33 +107,6 @@ public class ResourceLoader {
         }
 
         return m;
-    }
-
-
-    /**
-     * Retunr the game map request, if new: load the new map, else return the same in memory.
-     * If name map is absent catch exception and return an optional empty.
-     * If size map is not correct return an optional empty.
-     * @param fileName is the name of map file to load
-     * @return a list of bricks num life
-     */
-    public Optional<List<Integer>> loadMap(final String fileName) {
-
-        if (!this.currentMapName.equals(fileName)) {
-            try (Scanner sc = new Scanner(new File(this.mapsPath + sep + fileName))) {
-                currentMapList.clear();
-                while (sc.hasNextInt()) {
-                    this.currentMapList.add(sc.nextInt());
-                }
-                sc.close();
-                this.currentMapName = fileName;
-            } catch (FileNotFoundException e) {
-                this.currentMapName = "";
-                e.printStackTrace();
-                return Optional.empty();
-            }
-        }
-        return Optional.of(this.currentMapList);
     }
 
     /**

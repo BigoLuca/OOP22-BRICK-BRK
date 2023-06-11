@@ -68,6 +68,33 @@ public class Controller extends AbstractController {
         }
     }
 
+     /**
+     * This method checks if the game is over.
+     */
+    protected boolean isOver() {
+        if (this.model.getState().equals(State.LOST)) {
+            
+        } else if (this.model.getState().equals(State.WIN)) {
+            if(this.mode.equals(Mode.ENDLESS)){
+                this.model = this.levelController.getLevel();
+                // Errore nel model
+                if(this.model == null){
+                    System.out.println("Errore nel model");
+                    return true;
+                }
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    protected void checkState() {
+        if (this.isOver()) {
+            this.stop();
+        }
+    }
+
     public void play() {
         this.isRunning = true;
         gameController.startGame();

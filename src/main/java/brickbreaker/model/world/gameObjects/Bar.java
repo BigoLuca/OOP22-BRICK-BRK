@@ -54,7 +54,7 @@ public class Bar extends GameObjectImpl<RectBoundingBox> {
      * Method for horizontal movement of the Bar.
      * @param m
      */
-    public void move(final Integer m) {
+    public void move(final Long m) {
         this.setPosition(new Vector2D(this.getPosition().getX() + m, this.getPosition().getY()));
     }
 
@@ -63,7 +63,7 @@ public class Bar extends GameObjectImpl<RectBoundingBox> {
      * @param c
      * @param rightBorder
      */
-    public void updateInput(final InputController c, final Double rightBorder) {
-        input.update(this, rightBorder, c);
+    public void updateInput(final Double elapsed, final InputController c, final Double rightBorder) {
+        input.update(this, rightBorder, c, elapsed);
     }
 }

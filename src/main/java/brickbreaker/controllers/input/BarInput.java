@@ -6,21 +6,24 @@ import brickbreaker.model.world.gameObjects.Bar;
  */
 public class BarInput implements InputComponent {
 
-    private final Integer move = 20;
+    private final Double move = 150.0;
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void update(final Bar bar, final Double rb, final InputController c) {
+    public void update(final Bar bar, final Double rb, final InputController c, final Double elapsed) {
+
+        Long value = Math.round(move * (elapsed / 5000.0));
+
         if (c.isMoveLeft()) {
-            if (bar.getBBox().getULCorner().getX() >= move) {
-                bar.move(-move);
+            if (bar.getBBox().getULCorner().getX() >= value) {
+                bar.move(-value);
             }
             c.noMoveLeft();
         } else if (c.isMoveRight()) {
-            if (bar.getBBox().getBRCorner().getX() <= (rb - move)) {
-                bar.move(move);
+            if (bar.getBBox().getBRCorner().getX() <= (rb - value)) {
+                bar.move(value);
             }
             c.noMoveRight();
         }

@@ -10,7 +10,7 @@ import brickbreaker.view.GameView;
 
 public class Controller extends AbstractController {
 
-    private static final int ELAPSED = 200;
+    private static final Double ELAPSED = 200.0;
 
     private final GameController gameController;
     private GameView gameView;
@@ -57,7 +57,7 @@ public class Controller extends AbstractController {
      */
     protected void processCommands() {
         World w = this.model.getWorld();
-        w.getBar().updateInput(this.inputController, w.getMainBBox().getBRCorner().getX());
+        w.getBar().updateInput(ELAPSED, this.inputController, w.getMainBBox().getBRCorner().getX());
     }
 
     /**
@@ -65,7 +65,7 @@ public class Controller extends AbstractController {
      * @param elapsed
      */
     protected void updateGame() {
-        this.model.updateGame(ELAPSED);
+        this.model.updateGame(ELAPSED.intValue());
         this.model.getWorld().checkCollision();
         if (this.getModel().getState().equals(State.LOST)) {
             this.stop();

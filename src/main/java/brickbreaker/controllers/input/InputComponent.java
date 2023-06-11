@@ -14,5 +14,5 @@ public interface InputComponent {
      * @param rb
      * @param c
      */
-    void update(Bar bar, Double rb,  InputController c);
+    void update(Bar bar, Double rb,  InputController c, Double elapsed);
 }

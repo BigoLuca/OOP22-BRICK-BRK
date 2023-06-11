@@ -1,6 +1,7 @@
 package brickbreaker.controllers;
 
 import brickbreaker.ResourceLoader;
+import brickbreaker.common.Chronometer;
 import brickbreaker.common.Mode;
 import brickbreaker.common.State;
 import brickbreaker.model.Level;
@@ -18,11 +19,17 @@ public class Controller extends AbstractController {
     private Mode mode;
     private User user;
 
+    private final Chronometer chrono;
+    private Integer oldScore;
+
     public Controller() {
         super();
         this.gameController = new GameController(this);
         this.model = null;
         this.user = null;
+        this.oldScore = 0;
+        this.chrono = new Chronometer();
+        chrono.start();
     }
 
     public void setUser(final String username) {
@@ -58,12 +65,14 @@ public class Controller extends AbstractController {
         this.model.updateGame(ELAPSED);
         this.model.getWorld().checkCollision();
         if (this.getModel().getState().equals(State.LOST)) {
-            ResourceLoader.getInstance().writeRank("endless.json", 0, "Pippo", this.model.getWorld().getScore());
             this.stop();
+            ResourceLoader.getInstance().writeRank("endless.json", 0, "Pippo", (int) ((oldScore + this.model.getWorld().getScore()) / this.chrono.getElepsedTime()));
         } else if (this.getModel().getState().equals(State.WIN)) {
             //if(this.mode.equals(Mode.ENDLESS)){
                 this.pause();
+                this.oldScore += this.model.getWorld().getScore();
                 this.model = this.levelController.getLevel();
+                this.model.getWorld().incScore(oldScore);
                 this.render();
             //} else {
                 //this.stop();
@@ -100,11 +109,13 @@ public class Controller extends AbstractController {
 
     public void play() {
         this.model.setState(State.PLAYING);
+        chrono.resumeChrono();
         gameController.startGame();
     }
 
     public void pause() {
         this.model.setState(State.WAIT);
+        chrono.pauseChrono();
         gameController.pauseGame();
     }
 
@@ -117,6 +128,7 @@ public class Controller extends AbstractController {
     }
 
     public void stop() {
+        chrono.stopChrono();
         this.gameController.stopGame();
         this.gameView.isOver();
     }

@@ -6,24 +6,22 @@ package brickbreaker.common;
 public enum Difficulty {
 
     /** Easy. */
-    EASY(20, 30, 70, 0),
+    EASY(30, 70, 5),
     /** Medium. */
-    MEDIUM(30, 50, 50, 30),
+    MEDIUM(50, 50, 7),
     /** Hard. */
-    HARD(50, 70, 30, 50),
+    HARD(70, 30, 11),
     /** Random. */ //TODO: need to have this order for write ranking.
-    RANDOM(0,0,0,0);
+    RANDOM(0,0,0);
 
-    private final Integer min;
-    private final Integer max;
+    private final Integer brickP;
     private final Integer bP;
     private final Integer mlP;
 
-    Difficulty(final int minBricks, final int maxBricks, final int bonusPercentage, final int moreLifePercentage) {
-        this.min = minBricks;
-        this.max = maxBricks;
+    Difficulty(final int brickP, final int bonusPercentage, final int maxBrickLife) {
+        this.brickP = brickP;
         this.bP = bonusPercentage;
-        this.mlP = moreLifePercentage;
+        this.mlP = maxBrickLife;
     }
 
     /**
@@ -34,15 +32,11 @@ public enum Difficulty {
         return (bricksQuantity / 100) * this.bP; 
     }
 
-    public Integer getMoreLifePercentage(final Integer bricksQuantity) {
-        return (bricksQuantity / 100) * this.mlP;
+    public Integer getMaxBrickLife() {
+        return this.mlP;
     }
 
-    public Integer getMinimumBricksQuantity() {
-        return this.min;
-    }
-
-    public Integer getMaximumBricksQuantity() {
-        return this.max;
+    public Integer getBrickPercentage() {
+        return this.brickP;
     }
 }

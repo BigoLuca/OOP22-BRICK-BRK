@@ -61,20 +61,14 @@ public class GameFactory {
 	public List<Brick> createRandomBricks(final Difficulty d, final Integer cols, final Integer rows) {
 		Random r = new Random();
 		List<Brick> bricks = new LinkedList<>();
-        Integer max = d.getMaximumBricksQuantity();
-        Integer min = d.getMinimumBricksQuantity();
-        Integer bricksQ = r.nextInt((max - min) + 1) + min;
-        Integer mLQ = d.getMoreLifePercentage(bricksQ);
 
-		for(int i = 0; i < bricksQ; i++) {
-			bricks.add(new Brick(new Vector2D(r.nextInt(cols) * Brick.BRICK_WIDTH + Brick.BRICK_WIDTH / 2, r.nextInt(rows) * Brick.BRICK_HEIGHT + Brick.BRICK_HEIGHT / 2), 1));
-		}
-
-        while (mLQ > 0) {
-            bricks.get(r.nextInt(bricksQ)).setLife(r.nextInt((5 - 1) + 1) + 1);
-            mLQ--;
+        for (int i = 0; i < cols ; i++) {
+            for (int j = 0 ; j < rows ; j++){
+                if (r.nextInt(100) < d.getBrickPercentage()) {
+                    bricks.add(new Brick(new Vector2D(i  * Brick.BRICK_WIDTH + Brick.BRICK_WIDTH / 2, j * Brick.BRICK_HEIGHT + Brick.BRICK_HEIGHT / 2), r.nextInt(1, d.getMaxBrickLife())));
+                }
+            }
         }
-
 		return bricks;
 	}
 

@@ -1,5 +1,6 @@
 package brickbreaker.controllers;
 
+import brickbreaker.ResourceLoader;
 import brickbreaker.common.Mode;
 import brickbreaker.common.State;
 import brickbreaker.model.Level;
@@ -13,7 +14,6 @@ public class Controller extends AbstractController {
 
     private final GameController gameController;
     private GameView gameView;
-    private boolean isRunning;
     private Level model;
     private Mode mode;
     private User user;
@@ -58,6 +58,7 @@ public class Controller extends AbstractController {
         this.model.updateGame(ELAPSED);
         this.model.getWorld().checkCollision();
         if (this.getModel().getState().equals(State.LOST)) {
+            ResourceLoader.getInstance().writeRank("endless.json", 0, "Pippo", this.model.getWorld().getScore());
             this.stop();
         } else if (this.getModel().getState().equals(State.WIN)) {
             //if(this.mode.equals(Mode.ENDLESS)){
@@ -99,13 +100,11 @@ public class Controller extends AbstractController {
 
     public void play() {
         this.model.setState(State.PLAYING);
-        this.isRunning = true;
         gameController.startGame();
     }
 
     public void pause() {
         this.model.setState(State.WAIT);
-        this.isRunning = false;
         gameController.pauseGame();
     }
 
@@ -118,7 +117,6 @@ public class Controller extends AbstractController {
     }
 
     public void stop() {
-        this.isRunning = false;
         this.gameController.stopGame();
         this.gameView.isOver();
     }

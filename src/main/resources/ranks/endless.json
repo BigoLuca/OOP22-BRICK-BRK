@@ -3,8 +3,12 @@
     "level": "easy",
     "scores": [
       {
-        "name":"Fabretti",
-        "score":0
+        "name": "Fabretti",
+        "score": 0
+      },
+      {
+        "name": "Pippo",
+        "score": 10
       }
     ]
   },
@@ -12,8 +16,8 @@
     "level": "medium",
     "scores": [
       {
-        "name":"Giancarlo",
-        "score":100
+        "name": "Giancarlo",
+        "score": 100
       }
     ]
   },

@@ -1,10 +1,6 @@
 package brickbreaker.view;
 
 import javafx.stage.Stage;
-
-import java.util.Optional;
-
-import brickbreaker.common.Mode;
 import brickbreaker.controllers.Controller;
 
 /**
@@ -14,7 +10,6 @@ public abstract class ViewImpl implements View {
 
     private Stage currentStage;
     private Controller controller;
-    protected Mode mode;
 
     public Stage getStage() {
         return this.currentStage;

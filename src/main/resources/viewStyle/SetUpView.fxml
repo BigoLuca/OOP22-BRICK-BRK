@@ -34,7 +34,7 @@
                   <Insets top="10.0" />
                </padding>
             </HBox>
-            <Button fx:id="btnAdd" mnemonicParsing="false" onMouseClicked="#switchToHome" text="Add" />
+            <Button fx:id="btnAdd" mnemonicParsing="false" onMouseClicked="#switchToHome" text="SELECT" />
          </children>
       </VBox>
    </children>

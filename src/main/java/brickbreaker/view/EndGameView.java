@@ -41,7 +41,7 @@ public class EndGameView extends ViewImpl {
                 if(this.getController().getLevelController().hasNextLevel()){
                     // Next level
                     this.getController().getLevelController().nextLevel();
-                    this.getController().setModel(Mode.LEVELS);
+                    this.getController().setModel();
                     ViewSwitcher.getInstance().switchView(getStage(), ViewType.MATCH);
                 } else {
                     // Lvels are over
@@ -49,7 +49,7 @@ public class EndGameView extends ViewImpl {
                 }
             } else {
                 // Lost
-                this.getController().setModel(Mode.LEVELS);
+                this.getController().setModel();
                 ViewSwitcher.getInstance().switchView(getStage(), ViewType.MATCH);
             }
         }

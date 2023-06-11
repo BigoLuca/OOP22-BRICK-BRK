@@ -52,6 +52,7 @@ public class SetUpView extends ViewImpl {
     @FXML
     public void switchToHome() {
         String nick = cbUsersList.getEditor().getText();
+        this.getController().setUser(nick);
 
         if (nick.isEmpty()) {
             Dialog<String> d = new Dialog<>();

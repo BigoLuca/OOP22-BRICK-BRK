@@ -18,19 +18,11 @@ import brickbreaker.model.factory.WorldFactory;
 import brickbreaker.model.world.gameObjects.Ball;
 import brickbreaker.model.world.gameObjects.Bar;
 import brickbreaker.model.world.gameObjects.Brick;
-import brickbreaker.model.world.gameObjects.GameObject;
-import brickbreaker.model.world.gameObjects.GameObjectImpl;
 import brickbreaker.model.world.gameObjects.PowerUp;
-import brickbreaker.model.world.gameObjects.bounding.BoundingBox;
 import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
 
 public class GameView extends ViewImpl {
 
@@ -76,6 +68,7 @@ public class GameView extends ViewImpl {
         this.gcF.setFill(Color.BLACK);
         this.gcF.fillRect(b.getULCorner().getX(), b.getULCorner().getY(), b.getWidth(), b.getHeight());
         this.setUpBrickImages();
+        this.setUpPowerUpImages();
         this.getStage().getScene().setOnKeyPressed(e -> handleKeyPressed(e.getCode()));
 
         // Start the game
@@ -91,9 +84,10 @@ public class GameView extends ViewImpl {
     }
 
     public void setUpPowerUpImages() {
-        this.ppImages = new HashMap<>(TypePower.values().length);
-
-        Arrays.asList(TypePower.values()).stream().map(item -> new HashMap.Entry<TypePower,Image>())
+        this.ppImages = new HashMap<>();
+        for(TypePower item : TypePower.values()) {
+            this.ppImages.put(item, GameObjectsImages.FAST_BALL.getImage());
+        }
     }
 
     public void render() {
@@ -126,7 +120,7 @@ public class GameView extends ViewImpl {
     }
 
     public void isOver() {
-        //ViewSwitcher.getInstance().switchView(getStage(), ViewType.GAMEOVER);
+        ViewSwitcher.getInstance().switchView(getStage(), ViewType.GAMEOVER);
     }
 
     public void handleKeyPressed(KeyCode keyCode) {

@@ -1,6 +1,5 @@
 package brickbreaker.view;
 
-import brickbreaker.common.GameImages;
 import brickbreaker.common.GameObjectsImages;
 import brickbreaker.common.TypePower;
 import brickbreaker.common.Vector2D;
@@ -33,6 +32,9 @@ public class GameView extends ViewImpl {
 
     private static final Double BRICK_WIDTH = Brick.BRICK_WIDTH;
     private static final Double BRICK_HEIGHT = Brick.BRICK_HEIGHT;
+
+    @FXML 
+    private Label lifeLabel;
 
     @FXML 
     private Label scoreLabel;
@@ -109,6 +111,7 @@ public class GameView extends ViewImpl {
     public void render() {
 
         scoreLabel.setText(this.getController().getModel().getWorld().getScore().toString());
+        lifeLabel.setText(this.getController().getModel().getWorld().getBar().getLife().toString());
         
         Platform.runLater(() -> {
             

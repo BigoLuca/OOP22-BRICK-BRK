@@ -67,46 +67,27 @@ public class Controller extends AbstractController {
     protected void updateGame() {
         this.model.updateGame(ELAPSED.intValue());
         this.model.getWorld().checkCollision();
-        if (this.getModel().getState().equals(State.LOST)) {
+        this.checkState();
+    }
+
+    private void checkState() {
+        State s = this.getModel().getState();
+        if (s.equals(State.WAIT)) {
+            this.pause();
+            this.render();
+        } else if (this.getModel().getState().equals(State.LOST)) {
             this.stop();
-            //this.rankController.addRank(mode, this.model.getId(), user.getName(), (int) ((oldScore + this.model.getWorld().getScore()) / this.chrono.getElepsedTime()));
+            this.rankController.addRank(mode, this.model.getId(), user.getName(), (int) ((oldScore + this.model.getWorld().getScore()) / this.chrono.getElepsedTime()));
         } else if (this.getModel().getState().equals(State.WIN)) {
-            //if(this.mode.equals(Mode.ENDLESS)){
+            if(this.mode.equals(Mode.ENDLESS)){
                 this.pause();
+                Integer barLife = this.model.getWorld().getBar().getLife();
                 this.oldScore += this.model.getWorld().getScore();
                 this.model = this.levelController.getLevel();
                 this.model.getWorld().incScore(oldScore);
+                this.model.getWorld().getBar().setLife(barLife);
                 this.render();
-            //} else {
-                //this.stop();
-            //}
-        }
-    }
-
-     /**
-     * This method checks if the game is over.
-     */
-    protected boolean isOver() {
-        if (this.model.getState().equals(State.LOST)) {
-            
-        } else if (this.model.getState().equals(State.WIN)) {
-            if(this.mode.equals(Mode.ENDLESS)){
-                this.model = this.levelController.getLevel();
-                // Errore nel model
-                if(this.model == null){
-                    System.out.println("Errore nel model");
-                    return true;
-                }
-            } else {
-                return true;
             }
-        }
-        return false;
-    }
-
-    protected void checkState() {
-        if (this.isOver()) {
-            this.stop();
         }
     }
 
@@ -139,56 +120,4 @@ public class Controller extends AbstractController {
     public void render() {
         gameView.render();
     }
-
-
-    /*
-    public void createEndless(final Difficulty d) {
-        final Integer maxIteration = 10;
-        Integer totalScore = 0;
-        long playTime = 0;
-
-        do {
-            haveWin = false;
-            Integer it = 0;
-            Level level = null;
-            do {
-                this.getErrorListener().getErrorList().clear();
-                level = this.getModel().getRandomLevel(d);
-                it++;
-            } while (this.getErrorListener().getErrorPresent() && it < maxIteration);
-
-            if (it < maxIteration) {
-                this.setLevelController(new LevelControllerImpl(level));
-                loopScene.init(getLevelController().getLevel());
-                playTime += this.getLevelController().gameLoop();
-                totalScore += this.getLevelController().getScore();
-                if(this.getLevelController().getLevel().getState().equals(State.WIN)) {
-                    haveWin = true;
-                } else if (this.getLevelController().getLevel().getState().equals(State.LOST) && this.user != null){
-                    new GameRank("endless.json", d.ordinal()).addToRank(user.getName(), (int) (totalScore / playTime));
-                }
-            } else {
-                // mostra errore caricamento
-            }
-        } while (haveWin);
-    }
-
-    public synchronized void createLevels(final Integer id) {
-        long playTime = 0;
-        this.getErrorListener().getErrorList().clear();
-        Level level = this.getModel().getLevel(id);
-        if (!this.getErrorListener().getErrorPresent()) {
-            this.setLevelController(new LevelControllerImpl(level, loopScene));
-            loopScene.init(getLevelController().getLevel());
-            playTime = this.getLevelController().gameLoop();
-            if(this.getLevelController().getLevel().getState().equals(State.WIN) && this.user != null) {
-                new GameRank("levels.json", id).addToRank(user.getName(), (int) (this.getLevelController().getScore() / playTime));
-                if (user.getLevelReached() == id) {
-                    user.incLevelReached();
-                }
-            }
-        } else {
-            // mostra errore caricamento
-        }
-    } */
 }

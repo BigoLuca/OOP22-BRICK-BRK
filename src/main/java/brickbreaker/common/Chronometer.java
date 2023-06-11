@@ -61,7 +61,7 @@ public class Chronometer extends Thread {
      */
     public void stopChrono() {
         if (isRunning || !isStopped) {
-            elapsedTime = getTimeElapsed() / 10000;
+            elapsedTime = (getTimeElapsed() / 100000) + 1;
             isRunning = false;
             isStopped = true;
         }

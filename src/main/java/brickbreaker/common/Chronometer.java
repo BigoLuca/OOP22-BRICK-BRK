@@ -10,6 +10,7 @@ public class Chronometer extends Thread {
     private long pausedTime;
     private boolean isRunning;
     private boolean isStopped;
+    private long elapsedTime;
 
     /**
      * Chronometer constructor.
@@ -19,6 +20,18 @@ public class Chronometer extends Thread {
         pausedTime = 0;
         isRunning = false;
         isStopped = false;
+
+    }
+
+    /**
+     * @return the time elapsed from the start in seconds
+     */
+    public long getElepsedTime() {
+        if (!isRunning || isStopped) {
+            return this.elapsedTime;
+        } else {
+            return 1;
+        }
     }
 
     /**
@@ -45,17 +58,13 @@ public class Chronometer extends Thread {
 
     /**
      * Method to stop the chronometer.
-     * @return the time elapsed from the start in seconds
      */
-    public long stopChrono() {
+    public void stopChrono() {
         if (isRunning || !isStopped) {
-            long tempoTrascorso = getTimeElapsed() / 1000;
+            elapsedTime = getTimeElapsed() / 10000;
             isRunning = false;
             isStopped = true;
-            //System.out.println("Cronometro interrotto." + tempoTrascorso);
-            return tempoTrascorso;
         }
-        return 1;
     }
 
     private long getTimeElapsed() {

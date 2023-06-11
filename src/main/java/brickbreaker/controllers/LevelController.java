@@ -7,6 +7,7 @@ import java.util.Random;
 import brickbreaker.MapInfo;
 import brickbreaker.ResourceLoader;
 import brickbreaker.common.Difficulty;
+import brickbreaker.common.GameImages;
 import brickbreaker.model.Level;
 import brickbreaker.model.factory.WorldFactory;
 
@@ -56,8 +57,8 @@ public class LevelController {
         }
     }
 
-    public String getNameMap(final Integer i) {
-        return this.mapList.get(i).getName();
+    public MapInfo getMapInfo(final Integer i) {
+        return this.mapList.get(i);
     }
 
     public Integer getMapIndex(final String name) {

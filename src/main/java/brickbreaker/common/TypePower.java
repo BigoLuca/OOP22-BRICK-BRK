@@ -60,7 +60,7 @@ public enum TypePower {
      * @return the duration of the powerUp
      */
     public Integer getDuration() {
-        return this.duration;
+        return this.duration * 100;
     }
 
     /**

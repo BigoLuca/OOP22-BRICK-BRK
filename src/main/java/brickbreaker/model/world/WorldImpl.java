@@ -3,6 +3,7 @@ package brickbreaker.model.world;
 
 import java.util.List;
 import java.util.Map;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -149,7 +150,7 @@ public class WorldImpl implements World {
     private void checkCollisionWithBall() {
         Vector2D ul = mainBBox.getULCorner();
         Vector2D br = mainBBox.getBRCorner();
-
+        
         Iterator<Ball> ballIt = balls.iterator();
         while (ballIt.hasNext()) {
             Ball ball = ballIt.next();
@@ -208,7 +209,7 @@ public class WorldImpl implements World {
         Iterator<PowerUp> powerIt = powerUps.iterator();
         while (powerIt.hasNext()) {
             PowerUp p = powerIt.next();
-            if (p.getPosition().getY() - p.getHeight() / 2 < mainBBox.getBRCorner().getY()) {
+            if (p.getPosition().getY() + p.getHeight() / 2 > mainBBox.getBRCorner().getY()) {
                 powerIt.remove();
             } else if (p.getBBox().isCollidingWith(bar.getBBox())) {
                 Boolean type = p.getPowerUp().getType().equals(TypePowerUp.POSITIVE);
@@ -218,6 +219,7 @@ public class WorldImpl implements World {
                         ApplicatorFactory.getInstance().createApplicator(p.getPowerUp(), !type), 
                         p.getPowerUp().getDuration());
                 }
+                System.out.println("power up: " + p.getPowerUp());
                 powerIt.remove();
             }
         }

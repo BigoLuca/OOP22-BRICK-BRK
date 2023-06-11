@@ -26,6 +26,8 @@ import java.util.List;
 
 public class GameView extends ViewImpl {
 
+    private static final Integer ANIMATION_TIMER = 10;
+
     private static final Double CANVAS_HEIGHT = WorldFactory.BOUNDARIES_SIZE;
     private static final Double CANVAS_WIDTH = WorldFactory.BOUNDARIES_SIZE;
 
@@ -53,12 +55,18 @@ public class GameView extends ViewImpl {
     private GraphicsContext gcF;
     private HashMap<Integer, Image> brickImages;
     private HashMap<TypePower, Image> ppImages;
+    private Image[] barAnimations;
+    private Integer barAnimationIndex;
+    private Integer frameCounter;
 
     @Override
     public void init() {
         this.getController().setGameView(this);
 
-        this.backGround.setImage(GameImages.CITY_LANDSCAPE.getImage());
+        //TODO: Check the loading of the landscape.
+        Integer m = this.getController().getModel().getId();
+        this.backGround.setImage(this.getController().getLevelController().getMapInfo(m).getLandscapeData().getImage());
+
         this.foreGround.setHeight(CANVAS_HEIGHT);
         this.foreGround.setWidth(CANVAS_WIDTH);
         this.foreGround.widthProperty().bind(this.gamePane.widthProperty());
@@ -70,6 +78,14 @@ public class GameView extends ViewImpl {
         this.setUpBrickImages();
         this.setUpPowerUpImages();
         this.getStage().getScene().setOnKeyPressed(e -> handleKeyPressed(e.getCode()));
+
+        this.barAnimations = new Image[3];
+        this.barAnimations[0] = GameObjectsImages.BAR_ANIMATION_1.getImage();
+        this.barAnimations[1] = GameObjectsImages.BAR_ANIMATION_2.getImage();
+        this.barAnimations[2] = GameObjectsImages.BAR_ANIMATION_3.getImage();
+        this.barAnimationIndex = 0;
+
+        this.frameCounter = 0;
 
         // Start the game
         this.getController().render();
@@ -85,8 +101,8 @@ public class GameView extends ViewImpl {
 
     public void setUpPowerUpImages() {
         this.ppImages = new HashMap<>();
-        for(TypePower item : TypePower.values()) {
-            this.ppImages.put(item, GameObjectsImages.FAST_BALL.getImage());
+        for (Integer i = 10; i < 17; i++) {
+            this.ppImages.put(TypePower.values()[i - 10], GameObjectsImages.values()[i].getImage());
         }
     }
 
@@ -113,9 +129,23 @@ public class GameView extends ViewImpl {
             }
 
             Bar bar = this.getController().getModel().getWorld().getBar();
-            Ball ball = this.getController().getModel().getWorld().getBalls().get(0);
-            this.gcF.drawImage(GameObjectsImages.BAR.getImage(), bar.getPosition().getX() - bar.getWidth()/2, bar.getPosition().getY() - bar.getHeight() / 2, bar.getWidth(), bar.getHeight());
-            this.gcF.drawImage(GameObjectsImages.BALL.getImage(), ball.getPosition().getX() - ball.getRadius(), ball.getPosition().getY() - ball.getRadius(), ball.getRadius()*2, ball.getRadius()*2);
+            List<Ball> balls = this.getController().getModel().getWorld().getBalls();
+
+            if (this.frameCounter == ANIMATION_TIMER) {
+                this.barAnimationIndex = (this.barAnimationIndex + 1) % 3;
+                this.frameCounter = 0;
+            } else {
+                this.frameCounter++;
+            }
+
+            this.gcF.drawImage(this.barAnimations[this.barAnimationIndex], bar.getPosition().getX() - bar.getWidth()/2, bar.getPosition().getY() - bar.getHeight() / 2, bar.getWidth(), bar.getHeight());
+
+            for (Ball item : balls) {
+                Image i = GameObjectsImages.BALL.getImage();
+                Vector2D v = item.getPosition();
+                this.gcF.drawImage(i, v.getX() - item.getRadius(), v.getY() - item.getRadius(), item.getRadius()*2, item.getRadius()*2);
+            }
+            
         });
     }
 

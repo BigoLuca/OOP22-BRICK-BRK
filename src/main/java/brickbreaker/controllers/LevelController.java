@@ -13,8 +13,28 @@ import brickbreaker.model.factory.WorldFactory;
 public class LevelController {
 
     private List<MapInfo> mapList;
-    private Difficulty difficulty = getRandomDifficulty();
+    private Difficulty defaultDifficulty = Difficulty.RANDOM;
     private Optional<Integer> level = Optional.empty();
+
+    private Difficulty getRandomDifficulty() {
+        Random randomDiff = new Random();
+        return Difficulty.values()[randomDiff.nextInt(Difficulty.values().length)];
+    }
+
+    private Difficulty getDifficulty() {
+        if (defaultDifficulty.equals(Difficulty.RANDOM)) {
+            return this.getRandomDifficulty();
+        } else {
+            return defaultDifficulty;
+        }
+    }
+    
+    protected Level getLevel() {
+        if(this.level.isPresent() && level.get() < this.mapList.size()){
+            return new Level(level.get(), WorldFactory.getInstance().getWorld(this.level.get()));
+        }
+        return new Level(0, WorldFactory.getInstance().getRandomWorld(this.getDifficulty()));
+    }
 
     public LevelController() {
         this.mapList = ResourceLoader.getInstance().getMapsInfo();
@@ -48,28 +68,7 @@ public class LevelController {
         return this.mapList.size();
     }
 
-    private Difficulty getRandomDifficulty() {
-        Random randomDiff = new Random();
-        //System.out.println("Random: " + Difficulty.values()[randomDiff.nextInt(Difficulty.values().length)]);
-        return Difficulty.values()[randomDiff.nextInt(Difficulty.values().length)];
-    }
-
     public void setDifficultyLevel(final Difficulty diff) {
-        if (diff.equals(Difficulty.RANDOM)) {
-            this.difficulty = this.getRandomDifficulty();
-        } else {
-            this.difficulty = diff;
-        }
-        System.out.println("Difficulty: " + this.difficulty);
-    }
-
-    protected Level getLevel() {
-        System.out.println("Level: " + this.level);
-        System.out.println("diff: " + this.difficulty);
-        if(this.level.isPresent() && level.get() < this.mapList.size()){
-            return new Level(level.get(), WorldFactory.getInstance().getWorld(this.level.get()));
-        }
-        
-        return new Level(0, WorldFactory.getInstance().getRandomWorld(this.difficulty));
+        this.defaultDifficulty = diff;
     }
 }

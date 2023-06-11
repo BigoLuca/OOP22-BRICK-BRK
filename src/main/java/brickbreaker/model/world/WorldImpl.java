@@ -178,12 +178,9 @@ public class WorldImpl implements World {
                 //BRICK
                 Iterator<Brick> brickIt = bricks.iterator();
                 boolean found = true;
-                Integer temp = 0;
                 while (brickIt.hasNext()) {
                     Brick brick = brickIt.next();
                     if (brick.getBBox().isCollidingWith(ball.getBBox())) {
-                        temp++;
-                        System.out.println("trovata: " + temp);
                         if (found){
                             this.event.process(ball, brick);
                             found = false;
@@ -198,7 +195,6 @@ public class WorldImpl implements World {
                                 this.incScore(BRICK_SCORE);
                             }
                         }
-                        System.out.println("brick dim: " + bricks.size());
                     }
                 }
             }

@@ -1,6 +1,5 @@
 package brickbreaker.controllers;
 
-import brickbreaker.ResourceLoader;
 import brickbreaker.common.Chronometer;
 import brickbreaker.common.Mode;
 import brickbreaker.common.State;
@@ -66,7 +65,7 @@ public class Controller extends AbstractController {
         this.model.getWorld().checkCollision();
         if (this.getModel().getState().equals(State.LOST)) {
             this.stop();
-            ResourceLoader.getInstance().writeRank("endless.json", 0, "Pippo", (int) ((oldScore + this.model.getWorld().getScore()) / this.chrono.getElepsedTime()));
+            //this.rankController.addRank(mode, this.model.getId(), user.getName(), (int) ((oldScore + this.model.getWorld().getScore()) / this.chrono.getElepsedTime()));
         } else if (this.getModel().getState().equals(State.WIN)) {
             //if(this.mode.equals(Mode.ENDLESS)){
                 this.pause();

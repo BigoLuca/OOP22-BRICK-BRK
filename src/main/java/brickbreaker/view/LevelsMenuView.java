@@ -105,6 +105,7 @@ public final class LevelsMenuView extends ViewImpl {
 
     public void switchToLevelMatch() {
         this.getController().getLevelController().setLevel((Optional.of(this.getController().getLevelController().getMapIndex(currentLevelSelected))));
-        ViewSwitcher.getInstance().switchView(this.getStage(), ViewType.DIFFICULTY);
+        this.getController().setModel();
+        ViewSwitcher.getInstance().switchView(this.getStage(), ViewType.MATCH);
     }
 }

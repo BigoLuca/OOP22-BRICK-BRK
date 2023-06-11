@@ -65,7 +65,7 @@ public class WorldFactory {
     public World getWorld(final Integer index) {
         World w = this.getEmptyWorld();
         MapInfo i = ResourceLoader.getInstance().getMapsInfo().stream().filter(item -> item.getIndex() == index).findFirst().get();
-        w.addBricks(GameFactory.getInstance().createBricks(i.getBricksData(), ResourceLoader.getInstance().MAP_COLUMNS_FILE_FORMAT, ResourceLoader.getInstance().MAP_ROWS_FILE_FORMAT));
+        w.addBricks(GameFactory.getInstance().createBricks(i.getBricksData(), ResourceLoader.getInstance().MAP_COLUMNS_FILE_FORMAT, 5));
         randomPowerUpAssignment(i.getDifficulty(), w.getBricks());
         return w;
     }

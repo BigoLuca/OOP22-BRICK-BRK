@@ -14,6 +14,7 @@ public class MapInfo {
     private Integer index;
 
     public MapInfo(Integer i, List<Integer> b, Difficulty d, String name, String landscape) {
+        this.index = i;
         this.map = b;
         this.difficulty = d;
         this.name = name;

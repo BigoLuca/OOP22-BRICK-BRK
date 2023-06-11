@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane fx:id="root" style="-fx-background-color: black;" minHeight="384.0" minWidth="381.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="brickbreaker.view.EndGameView">
+   <children>
+      <VBox fx:id="vbContainer" alignment="CENTER" layoutX="6.0" layoutY="6.0" prefHeight="373.0" prefWidth="368.0">
+         <children>
+            <ImageView fx:id="imgStatus" fitHeight="167.0" fitWidth="344.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="btnContinue" fitHeight="60.0" fitWidth="191.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#clickContinue" />
+            <ImageView fx:id="btnQuit" fitHeight="60.0" fitWidth="183.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#clickQuit" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

@@ -1,17 +1,20 @@
 package brickbreaker.view;
 
-import java.util.Optional;
-
-import brickbreaker.common.Difficulty;
 import brickbreaker.common.GameImages;
 import brickbreaker.common.Mode;
 import brickbreaker.common.State;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 
 public class EndGameView extends ViewImpl {
 
+    @FXML private AnchorPane root;
+
+    @FXML private VBox vbContainer;
+    
     @FXML
     private ImageView imgStatus;
 

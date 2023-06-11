@@ -2,6 +2,7 @@ package brickbreaker.view;
 
 import brickbreaker.common.GameImages;
 import brickbreaker.common.GameObjectsImages;
+import brickbreaker.common.TypePower;
 import brickbreaker.common.Vector2D;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -17,10 +18,19 @@ import brickbreaker.model.factory.WorldFactory;
 import brickbreaker.model.world.gameObjects.Ball;
 import brickbreaker.model.world.gameObjects.Bar;
 import brickbreaker.model.world.gameObjects.Brick;
+import brickbreaker.model.world.gameObjects.GameObject;
+import brickbreaker.model.world.gameObjects.GameObjectImpl;
+import brickbreaker.model.world.gameObjects.PowerUp;
+import brickbreaker.model.world.gameObjects.bounding.BoundingBox;
 import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class GameView extends ViewImpl {
 
@@ -50,6 +60,7 @@ public class GameView extends ViewImpl {
 
     private GraphicsContext gcF;
     private HashMap<Integer, Image> brickImages;
+    private HashMap<TypePower, Image> ppImages;
 
     @Override
     public void init() {
@@ -79,6 +90,12 @@ public class GameView extends ViewImpl {
         }
     }
 
+    public void setUpPowerUpImages() {
+        this.ppImages = new HashMap<>(TypePower.values().length);
+
+        Arrays.asList(TypePower.values()).stream().map(item -> new HashMap.Entry<TypePower,Image>())
+    }
+
     public void render() {
 
         scoreLabel.setText(this.getController().getModel().getWorld().getScore().toString());
@@ -92,6 +109,13 @@ public class GameView extends ViewImpl {
                 Image i = this.brickImages.get(item.getLife());
                 Vector2D p = item.getPosition();
                 this.gcF.drawImage(i, p.getX() - BRICK_WIDTH/2 , p.getY() - BRICK_HEIGHT/2 , BRICK_WIDTH, BRICK_HEIGHT);
+            }
+
+            List<PowerUp> p = this.getController().getModel().getWorld().getPowerUp();
+            for (PowerUp item : p) {
+                Image i = this.ppImages.get(item.getPowerUp());
+                Vector2D v = item.getPosition();
+                this.gcF.drawImage(i, v.getX() - PowerUp.POWERUP_WIDTH / 2, v.getY() - PowerUp.POWERUP_HEIGHT / 2, PowerUp.POWERUP_WIDTH, PowerUp.POWERUP_HEIGHT);
             }
 
             Bar bar = this.getController().getModel().getWorld().getBar();

@@ -60,11 +60,13 @@ public class Controller extends AbstractController {
         if (this.getModel().getState().equals(State.LOST)) {
             this.stop();
         } else if (this.getModel().getState().equals(State.WIN)) {
-            if(this.mode.equals(Mode.ENDLESS)){
+            //if(this.mode.equals(Mode.ENDLESS)){
+                this.pause();
                 this.model = this.levelController.getLevel();
-            } else {
-                this.stop();
-            }
+                this.render();
+            //} else {
+                //this.stop();
+            //}
         }
     }
 
@@ -96,13 +98,23 @@ public class Controller extends AbstractController {
     }
 
     public void play() {
+        this.model.setState(State.PLAYING);
         this.isRunning = true;
         gameController.startGame();
     }
 
     public void pause() {
+        this.model.setState(State.WAIT);
         this.isRunning = false;
         gameController.pauseGame();
+    }
+
+    public void toggle() {{}
+        if (this.getModel().getState().equals(State.PLAYING)) {
+            this.pause();
+        } else {
+            this.play();
+        }
     }
 
     public void stop() {

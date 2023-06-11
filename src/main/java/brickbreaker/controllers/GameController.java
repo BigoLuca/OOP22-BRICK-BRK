@@ -35,7 +35,7 @@ public class GameController extends AnimationTimer {
         this.controller.processCommands();
         this.controller.updateGame();
         State s = this.controller.getModel().getState();
-        if (s.equals(State.WAIT)) {
+        if (s.equals(State.PLAYING)) {
             this.controller.render();
         }
     }

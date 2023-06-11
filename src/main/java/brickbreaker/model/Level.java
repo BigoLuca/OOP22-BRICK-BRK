@@ -75,9 +75,7 @@ public class Level {
         }
         return this.state;
     }
-
-
-
+    
     /**
      * This method sets the state passed.
      * @param s

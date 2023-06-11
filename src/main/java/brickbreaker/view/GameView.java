@@ -68,7 +68,7 @@ public class GameView extends ViewImpl {
         this.getStage().getScene().setOnKeyPressed(e -> handleKeyPressed(e.getCode()));
 
         // Start the game
-        this.getController().play();
+        this.getController().render();
     }
 
     public void setUpBrickImages() {
@@ -102,7 +102,7 @@ public class GameView extends ViewImpl {
     }
 
     public void isOver() {
-        System.out.println("Error while switching to GameOverView");
+        ViewSwitcher.getInstance().switchView(getStage(), ViewType.GAMEOVER);
     }
 
     public void handleKeyPressed(KeyCode keyCode) {
@@ -110,6 +110,8 @@ public class GameView extends ViewImpl {
             this.getController().getInputController().notifyMoveLeft();
         } else if (keyCode == KeyCode.RIGHT) {
             this.getController().getInputController().notifyMoveRight();
+        } else if (keyCode == KeyCode.SPACE) {
+            this.getController().toggle();
         }
     }
 }

@@ -177,10 +177,14 @@ public class WorldImpl implements World {
             } else {
                 //BRICK
                 Iterator<Brick> brickIt = bricks.iterator();
+                boolean found = true;
                 while (brickIt.hasNext()) {
                     Brick brick = brickIt.next();
                     if (brick.getBBox().isCollidingWith(ball.getBBox())) {
-                        this.event.process(ball, brick);
+                        if (found){
+                            this.event.process(ball, brick);
+                            found = false;
+                        }
                         if (destructibleBrick) {
                             brick.decLife();
                             if (brick.getLife() <= 0) {

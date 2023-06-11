@@ -3,14 +3,16 @@ package brickbreaker.model.world.gameObjects.collision;
 import brickbreaker.common.Vector2D;
 import brickbreaker.model.world.WorldImpl.SideCollision;
 import brickbreaker.model.world.gameObjects.Ball;
-import brickbreaker.model.world.gameObjects.GameObject;
-import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
+import brickbreaker.model.world.gameObjects.Bar;
+import brickbreaker.model.world.gameObjects.Brick;
 
 /**
  * Interface to executed the collision events of the world.
  */
 public class WorldEvent {
 
+
+    public final Integer SCALE_SPEED = 10;
     /**
      * Process the collision of the ball with the border side.
      * @param ball
@@ -37,52 +39,30 @@ public class WorldEvent {
         }
     }
 
+    public void process(final Ball ball, final Bar bar) {
+        Vector2D oldPos = ball.getPosition();
+        ball.setPosition(new Vector2D(oldPos.getX(), oldPos.getY() - bar.getHeight() / 2 ));
+        ball.flipVelOnY();
+        Double distX = Math.abs(ball.getPosition().orizDist(bar.getPosition())) / (bar.getWidth() / 2) + 1;
+        Vector2D oldSpeed = ball.getSpeed();
+        if (oldSpeed.getX() > 0) {
+            ball.setSpeed(new Vector2D(distX * SCALE_SPEED, oldSpeed.getY()));
+        } else {
+            ball.setSpeed(new Vector2D(distX * -SCALE_SPEED, oldSpeed.getY()));
+        }
+    }
+
     /**
      * Process the ball collision with and object [brick, bar].
      * Flip the speed of the ball.
      * @param ball
      * @param obj
      */
-    public void process(final Ball ball, final GameObject<RectBoundingBox> obj) {
-        
-        switch (side(ball.getPosition(), obj.getBBox())) {
-            case LEFT:
-            case RIGHT:
-            ball.flipVelOnX();
-            break;
-            case TOP:
-            case BOTTOM:
-                ball.flipVelOnY();
-                break;
-            default:
-                break;
-        }
-    }
-
-    private SideCollision side(final Vector2D ballPos, RectBoundingBox bb) {
-        Vector2D ul = bb.getULCorner();
-        Vector2D br = bb.getBRCorner();
-
-        if (ul.getY() > ballPos.getY()) {
-            Double uly = Math.abs(ul.vertDist(ballPos));
-            if ((ul.getX() > ballPos.getX() && uly < Math.abs(ul.orizDist(ballPos)))
-                || (br.getX() < ballPos.getX() && uly < Math.abs(br.orizDist(ballPos)))
-            ) {
-                return SideCollision.TOP;
-            } else {
-                return SideCollision.LEFT;
-            }
-        } else if (br.getY() < ballPos.getY()) {
-            Double bry = Math.abs(br.vertDist(ballPos));
-            if ((ul.getX() > ballPos.getX() && bry < Math.abs(ul.orizDist(ballPos)))
-                || (br.getX() < ballPos.getX() && bry < Math.abs(br.orizDist(ballPos)))
-            ) {
-                return SideCollision.BOTTOM;
-            } else {
-                return SideCollision.RIGHT;
-            }
+    public void process(final Ball ball, final Brick brick) {
+        if (Math.abs(ball.getPosition().vertDist(brick.getPosition())) > brick.getBBox().getHeight() / 2) {
+            ball.flipVelOnY();
         } else {
-            return SideCollision.TOP;
+            ball.flipVelOnX();
         }
     }
 }

@@ -1,14 +1,11 @@
 package brickbreaker.controllers;
 
-import java.util.Optional;
-
 import brickbreaker.common.Mode;
 import brickbreaker.common.State;
 import brickbreaker.model.Level;
 import brickbreaker.model.user.User;
 import brickbreaker.model.world.World;
 import brickbreaker.view.GameView;
-import brickbreaker.view.ViewSwitcher;
 
 public class Controller extends AbstractController {
 

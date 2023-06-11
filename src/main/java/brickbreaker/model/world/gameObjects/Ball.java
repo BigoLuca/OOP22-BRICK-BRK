@@ -10,7 +10,7 @@ import brickbreaker.model.world.gameObjects.bounding.CircleBoundingBox;
  */
 public class Ball extends GameObjectImpl<CircleBoundingBox> {
 
-    public static final Double RADIUS = 20.0;
+    public static final Double RADIUS = 15.0;
 
     /**
      * Ball constructor.

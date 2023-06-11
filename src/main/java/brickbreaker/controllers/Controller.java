@@ -66,7 +66,6 @@ public class Controller extends AbstractController {
         this.model.getWorld().checkCollision();
         if (this.getModel().getState().equals(State.LOST)) {
             this.stop();
-            System.out.println(this.chrono.getElepsedTime());
             ResourceLoader.getInstance().writeRank("endless.json", 0, "Pippo", (int) ((oldScore + this.model.getWorld().getScore()) / this.chrono.getElepsedTime()));
         } else if (this.getModel().getState().equals(State.WIN)) {
             //if(this.mode.equals(Mode.ENDLESS)){

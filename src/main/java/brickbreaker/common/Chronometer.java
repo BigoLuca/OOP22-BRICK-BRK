@@ -10,7 +10,7 @@ public class Chronometer extends Thread {
     private long pausedTime;
     private boolean isRunning;
     private boolean isStopped;
-    private long elapsedTime;
+    private double elapsedTime;
 
     /**
      * Chronometer constructor.
@@ -26,7 +26,7 @@ public class Chronometer extends Thread {
     /**
      * @return the time elapsed from the start in seconds
      */
-    public long getElepsedTime() {
+    public double getElepsedTime() {
         if (!isRunning || isStopped) {
             return this.elapsedTime;
         } else {

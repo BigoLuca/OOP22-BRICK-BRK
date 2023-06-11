@@ -16,7 +16,7 @@ import brickbreaker.model.world.gameObjects.Brick;
  */
 public class GameFactory {
 
-    public static final Integer LIFE_BAR = 3;
+    public static final Integer LIFE_BAR = 1;
     private static GameFactory instance;
 
     /**
@@ -66,8 +66,7 @@ public class GameFactory {
         for (int i = 0; i < cols ; i++) {
             for (int j = 0 ; j < rows ; j++){
                 if (r.nextInt(100) < d.getBrickPercentage()) {
-                    Integer randomLife = r.nextInt(d.getMaxBrickLife());
-                    bricks.add(new Brick(new Vector2D(i  * Brick.BRICK_WIDTH + Brick.BRICK_WIDTH / 2, j * Brick.BRICK_HEIGHT + Brick.BRICK_HEIGHT / 2), randomLife));
+                    bricks.add(new Brick(new Vector2D(i  * Brick.BRICK_WIDTH + Brick.BRICK_WIDTH / 2, j * Brick.BRICK_HEIGHT + Brick.BRICK_HEIGHT / 2), r.nextInt(1, d.getMaxBrickLife())));
                 }
             }
         }

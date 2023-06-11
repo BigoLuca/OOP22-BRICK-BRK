@@ -14,7 +14,7 @@ public interface GameObject<T> {
     /**
      * @return the object's lives
      */
-    int getLife();
+    Integer getLife();
 
     /**
      * Sets the lifes of the current game object.

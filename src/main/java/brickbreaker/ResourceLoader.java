@@ -29,7 +29,7 @@ import javafx.scene.image.Image;
 public class ResourceLoader {
 
     public final Integer MAP_COLUMNS_FILE_FORMAT = 18;
-    public final Integer MAP_ROWS_FILE_FORMAT = 12;
+    public final Integer MAP_ROWS_FILE_FORMAT = 5;
 
     private final String NAME = "name";
     private final String SCORE = "score";
@@ -42,9 +42,6 @@ public class ResourceLoader {
     private String ranksPath;
     private String userPath;
     private String sep;
-
-    private List<Integer> currentMapList;
-    private String currentMapName;
 
     /**
      * @return the instance of ResourceLoader if it not exists yet.
@@ -65,8 +62,6 @@ public class ResourceLoader {
         this.mapsPath = "." + sep + "src" + sep + "main" + sep + "resources" + sep + "mapsFile";
         this.ranksPath = "." + sep + "src" + sep + "main" + sep + "resources" + sep + "ranks";
         this.userPath = "." + sep + "src" + sep + "main" + sep + "resources" + sep + "users" + sep + "user.json";
-        this.currentMapName = "";
-        this.currentMapList = new ArrayList<>();
     }
 
     public void start() {

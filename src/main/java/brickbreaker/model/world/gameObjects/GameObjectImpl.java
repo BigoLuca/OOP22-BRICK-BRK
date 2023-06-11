@@ -35,7 +35,7 @@ public abstract class GameObjectImpl<T extends BoundingBox> implements GameObjec
      * {@inheritDoc}
      */
     @Override
-    public int getLife() {
+    public Integer getLife() {
         return this.lifes;
     }
 

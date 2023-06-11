@@ -65,7 +65,7 @@ public class WorldFactory {
     public World getWorld(final Integer index) {
         World w = this.getEmptyWorld();
         MapInfo i = ResourceLoader.getInstance().getMapsInfo().stream().filter(item -> item.getIndex() == index).findFirst().get();
-        w.addBricks(GameFactory.getInstance().createBricks(i.getBricksData(), ResourceLoader.getInstance().MAP_COLUMNS_FILE_FORMAT, 5));
+        w.addBricks(GameFactory.getInstance().createBricks(i.getBricksData(), ResourceLoader.getInstance().MAP_COLUMNS_FILE_FORMAT, ResourceLoader.getInstance().MAP_ROWS_FILE_FORMAT));
         randomPowerUpAssignment(i.getDifficulty(), w.getBricks());
         return w;
     }
@@ -73,7 +73,7 @@ public class WorldFactory {
     private void randomPowerUpAssignment(final Difficulty d, final List<Brick> b) {
         Random r = new Random();
 
-        Integer numPowerUp = b.size() - ( b.size() / 5);
+        Integer numPowerUp = b.size() - ( b.size() / 4);
         List<TypePower> p = this.getWorldPowerUp(numPowerUp, d.getBonusPercentage());
         
         List<Integer> val = IntStream.range(0, b.size())

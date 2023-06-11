@@ -1,6 +1,5 @@
 package brickbreaker.controllers;
 
-import brickbreaker.common.State;
 import javafx.animation.AnimationTimer;
 
 public class GameController extends AnimationTimer {
@@ -27,10 +26,7 @@ public class GameController extends AnimationTimer {
     public void handle(long now) {
         this.controller.processCommands();
         this.controller.updateGame();
-        State s = this.controller.getModel().getState();
-        if (s.equals(State.PLAYING)) {
-            this.controller.render();
-        }
+        this.controller.render();
     }
 
 }

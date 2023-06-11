@@ -81,9 +81,9 @@ public class GameView extends ViewImpl {
 
     public void render() {
 
+        scoreLabel.setText(this.getController().getModel().getWorld().getScore().toString());
         
         Platform.runLater(() -> {
-            
             
             this.gcF.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
@@ -102,7 +102,7 @@ public class GameView extends ViewImpl {
     }
 
     public void isOver() {
-        ViewSwitcher.getInstance().switchView(getStage(), ViewType.GAMEOVER);
+        //ViewSwitcher.getInstance().switchView(getStage(), ViewType.GAMEOVER);
     }
 
     public void handleKeyPressed(KeyCode keyCode) {
@@ -112,6 +112,8 @@ public class GameView extends ViewImpl {
             this.getController().getInputController().notifyMoveRight();
         } else if (keyCode == KeyCode.SPACE) {
             this.getController().toggle();
+        } else if (keyCode == KeyCode.A) {
+            System.exit(0);
         }
     }
 }

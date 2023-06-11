@@ -1,7 +1,5 @@
 package brickbreaker.view;
 
-import java.util.Optional;
-
 import brickbreaker.common.GameImages;
 import brickbreaker.common.Mode;
 import javafx.fxml.FXML;

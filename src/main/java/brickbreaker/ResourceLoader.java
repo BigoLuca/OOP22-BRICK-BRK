@@ -98,7 +98,6 @@ public class ResourceLoader {
 
             for (Integer i = 0; i < e.get("map").getAsJsonArray().size(); i++) {
                 map.add(e.get("map").getAsJsonArray().get(i).getAsInt());
-                System.out.println(map.get(i));
             }
 
             Difficulty d = Difficulty.valueOf(e.get("difficulty").getAsString());

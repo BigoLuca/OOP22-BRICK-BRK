@@ -31,6 +31,11 @@ public class Controller extends AbstractController {
         chrono.start();
     }
 
+    public void setMode (final Mode mode) {
+        this.mode = mode;
+    }
+    
+
     public void setUser(final String username) {
         this.user = this.userController.getUser(username);
     }
@@ -39,8 +44,7 @@ public class Controller extends AbstractController {
         this.gameView = gameView;
     }
 
-    public void setModel(Mode mode) {
-        this.mode = mode;
+    public void setModel() {
         this.model = this.levelController.getLevel();
     }
 

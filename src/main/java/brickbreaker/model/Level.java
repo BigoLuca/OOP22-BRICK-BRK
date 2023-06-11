@@ -4,6 +4,7 @@ import brickbreaker.common.Mode;
 import brickbreaker.common.State;
 import brickbreaker.common.Vector2D;
 import brickbreaker.model.factory.GameFactory;
+import brickbreaker.model.factory.WorldFactory;
 import brickbreaker.model.world.World;
 import brickbreaker.model.world.gameObjects.Ball;
 
@@ -64,11 +65,11 @@ public class Level {
         } else if (this.world.getBalls().size() <= 0) {
             
             //set the new ball il the center of bar
-            Double h = this.world.getBar().getHeight() + Ball.RADIUS / 2;
+            Double h = this.world.getBar().getHeight() / 2 + Ball.RADIUS;
             Vector2D barPos = this.world.getBar().getPosition();
             this.world.addBall(GameFactory.getInstance().createBall(
-                new Vector2D(barPos.getX(), barPos.getY() + h), 
-                new Vector2D(0, -1)));   //TODO adapt speed
+                new Vector2D(barPos.getX(), barPos.getY() - h), 
+                new Vector2D(WorldFactory.X_SPEED, WorldFactory.Y_SPEED)));   //TODO adapt speed
             this.state = State.WAIT;
         } else if (this.getWorld().getBricks().size() == 0) {
             this.state = State.WIN;

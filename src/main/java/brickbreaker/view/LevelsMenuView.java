@@ -8,6 +8,7 @@ import brickbreaker.common.GameImages;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 public final class LevelsMenuView extends ViewImpl {
 
@@ -38,7 +40,8 @@ public final class LevelsMenuView extends ViewImpl {
         this.imgGoBack.setImage(GameImages.LEFT_ARROW.getImage());
         this.imgGoForward.setImage(GameImages.RIGHT_ARROW.getImage());
 
-        refreshLevels(true);
+        this.gplevelsGrid.setVgap(30);
+        this.refreshLevels(true);
     }
 
     private void refreshLevels(final boolean forward) {
@@ -49,8 +52,8 @@ public final class LevelsMenuView extends ViewImpl {
         }
 
         try {
-            for (Integer i = 0; i < this.gplevelsGrid.getRowCount(); i++) {
-                for (Integer j = 0; j < this.gplevelsGrid.getColumnCount(); j++) {
+            for (Integer i = this.rowIndex; i < this.gplevelsGrid.getRowCount(); i++) {
+                for (Integer j = this.columnIndex; j < this.gplevelsGrid.getColumnCount(); j++) {
 
                     MapInfo m = this.getController().getLevelController().getMapInfo(i + j);
                     ImageView imgLevel = new ImageView(m.getLandscapeData().getImage());
@@ -60,13 +63,24 @@ public final class LevelsMenuView extends ViewImpl {
                     imgLevel.setPreserveRatio(true);
                     imgLevel.setFitHeight(82.0);
                     imgLevel.setFitWidth(100.0);
-    
+
+                    levelControl.setAlignment(Pos.CENTER);
                     levelControl.getChildren().addAll(imgLevel, mapName);
                     levelControl.setOnMouseEntered(new EventHandler<Event>() {
     
                         @Override
                         public void handle(Event event) {
                             currentLevelSelected = ((Label) levelControl.getChildren().get(1)).getText();
+                            System.out.println(currentLevelSelected);
+                        }
+                        
+                    });
+
+                    levelControl.setOnMouseClicked(new EventHandler<Event>() {
+
+                        @Override
+                        public void handle(Event event) {
+                            switchToLevelMatch();
                         }
                         
                     });

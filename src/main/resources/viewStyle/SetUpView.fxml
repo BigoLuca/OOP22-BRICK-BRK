@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="root" style="-fx-background-color: black;" minHeight="300.0" minWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="brickbreaker.view.SetUpView">
+<AnchorPane fx:id="root" style="-fx-background-color: black;" minHeight="400.0" minWidth="600.0" xmlns="http://javafx.com/javafx/15" xmlns:fx="http://javafx.com/fxml/1" fx:controller="brickbreaker.view.SetUpView">
    <children>
       <VBox fx:id="vBoxMainContainer" alignment="CENTER" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" layoutX="33.0" layoutY="18.0" prefHeight="264.0" prefWidth="519.0">
          <children>

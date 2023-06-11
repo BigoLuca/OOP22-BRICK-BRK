@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="root" minHeight="550.0" minWidth="522.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="brickbreaker.view.RanksView">
+<AnchorPane fx:id="root" minHeight="550.0" minWidth="522.0" xmlns="http://javafx.com/javafx/15" xmlns:fx="http://javafx.com/fxml/1" fx:controller="brickbreaker.view.RanksView">
    <children>
       <VBox fx:id="vbContainer" alignment="CENTER" layoutX="11.0" layoutY="13.0" prefHeight="520.0" prefWidth="500.0" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="13.0">
          <children>

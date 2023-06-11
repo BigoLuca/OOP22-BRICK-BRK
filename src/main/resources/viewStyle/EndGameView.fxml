@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.VBox?>
 
 
-<AnchorPane fx:id="root" style="-fx-background-color: black;" minHeight="384.0" minWidth="381.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="brickbreaker.view.EndGameView">
+<AnchorPane fx:id="root" style="-fx-background-color: black;" minHeight="384.0" minWidth="381.0" xmlns="http://javafx.com/javafx/15" xmlns:fx="http://javafx.com/fxml/1" fx:controller="brickbreaker.view.EndGameView">
    <children>
       <VBox fx:id="vbContainer" alignment="CENTER" layoutX="6.0" layoutY="6.0" prefHeight="373.0" prefWidth="368.0">
          <children>

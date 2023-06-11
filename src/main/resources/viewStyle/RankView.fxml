@@ -14,8 +14,8 @@
             <ImageView fx:id="imgMode" fitHeight="65.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS" />
             <TableView fx:id="currentRank" prefHeight="365.0" prefWidth="500.0">
               <columns>
-                <TableColumn fx:id="columnPlayers" prefWidth="243.33330821990967" text="C1" />
-                <TableColumn fx:id="columnScores" prefWidth="256.00001525878906" text="C2" />
+                <TableColumn fx:id="columnPlayers" prefWidth="243.33330821990967" text="Player" />
+                <TableColumn fx:id="columnScores" prefWidth="256.00001525878906" text="Score" />
               </columns>
             </TableView>
             <HBox fx:id="hbButtons" prefHeight="47.0" prefWidth="500.0">

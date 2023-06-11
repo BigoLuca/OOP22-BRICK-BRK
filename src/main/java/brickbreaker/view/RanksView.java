@@ -1,15 +1,20 @@
 package brickbreaker.view;
 
 import java.util.Map;
+import java.util.Map.Entry;
 
 import brickbreaker.common.GameImages;
 import brickbreaker.model.rank.GameRank;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.SortType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -63,53 +68,27 @@ public class RanksView extends ViewImpl {
         this.columnPlayers.setSortable(false);
         this.columnScores.setSortable(false);
 
-        this.columnPlayers.setCellFactory(new Callback<TableColumn<Map.Entry<String, Integer>, String>, TableCell<Map.Entry<String, Integer>, String>>() {
+        this.columnPlayers.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, Integer>, String>, ObservableValue<String>>() {
 
             @Override
-            public TableCell<Map.Entry<String, Integer>, String> call(TableColumn<Map.Entry<String, Integer>, String> param) {
-                return new TableCell<Map.Entry<String, Integer>, String>() {
-                    @Override
-                    public void updateItem(final String item, final boolean empty) {
-                        super.updateItem(item, empty);
-
-                        if(isEmpty()) {
-                            setText("");
-                        } else {
-                            setText(item);
-                        }
-                    }
-                };
-            }
-        });
-
-        this.columnScores.setCellFactory(new Callback<TableColumn<Map.Entry<String, Integer> ,Integer>,TableCell<Map.Entry<String, Integer>,Integer>>() {
-
-            @Override
-            public TableCell<Map.Entry<String, Integer>, Integer> call(TableColumn<Map.Entry<String, Integer>, Integer> param) {
-                return new TableCell<Map.Entry<String, Integer>, Integer>() {
-                    @Override
-                    public void updateItem(final Integer item, final boolean empty) {
-                        super.updateItem(item, empty);
-
-                        if (isEmpty()) {
-                            setText("");
-                        } else {
-                            setText(Integer.toString(item));
-                        }
-                    }
-                };
+            public ObservableValue<String> call(CellDataFeatures<Entry<String, Integer>, String> param) {
+                return new SimpleStringProperty(param.getValue().getKey());
             }
             
         });
 
-        //Binding the columns with the data.
-        this.columnPlayers.setCellValueFactory(new PropertyValueFactory<Map.Entry<String, Integer>, String>("Player:"));
-        this.columnScores.setCellValueFactory(new PropertyValueFactory<Map.Entry<String, Integer>, Integer>("Score"));
+        this.columnScores.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, Integer>, Integer>, ObservableValue<Integer>>() {
 
-        //Adding a sort policy in the TableView.
-        this.columnScores.setSortType(SortType.ASCENDING);
-        this.currentRank.getSortOrder().add(columnScores);
-        this.currentRank.sort();
+            @Override
+            public ObservableValue<Integer> call(CellDataFeatures<Entry<String, Integer>, Integer> param) {
+                return new SimpleIntegerProperty(param.getValue().getValue()).asObject();
+            }
+
+        });
+
+        //Loading an initial rank.
+        this.bindData(this.getController().getRankController().getEndlessRank(0));
+        
     }
 
     public void changeMode() {
@@ -129,9 +108,13 @@ public class RanksView extends ViewImpl {
 
         if (q != 0) {
             this.rankIndex %= q;
-            r = this.endlessLevelsIndex == 0 ? this.getController().getRankController().getLevelsRank(this.rankIndex) : this.getController().getRankController().getEndlessRank(this.rankIndex);
-            ObservableList<Map.Entry<String, Integer>> obRank = FXCollections.observableArrayList(r.getRank().entrySet());
-            this.currentRank.setItems(obRank);
+            r = this.endlessLevelsIndex == 0 ? this.getController().getRankController().getEndlessRank(this.rankIndex) : this.getController().getRankController().getLevelsRank(this.rankIndex);
+            this.bindData(r);
         }
+    }
+
+    public void bindData(final GameRank r) {
+        ObservableList<Map.Entry<String, Integer>> obRank = FXCollections.observableArrayList(r.getRank().entrySet());
+        this.currentRank.setItems(obRank);
     }
 }

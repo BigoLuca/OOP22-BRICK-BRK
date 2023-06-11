@@ -3,6 +3,7 @@ package brickbreaker.view;
 import java.util.List;
 import java.util.Optional;
 
+import brickbreaker.MapInfo;
 import brickbreaker.common.GameImages;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -25,8 +26,6 @@ public final class LevelsMenuView extends ViewImpl {
     @FXML private ImageView imgGoBack;
     @FXML private ImageView imgGoForward;
 
-    private List<GameImages> landscapes;
-    private Image currentLandscapeSelected;
     private String currentLevelSelected;
     private Integer rowIndex;
     private Integer columnIndex;
@@ -38,7 +37,7 @@ public final class LevelsMenuView extends ViewImpl {
         this.imgChooseLevel.setImage(GameImages.PICK_A_LEVEL.getImage());
         this.imgGoBack.setImage(GameImages.LEFT_ARROW.getImage());
         this.imgGoForward.setImage(GameImages.RIGHT_ARROW.getImage());
-        
+
         refreshLevels(true);
     }
 
@@ -52,8 +51,10 @@ public final class LevelsMenuView extends ViewImpl {
         try {
             for (Integer i = 0; i < this.gplevelsGrid.getRowCount(); i++) {
                 for (Integer j = 0; j < this.gplevelsGrid.getColumnCount(); j++) {
-                    ImageView imgLevel = new ImageView(landscapes.get(i * j).getImage());
-                    Label mapName = new Label(this.getController().getLevelController().getNameMap(i + j));
+
+                    MapInfo m = this.getController().getLevelController().getMapInfo(i + j);
+                    ImageView imgLevel = new ImageView(m.getLandscapeData().getImage());
+                    Label mapName = new Label(m.getName());
                     VBox levelControl = new VBox();
 
                     imgLevel.setPreserveRatio(true);
@@ -66,7 +67,6 @@ public final class LevelsMenuView extends ViewImpl {
                         @Override
                         public void handle(Event event) {
                             currentLevelSelected = ((Label) levelControl.getChildren().get(1)).getText();
-                            currentLandscapeSelected = ((ImageView) levelControl.getChildren().get(0)).getImage();
                         }
                         
                     });

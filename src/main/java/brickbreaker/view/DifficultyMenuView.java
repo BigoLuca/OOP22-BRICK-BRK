@@ -2,6 +2,7 @@ package brickbreaker.view;
 
 import brickbreaker.common.Difficulty;
 import brickbreaker.common.GameImages;
+import brickbreaker.common.Mode;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -75,8 +76,8 @@ public class DifficultyMenuView extends ViewImpl {
     }
 
     public void clickPlayButton() {
-        System.out.println("Difficulty: " + Difficulty.values()[this.difficultyIndex]);
         this.getController().getLevelController().setDifficultyLevel(Difficulty.values()[this.difficultyIndex]);
+        this.getController().setMode(Mode.ENDLESS);
         this.getController().setModel();
         ViewSwitcher.getInstance().switchView(getStage(), ViewType.MATCH);
     }

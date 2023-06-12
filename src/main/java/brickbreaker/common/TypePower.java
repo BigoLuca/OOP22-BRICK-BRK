@@ -1,6 +1,7 @@
 package brickbreaker.common;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -16,21 +17,11 @@ public enum TypePower {
     FASTBALL(10, TypePowerUp.POSITIVE),
     /** SlowBall. */
     SLOWBALL(10, TypePowerUp.NEGATIVE),
-    /** SlowBall. */
-    BIGBALL(10, TypePowerUp.POSITIVE),
-    /** FastBall. */
-    SMALLBALL(10, TypePowerUp.NEGATIVE),
-    /** Multi ball. */
-    MULTIBALL(-1, TypePowerUp.POSITIVE),
-
     /** LongBar. */
     LONGBAR(10, TypePowerUp.POSITIVE),
     /** ShortBar. */
     SHORTBAR(10, TypePowerUp.NEGATIVE),
 
-    /** Indestructible brick. */
-    INDBRICK(5, TypePowerUp.NEGATIVE),
-    
     /** Score increase. */
     INC_50(-1, TypePowerUp.POSITIVE),
     /** Score increase. */
@@ -40,17 +31,27 @@ public enum TypePower {
     /** Score increase. */
     INC_500(-1, TypePowerUp.POSITIVE),
 
-    /** Score decrease. */
+     /** Score decrease. */
     DEC_50(-1, TypePowerUp.NEGATIVE),
     /** Score decrease. */
     DEC_100(-1, TypePowerUp.NEGATIVE),
     /** Score decrease. */
-    DEC_250(-1, TypePowerUp.NEGATIVE),
+    //DEC_250(-1, TypePowerUp.NEGATIVE),
     /** Score decrease. */
-    DEC_500(-1, TypePowerUp.NEGATIVE),
-    
-    /** Life increese. */
-    LIFE_INC(-1, TypePowerUp.POSITIVE);
+    //DEC_500(-1, TypePowerUp.NEGATIVE),
+
+     /** Life increese. */
+    LIFE_INC(-1, TypePowerUp.POSITIVE),
+
+    /** Indestructible brick. */
+    INDBRICK(5, TypePowerUp.NEGATIVE),
+
+    /** SlowBall. */
+    BIGBALL(10, TypePowerUp.POSITIVE),
+    /** FastBall. */
+    SMALLBALL(10, TypePowerUp.NEGATIVE),
+    /** Multi ball. */
+    MULTIBALL(-1, TypePowerUp.POSITIVE);
 
     private final Integer duration;
     private final TypePowerUp type;
@@ -66,7 +67,7 @@ public enum TypePower {
      * @return a list of powerUp type
      */
     public static List<TypePower> getElement(final TypePowerUp typePass) {
-        return Stream.of(TypePower.values()).filter(t -> t.type.equals(typePass)).toList();
+        return Stream.of(TypePower.values()).filter(t -> t.type.equals(typePass)).collect(Collectors.toList());
     }
 
     /**

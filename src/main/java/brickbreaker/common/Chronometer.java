@@ -2,65 +2,68 @@ package brickbreaker.common;
 
 /**
  * Class representing a chronometer.
- * Method: 
+ * Method:
  */
-public class Chronometer extends Thread {
-
-    private Integer time;
+public class Chronometer {
+    private long startTime;
+    private long totalPausedTime;
     private boolean isRunning;
-    private boolean exit;
+    private boolean isPaused;
 
-    /**
-     * Chronometer constructor.
+    /*
+     * Method to start the chronometer.
+     * If the chronometer is already running or paused, it does nothing.
+     * If the chronometer is stopped, it starts it.
      */
-    public Chronometer() {
-        this.time = 1;
-        this.isRunning = false;
-        this.exit = false;
-    }
-    
-    /**
-     * @return the time elapsed from the start in seconds
-     */
-    public Integer getElepsedTime() {
-        return this.time / 10;
-    }
-    
     public void startChrono() {
-        if (!this.isAlive()) {
-            this.start();
+        if (isRunning || isPaused) {
+            if (isPaused) {
+                totalPausedTime += System.currentTimeMillis() - startTime;
+                isPaused = false;
+            }
+            return; // Already running or paused, so just return
         }
-        this.isRunning = true;
+
+        startTime = System.currentTimeMillis();
+        isRunning = true;
     }
 
     /**
-     * Method to put the chronometer in pause.
+     * Method to pause the chronometer.
+     * 
      */
     public void pauseChrono() {
-        this.isRunning = false;
+        if (isRunning && !isPaused) {
+            totalPausedTime += System.currentTimeMillis() - startTime;
+            isRunning = false;
+            isPaused = true;
+        }
     }
 
     /**
      * Method to stop the chronometer.
+     * 
      */
     public void stopChrono() {
-        this.isRunning = false;
-        this.exit = true;
+        if (isRunning || isPaused) {
+            totalPausedTime = 0;
+            isRunning = false;
+            isPaused = false;
+        }
     }
 
-    @Override
-    public void run() {
-        while (!exit) {
-            synchronized (this) {
-                if (isRunning) {
-                    try {
-                        Thread.sleep(1000);
-                        time++;
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
+    /**
+     * Method to get the elapsed time.
+     * 
+     * @return the elapsed time
+     */
+    public Integer getElapsedTime() {
+        Integer elapsed = 0;
+        if (isRunning) {
+            elapsed = (int) (System.currentTimeMillis() - startTime + totalPausedTime) / 1000;
+        } else {
+            elapsed = (int) totalPausedTime / 1000;
         }
+        return elapsed;
     }
 }

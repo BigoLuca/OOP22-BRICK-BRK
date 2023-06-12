@@ -24,7 +24,6 @@ import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
  */
 public class WorldFactory {
 
-    //TODO:Adapt speed.
     public static Double X_SPEED = 0.1;
     public static final Double Y_SPEED = -15.0;
 
@@ -43,7 +42,11 @@ public class WorldFactory {
         return instance;
     }
 
-    //TODO: Add actual parameters.
+    /**
+     * This method gets a new game world without any brick.
+     * The resulting world will only have a Bar object and a Ball object.
+     * @return a new empty World object.
+     */
     private World getEmptyWorld() {
         Bar newBar = GameFactory.getInstance().createBar(new Vector2D(BOUNDARIES_SIZE/2, BOUNDARIES_SIZE - 20));
         Ball newBall = GameFactory.getInstance().createBall(new Vector2D(BOUNDARIES_SIZE/2, BOUNDARIES_SIZE  - newBar.getHeight() - Ball.RADIUS), new Vector2D(X_SPEED, Y_SPEED));
@@ -55,6 +58,13 @@ public class WorldFactory {
         return w;
     }
 
+    /**
+     * This method gets a new game world where the bricks are created randomically, on the basis of the difficulty.
+     * Every brick created has random position (only legal positions, that do not 
+     * overcome the world boundaries) and a random lifes quantity (a value between 1 or 9).
+     * @param d the difficulty that describe how the game world will be.
+     * @return a new World object.
+     */
     public World getRandomWorld(final Difficulty d) {
         World w = this.getEmptyWorld();
         w.addBricks(GameFactory.getInstance().createRandomBricks(d, Brick.BRICKS_COL, Brick.BRICKS_ROW));
@@ -62,6 +72,12 @@ public class WorldFactory {
         return w;
     }
 
+    /**
+     * This method gets a new game World object loading it from the maps database.
+     * The loaded map is used to create all the bricks on the basis of the map difficulty.
+     * @param index an Integer value which will function as an index to get the map from database.
+     * @return a new World object.
+     */
     public World getWorld(final Integer index) {
         World w = this.getEmptyWorld();
         MapInfo i = ResourceLoader.getInstance().getMapsInfo().stream().filter(item -> item.getIndex() == index).findFirst().get();
@@ -69,7 +85,15 @@ public class WorldFactory {
         randomPowerUpAssignment(i.getDifficulty(), w.getBricks());
         return w;
     }
-    
+
+    /**
+     * This method assign random power ups (bonuses or maluses) to a list of brick
+     * on the basis of the Difficulty value passed as parameter.
+     * @param d a Difficulty value which describes the power ups quantity
+     *          and how many has to be bonuses or not.
+     * @param b a List<Brick> object which contains the bricks where the power ups has to
+     *          be stored.
+     */
     private void randomPowerUpAssignment(final Difficulty d, final List<Brick> b) {
         Random r = new Random();
 

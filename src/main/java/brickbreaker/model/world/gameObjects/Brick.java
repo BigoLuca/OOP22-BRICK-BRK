@@ -22,8 +22,8 @@ public class Brick extends GameObjectImpl<RectBoundingBox> {
 
     /**
      * Brick constructor.
-     * @param pos
-     * @param lifeToSet
+     * @param pos the position of the Brick
+     * @param lifeToSet the life to set
      */
     public Brick(final Vector2D pos, final int lifeToSet) {
         super(lifeToSet, new Vector2D(0, 0), TypeObj.BRICK, new RectBoundingBox(pos, BRICK_WIDTH, BRICK_HEIGHT));
@@ -38,7 +38,7 @@ public class Brick extends GameObjectImpl<RectBoundingBox> {
     }
 
     /**
-     * @param powerUpToSet
+     * @param powerUpToSet the powerUp to set
      */
     public void setPowerUp(final TypePower powerUpToSet) {
         this.powerUp = powerUpToSet;

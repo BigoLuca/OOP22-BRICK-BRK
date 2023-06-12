@@ -7,6 +7,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/**
+ * Implementation of {@link View} for the home menu.
+ */
 public class HomeView extends ViewImpl {
 
     @FXML
@@ -36,6 +39,9 @@ public class HomeView extends ViewImpl {
     @FXML
     private ImageView imgBack;
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void init() {
 
@@ -46,18 +52,34 @@ public class HomeView extends ViewImpl {
         this.imgBack.setImage(GameImages.PREVIOUS.getImage());
     }
 
+    /**
+     * Listener for the level button.
+     * Redirects to the level menu.
+     */
     public void switchToLevel() {
         ViewSwitcher.getInstance().switchView(getStage(), ViewType.LEVEL);
     }
 
+    /**
+     * Listener for the endless button.
+     * Redirects to the difficulty menu.
+     */
     public void switchToEndless() {
         ViewSwitcher.getInstance().switchView(getStage(), ViewType.DIFFICULTY);
     }
 
+    /**
+     * Listener for the leaderboards button.
+     * Redirects to the leaderboards menu.
+     */
     public void switchToLeaderboards() {
         ViewSwitcher.getInstance().switchView(getStage(), ViewType.RANK);
     }
 
+    /**
+     * Listener for the back button.
+     * Redirects to the setup menu.
+     */
     public void clickBack() {
         ViewSwitcher.getInstance().switchView(getStage(), ViewType.SETUP);
     }

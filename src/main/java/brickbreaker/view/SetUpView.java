@@ -14,41 +14,51 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/**
+ * Implementation of {@link View} for the setup menu.
+ */
 public class SetUpView extends ViewImpl {
 
     @FXML
     private AnchorPane root;
 
-    @FXML private VBox vBoxMainContainer;
-    
+    @FXML
+    private VBox vBoxMainContainer;
+
     @FXML
     private HBox hBoxNicknameInsertion;
 
-    @FXML 
+    @FXML
     private ImageView imgChoose;
 
-    @FXML 
+    @FXML
     private ImageView imgNickname;
 
-    @FXML 
+    @FXML
     private ComboBox<String> cbUsersList;
-    
-    @FXML 
+
+    @FXML
     private Button btnAdd;
 
     private List<String> users;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void init() {
 
         this.users = this.getController().getUserController().getUsersName();
 
-        //Setting up the combo box.
+        // Setting up the combo box.
         cbUsersList.getItems().addAll(this.users);
         cbUsersList.setPromptText("Type your nick");
         cbUsersList.setEditable(true);
     }
 
+    /**
+     * Method to set the user playing and swithc to the home view.
+     */
     @FXML
     public void switchToHome() {
         String nick = cbUsersList.getEditor().getText();

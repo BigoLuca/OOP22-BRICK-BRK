@@ -39,7 +39,7 @@ public class RankController {
     /**
      * This method loads all the levels mode ranks from Json file, which function as database,
      * and creates a List<GameRank> object.
-     * @return
+     * @return a List<GameRank> object that contains all the levels mode ranks.
      */
     private List<GameRank> loadLevels() {
         return ResourceLoader.getInstance().getAllRanks(LEVEL_RANKS).stream().map(item -> new GameRank(item)).collect(Collectors.toList());
@@ -47,10 +47,10 @@ public class RankController {
 
     /**
      * Method to add on json file the new score of the user.
-     * @param mode
-     * @param level
-     * @param username
-     * @param newScore
+     * @param mode the mode of the game
+     * @param level the level of the game
+     * @param username the username of the user
+     * @param newScore the new score of the user
      */
     protected void addRank(Mode mode, Integer level, String username, Integer newScore) {
         if (mode.equals(Mode.ENDLESS)) {
@@ -62,7 +62,7 @@ public class RankController {
 
     /**
      * Method to get the EndlessRank.
-     * @param index
+     * @param index the index of the rank
      * @return a GameRank
      */
     public GameRank getEndlessRank(Integer index) {

@@ -134,7 +134,7 @@ public class Controller extends AbstractController {
     }
 
     public Integer getScore() {
-        return Math.max(0, this.model.getWorld().getScore() - DEC_SCORE_TIMER * this.chrono.getElepsedTime());
+        return Math.max(0, this.model.getWorld().getScore() - DEC_SCORE_TIMER * this.chrono.getElapsedTime());
     }
 
     /**

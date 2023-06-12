@@ -16,21 +16,35 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/**
+ * Implementation of {@link View} for the levels menu.
+ */
 public final class LevelsMenuView extends ViewImpl {
 
-    @FXML private AnchorPane root;
-    @FXML private VBox vbContainer;
-    @FXML private ImageView imgChooseLevel;
-    @FXML private GridPane gplevelsGrid;
-    @FXML private HBox hbButtons;
-    @FXML private ImageView imgGoBack;
-    @FXML private ImageView imgGoForward;
-    @FXML private ImageView imgBack;
+    @FXML
+    private AnchorPane root;
+    @FXML
+    private VBox vbContainer;
+    @FXML
+    private ImageView imgChooseLevel;
+    @FXML
+    private GridPane gplevelsGrid;
+    @FXML
+    private HBox hbButtons;
+    @FXML
+    private ImageView imgGoBack;
+    @FXML
+    private ImageView imgGoForward;
+    @FXML
+    private ImageView imgBack;
 
     private String currentLevelSelected;
     private Integer rowIndex;
     private Integer columnIndex;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void init() {
         rowIndex = columnIndex = 0;
@@ -44,6 +58,12 @@ public final class LevelsMenuView extends ViewImpl {
         this.refreshLevels(true);
     }
 
+    /**
+     * Refresh the levels grid.
+     * 
+     * @param forward if true, the grid will be refreshed forward, otherwise
+     *                backward
+     */
     private void refreshLevels(final boolean forward) {
 
         if (!forward) {
@@ -67,13 +87,13 @@ public final class LevelsMenuView extends ViewImpl {
                     levelControl.setAlignment(Pos.CENTER);
                     levelControl.getChildren().addAll(imgLevel, mapName);
                     levelControl.setOnMouseEntered(new EventHandler<Event>() {
-    
+
                         @Override
                         public void handle(Event event) {
                             currentLevelSelected = ((Label) levelControl.getChildren().get(1)).getText();
                             System.out.println(currentLevelSelected);
                         }
-                        
+
                     });
 
                     levelControl.setOnMouseClicked(new EventHandler<Event>() {
@@ -82,34 +102,48 @@ public final class LevelsMenuView extends ViewImpl {
                         public void handle(Event event) {
                             switchToLevelMatch();
                         }
-                        
+
                     });
-    
-                this.gplevelsGrid.add(levelControl, j, i);
+
+                    this.gplevelsGrid.add(levelControl, j, i);
                     this.columnIndex++;
                 }
                 this.rowIndex++;
             }
-        } catch(ArrayIndexOutOfBoundsException a) {
+        } catch (ArrayIndexOutOfBoundsException a) {
             System.out.println("Levels loading endend.");
         }
     }
 
+    /**
+     * Method called when the user clicks on the go forward button.
+     */
     public void clickGoForward() {
         refreshLevels(true);
     }
 
+    /**
+     * Method called when the user clicks on the go backward button.
+     */
     public void clickBackForward() {
         refreshLevels(false);
     }
 
+    /**
+     * Method called when the user clicks on a level.
+     * It switches to the match view.
+     */
     public void switchToLevelMatch() {
-        this.getController().getLevelController().setLevel((Optional.of(this.getController().getLevelController().getMapIndex(currentLevelSelected))));
+        this.getController().getLevelController()
+                .setLevel((Optional.of(this.getController().getLevelController().getMapIndex(currentLevelSelected))));
         this.getController().setMode(Mode.LEVELS);
         this.getController().setModel();
         ViewSwitcher.getInstance().switchView(this.getStage(), ViewType.MATCH);
     }
 
+    /**
+     * Method called when the user clicks on the back button.
+     */
     public void clickBack() {
         ViewSwitcher.getInstance().switchView(this.getStage(), ViewType.HOME);
     }

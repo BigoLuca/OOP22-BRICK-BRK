@@ -20,8 +20,8 @@ public class Bar extends GameObjectImpl<RectBoundingBox> {
 
     /**
      * Bar constructor.
-     * @param pos
-     * @param lifeToset
+     * @param pos the position of the Bar
+     * @param lifeToset the life to set
      */
     public Bar(final Vector2D pos, final Integer lifeToset) {
         super(lifeToset, new Vector2D(0, 0), TypeObj.BAR, new RectBoundingBox(pos, BAR_WIDTH, BAR_HEIGHT));
@@ -44,7 +44,7 @@ public class Bar extends GameObjectImpl<RectBoundingBox> {
 
     /**
      * Method to set the current Bar width.
-     * @param widthToSet
+     * @param widthToSet the width to set
      */
     public void setWidth(final Double widthToSet) {
         this.getBBox().setWidth(widthToSet);
@@ -52,7 +52,7 @@ public class Bar extends GameObjectImpl<RectBoundingBox> {
 
     /**
      * Method for horizontal movement of the Bar.
-     * @param m
+     * @param m the movement to set
      */
     public void move(final Long m) {
         this.setPosition(new Vector2D(this.getPosition().getX() + m, this.getPosition().getY()));
@@ -60,8 +60,8 @@ public class Bar extends GameObjectImpl<RectBoundingBox> {
 
     /**
      * Method to update the player input commands.
-     * @param c
-     * @param rightBorder
+     * @param c the input controller
+     * @param rightBorder the right border of the game
      */
     public void updateInput(final Double elapsed, final InputController c, final Double rightBorder) {
         input.update(this, rightBorder, c, elapsed);

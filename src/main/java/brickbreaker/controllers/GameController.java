@@ -11,7 +11,7 @@ public class GameController extends AnimationTimer {
 
     /**
      * GameController constructor.
-     * @param controller
+     * @param controller the controller of the game
      */
     public GameController(final Controller controller) {
         this.controller = controller;

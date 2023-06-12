@@ -14,8 +14,8 @@ public class Ball extends GameObjectImpl<CircleBoundingBox> {
 
     /**
      * Ball constructor.
-     * @param center
-     * @param vel
+     * @param center the center of the Ball
+     * @param vel the velocity of the Ball
      */
     public Ball(final Vector2D center, final Vector2D vel) {
         super(1, vel, TypeObj.BALL, new CircleBoundingBox(center, RADIUS));
@@ -30,7 +30,7 @@ public class Ball extends GameObjectImpl<CircleBoundingBox> {
 
     /**
      * Method to set the radius of the Ball.
-     * @param radius
+     * @param radius the radius to set
      */
     public void setRadius(final Double radius) {
         this.getBBox().setRadius(radius);

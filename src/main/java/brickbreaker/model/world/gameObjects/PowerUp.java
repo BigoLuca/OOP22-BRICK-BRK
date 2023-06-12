@@ -11,18 +11,20 @@ import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
  */
 public class PowerUp extends GameObjectImpl<RectBoundingBox> {
 
-    public static final Double POWERUP_WIDTH = Brick.BRICK_WIDTH/2;
-    public static final Double POWERUP_HEIGHT = Brick.BRICK_HEIGHT/2;
-    public static final Double POWERUP_FALLING = 10.0; //TODO: adapt falling speed
+    public static final Double POWERUP_WIDTH = Brick.BRICK_WIDTH / 2;
+    public static final Double POWERUP_HEIGHT = Brick.BRICK_HEIGHT / 2;
+    public static final Double POWERUP_FALLING = 10.0; // TODO: adapt falling speed
     private final TypePower powerUp;
 
     /**
      * PowerUp constructor.
-     * @param pos
-     * @param powerToSet
+     * 
+     * @param pos        the position of the PowerUp
+     * @param powerToSet the power to set
      */
     public PowerUp(final Vector2D pos, final TypePower powerToSet) {
-        super(1, new Vector2D(0, POWERUP_FALLING), TypeObj.POWERUP, new RectBoundingBox(pos, POWERUP_WIDTH, POWERUP_HEIGHT));
+        super(1, new Vector2D(0, POWERUP_FALLING), TypeObj.POWERUP,
+                new RectBoundingBox(pos, POWERUP_WIDTH, POWERUP_HEIGHT));
         this.powerUp = powerToSet;
     }
 

@@ -23,6 +23,9 @@ import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Class that implements the GameView interface.
+ */
 public class GameView extends ViewImpl {
 
     private static final Integer ANIMATION_TIMER = 10;
@@ -33,25 +36,25 @@ public class GameView extends ViewImpl {
     private static final Double BRICK_WIDTH = Brick.BRICK_WIDTH;
     private static final Double BRICK_HEIGHT = Brick.BRICK_HEIGHT;
 
-    @FXML 
+    @FXML
     private Label lifeLabel;
 
-    @FXML 
+    @FXML
     private Label scoreLabel;
 
     @FXML
     private Pane gamePane;
-    
-    @FXML 
+
+    @FXML
     private ImageView backGround;
-    
-    @FXML 
+
+    @FXML
     private Canvas foreGround;
-    
-    @FXML 
+
+    @FXML
     private ImageView ball;
-    
-    @FXML 
+
+    @FXML
     private ImageView pauseButton;
 
     private GraphicsContext gcF;
@@ -61,11 +64,14 @@ public class GameView extends ViewImpl {
     private Integer barAnimationIndex;
     private Integer frameCounter;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void init() {
         this.getController().setGameView(this);
 
-        //TODO: Check the loading of the landscape.
+        // TODO: Check the loading of the landscape.
         Integer m = this.getController().getModel().getId();
         this.backGround.setImage(this.getController().getLevelController().getMapInfo(m).getLandscapeData().getImage());
 
@@ -93,6 +99,9 @@ public class GameView extends ViewImpl {
         this.getController().render();
     }
 
+    /**
+     * Set up the images of the bricks.
+     */
     public void setUpBrickImages() {
         this.brickImages = new HashMap<>(10);
 
@@ -101,6 +110,9 @@ public class GameView extends ViewImpl {
         }
     }
 
+    /**
+     * Set up the images of the power ups.
+     */
     public void setUpPowerUpImages() {
         this.ppImages = new HashMap<>();
         for (Integer i = 10; i < 22; i++) {
@@ -119,27 +131,34 @@ public class GameView extends ViewImpl {
 
     }
 
+    /**
+     * Method to update the game view.
+     * 
+     * @param score the score of the player updated.
+     */
     public void render(final String score) {
 
         scoreLabel.setText(score);
         lifeLabel.setText(this.getController().getModel().getWorld().getBar().getLife().toString());
-        
+
         Platform.runLater(() -> {
-            
+
             this.gcF.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
             List<Brick> b = this.getController().getModel().getWorld().getBricks();
             for (Brick item : b) {
                 Image i = this.brickImages.get(item.getLife());
                 Vector2D p = item.getPosition();
-                this.gcF.drawImage(i, p.getX() - BRICK_WIDTH/2 , p.getY() - BRICK_HEIGHT/2 , BRICK_WIDTH, BRICK_HEIGHT);
+                this.gcF.drawImage(i, p.getX() - BRICK_WIDTH / 2, p.getY() - BRICK_HEIGHT / 2, BRICK_WIDTH,
+                        BRICK_HEIGHT);
             }
 
             List<PowerUp> p = this.getController().getModel().getWorld().getPowerUp();
             for (PowerUp item : p) {
                 Image i = this.ppImages.get(item.getPowerUp());
                 Vector2D v = item.getPosition();
-                this.gcF.drawImage(i, v.getX() - PowerUp.POWERUP_WIDTH / 2, v.getY() - PowerUp.POWERUP_HEIGHT / 2, PowerUp.POWERUP_WIDTH, PowerUp.POWERUP_HEIGHT);
+                this.gcF.drawImage(i, v.getX() - PowerUp.POWERUP_WIDTH / 2, v.getY() - PowerUp.POWERUP_HEIGHT / 2,
+                        PowerUp.POWERUP_WIDTH, PowerUp.POWERUP_HEIGHT);
             }
 
             Bar bar = this.getController().getModel().getWorld().getBar();
@@ -152,21 +171,32 @@ public class GameView extends ViewImpl {
                 this.frameCounter++;
             }
 
-            this.gcF.drawImage(this.barAnimations[this.barAnimationIndex], bar.getPosition().getX() - bar.getWidth()/2, bar.getPosition().getY() - bar.getHeight() / 2, bar.getWidth(), bar.getHeight());
+            this.gcF.drawImage(this.barAnimations[this.barAnimationIndex],
+                    bar.getPosition().getX() - bar.getWidth() / 2, bar.getPosition().getY() - bar.getHeight() / 2,
+                    bar.getWidth(), bar.getHeight());
 
             for (Ball item : balls) {
                 Image i = GameObjectsImages.BALL.getImage();
                 Vector2D v = item.getPosition();
-                this.gcF.drawImage(i, v.getX() - item.getRadius(), v.getY() - item.getRadius(), item.getRadius()*2, item.getRadius()*2);
+                this.gcF.drawImage(i, v.getX() - item.getRadius(), v.getY() - item.getRadius(), item.getRadius() * 2,
+                        item.getRadius() * 2);
             }
-            
+
         });
     }
 
+    /**
+     * Method to switch the view to the game over view.
+     */
     public void isOver() {
         ViewSwitcher.getInstance().switchView(getStage(), ViewType.GAMEOVER);
     }
 
+    /**
+     * Method to handle the key pressed.
+     * 
+     * @param keyCode the key pressed.
+     */
     public void handleKeyPressed(KeyCode keyCode) {
         if (keyCode == KeyCode.LEFT) {
             this.getController().getInputController().notifyMoveLeft();

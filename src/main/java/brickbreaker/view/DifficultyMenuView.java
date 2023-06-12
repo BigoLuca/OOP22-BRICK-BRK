@@ -10,6 +10,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/**
+ * Implementation of {@link View} for the difficulty menu.
+ */
 public class DifficultyMenuView extends ViewImpl {
 
     @FXML
@@ -65,20 +68,34 @@ public class DifficultyMenuView extends ViewImpl {
         this.imgBack.setImage(GameImages.PREVIOUS.getImage());
     }
 
+    /**
+     * Choose the difficulty level.
+     * 
+     * @param up true if the difficulty level has to be increased, false otherwise
+     */
     public void chooseDifficulty(final boolean up) {
         Integer d = up ? 1 : (difficultyIndex == 0 ? 3 : -1);
         this.difficultyIndex = (this.difficultyIndex + d) % 4;
         this.imgSelectedDifficulty.setImage(this.imgDifficulties[this.difficultyIndex]);
     }
 
+    /**
+     * Listener for the up arrow to choose the difficulty level.
+     */
     public void clickUpArrow() {
         chooseDifficulty(false);
     }
 
+    /**
+     * Listener for the down arrow to choose the difficulty level.
+     */
     public void clickDownArrow() {
         chooseDifficulty(true);
     }
 
+    /**
+     * Listener for the play button to start the game.
+     */
     public void clickPlayButton() {
         this.getController().getLevelController().setDifficultyLevel(Difficulty.values()[this.difficultyIndex]);
         this.getController().setMode(Mode.ENDLESS);
@@ -86,6 +103,9 @@ public class DifficultyMenuView extends ViewImpl {
         ViewSwitcher.getInstance().switchView(getStage(), ViewType.MATCH);
     }
 
+    /**
+     * Listener for the back button to go back to the home menu.
+     */
     public void clickBack() {
         ViewSwitcher.getInstance().switchView(getStage(), ViewType.HOME);
     }

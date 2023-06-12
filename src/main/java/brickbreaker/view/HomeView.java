@@ -1,7 +1,6 @@
 package brickbreaker.view;
 
 import brickbreaker.common.GameImages;
-import brickbreaker.common.Mode;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;

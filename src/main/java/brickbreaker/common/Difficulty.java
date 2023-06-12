@@ -10,7 +10,7 @@ public enum Difficulty {
     /** Medium. */
     MEDIUM(50, 50, 7),
     /** Hard. */
-    HARD(70, 30, 11),
+    HARD(70, 30, 10),
     /** Random. */ //TODO: need to have this order for write ranking.
     RANDOM(0,0,0);
 
@@ -23,15 +23,16 @@ public enum Difficulty {
         this.bP = bonusPercentage;
         this.mlP = maxBrickLife;
     }
-
-    /**
-     * This method returns the percentage of the difficulty.
-     * @return an integer representing the difficulty
-     */
+    
     public Integer getBonusPercentage() {
         return this.bP; 
     }
 
+    /**
+     * This method returns the maximum life value that every brick could have
+     * in this difficulty category.
+     * @return
+     */
     public Integer getMaxBrickLife() {
         return this.mlP;
     }

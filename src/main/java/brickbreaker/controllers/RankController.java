@@ -27,10 +27,20 @@ public class RankController {
         this.levelsRanks = this.loadLevels();
     }
 
+    /**
+     * This method loads all the endless mode ranks from Json file, which function as database,
+     * and creates a List<GameRank> object.
+     * @return a List<GameRank> object that contains all the endless mode ranks.
+     */
     private List<GameRank> loadEndless() {
         return ResourceLoader.getInstance().getAllRanks(ENDLESS_RANKS).stream().map(item -> new GameRank(item)).collect(Collectors.toList());
     }
 
+    /**
+     * This method loads all the levels mode ranks from Json file, which function as database,
+     * and creates a List<GameRank> object.
+     * @return
+     */
     private List<GameRank> loadLevels() {
         return ResourceLoader.getInstance().getAllRanks(LEVEL_RANKS).stream().map(item -> new GameRank(item)).collect(Collectors.toList());
     }

@@ -23,7 +23,7 @@ public class MultiBallApplicator implements PowerUpApplicator {
     public void applyPowerUp(final World world) {
         Double speed = WorldFactory.Y_SPEED;
         Vector2D pos = world.getBar().getPosition().sum(new Vector2D(0, - world.getBar().getWidth() / 2));
-        world.addBall(GameFactory.getInstance().createBall(pos, new Vector2D(speed, -speed)));
-        world.addBall(GameFactory.getInstance().createBall(pos, new Vector2D(-speed, -speed)));
+        world.addBall(GameFactory.getInstance().createBall(pos, new Vector2D(-speed, speed)));
+        world.addBall(GameFactory.getInstance().createBall(pos, new Vector2D(speed, speed)));
     }
 }

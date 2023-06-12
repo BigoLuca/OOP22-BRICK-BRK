@@ -12,10 +12,10 @@ public enum TypePower {
     /** Null. */
     NULL(0, TypePowerUp.NULL),
 
-    /** SlowBall. */
-    SLOWBALL(10, TypePowerUp.POSITIVE),
     /** FastBall. */
-    FASTBALL(10, TypePowerUp.NEGATIVE),
+    FASTBALL(10, TypePowerUp.POSITIVE),
+    /** SlowBall. */
+    SLOWBALL(10, TypePowerUp.NEGATIVE),
     /** SlowBall. */
     BIGBALL(10, TypePowerUp.POSITIVE),
     /** FastBall. */
@@ -32,9 +32,22 @@ public enum TypePower {
     INDBRICK(5, TypePowerUp.NEGATIVE),
     
     /** Score increase. */
-    SCORE_INC(-1, TypePowerUp.POSITIVE),
+    INC_50(-1, TypePowerUp.POSITIVE),
+    /** Score increase. */
+    INC_100(-1, TypePowerUp.POSITIVE),
+    /** Score increase. */
+    INC_250(-1, TypePowerUp.POSITIVE),
+    /** Score increase. */
+    INC_500(-1, TypePowerUp.POSITIVE),
+
     /** Score decrease. */
-    SCORE_DEC(-1, TypePowerUp.NEGATIVE),
+    DEC_50(-1, TypePowerUp.NEGATIVE),
+    /** Score decrease. */
+    DEC_100(-1, TypePowerUp.NEGATIVE),
+    /** Score decrease. */
+    DEC_250(-1, TypePowerUp.NEGATIVE),
+    /** Score decrease. */
+    DEC_500(-1, TypePowerUp.NEGATIVE),
     
     /** Life increese. */
     LIFE_INC(-1, TypePowerUp.POSITIVE);

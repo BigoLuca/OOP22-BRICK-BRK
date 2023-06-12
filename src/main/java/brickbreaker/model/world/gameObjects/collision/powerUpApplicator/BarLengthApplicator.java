@@ -28,6 +28,9 @@ public class BarLengthApplicator implements PowerUpApplicator {
         Double delta = bonus ? DELTA : -DELTA;
 
         Double barWidth = world.getBar().getWidth();
+        while (barWidth < delta) {
+            delta = delta/2;
+        }
         world.getBar().setWidth(barWidth + delta);
     }
     

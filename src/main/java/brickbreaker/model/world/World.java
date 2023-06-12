@@ -73,18 +73,10 @@ public interface World {
     Integer getScore();
 
     /**
-     * This method increments the current score by the value
-     * specified by the increment parameter.
-     * @param increment an integer value which is the increment.
+     * This method add the value to the score.
+     * @param val an integer value
      */
-    void incScore(Integer increment);
-
-    /**
-     * This method decrements the current score by the value
-     * specified by the decrement parameter.
-     * @param decrement an integer value which is the decrement value.
-     */
-    void decScore(Integer decrement);
+    void addToScore(Integer val);
 
     /**
      * This method change states of indestructible brick.

@@ -8,16 +8,14 @@ import brickbreaker.model.world.World;
  */
 public class ScoreApplicator implements PowerUpApplicator {
     
-    private final Integer INC = 8;
-    private final Integer DEC = 5;
-    private boolean bonus;
+    private Integer delta;
 
     /**
      * Score applicator constructor.
      * @param bonusToSet if increase or decrease the score
      */
-    public ScoreApplicator(final boolean bonusToSet) {
-        this.bonus = bonusToSet;
+    public ScoreApplicator(final Integer val) {
+        this.delta = val;
     }
 
     /**
@@ -25,10 +23,6 @@ public class ScoreApplicator implements PowerUpApplicator {
      */
     @Override
     public void applyPowerUp(final World world) {
-        if (bonus) {
-            world.incScore(INC);
-        } else {
-            world.decScore(DEC);
-        }
+        world.addToScore(delta);
     }
 }

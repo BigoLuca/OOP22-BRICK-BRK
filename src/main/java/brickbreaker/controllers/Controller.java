@@ -13,7 +13,8 @@ import brickbreaker.view.GameView;
  */
 public class Controller extends AbstractController {
 
-    private static final Double ELAPSED = 200.0;
+    private final Double ELAPSED = 200.0;
+    private final Integer DEC_SCORE_TIMER = 2;
 
     private final GameController gameController;
     private GameView gameView;
@@ -34,7 +35,6 @@ public class Controller extends AbstractController {
         this.user = null;
         this.oldScore = 0;
         this.chrono = new Chronometer();
-        chrono.start();
     }
 
     /**
@@ -104,15 +104,14 @@ public class Controller extends AbstractController {
         } else if (this.getModel().getState().equals(State.LOST)) {
             this.stop();
             this.getRankController().addRank(
-                mode, this.model.getId(), user.getName(), 
-                (int) ((oldScore + this.model.getWorld().getScore()) / this.chrono.getElepsedTime()));
+                mode, this.model.getId(), user.getName(), this.getScore());
         } else if (this.getModel().getState().equals(State.WIN)) {
             if (this.mode.equals(Mode.ENDLESS)) {
                 this.pause();
                 Integer barLife = this.model.getWorld().getBar().getLife();
                 this.oldScore += this.model.getWorld().getScore();
                 this.model = this.getLevelController().getLevel();
-                this.model.getWorld().incScore(oldScore);
+                this.model.getWorld().addToScore(oldScore);
                 this.model.getWorld().getBar().setLife(barLife);
                 this.render();
             } else {
@@ -121,12 +120,16 @@ public class Controller extends AbstractController {
         }
     }
 
+    public Integer getScore() {
+        return Math.max(0, this.model.getWorld().getScore() - DEC_SCORE_TIMER * this.chrono.getElepsedTime());
+    }
+
     /**
      * Method to start or resume the game.
      */
     private void play() {
         this.model.setState(State.PLAYING);
-        chrono.resumeChrono();
+         chrono.startChrono();
         gameController.startGame();
     }
 
@@ -163,6 +166,6 @@ public class Controller extends AbstractController {
      * Method to render the world evrey frames.
      */
     public void render() {
-        gameView.render();
+        gameView.render(this.getScore().toString());
     }
 }

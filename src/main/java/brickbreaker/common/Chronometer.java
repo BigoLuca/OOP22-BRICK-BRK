@@ -6,83 +6,59 @@ package brickbreaker.common;
  */
 public class Chronometer extends Thread {
 
-    private long startTime;
-    private long pausedTime;
+    private Integer time;
     private boolean isRunning;
-    private boolean isStopped;
-    private double elapsedTime;
 
     /**
      * Chronometer constructor.
      */
     public Chronometer() {
-        startTime = 0;
-        pausedTime = 0;
-        isRunning = false;
-        isStopped = false;
-
+        this.time = 1;
+        this.isRunning = false;
     }
-
+    
     /**
      * @return the time elapsed from the start in seconds
      */
-    public double getElepsedTime() {
-        if (!isRunning || isStopped) {
-            return this.elapsedTime;
-        } else {
-            return 1;
+    public Integer getElepsedTime() {
+        return this.time / 10;
+    }
+    
+    public void startChrono() {
+        if (!this.isAlive()) {
+            this.start();
         }
+        this.isRunning = true;
     }
 
     /**
      * Method to put the chronometer in pause.
      */
     public void pauseChrono() {
-        if (isRunning) {
-            pausedTime = System.currentTimeMillis();
-            isRunning = false;
-        }
-    }
-
-    /**
-     * Method to start and resume the chronometer.
-     */
-    public void resumeChrono() {
-        if (!isRunning && !isStopped) {
-            long currentTime = System.currentTimeMillis();
-            startTime += currentTime - pausedTime;
-            pausedTime = 0;
-            isRunning = true;
-        }
+        this.isRunning = false;
     }
 
     /**
      * Method to stop the chronometer.
      */
     public void stopChrono() {
-        if (isRunning || !isStopped) {
-            elapsedTime = (getTimeElapsed() / 100000) + 1;
-            isRunning = false;
-            isStopped = true;
-        }
-    }
-
-    private long getTimeElapsed() {
-        long currentTime = System.currentTimeMillis();
-        if (isRunning) {
-            return currentTime - startTime;
-        } else {
-            return pausedTime - startTime;
-        }
+        this.isRunning = false;
+        this.interrupt();
     }
 
     @Override
     public void run() {
-        while (!isStopped) {
-            try {
-                Thread.sleep(1000); // Aggiorna il tempo ogni secondo
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        while (true) {
+            synchronized (this) {
+                if (isRunning) {
+                    try {
+                        Thread.sleep(1000);
+                        time++;
+                        System.out.println(time);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
     }

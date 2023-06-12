@@ -103,8 +103,10 @@ public class GameView extends ViewImpl {
 
     public void setUpPowerUpImages() {
         this.ppImages = new HashMap<>();
-        for (Integer i = 10; i < 17; i++) {
-            this.ppImages.put(TypePower.values()[i - 10], GameObjectsImages.values()[i].getImage());
+        for (Integer i = 10; i < 21; i++) {
+            TypePower t = TypePower.values()[i - 9];
+            Image s = GameObjectsImages.values()[i].getImage();
+            this.ppImages.put(t, s);
         }
     }
 

@@ -33,6 +33,9 @@ public class HomeView extends ViewImpl {
 
     @FXML
     private ImageView imgLeaderboards;
+
+    @FXML
+    private ImageView imgBack;
     
     @Override
     public void init() {
@@ -41,6 +44,7 @@ public class HomeView extends ViewImpl {
         this.imgLevel.setImage(GameImages.LEVELS_MODE_CHOICE.getImage());
         this.imgEndless.setImage(GameImages.ENDLESS_MODE_CHOICE.getImage());
         this.imgLeaderboards.setImage(GameImages.LEADERBOARD_CHOICE.getImage());
+        this.imgBack.setImage(GameImages.PREVIOUS.getImage());
     }
 
     public void switchToLevel() {
@@ -53,5 +57,9 @@ public class HomeView extends ViewImpl {
 
     public void switchToLeaderboards() {
         ViewSwitcher.getInstance().switchView(getStage(), ViewType.RANK);
+    }
+
+    public void clickBack() {
+        ViewSwitcher.getInstance().switchView(getStage(), ViewType.SETUP);
     }
 }

@@ -94,17 +94,29 @@ public class LevelController {
         Optional<MapInfo> m = this.mapList.stream().filter(map -> map.getName().equals(name)).findFirst();
         return m.get().getIndex();
     }
-
-    //TODO: remove if unused
+    
+    /**
+     * Method to get the map list lenght.
+     * @return the map list lenght
+     */
     public Integer getListMapLenght(){
         return this.mapList.size();
     }
 
     /**
      * Method to set the level difficulty.
-     * @param diff
+     * @param diff the difficulty
      */
     public void setDifficultyLevel(final Difficulty diff) {
         this.defaultDifficulty = diff;
+    }
+
+    /**
+     * Method to get the level name.
+     * @param i the level index
+     * @return the level name
+     */
+    public String getLevelName(final Integer i) {
+        return this.mapList.get(i).getName();
     }
 }

@@ -95,7 +95,7 @@ public class RankController {
     }
 
     /**
-     * Method to get the size of endless rank.
+     * Method to get the size of levels rank.
      * @return an integer size
      */
     public Integer getLevelsRankQuantity() {

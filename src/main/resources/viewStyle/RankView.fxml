@@ -7,12 +7,17 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="root" minHeight="550.0" minWidth="522.0" xmlns="http://javafx.com/javafx/15" xmlns:fx="http://javafx.com/fxml/1" fx:controller="brickbreaker.view.RanksView">
+<AnchorPane fx:id="root" style="-fx-background-color: black;" minHeight="550.0" minWidth="522.0" xmlns="http://javafx.com/javafx/15" xmlns:fx="http://javafx.com/fxml/1" fx:controller="brickbreaker.view.RanksView">
    <children>
-      <VBox fx:id="vbContainer" alignment="CENTER" layoutX="11.0" layoutY="13.0" prefHeight="520.0" prefWidth="500.0" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="13.0">
+      <VBox fx:id="vbContainer" spacing="10.0" alignment="CENTER" layoutX="11.0" layoutY="13.0" prefHeight="520.0" prefWidth="500.0" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="13.0" style="-fx-background-color: black;">
          <children>
-            <ImageView fx:id="imgMode" fitHeight="65.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS" />
-            <TableView fx:id="currentRank" prefHeight="365.0" prefWidth="500.0">
+            <ImageView fx:id="imgBack" fitHeight="60.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#clickBack" HBox.hgrow="NEVER" />
+            <ImageView fx:id="imgChangeEndlessLevel" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#changeMode" />
+            <VBox fx:id="vbTitle" alignment="CENTER" prefHeight="100.0" prefWidth="500.0" spacing="10.0">
+               <children>
+               </children>
+            </VBox>
+            <TableView fx:id="currentRank" prefHeight="365.0" prefWidth="500.0" style="-fx-background-color: #444444;">
               <columns>
                 <TableColumn fx:id="columnPlayers" prefWidth="243.33330821990967" text="Player" />
                 <TableColumn fx:id="columnScores" prefWidth="256.00001525878906" text="Score" />
@@ -20,12 +25,12 @@
             </TableView>
             <HBox fx:id="hbButtons" prefHeight="47.0" prefWidth="500.0">
                <children>
-                  <ImageView fx:id="imgPrevious" fitHeight="82.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#clickNext" />
-                  <ImageView fx:id="imgChangeEndlessLevel" fitHeight="73.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#changeMode" />
-                  <ImageView fx:id="imgNext" fitHeight="77.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#clickNext"/> 
+                  <ImageView fx:id="imgPrevious" fitHeight="70.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#clickPrevious" />
+                  <ImageView fx:id="imgNext" fitHeight="70.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#clickNext"/> 
                </children>
             </HBox>
          </children>
       </VBox>
    </children>
 </AnchorPane>
+

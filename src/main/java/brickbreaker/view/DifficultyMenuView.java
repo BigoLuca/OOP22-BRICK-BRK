@@ -42,6 +42,9 @@ public class DifficultyMenuView extends ViewImpl {
     @FXML
     private ImageView imgReady;
 
+    @FXML
+    private ImageView imgBack;
+
     private Image[] imgDifficulties;
     private Integer difficultyIndex;
 
@@ -59,6 +62,7 @@ public class DifficultyMenuView extends ViewImpl {
 
         this.imgUpArrow.setImage(GameImages.UP_ARROW.getImage());
         this.imgDownArrow.setImage(GameImages.DOWN_ARROW.getImage());
+        this.imgBack.setImage(GameImages.PREVIOUS.getImage());
     }
 
     public void chooseDifficulty(final boolean up) {
@@ -80,5 +84,9 @@ public class DifficultyMenuView extends ViewImpl {
         this.getController().setMode(Mode.ENDLESS);
         this.getController().setModel();
         ViewSwitcher.getInstance().switchView(getStage(), ViewType.MATCH);
+    }
+
+    public void clickBack() {
+        ViewSwitcher.getInstance().switchView(getStage(), ViewType.HOME);
     }
 }

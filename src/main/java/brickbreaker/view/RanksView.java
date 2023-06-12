@@ -3,6 +3,7 @@ package brickbreaker.view;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import brickbreaker.common.Difficulty;
 import brickbreaker.common.GameImages;
 import brickbreaker.model.rank.GameRank;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -11,11 +12,14 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
 public class RanksView extends ViewImpl {
@@ -30,6 +34,12 @@ public class RanksView extends ViewImpl {
     private TableColumn<Map.Entry<String, Integer>, Integer> columnScores;
 
     @FXML
+    private VBox vbTitle;
+
+    @FXML
+    private ImageView imgBack;
+
+    @FXML
     private ImageView imgNext;
 
     @FXML
@@ -41,21 +51,25 @@ public class RanksView extends ViewImpl {
     private Image[] endlessLevels;
     private Integer endlessLevelsIndex;
     private Integer rankIndex;
+    private Label lable = new Label();
 
     @Override
     public void init() {
+
 
         this.endlessLevelsIndex = 0;
         this.endlessLevels = new Image[2];
         this.endlessLevels[0] = GameImages.ENDLESS_MODE_CHOICE.getImage();
         this.endlessLevels[1] = GameImages.LEVELS_LABEL.getImage();
 
-        this.imgNext.setImage(GameImages.NEXT.getImage());
-        this.imgPrevious.setImage(GameImages.PREVIOUS.getImage());
+        this.imgBack.setImage(GameImages.PREVIOUS.getImage());
+        this.imgNext.setImage(GameImages.RIGHT_ARROW.getImage());
+        this.imgPrevious.setImage(GameImages.LEFT_ARROW.getImage());
         this.imgChangeEndlessLevel.setImage(GameImages.ENDLESS_MODE_CHOICE.getImage());
 
         this.rankIndex = 0;
         this.tableViewInit();
+        this.setRank();
     }
 
     private void tableViewInit() {
@@ -92,22 +106,45 @@ public class RanksView extends ViewImpl {
         this.endlessLevelsIndex = this.endlessLevelsIndex == 0 ? 1 : 0;
         this.imgChangeEndlessLevel.setImage(this.endlessLevels[this.endlessLevelsIndex]);
         this.rankIndex = 0;
+        setRank();
     }
 
-    public void clickNext() {
+    private Integer getMaxIndex(){
+        return this.endlessLevelsIndex == 0 ? this.getController().getRankController().getEndlessRankQuantity() : this.getController().getRankController().getLevelsRankQuantity();
+    }
+
+    private void setRank(){
         GameRank r;
-        Integer q;
-        Integer e = this.getController().getRankController().getEndlessRankQuantity();
-        Integer l = this.getController().getRankController().getLevelsRankQuantity();
-
-        this.rankIndex++;
-        q = this.endlessLevelsIndex == 0 ? e : l;
-
+        Integer q = getMaxIndex();
         if (q != 0) {
             this.rankIndex %= q;
             r = this.endlessLevelsIndex == 0 ? this.getController().getRankController().getEndlessRank(this.rankIndex) : this.getController().getRankController().getLevelsRank(this.rankIndex);
+            String s = this.endlessLevelsIndex == 0 ? Difficulty.values()[this.rankIndex].toString() : this.getController().getLevelController().getLevelName(this.rankIndex);
+            this.lable.setText(s);
+            this.lable.setTextFill(Color.WHITE);
+            this.vbTitle.getChildren().clear();
+            this.vbTitle.getChildren().add(this.lable);
             this.bindData(r);
         }
+       
+    }
+
+    public void clickNext() {
+        this.rankIndex++;
+        setRank();
+    }
+
+    public void clickPrevious() {
+        if (this.rankIndex == 0) {
+            this.rankIndex = getMaxIndex();
+        } else {
+            this.rankIndex--;
+        }
+        setRank();
+    }
+
+    public void clickBack() {
+        ViewSwitcher.getInstance().switchView(this.getStage(), ViewType.HOME);
     }
 
     public void bindData(final GameRank r) {

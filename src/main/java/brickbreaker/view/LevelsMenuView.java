@@ -25,6 +25,7 @@ public final class LevelsMenuView extends ViewImpl {
     @FXML private HBox hbButtons;
     @FXML private ImageView imgGoBack;
     @FXML private ImageView imgGoForward;
+    @FXML private ImageView imgBack;
 
     private String currentLevelSelected;
     private Integer rowIndex;
@@ -37,6 +38,7 @@ public final class LevelsMenuView extends ViewImpl {
         this.imgChooseLevel.setImage(GameImages.PICK_A_LEVEL.getImage());
         this.imgGoBack.setImage(GameImages.LEFT_ARROW.getImage());
         this.imgGoForward.setImage(GameImages.RIGHT_ARROW.getImage());
+        this.imgBack.setImage(GameImages.PREVIOUS.getImage());
 
         this.gplevelsGrid.setVgap(30);
         this.refreshLevels(true);
@@ -106,5 +108,9 @@ public final class LevelsMenuView extends ViewImpl {
         this.getController().setMode(Mode.LEVELS);
         this.getController().setModel();
         ViewSwitcher.getInstance().switchView(this.getStage(), ViewType.MATCH);
+    }
+
+    public void clickBack() {
+        ViewSwitcher.getInstance().switchView(this.getStage(), ViewType.HOME);
     }
 }

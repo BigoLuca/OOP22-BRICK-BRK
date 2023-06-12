@@ -15,7 +15,7 @@
                   <ImageView fx:id="imgTitle" fitHeight="85.0" fitWidth="364.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </HBox>
-            <VBox fx:id="vbButtons" prefHeight="229.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
+            <VBox fx:id="vbButtons" spacing="10.0" prefHeight="229.0" prefWidth="600.0">
                <children>
                   <ImageView fx:id="imgLevel" fitHeight="68.0" fitWidth="354.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#switchToLevel">
                      <VBox.margin>
@@ -28,6 +28,11 @@
                      </VBox.margin>
                   </ImageView>
                   <ImageView fx:id="imgLeaderboards" fitHeight="68.0" fitWidth="354.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#switchToLeaderboards">
+                     <VBox.margin>
+                        <Insets left="120.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <ImageView fx:id="imgBack" fitHeight="68.0" fitWidth="354.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#clickBack">
                      <VBox.margin>
                         <Insets left="120.0" />
                      </VBox.margin>

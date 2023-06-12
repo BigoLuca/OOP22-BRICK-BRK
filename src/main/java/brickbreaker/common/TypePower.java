@@ -43,15 +43,17 @@ public enum TypePower {
      /** Life increese. */
     LIFE_INC(-1, TypePowerUp.POSITIVE),
 
+    /** Multi ball. */
+    MULTIBALL(-1, TypePowerUp.POSITIVE),
+
     /** Indestructible brick. */
     INDBRICK(5, TypePowerUp.NEGATIVE),
 
     /** SlowBall. */
     BIGBALL(10, TypePowerUp.POSITIVE),
     /** FastBall. */
-    SMALLBALL(10, TypePowerUp.NEGATIVE),
-    /** Multi ball. */
-    MULTIBALL(-1, TypePowerUp.POSITIVE);
+    SMALLBALL(10, TypePowerUp.NEGATIVE);
+    
 
     private final Integer duration;
     private final TypePowerUp type;

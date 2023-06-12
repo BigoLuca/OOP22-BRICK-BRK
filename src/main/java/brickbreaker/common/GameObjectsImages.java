@@ -49,6 +49,8 @@ public enum GameObjectsImages {
 
     LIFE_ICON("incLife.png"),
 
+    MULTI_BALL("multiBall.png"),
+
     BALL("ball.png"),
 
     BAR_ANIMATION_1("bar.png"),

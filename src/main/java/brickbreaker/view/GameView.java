@@ -65,7 +65,6 @@ public class GameView extends ViewImpl {
     public void init() {
         this.getController().setGameView(this);
 
-        //TODO: Check the loading of the landscape.
         Integer m = this.getController().getModel().getId();
         this.backGround.setImage(this.getController().getLevelController().getMapInfo(m).getLandscapeData().getImage());
 

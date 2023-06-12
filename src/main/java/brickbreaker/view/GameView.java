@@ -103,11 +103,20 @@ public class GameView extends ViewImpl {
 
     public void setUpPowerUpImages() {
         this.ppImages = new HashMap<>();
-        for (Integer i = 10; i < 21; i++) {
+        for (Integer i = 10; i < 22; i++) {
             TypePower t = TypePower.values()[i - 9];
             Image s = GameObjectsImages.values()[i].getImage();
             this.ppImages.put(t, s);
         }
+
+        Image bigBall = new Image(GameObjectsImages.BALL.getFilePath(), 16, 16, true, false);
+        Image smallBall = new Image(GameObjectsImages.BALL.getFilePath(), 8, 8, true, false);
+        Image indestructibleBrick = new Image(GameObjectsImages.RED_BRICK.getFilePath(), 16, 8, true, false);
+
+        this.ppImages.put(TypePower.BIGBALL, bigBall);
+        this.ppImages.put(TypePower.SMALLBALL, smallBall);
+        this.ppImages.put(TypePower.INDBRICK, indestructibleBrick);
+
     }
 
     public void render(final String score) {

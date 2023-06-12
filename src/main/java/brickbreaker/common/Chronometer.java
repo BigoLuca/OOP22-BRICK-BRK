@@ -54,7 +54,6 @@ public class Chronometer extends Thread {
                     try {
                         Thread.sleep(1000);
                         time++;
-                        System.out.println(time);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

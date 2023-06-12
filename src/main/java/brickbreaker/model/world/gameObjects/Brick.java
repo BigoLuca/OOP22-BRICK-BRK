@@ -1,5 +1,6 @@
 package brickbreaker.model.world.gameObjects;
 
+import brickbreaker.ResourceLoader;
 import brickbreaker.common.TypeObj;
 import brickbreaker.common.TypePower;
 import brickbreaker.common.Vector2D;
@@ -12,8 +13,8 @@ import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
  */
 public class Brick extends GameObjectImpl<RectBoundingBox> {
 
-    public static final Integer BRICKS_COL = 6;
-    public static final Integer BRICKS_ROW = 6;
+    public static final Integer BRICKS_COL = ResourceLoader.getInstance().getMapColumns();
+    public static final Integer BRICKS_ROW = ResourceLoader.getInstance().getMapRows();
 
     public static final Double BRICK_WIDTH = WorldFactory.BOUNDARIES_SIZE/ BRICKS_COL;
     public static final Double BRICK_HEIGHT = WorldFactory.BOUNDARIES_SIZE/ (BRICKS_ROW*2); // Times two since we use half of the height

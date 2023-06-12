@@ -66,7 +66,7 @@ public class GameFactory {
         for (int i = 0; i < cols ; i++) {
             for (int j = 0 ; j < rows ; j++){
                 if (r.nextInt(100) < d.getBrickPercentage()) {
-                    bricks.add(new Brick(new Vector2D(i  * Brick.BRICK_WIDTH + Brick.BRICK_WIDTH / 2, j * Brick.BRICK_HEIGHT + Brick.BRICK_HEIGHT / 2), r.nextInt(d.getMaxBrickLife())));
+                    bricks.add(new Brick(new Vector2D(i  * Brick.BRICK_WIDTH + Brick.BRICK_WIDTH / 2, j * Brick.BRICK_HEIGHT + Brick.BRICK_HEIGHT / 2), r.nextInt(1,d.getMaxBrickLife())));
                 }
             }
         }

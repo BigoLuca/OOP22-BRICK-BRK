@@ -213,9 +213,10 @@ public class ResourceLoader {
 
     public List<Map<String, Integer>> getAllRanks(final String filename) {
         List<Map<String, Integer>> rawRanks = new ArrayList<>();
+        Integer max = this.loadJson(this.ranksPath + sep + filename, Error.RANKLOADER_ERROR).size();
 
         try {
-            for (Integer i = 0; i < 4; i++) {
+            for (Integer i = 0; i < max; i++) {
                 rawRanks.add(this.getRank(filename, i));
             }
         } catch (IndexOutOfBoundsException e) {

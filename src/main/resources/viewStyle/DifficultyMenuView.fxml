@@ -11,6 +11,7 @@
    <children>
       <VBox fx:id="vbLayout" layoutX="38.0" layoutY="51.0" prefHeight="297.0" prefWidth="524.0" spacing="30.0">
          <children>
+            <ImageView fx:id="imgBack" fitHeight="60.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#clickBack" HBox.hgrow="NEVER" />
             <ImageView id="imgEndlessMode" fx:id="imgModeTitle" fitHeight="62.0" fitWidth="309.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
                <image>
                   <Image url="@../Images/endlessModeTitle.png" />

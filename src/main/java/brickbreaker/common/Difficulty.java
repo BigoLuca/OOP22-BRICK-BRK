@@ -18,12 +18,23 @@ public enum Difficulty {
     private final Integer bP;
     private final Integer mlP;
 
+    /**
+     * Constructor of the enum.
+     * @param brickP
+     * @param bonusPercentage
+     * @param maxBrickLife
+     */
     Difficulty(final int brickP, final int bonusPercentage, final int maxBrickLife) {
         this.brickP = brickP;
         this.bP = bonusPercentage;
         this.mlP = maxBrickLife;
     }
     
+    /**
+     * This method returns the bonus percentage that every brick could have
+     * in this difficulty category.
+     * @return the bonus percentage
+     */
     public Integer getBonusPercentage() {
         return this.bP; 
     }
@@ -31,12 +42,19 @@ public enum Difficulty {
     /**
      * This method returns the maximum life value that every brick could have
      * in this difficulty category.
-     * @return
+     * 
+     * @return the maximum life value
      */
     public Integer getMaxBrickLife() {
         return this.mlP;
     }
 
+    /**
+     * This method returns the percentage of bricks that will be present in the game
+     * in this difficulty category.
+     * 
+     * @return the percentage of bricks
+     */
     public Integer getBrickPercentage() {
         return this.brickP;
     }

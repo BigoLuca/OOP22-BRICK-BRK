@@ -64,6 +64,9 @@ public class ResourceLoader {
         this.userPath = "." + sep + "src" + sep + "main" + sep + "resources" + sep + "users" + sep + "user.json";
     }
 
+    /**
+     * Method to load the json file.
+     */
     public void start() {
         Arrays.stream(GameImages.values()).forEach(value -> {
             value.setImage(new Image(ClassLoader.getSystemResourceAsStream(value.getFilePath())));
@@ -118,6 +121,13 @@ public class ResourceLoader {
         return this.MAP_ROWS_FILE_FORMAT;
     }
 
+    /**
+     * Method to get the ranking of the game.
+     * 
+     * @param filePath the path of the file
+     * @param err      the error to notify
+     * @return the ranking of the game
+     */
     private JsonArray loadJson(final String filePath, Error err) {
         try {
             return JsonParser.parseReader(new FileReader(filePath)).getAsJsonArray();
@@ -128,6 +138,13 @@ public class ResourceLoader {
         return new JsonArray();
     }
 
+    /**
+     * Method save in a json file the ranking of the game.
+     * 
+     * @param filePath  the path of the file
+     * @param jsonArray the JsonArray of the ranking
+     * @param err       the error to notify
+     */
     private void writeJson(final String filePath, final JsonArray jsonArray, Error err) {
         try (FileWriter fileWriter = new FileWriter(filePath)) {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -138,6 +155,14 @@ public class ResourceLoader {
         }
     }
 
+
+    /**
+     * Method to get the index of the user in the ranking.
+     * 
+     * @param playerName the name of the player
+     * @param js         the JsonArray of the ranking
+     * @return the index of the user in the ranking
+     */
     private Integer getIdxUserName(final String playerName, final JsonArray js) {
         for (int i = 0; i < js.size(); i++) {
             JsonObject scoreObject = js.get(i).getAsJsonObject();
@@ -146,8 +171,14 @@ public class ResourceLoader {
             }
         }
         return -1;
-    }
+    }    
 
+    /**
+     * Method to get from a file the map landscape.
+     * @param file
+     * @param level
+     * @return GameImages rappresenting the landscape of the map
+     */
     public GameImages getMapLandscape(final String mapName) {
         try {
             JsonObject f = JsonParser.parseReader(new FileReader(mapsPath + sep + mapName)).getAsJsonObject();
@@ -158,6 +189,12 @@ public class ResourceLoader {
         }
     }
 
+    /**
+     * Method to get from a file the difficulty of a level.
+     * @param file
+     * @param level
+     * @return Optional of Difficulty 
+     */
     public Optional<Difficulty> getMapDifficulty(final String mapName) {
         try {
             JsonObject f =  JsonParser.parseReader(new FileReader(mapsPath + sep + mapName)).getAsJsonObject();
@@ -211,6 +248,11 @@ public class ResourceLoader {
         return sortedMap;
     }
 
+    /**
+     * Method to get from a file a list of all level rank list of players in descending order.
+     * @param filename
+     * @return a list of players stats
+     */
     public List<Map<String, Integer>> getAllRanks(final String filename) {
         List<Map<String, Integer>> rawRanks = new ArrayList<>();
         Integer max = this.loadJson(this.ranksPath + sep + filename, Error.RANKLOADER_ERROR).size();
@@ -349,27 +391,5 @@ public class ResourceLoader {
             }
             this.writeJson(this.ranksPath + sep + s, js, Error.USERWRITER_ERROR);
         }
-    }
-
-
-    public Integer[][] convertToListArray(List<Integer> list, int MCols, int MRows) {
-        Integer[][] array = new Integer[MRows][MCols];
-        Integer index = 0;
-
-        for (int row = 0; row < MRows; row++) {
-            for (int col = 0; col < MCols; col++) {
-                if (index < list.size()) {
-                    array[row][col] = list.get(index);
-                    index++;
-                } else {
-                    // If the list is shorter than the desired array size,
-                    // you can decide how to handle the remaining elements.
-                    // Here, we fill the remaining elements with 0.
-                    array[row][col] = 0;
-                }
-            }
-        }
-
-        return array;
     }
 }

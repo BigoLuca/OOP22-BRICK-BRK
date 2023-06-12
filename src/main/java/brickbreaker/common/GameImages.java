@@ -97,6 +97,11 @@ public enum GameImages {
     private String fileName;
     private Image image;
 
+    /**
+     * Constructor of the enum.
+     * 
+     * @param fileName the name of the file
+     */
     GameImages(final String fileName) {
         this.fileName = fileName;
     }
@@ -111,7 +116,8 @@ public enum GameImages {
 
     /**
      * Method to get the Image.
-     * @return
+     * 
+     * @return the image
      */
     public Image getImage() {
         return this.image;

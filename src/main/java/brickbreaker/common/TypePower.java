@@ -53,11 +53,16 @@ public enum TypePower {
     BIGBALL(10, TypePowerUp.POSITIVE),
     /** FastBall. */
     SMALLBALL(10, TypePowerUp.NEGATIVE);
-    
 
     private final Integer duration;
     private final TypePowerUp type;
 
+    /**
+     * TypePower constructor.
+     * 
+     * @param time      duration
+     * @param typePower type
+     */
     TypePower(final Integer time, final TypePowerUp typePower) {
         this.duration = time;
         this.type = typePower;

@@ -1,6 +1,5 @@
 package brickbreaker.model;
 
-import brickbreaker.common.Mode;
 import brickbreaker.common.State;
 import brickbreaker.common.Vector2D;
 import brickbreaker.model.factory.GameFactory;
@@ -16,7 +15,6 @@ public class Level {
     private final Integer id;
     private World world;
     private State state;
-    private Mode mode;
 
     /**
      * Level constructor.
@@ -34,10 +32,6 @@ public class Level {
      */
     public Integer getId() {
         return this.id;
-    }
-
-    public Mode getMode() {
-        return this.mode;
     }
     
     /**

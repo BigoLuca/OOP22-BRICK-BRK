@@ -27,9 +27,9 @@ public enum GameObjectsImages {
 
     BROWN_BRICK("brownBrick.png"),
 
-    SLOW_BALL("slowBallMalus.png"),
-
     FAST_BALL("fastBall.png"),
+
+    SLOW_BALL("slowBallMalus.png"),
 
     LONG_BAR("longBarBonus.png"),
 
@@ -42,6 +42,12 @@ public enum GameObjectsImages {
     LARGE_SCORE_POWER_UP("Large_Score_PP.png"),
 
     MEGA_SCORE_POWER_UP("megaScorePP.png"),
+
+    FIFTY_SCORE_MALUS("fiftyScoreMalus.png"),
+
+    ONE_HUNDRED_SCORE_MALUS("oneHundredScoreMalus.png"),
+
+    LIFE_ICON("incLife.png"),
 
     BALL("ball.png"),
 

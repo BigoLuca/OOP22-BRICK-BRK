@@ -39,28 +39,29 @@ public class CollisionTest {
         assertTrue(brick.getBBox().isCollidingWith(ball.getBBox()));
         ball.setPosition(new Vector2D(3.1, 1.6));
         assertTrue(brick.getBBox().isCollidingWith(ball.getBBox()));
+        Double xSpeed = ball.getSpeed().getX();
         event.process(ball, brick);
-        assertEquals(ball.getSpeed().getX(), -1);
-        assertEquals(ball.getSpeed().getY(), 1);
+        assertEquals(-xSpeed, ball.getSpeed().getX());
+        assertEquals(1, ball.getSpeed().getY());
 
     }
 
     @Test
     void testCollisionWithBar() {
-        ball.setPosition(new Vector2D(6, 4.5));
+        ball.setPosition(new Vector2D(6, 4));
         assertTrue(bar.getBBox().isCollidingWith(ball.getBBox()));
+        Double ySpeed = ball.getSpeed().getY();
         event.process(ball, bar);
-        assertEquals(ball.getSpeed().getX(), 1);
-        assertEquals(ball.getSpeed().getY(), -1);
-        ball.setPosition(new Vector2D(0, 0));
+        assertEquals(-ySpeed, ball.getSpeed().getY());
+        ball.setPosition(new Vector2D(300, 500));
         assertFalse(bar.getBBox().isCollidingWith(ball.getBBox()));
     }
 
     @Test
     void testCollisionWithPowerUp() {
-        powerUp.setPosition(new Vector2D(6, 4.4));
+        powerUp.setPosition(new Vector2D(6, 4));
         assertTrue(powerUp.getBBox().isCollidingWith(bar.getBBox()));
-        powerUp.setPosition(new Vector2D(5, 3));
+        powerUp.setPosition(new Vector2D(500, 500));
         assertFalse(powerUp.getBBox().isCollidingWith(bar.getBBox()));
     }
 }

@@ -16,35 +16,35 @@ public class StateTest {
     
     @BeforeEach
     void setUp() {
-        level = new Level(1, WorldFactory.getInstance().getWorld("level01.txt", 30));
+        level = new Level(1, WorldFactory.getInstance().getWorld(1));
     }
 
     @Test
     void testWin() {
-        assertEquals(level.getState(), State.WAIT);
+        assertEquals(State.WAIT, level.getState());
         level.getWorld().getBricks().clear();
-        assertEquals(level.getState(), State.WIN);
+        assertEquals(State.WIN, level.getState());
     }
 
     @Test
     void testLost() {
-        assertEquals(level.getState(), State.WAIT);
-        assertEquals(level.getWorld().getBar().getLife(), 1);
+        assertEquals(State.WAIT, level.getState());
+        assertEquals(1, level.getWorld().getBar().getLife());
         level.getWorld().getBar().decLife();
-        assertEquals(level.getState(), State.LOST);
+        assertEquals(State.LOST, level.getState());
     }
 
     @Test
     void testWait() {
-        assertEquals(level.getState(), State.WAIT);
+        assertEquals(State.WAIT, level.getState());
         level.setState(State.PLAYING);
-        assertEquals(level.getState(), State.PLAYING);
-        assertEquals(level.getWorld().getBar().getLife(), 1);
+        assertEquals(State.PLAYING, level.getState());
+        assertEquals(1, level.getWorld().getBar().getLife());
         level.getWorld().getBar().incLife();
-        assertEquals(level.getWorld().getBar().getLife(), 2);
-        level.getWorld().getBalls().get(0).setPosition(new Vector2D(20, 30.2));
+        assertEquals(2, level.getWorld().getBar().getLife());
+        level.getWorld().getBalls().get(0).setPosition(new Vector2D(WorldFactory.BOUNDARIES_SIZE / 2, WorldFactory.BOUNDARIES_SIZE - 1));
         level.getWorld().checkCollision();
-        assertEquals(level.getWorld().getBalls().size(), 0);
-        assertEquals(level.getState(), State.WAIT);
+        assertEquals(0, level.getWorld().getBalls().size());
+        assertEquals(State.WAIT, level.getState());
     }
 }

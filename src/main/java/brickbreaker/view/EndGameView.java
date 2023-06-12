@@ -29,6 +29,8 @@ public class EndGameView extends ViewImpl {
         Image [] status = { GameImages.PLAYER_LOST.getImage(), GameImages.PLAYER_WIN.getImage() };
         Integer index = this.getController().getModel().getState() == State.LOST ? 0 : 1;
         this.imgStatus.setImage(status[index]);
+        this.btnContinue.setImage(GameImages.CONTINUE.getImage());
+        this.btnQuit.setImage(GameImages.QUIT.getImage());
     }
 
     public void clickContinue() {

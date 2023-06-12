@@ -8,6 +8,7 @@ public class Chronometer extends Thread {
 
     private Integer time;
     private boolean isRunning;
+    private boolean exit;
 
     /**
      * Chronometer constructor.
@@ -15,6 +16,7 @@ public class Chronometer extends Thread {
     public Chronometer() {
         this.time = 1;
         this.isRunning = false;
+        this.exit = false;
     }
     
     /**
@@ -43,11 +45,12 @@ public class Chronometer extends Thread {
      */
     public void stopChrono() {
         this.isRunning = false;
+        this.exit = true;
     }
 
     @Override
     public void run() {
-        while (true) {
+        while (!exit) {
             synchronized (this) {
                 if (isRunning) {
                     try {

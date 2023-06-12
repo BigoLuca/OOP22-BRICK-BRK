@@ -107,7 +107,6 @@ public class WorldFactory {
         for (TypePower i : p) {
             b.get(val.remove(r.nextInt(val.size()))).setPowerUp(i);
         }
-        System.out.println("Bonus: " + p.toString());
     }
 
     /**

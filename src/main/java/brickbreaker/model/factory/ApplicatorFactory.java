@@ -46,6 +46,10 @@ public class ApplicatorFactory {
                 return new ScoreApplicator(50);
             case INC_100:
             return new ScoreApplicator(100);
+            case INC_250:
+                return new ScoreApplicator(250);
+            case INC_500:
+            return new ScoreApplicator(500);
             case DEC_50:
             return new ScoreApplicator(-50);
             case DEC_100:

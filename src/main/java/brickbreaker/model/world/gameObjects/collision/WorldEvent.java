@@ -59,9 +59,21 @@ public class WorldEvent {
      * @param obj
      */
     public void process(final Ball ball, final Brick brick) {
-        if (Math.abs(ball.getPosition().vertDist(brick.getPosition())) > brick.getBBox().getHeight() / 2) {
+        Double distY = ball.getPosition().vertDist(brick.getPosition());
+        if (Math.abs(distY) > brick.getBBox().getHeight() / 2) {
+            if (distY > 0) {
+                ball.getPosition().sum(new Vector2D(0, distY));
+            } else {
+                ball.getPosition().sum(new Vector2D(0, -distY));
+            }
             ball.flipVelOnY();
         } else {
+            Double distX = ball.getPosition().orizDist(brick.getPosition());
+            if (distX > 0) {
+                ball.getPosition().sum(new Vector2D(distX, 0));
+            } else {
+                ball.getPosition().sum(new Vector2D(-distX, 0));
+            }
             ball.flipVelOnX();
         }
     }

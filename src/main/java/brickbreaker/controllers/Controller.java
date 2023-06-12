@@ -115,6 +115,8 @@ public class Controller extends AbstractController {
                 this.model.getWorld().incScore(oldScore);
                 this.model.getWorld().getBar().setLife(barLife);
                 this.render();
+            } else {
+                this.stop();
             }
         }
     }

@@ -46,6 +46,14 @@ public class Controller extends AbstractController {
     }
 
     /**
+     * This method gets the current game mode.
+     * @return a Mode enum value which represent the mode.
+     */
+    public Mode getMode() {
+        return this.mode;
+    }
+
+    /**
      * Method to set the user.
      * @param username
      */

@@ -10,11 +10,21 @@ import brickbreaker.common.Difficulty;
 import brickbreaker.model.Level;
 import brickbreaker.model.factory.WorldFactory;
 
+/**
+ * The controller of the levels generation.
+ */
 public class LevelController {
 
     private List<MapInfo> mapList;
     private Difficulty defaultDifficulty = Difficulty.RANDOM;
     private Optional<Integer> level = Optional.empty();
+
+    /**
+     * LevelController constructor.
+     */
+    public LevelController() {
+        this.mapList = ResourceLoader.getInstance().getMapsInfo();
+    }
 
     private Difficulty getRandomDifficulty() {
         Random randomDiff = new Random();
@@ -28,7 +38,11 @@ public class LevelController {
             return defaultDifficulty;
         }
     }
-    
+
+    /**
+     * Method to get a level.
+     * @return the level generated
+     */
     protected Level getLevel() {
         if(this.level.isPresent() && level.get() < this.mapList.size()){
             return new Level(level.get(), WorldFactory.getInstance().getWorld(this.level.get()));
@@ -36,18 +50,24 @@ public class LevelController {
         return new Level(0, WorldFactory.getInstance().getRandomWorld(this.getDifficulty()));
     }
 
-    public LevelController() {
-        this.mapList = ResourceLoader.getInstance().getMapsInfo();
-    }
-
+    /**
+     * Method to set the level.
+     * @param level
+     */
     public void setLevel(final Optional<Integer> level) {
         this.level = level;
     }
 
+    /**
+     * @return true if have another level
+     */
     public boolean hasNextLevel() {
         return this.level.isPresent() && this.level.get() < this.mapList.size() - 1;
     }
 
+    /**
+     * Assign the new level.
+     */
     public void nextLevel() {
         if (this.level.isPresent()) {
             this.level = Optional.of(this.level.get() + 1);
@@ -56,19 +76,34 @@ public class LevelController {
         }
     }
 
+    /**
+     * Method to the the map level information.
+     * @param i
+     * @return a MapInfo
+     */
     public MapInfo getMapInfo(final Integer i) {
         return this.mapList.get(i);
     }
 
+    /**
+     * Method to get the map index.
+     * @param name
+     * @return the index of the map
+     */
     public Integer getMapIndex(final String name) {
         Optional<MapInfo> m = this.mapList.stream().filter(map -> map.getName().equals(name)).findFirst();
         return m.get().getIndex();
     }
 
+    //TODO: remove if unused
     public Integer getListMapLenght(){
         return this.mapList.size();
     }
 
+    /**
+     * Method to set the level difficulty.
+     * @param diff
+     */
     public void setDifficultyLevel(final Difficulty diff) {
         this.defaultDifficulty = diff;
     }

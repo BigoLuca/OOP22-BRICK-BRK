@@ -3,14 +3,20 @@ package brickbreaker.controllers;
 import brickbreaker.controllers.input.InputController;
 import brickbreaker.controllers.listener.ErrorListener;
 
+/**
+ * The abstract controller to relater with the other controllers.
+ */
 public abstract class AbstractController {
-    
-    protected UserController userController;
-    protected ErrorListener errListener;
-    protected InputController inputController;
-    protected LevelController levelController;
-    protected RankController rankController;
-    
+
+    private UserController userController;
+    private ErrorListener errListener;
+    private InputController inputController;
+    private LevelController levelController;
+    private RankController rankController;
+
+    /**
+     * Abstract constructor.
+     */
     public AbstractController() {
         this.userController = new UserController();
         this.errListener = new ErrorListener();
@@ -19,14 +25,29 @@ public abstract class AbstractController {
         this.rankController = new RankController();
     }
 
+    /**
+     * @return a UserController
+     */
     public UserController getUserController() { return this.userController; }
 
+    /**
+     * @return an InputController
+     */
     public InputController getInputController() { return this.inputController; }
 
+    /**
+     * @return an ErrorListener
+     */
     public ErrorListener getErrorListener() { return this.errListener; }
 
+    /**
+     * @return a LevelController
+     */
     public LevelController getLevelController() { return this.levelController; }
 
+    /**
+     * @return a RankController
+     */
     public RankController getRankController() { return this.rankController; }
 
 }

@@ -8,6 +8,9 @@ import brickbreaker.model.user.User;
 import brickbreaker.model.world.World;
 import brickbreaker.view.GameView;
 
+/**
+ * The application controller.
+ */
 public class Controller extends AbstractController {
 
     private static final Double ELAPSED = 200.0;
@@ -21,6 +24,9 @@ public class Controller extends AbstractController {
     private final Chronometer chrono;
     private Integer oldScore;
 
+    /**
+     * Controller constructor.
+     */
     public Controller() {
         super();
         this.gameController = new GameController(this);
@@ -31,23 +37,41 @@ public class Controller extends AbstractController {
         chrono.start();
     }
 
-    public void setMode (final Mode mode) {
+    /**
+     * Method to set the mode after the user input.
+     * @param mode
+     */
+    public void setMode(final Mode mode) {
         this.mode = mode;
     }
-    
 
+    /**
+     * Method to set the user.
+     * @param username
+     */
     public void setUser(final String username) {
-        this.user = this.userController.getUser(username);
+        this.user = this.getUserController().getUser(username);
     }
 
+    /**
+     * Method to set the GameView.
+     * @param gameView
+     */
     public void setGameView(final GameView gameView) {
         this.gameView = gameView;
     }
 
+    /**
+     * Method to set the model.
+     */
     public void setModel() {
-        this.model = this.levelController.getLevel();
+        this.model = this.getLevelController().getLevel();
     }
 
+    /**
+     * Methdo to get the model.
+     * @return an instance of the model.
+     */
     public Level getModel() {
         return this.model;
     }
@@ -57,12 +81,11 @@ public class Controller extends AbstractController {
      */
     protected void processCommands() {
         World w = this.model.getWorld();
-        w.getBar().updateInput(ELAPSED, this.inputController, w.getMainBBox().getBRCorner().getX());
+        w.getBar().updateInput(ELAPSED, this.getInputController(), w.getMainBBox().getBRCorner().getX());
     }
 
     /**
      * This method updates the current Game.
-     * @param elapsed
      */
     protected void updateGame() {
         this.model.updateGame(ELAPSED.intValue());
@@ -70,6 +93,9 @@ public class Controller extends AbstractController {
         this.checkState();
     }
 
+    /**
+     * This method check the state after the update.
+     */
     private void checkState() {
         State s = this.getModel().getState();
         if (s.equals(State.WAIT)) {
@@ -77,13 +103,15 @@ public class Controller extends AbstractController {
             this.render();
         } else if (this.getModel().getState().equals(State.LOST)) {
             this.stop();
-            this.rankController.addRank(mode, this.model.getId(), user.getName(), (int) ((oldScore + this.model.getWorld().getScore()) / this.chrono.getElepsedTime()));
+            this.getRankController().addRank(
+                mode, this.model.getId(), user.getName(), 
+                (int) ((oldScore + this.model.getWorld().getScore()) / this.chrono.getElepsedTime()));
         } else if (this.getModel().getState().equals(State.WIN)) {
-            if(this.mode.equals(Mode.ENDLESS)){
+            if (this.mode.equals(Mode.ENDLESS)) {
                 this.pause();
                 Integer barLife = this.model.getWorld().getBar().getLife();
                 this.oldScore += this.model.getWorld().getScore();
-                this.model = this.levelController.getLevel();
+                this.model = this.getLevelController().getLevel();
                 this.model.getWorld().incScore(oldScore);
                 this.model.getWorld().getBar().setLife(barLife);
                 this.render();
@@ -91,19 +119,28 @@ public class Controller extends AbstractController {
         }
     }
 
-    public void play() {
+    /**
+     * Method to start or resume the game.
+     */
+    private void play() {
         this.model.setState(State.PLAYING);
         chrono.resumeChrono();
         gameController.startGame();
     }
 
-    public void pause() {
+    /**
+     * Method to pause the game.
+     */
+    private void pause() {
         this.model.setState(State.WAIT);
         chrono.pauseChrono();
         gameController.pauseGame();
     }
 
-    public void toggle() {{}
+    /**
+     * Method to start and pause the game.
+     */
+    public void toggle() {
         if (this.getModel().getState().equals(State.PLAYING)) {
             this.pause();
         } else {
@@ -111,12 +148,18 @@ public class Controller extends AbstractController {
         }
     }
 
+    /**
+     * Method to stop the game.
+     */
     public void stop() {
         chrono.stopChrono();
         this.gameController.stopGame();
         this.gameView.isOver();
     }
-    
+
+    /**
+     * Method to render the world evrey frames.
+     */
     public void render() {
         gameView.render();
     }

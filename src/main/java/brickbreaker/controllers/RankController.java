@@ -7,14 +7,20 @@ import brickbreaker.ResourceLoader;
 import brickbreaker.common.Mode;
 import brickbreaker.model.rank.GameRank;
 
+/**
+ * The controller of the ranks.
+ */
 public class RankController {
 
-    private static final String ENDLESS_RANKS = "endless.json";
-    private static final String LEVEL_RANKS = "levels.json";
+    private final String ENDLESS_RANKS = "endless.json";
+    private final String LEVEL_RANKS = "levels.json";
 
     private List<GameRank> endlessRanks;
     private List<GameRank> levelsRanks;
 
+    /**
+     * RankController constructor.
+     */
     public RankController() {
         //Loading all the global ranks.
         this.endlessRanks = this.loadEndless();
@@ -29,6 +35,13 @@ public class RankController {
         return ResourceLoader.getInstance().getAllRanks(LEVEL_RANKS).stream().map(item -> new GameRank(item)).collect(Collectors.toList());
     }
 
+    /**
+     * Method to add on json file the new score of the user.
+     * @param mode
+     * @param level
+     * @param username
+     * @param newScore
+     */
     protected void addRank(Mode mode, Integer level, String username, Integer newScore) {
         if (mode.equals(Mode.ENDLESS)) {
             ResourceLoader.getInstance().writeRank(ENDLESS_RANKS, level, username, newScore);
@@ -37,10 +50,19 @@ public class RankController {
         }
     }
 
+    /**
+     * Method to get the EndlessRank.
+     * @param index
+     * @return a GameRank
+     */
     public GameRank getEndlessRank(Integer index) {
         return this.endlessRanks.get(index);
     }
 
+    /**
+     * Method to get the size of endless rank.
+     * @return an integer size
+     */
     public Integer getEndlessRankQuantity() {
         Integer q;
 
@@ -53,10 +75,19 @@ public class RankController {
         return q;
     }
 
+    /**
+     * Method to get the LevelsRank.
+     * @param index
+     * @return a GameRank
+     */
     public GameRank getLevelsRank(Integer index)  {
         return this.levelsRanks.get(index);
     }
 
+    /**
+     * Method to get the size of endless rank.
+     * @return an integer size
+     */
     public Integer getLevelsRankQuantity() {
         Integer q;
 

@@ -43,7 +43,6 @@ public class Chronometer extends Thread {
      */
     public void stopChrono() {
         this.isRunning = false;
-        this.interrupt();
     }
 
     @Override

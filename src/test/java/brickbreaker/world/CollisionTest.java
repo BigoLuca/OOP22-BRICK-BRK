@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import brickbreaker.common.TypePower;
 import brickbreaker.common.Vector2D;
+import brickbreaker.model.factory.WorldFactory;
 import brickbreaker.model.world.gameObjects.Ball;
 import brickbreaker.model.world.gameObjects.Bar;
 import brickbreaker.model.world.gameObjects.Brick;
@@ -53,7 +54,7 @@ public class CollisionTest {
         Double ySpeed = ball.getSpeed().getY();
         event.process(ball, bar);
         assertEquals(-ySpeed, ball.getSpeed().getY());
-        ball.setPosition(new Vector2D(300, 500));
+        ball.setPosition(new Vector2D(WorldFactory.BOUNDARIES_SIZE- 100, WorldFactory.BOUNDARIES_SIZE- 100));
         assertFalse(bar.getBBox().isCollidingWith(ball.getBBox()));
     }
 
@@ -61,7 +62,7 @@ public class CollisionTest {
     void testCollisionWithPowerUp() {
         powerUp.setPosition(new Vector2D(6, 4));
         assertTrue(powerUp.getBBox().isCollidingWith(bar.getBBox()));
-        powerUp.setPosition(new Vector2D(500, 500));
+        powerUp.setPosition(new Vector2D(WorldFactory.BOUNDARIES_SIZE- 100, WorldFactory.BOUNDARIES_SIZE- 100));
         assertFalse(powerUp.getBBox().isCollidingWith(bar.getBBox()));
     }
 }

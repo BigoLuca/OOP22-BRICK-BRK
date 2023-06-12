@@ -111,7 +111,7 @@ public class Controller extends AbstractController {
                 Integer barLife = this.model.getWorld().getBar().getLife();
                 this.oldScore += this.model.getWorld().getScore();
                 this.model = this.getLevelController().getLevel();
-                this.model.getWorld().incScore(oldScore);
+                this.model.getWorld().addToScore(oldScore);
                 this.model.getWorld().getBar().setLife(barLife);
                 this.render();
             }

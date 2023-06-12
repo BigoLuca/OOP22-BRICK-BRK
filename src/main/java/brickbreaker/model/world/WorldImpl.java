@@ -42,7 +42,7 @@ public class WorldImpl implements World {
     private boolean destructibleBrick;
     
     private final Double mulELAPSED = 0.001;
-    private final Integer BRICK_SCORE = 5;
+    private final Integer BRICK_SCORE = 100;
 
     /**
      * World constructor.
@@ -193,7 +193,7 @@ public class WorldImpl implements World {
                                     this.powerUps.add(new PowerUp(brick.getBBox().getP2d(), brick.getPowerUp()));
                                 }
                                 brickIt.remove();
-                                this.incScore(BRICK_SCORE);
+                                this.addToScore(BRICK_SCORE);
                             }
                         }
                     }
@@ -251,16 +251,8 @@ public class WorldImpl implements World {
      * {@inheritDoc}
      */
     @Override
-    public final void incScore(final Integer increment) {
-        this.score += increment;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final void decScore(final Integer decrement) {
-        this.score -= decrement;
+    public final void addToScore(final Integer value) {
+        this.score += value;
     }
 
     /**

@@ -103,9 +103,12 @@ public class Controller extends AbstractController {
             this.render();
         } else if (this.getModel().getState().equals(State.LOST)) {
             this.stop();
-            this.getRankController().addRank(
-                mode, this.model.getId(), user.getName(), this.getScore());
+            if (this.mode.equals(Mode.ENDLESS)) {
+                this.getRankController().addRank(
+                    mode, this.model.getId(), user.getName(), this.getScore());
+            }
         } else if (this.getModel().getState().equals(State.WIN)) {
+            System.out.println(this.mode);
             if (this.mode.equals(Mode.ENDLESS)) {
                 this.pause();
                 Integer barLife = this.model.getWorld().getBar().getLife();
@@ -114,7 +117,9 @@ public class Controller extends AbstractController {
                 this.model.getWorld().addToScore(oldScore);
                 this.model.getWorld().getBar().setLife(barLife);
                 this.render();
-            } else {
+            } else if (this.mode.equals(Mode.LEVELS)) {
+                this.getRankController().addRank(
+                    mode, this.model.getId(), user.getName(), this.getScore());
                 this.stop();
             }
         }

@@ -2,6 +2,9 @@ package brickbreaker.common;
 
 import javafx.scene.image.Image;
 
+/**
+ * Enum that stores all the images related to the game objects.
+ */
 public enum GameObjectsImages {
 
     BLUE_BRICK("blueBrick.png"),
@@ -24,6 +27,14 @@ public enum GameObjectsImages {
 
     BROWN_BRICK("brownBrick.png"),
 
+    SLOW_BALL("slowBallMalus.png"),
+
+    FAST_BALL("fastBall.png"),
+
+    LONG_BAR("longBarBonus.png"),
+
+    SHORT_BAR("shortBarMalus.png"),
+
     FIFTY_SCORE_POWER_UP("fiftyScorePP.png"),
 
     ONE_HUNDRED_SCORE_POWER_UP("oneHundredScorePP.png"),
@@ -31,14 +42,6 @@ public enum GameObjectsImages {
     LARGE_SCORE_POWER_UP("Large_Score_PP.png"),
 
     MEGA_SCORE_POWER_UP("megaScorePP.png"),
-
-    SLOW_BALL("slowBallMalus.png"),
-
-    FAST_BALL("fastBall.png"),
-
-    SHORT_BAR("shortBarMalus.png"),
-
-    LONG_BAR("longBarBonus.png"),
 
     BALL("ball.png"),
 
@@ -56,14 +59,26 @@ public enum GameObjectsImages {
         this.fileName = fileName;
     }
 
+    /**
+     * This method returns the file path of the image.
+     * @return A String object which is the file path of the image.
+     */
     public String getFilePath() {
         return RES_PATH + this.fileName;
     }
 
+    /**
+     * This method sets the Image object related to the current enum value.
+     * @param image An Image object which will be binded with the current selected enum value.
+     */
     public void setImage(final Image image) {
         this.i = image;
     }
-    
+
+    /**
+     * This method gets the Image object related to the current enum value.
+     * @return the Image object binded with the enum value.
+     */
     public Image getImage() {
         return this.i;
     }

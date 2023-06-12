@@ -28,8 +28,8 @@ import javafx.scene.image.Image;
  */
 public class ResourceLoader {
 
-    public final Integer MAP_COLUMNS_FILE_FORMAT = 18;
-    public final Integer MAP_ROWS_FILE_FORMAT = 5;
+    public final Integer MAP_COLUMNS_FILE_FORMAT = 6;
+    public final Integer MAP_ROWS_FILE_FORMAT = 6;
 
     private final String NAME = "name";
     private final String SCORE = "score";
@@ -88,7 +88,7 @@ public class ResourceLoader {
             String landScape = e.get("landscape").getAsString();
             List<Integer> map = new ArrayList<>();
 
-            for (Integer i = 0; i < 5; i++) {
+            for (Integer i = 0; i < MAP_ROWS_FILE_FORMAT; i++) {
                 for (Integer j = 0; j < MAP_COLUMNS_FILE_FORMAT; j++) {
                     map.add(e.get("map").getAsJsonArray().get(i).getAsJsonArray().get(j).getAsInt());
                 }

@@ -57,7 +57,11 @@ public enum GameImages {
 
     PLAYER_LOST("youLost.png"),
     
-    PLAYER_WIN("youWin.png");
+    PLAYER_WIN("youWin.png"),
+
+    QUIT("quit.png"),
+
+    CONTINUE("continue.png");
 
     private static final String RES_PATH = "images/";
     private String fileName;

@@ -231,9 +231,8 @@ public class ResourceLoader {
      * @param playerName
      * @param newScore
      */
-    public Integer writeRank(final String file, final Integer level, final String playerName, final Integer newScore) {
+    public void writeRank(final String file, final Integer level, final String playerName, final Integer newScore) {
 
-        Integer diff = 0;
         JsonArray js = this.loadJson(this.ranksPath + sep + file, Error.RANKLOADER_ERROR);
 
         try {
@@ -244,14 +243,12 @@ public class ResourceLoader {
                 int currentScore = scoreObject.get(SCORE).getAsInt();
                 if (newScore > currentScore) {
                     scoreObject.addProperty(SCORE, newScore);
-                    diff = newScore - currentScore;
                 }
             } else {
                 JsonObject newScoreObject = new JsonObject();
                 newScoreObject.addProperty(NAME, playerName);
                 newScoreObject.addProperty(SCORE, newScore);
                 scoresArray.add(newScoreObject);
-                diff = newScore;
             }
         } catch (IndexOutOfBoundsException e) {
             JsonObject newLevelObject = new JsonObject();
@@ -263,10 +260,8 @@ public class ResourceLoader {
             scoresArray.add(newScoreObject);
             newLevelObject.add(SCORES, scoresArray);
             js.add(newLevelObject);
-            diff = newScore;
         }
         this.writeJson(this.ranksPath + sep + file, js, Error.RANKWRITER_ERROR);
-        return diff;
     }
 
     /**

@@ -44,12 +44,10 @@ public class HomeView extends ViewImpl {
     }
 
     public void switchToLevel() {
-        this.getController().setMode(Mode.LEVELS);
         ViewSwitcher.getInstance().switchView(getStage(), ViewType.LEVEL);
     }
 
     public void switchToEndless() {
-        this.getController().setMode(Mode.ENDLESS);
         ViewSwitcher.getInstance().switchView(getStage(), ViewType.DIFFICULTY);
     }
 

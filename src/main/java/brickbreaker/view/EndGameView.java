@@ -27,14 +27,22 @@ public class EndGameView extends ViewImpl {
     @Override
     public void init() {
         Image [] status = { GameImages.PLAYER_LOST.getImage(), GameImages.PLAYER_WIN.getImage() };
-        Integer index = this.getController().getModel().getState() == State.LOST ? 0 : 1;
+
+        Integer index;
+        if (this.getController().getModel().getState() == State.LOST) {
+            index = 0;
+            this.btnContinue.setVisible(false);
+        } else {
+            index = 1;
+        }
+
         this.imgStatus.setImage(status[index]);
         this.btnContinue.setImage(GameImages.CONTINUE.getImage());
         this.btnQuit.setImage(GameImages.QUIT.getImage());
     }
 
     public void clickContinue() {
-        Mode m = this.getController().getModel().getMode();
+        Mode m = this.getController().getMode();
 
         if (m.equals(Mode.ENDLESS)) {
             ViewSwitcher.getInstance().switchView(getStage(), ViewType.HOME);

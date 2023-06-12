@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import brickbreaker.MapInfo;
 import brickbreaker.common.GameImages;
+import brickbreaker.common.Mode;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -102,6 +103,7 @@ public final class LevelsMenuView extends ViewImpl {
 
     public void switchToLevelMatch() {
         this.getController().getLevelController().setLevel((Optional.of(this.getController().getLevelController().getMapIndex(currentLevelSelected))));
+        this.getController().setMode(Mode.LEVELS);
         this.getController().setModel();
         ViewSwitcher.getInstance().switchView(this.getStage(), ViewType.MATCH);
     }

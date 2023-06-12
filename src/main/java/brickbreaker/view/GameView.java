@@ -108,9 +108,9 @@ public class GameView extends ViewImpl {
         }
     }
 
-    public void render() {
+    public void render(final String score) {
 
-        scoreLabel.setText(this.getController().getModel().getWorld().getScore().toString());
+        scoreLabel.setText(score);
         lifeLabel.setText(this.getController().getModel().getWorld().getBar().getLife().toString());
         
         Platform.runLater(() -> {
@@ -163,8 +163,6 @@ public class GameView extends ViewImpl {
             this.getController().getInputController().notifyMoveRight();
         } else if (keyCode == KeyCode.SPACE) {
             this.getController().toggle();
-        } else if (keyCode == KeyCode.A) {
-            System.exit(0);
         }
     }
 }

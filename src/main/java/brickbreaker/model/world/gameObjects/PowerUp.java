@@ -13,7 +13,7 @@ public class PowerUp extends GameObjectImpl<RectBoundingBox> {
 
     public static final Double POWERUP_WIDTH = Brick.BRICK_WIDTH / 2;
     public static final Double POWERUP_HEIGHT = Brick.BRICK_HEIGHT / 2;
-    public static final Double POWERUP_FALLING = 10.0; // TODO: adapt falling speed
+    public static final Double POWERUP_FALLING = 10.0;
     private final TypePower powerUp;
 
     /**

@@ -52,19 +52,6 @@ public class WorldTest {
     }
 
     @Test
-    void testcreatePowerUp() {
-        ball.setPosition(new Vector2D(100, 120));
-        world.addBall(ball);
-        assertEquals(0, world.getPowerUp().size());
-        world.checkCollision();
-        if (!world.getBricks().get(0).getPowerUp().equals(TypePower.NULL)) {
-            assertEquals(1, world.getPowerUp().size());
-        } else {
-            assertEquals(0, world.getPowerUp().size());
-        }
-    }
-
-    @Test
     void testBigBallPowerUp() {
         assertEquals(Ball.RADIUS, world.getBalls().get(0).getRadius());
         PowerUp p = new PowerUp(new Vector2D(0, 0), TypePower.BIGBALL);

@@ -11,7 +11,7 @@ public enum Difficulty {
     MEDIUM(50, 50, 7),
     /** Hard. */
     HARD(70, 30, 10),
-    /** Random. */ //TODO: need to have this order for write ranking.
+    /** Random. */
     RANDOM(0,0,0);
 
     private final Integer brickP;

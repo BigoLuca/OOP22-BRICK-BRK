@@ -219,7 +219,6 @@ public class WorldImpl implements World {
                         ApplicatorFactory.getInstance().createApplicator(p.getPowerUp(), !type), 
                         p.getPowerUp().getDuration());
                 }
-                System.out.println("power up: " + p.getPowerUp());  // TODO remove print
                 powerIt.remove();
             }
         }

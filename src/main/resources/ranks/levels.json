@@ -1,10 +1,20 @@
 [
   {
     "level": 0,
-    "scores": []
+    "scores": [
+      {
+        "name": "Paolo",
+        "score": 58
+      }
+    ]
   },
   {
     "level": 1,
-    "scores": []
+    "scores": [
+      {
+        "name": "mario",
+        "score": 45
+      }
+    ]
   }
 ]

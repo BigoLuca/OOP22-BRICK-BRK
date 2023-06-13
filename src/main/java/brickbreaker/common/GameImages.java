@@ -23,7 +23,7 @@ public enum GameImages {
     CITY_LANDSCAPE("City.png"),
 
     /** Game icon. */
-    GAME_ICON("nickname.png"),
+    GAME_ICON("gameIcon.png"),
 
     /** Easy difficulty. */
     EASY_DIFFICULTY("easy.png"),
@@ -53,7 +53,7 @@ public enum GameImages {
     PREVIOUS("previous.png"),
 
     /** Not loaded item. */
-    NOT_LOADED_ITEM("nickname.png"),
+    NOT_LOADED_ITEM("notLoaded.png"),
 
     /** Title. */
     TITLE("Title.png"),
@@ -81,6 +81,9 @@ public enum GameImages {
 
     /** Left arrow. */
     LEFT_ARROW("leftArrow.png"),
+
+    /** Back arrow */
+    BACK_ARROW("backArrow.png"),
 
     /** Player lost label. */
     PLAYER_LOST("youLost.png"),

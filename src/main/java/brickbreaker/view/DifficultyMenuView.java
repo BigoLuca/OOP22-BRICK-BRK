@@ -1,5 +1,7 @@
 package brickbreaker.view;
 
+import java.util.Optional;
+
 import brickbreaker.common.Difficulty;
 import brickbreaker.common.GameImages;
 import brickbreaker.common.Mode;
@@ -97,6 +99,7 @@ public class DifficultyMenuView extends ViewImpl {
      * Listener for the play button to start the game.
      */
     public void clickPlayButton() {
+        this.getController().getLevelController().setLevel(Optional.empty());
         this.getController().getLevelController().setDifficultyLevel(Difficulty.values()[this.difficultyIndex]);
         this.getController().setMode(Mode.ENDLESS);
         this.getController().setModel();

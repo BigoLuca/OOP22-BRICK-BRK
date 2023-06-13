@@ -115,7 +115,6 @@ public class Controller extends AbstractController {
                 this.getRankController().addRank(
                     mode, this.model.getId(), user.getName(), this.getScore());
             }
-            this.chrono = new Chronometer();
         } else if (this.getModel().getState().equals(State.WIN)) {
             if (this.mode.equals(Mode.ENDLESS)) {
                 this.pause();
@@ -130,7 +129,6 @@ public class Controller extends AbstractController {
                     mode, this.model.getId(), user.getName(), this.getScore());
                 this.stop();
             }
-            this.chrono = new Chronometer();
         }
     }
 

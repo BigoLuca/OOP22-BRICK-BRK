@@ -117,7 +117,6 @@ public class Controller extends AbstractController {
             }
             this.chrono = new Chronometer();
         } else if (this.getModel().getState().equals(State.WIN)) {
-            System.out.println(this.mode);
             if (this.mode.equals(Mode.ENDLESS)) {
                 this.pause();
                 Integer barLife = this.model.getWorld().getBar().getLife();

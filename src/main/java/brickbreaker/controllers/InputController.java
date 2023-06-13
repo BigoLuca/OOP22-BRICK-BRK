@@ -1,4 +1,4 @@
-package brickbreaker.controllers.input;
+package brickbreaker.controllers;
 
 /**
  * Controller calls which keeps track of input events.

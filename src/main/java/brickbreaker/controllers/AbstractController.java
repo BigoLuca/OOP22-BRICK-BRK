@@ -1,6 +1,5 @@
 package brickbreaker.controllers;
 
-import brickbreaker.controllers.input.InputController;
 import brickbreaker.controllers.listener.ErrorListener;
 
 /**

@@ -2,10 +2,10 @@ package brickbreaker.model.world.gameObjects;
 
 import brickbreaker.common.TypeObj;
 import brickbreaker.common.Vector2D;
-import brickbreaker.controllers.input.BarInput;
-import brickbreaker.controllers.input.InputComponent;
-import brickbreaker.controllers.input.InputController;
+import brickbreaker.controllers.InputController;
 import brickbreaker.model.factory.WorldFactory;
+import brickbreaker.model.input.BarInput;
+import brickbreaker.model.input.InputComponent;
 import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
 
 /**

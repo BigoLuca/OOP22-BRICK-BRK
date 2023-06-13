@@ -16,6 +16,7 @@ import brickbreaker.model.world.gameObjects.PowerUp;
 public class WorldTest {
     
     private World world;
+    private ApplicatorFactory factory;
     private Ball ball;
 
     @BeforeEach
@@ -55,7 +56,7 @@ public class WorldTest {
     void testBigBallPowerUp() {
         assertEquals(Ball.RADIUS, world.getBalls().get(0).getRadius());
         PowerUp p = new PowerUp(new Vector2D(0, 0), TypePower.BIGBALL);
-        ApplicatorFactory.getInstance().createApplicator(p.getPowerUp(), true).applyPowerUp(world);
+        this.factory.createApplicator(p.getPowerUp(), true).applyPowerUp(world);
         assertEquals(Ball.RADIUS + (Ball.RADIUS / 3), world.getBalls().get(0).getRadius());
     }
 }

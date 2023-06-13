@@ -38,6 +38,7 @@ public class WorldImpl implements World {
     private RectBoundingBox mainBBox;
     private Map<PowerUpApplicator, Integer> activePowerUps;
     private WorldEvent event;
+    private ApplicatorFactory factory;
     private Integer score;
     private boolean destructibleBrick;
     
@@ -213,10 +214,10 @@ public class WorldImpl implements World {
                 powerIt.remove();
             } else if (p.getBBox().isCollidingWith(bar.getBBox())) {
                 Boolean type = p.getPowerUp().getType().equals(TypePowerUp.POSITIVE);
-                ApplicatorFactory.getInstance().createApplicator(p.getPowerUp(), type).applyPowerUp(this);
+                this.factory.createApplicator(p.getPowerUp(), type).applyPowerUp(this);
                 if (p.getPowerUp().getDuration() > 0) {
                     this.activePowerUps.put(
-                        ApplicatorFactory.getInstance().createApplicator(p.getPowerUp(), !type), 
+                        this.factory.createApplicator(p.getPowerUp(), !type), 
                         p.getPowerUp().getDuration());
                 }
                 powerIt.remove();

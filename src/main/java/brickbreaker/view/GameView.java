@@ -65,7 +65,6 @@ public class GameView extends ViewImpl {
     public void init() {
         this.getController().setGameView(this);
 
-        //TODO: Check the loading of the landscape.
         Integer m = this.getController().getModel().getId();
         this.backGround.setImage(this.getController().getLevelController().getMapInfo(m).getLandscapeData().getImage());
 
@@ -88,7 +87,7 @@ public class GameView extends ViewImpl {
         this.barAnimationIndex = 0;
 
         this.frameCounter = 0;
-
+        
         // Start the game
         this.getController().render();
     }
@@ -109,12 +108,10 @@ public class GameView extends ViewImpl {
             this.ppImages.put(t, s);
         }
 
-        Image bigBall = new Image(GameObjectsImages.BALL.getFilePath(), 16, 16, true, false);
-        Image smallBall = new Image(GameObjectsImages.BALL.getFilePath(), 8, 8, true, false);
         Image indestructibleBrick = new Image(GameObjectsImages.RED_BRICK.getFilePath(), 16, 8, true, false);
 
-        this.ppImages.put(TypePower.BIGBALL, bigBall);
-        this.ppImages.put(TypePower.SMALLBALL, smallBall);
+        this.ppImages.put(TypePower.BIGBALL, GameObjectsImages.BALL.getImage());
+        this.ppImages.put(TypePower.SMALLBALL, GameObjectsImages.BALL.getImage());
         this.ppImages.put(TypePower.INDBRICK, indestructibleBrick);
 
     }

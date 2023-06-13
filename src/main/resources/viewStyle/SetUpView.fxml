@@ -9,16 +9,16 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="root" style="-fx-background-color: black;" minHeight="400.0" minWidth="600.0" xmlns="http://javafx.com/javafx/15" xmlns:fx="http://javafx.com/fxml/1" fx:controller="brickbreaker.view.SetUpView">
+<AnchorPane fx:id="root" minHeight="400.0" minWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="brickbreaker.view.SetUpView">
    <children>
-      <VBox fx:id="vBoxMainContainer" alignment="CENTER" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" layoutX="33.0" layoutY="18.0" prefHeight="264.0" prefWidth="519.0">
+      <VBox fx:id="vBoxMainContainer" alignment="CENTER" layoutX="33.0" layoutY="18.0" prefHeight="264.0" prefWidth="519.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ImageView fx:id="imgChoose" fitHeight="117.0" fitWidth="373.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/typeYourName.png" />
                </image>
             </ImageView>
-            <HBox id="hBoxNicknameInsertion" fx:id="hBoxNicknameInsertion" prefHeight="50.0" prefWidth="519.0" spacing="20.0">
+            <HBox id="hBoxNicknameInsertion" fx:id="hBoxNicknameInsertion" alignment="TOP_CENTER" prefHeight="50.0" prefWidth="519.0" spacing="20.0">
                <children>
                   <ImageView fx:id="imgNickname" fitHeight="24.0" fitWidth="246.0" pickOnBounds="true" preserveRatio="true">
                      <image>

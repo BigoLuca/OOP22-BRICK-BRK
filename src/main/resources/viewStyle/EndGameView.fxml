@@ -4,13 +4,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="root" minHeight="384.0" minWidth="381.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/15" xmlns:fx="http://javafx.com/fxml/1" fx:controller="brickbreaker.view.EndGameView">
+<AnchorPane fx:id="root" minHeight="384.0" minWidth="381.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="brickbreaker.view.EndGameView">
    <children>
-      <VBox fx:id="vbContainer" alignment="CENTER" layoutX="6.0" layoutY="6.0" prefHeight="373.0" prefWidth="368.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox fx:id="vbMainContainer" alignment="CENTER" layoutX="19.0" layoutY="28.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ImageView fx:id="imgStatus" fitHeight="167.0" fitWidth="344.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="btnContinue" fitHeight="60.0" fitWidth="191.0" onMouseClicked="#clickContinue" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="btnQuit" fitHeight="60.0" fitWidth="183.0" onMouseClicked="#clickQuit" pickOnBounds="true" preserveRatio="true" />
+            <VBox fx:id="vbContainer" alignment="CENTER" prefHeight="354.0" prefWidth="357.0" spacing="20.0">
+               <children>
+                  <ImageView fx:id="imgStatus" fitHeight="167.0" fitWidth="344.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS" />
+                  <ImageView fx:id="btnContinue" fitHeight="60.0" fitWidth="191.0" onMouseClicked="#clickContinue" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS" />
+                  <ImageView fx:id="btnQuit" fitHeight="60.0" fitWidth="183.0" onMouseClicked="#clickQuit" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
          </children>
       </VBox>
    </children>

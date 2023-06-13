@@ -87,7 +87,7 @@ public class LevelController {
 
     /**
      * Method to get the map index.
-     * @param name
+     * @param name the name of the map
      * @return the index of the map
      */
     public Integer getMapIndex(final String name) {

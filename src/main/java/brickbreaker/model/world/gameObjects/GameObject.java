@@ -42,7 +42,7 @@ public interface GameObject<T> {
     Vector2D getPosition();
 
     /**
-     * @param newPosition
+     * @param newPosition the position to set
      */
     void setPosition(Vector2D newPosition);
 
@@ -52,7 +52,7 @@ public interface GameObject<T> {
     Vector2D getSpeed();
 
     /**
-     * @param speed
+     * @param speed the speed to set
      */
     void setSpeed(Vector2D speed);
 

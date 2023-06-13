@@ -9,8 +9,9 @@ import brickbreaker.model.world.gameObjects.PowerUp;
 import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
 
 /**
- * Interface to model the Game World. It defines the Object tha belongs to it: 
- * Balls, Bar, Bricks, PowerUps and the main Bounding Box on the edge of the World.
+ * Interface to model the Game World. It defines the Object tha belongs to it:
+ * Balls, Bar, Bricks, PowerUps and the main Bounding Box on the edge of the
+ * World.
  * It also defines the Object movement and their collision.
  */
 public interface World {
@@ -31,7 +32,7 @@ public interface World {
     Bar getBar();
 
     /**
-     * @param bar 
+     * @param bar
      */
     void setBar(Bar bar);
 
@@ -57,7 +58,8 @@ public interface World {
 
     /**
      * Move object in the world at each frame.
-     * @param elapsed
+     * 
+     * @param elapsed the time elapsed since the last frame
      */
     void updateGame(int elapsed);
 
@@ -68,19 +70,22 @@ public interface World {
 
     /**
      * This method gets the current points scored by the user.
+     * 
      * @return An integer value.
      */
     Integer getScore();
 
     /**
      * This method add the value to the score.
+     * 
      * @param val an integer value
      */
     void addToScore(Integer val);
 
     /**
      * This method change states of indestructible brick.
-     * @param b
+     * 
+     * @param b a boolean value for indestructible brick
      */
     void setDestructibleBrick(boolean b);
 

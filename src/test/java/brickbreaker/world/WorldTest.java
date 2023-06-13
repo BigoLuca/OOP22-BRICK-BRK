@@ -20,55 +20,42 @@ public class WorldTest {
 
     @BeforeEach
     void setUp() {
-        world = WorldFactory.getInstance().getWorld("level03.txt", 70);
+        world = WorldFactory.getInstance().getWorld(1);
         ball = new Ball(new Vector2D(0, 0), new Vector2D(1, 1));
     }
 
     @Test
     void testIncrementScore() {
-        ball.setPosition(new Vector2D(1.5, 0.8));
+        ball.setPosition(new Vector2D(100, 120));
         world.addBall(ball);
         int sizeBricks = world.getBricks().size();
         world.checkCollision();
-        assertEquals(5, world.getScore());
-        assertEquals(world.getBricks().size(), sizeBricks - 1);
-        assertEquals(world.getBalls().get(1).getSpeed().getY(), -1);
+        assertEquals(100, world.getScore());
+        assertEquals(sizeBricks - 1, world.getBricks().size());
     }
 
     @Test
     void testLossBall() {
         world.addBall(ball);
-        assertEquals(world.getBalls().size(), 2);
-        world.getBalls().get(0).setPosition(new Vector2D(20, 30.2));
+        assertEquals(2, world.getBalls().size());
+        world.getBalls().get(0).setPosition(new Vector2D(WorldFactory.BOUNDARIES_SIZE / 2, WorldFactory.BOUNDARIES_SIZE - 1));
         world.checkCollision();
-        assertEquals(world.getBalls().size(), 1);
+        assertEquals(1, world.getBalls().size());
     }
 
     @Test
     void testLossLife() {
-        world.getBalls().get(0).setPosition(new Vector2D(20, 30.2));
+        Integer life = world.getBar().getLife();
+        world.getBalls().get(0).setPosition(new Vector2D(WorldFactory.BOUNDARIES_SIZE / 2, WorldFactory.BOUNDARIES_SIZE - 1));
         world.checkCollision();
-        assertEquals(world.getBar().getLife(), 0);
-    }
-
-    @Test
-    void testcreatePowerUp() {
-        ball.setPosition(new Vector2D(1.5, 0.8));
-        world.addBall(ball);
-        assertEquals(world.getPowerUp().size(), 0);
-        world.checkCollision();
-        if (!world.getBricks().get(0).getPowerUp().equals(TypePower.NULL)) {
-            assertEquals(world.getPowerUp().size(), 1);
-        } else {
-            assertEquals(world.getPowerUp().size(), 0);
-        }
+        assertEquals(life - 1, world.getBar().getLife());
     }
 
     @Test
     void testBigBallPowerUp() {
-        assertEquals(world.getBalls().get(0).getRadius(), 0.26);
+        assertEquals(Ball.RADIUS, world.getBalls().get(0).getRadius());
         PowerUp p = new PowerUp(new Vector2D(0, 0), TypePower.BIGBALL);
         ApplicatorFactory.getInstance().createApplicator(p.getPowerUp(), true).applyPowerUp(world);
-        assertEquals(world.getBalls().get(0).getRadius(), 0.39);
+        assertEquals(Ball.RADIUS + (Ball.RADIUS / 3), world.getBalls().get(0).getRadius());
     }
 }

@@ -6,7 +6,8 @@ import brickbreaker.model.world.gameObjects.bounding.BoundingBox;
 
 /**
  * {@inheritDoc}
- * Implements the {@link GameObject} interface. Abstract base class for all objects.
+ * Implements the {@link GameObject} interface. Abstract base class for all
+ * objects.
  * 
  * @param <T> the type of bounding box
  */
@@ -19,10 +20,11 @@ public abstract class GameObjectImpl<T extends BoundingBox> implements GameObjec
 
     /**
      * GameObject constructor.
-     * @param lifesToSet
-     * @param vel
-     * @param typeToSet
-     * @param bboxToSet
+     * 
+     * @param lifesToSet the lifes to set
+     * @param vel       the velocity to set
+     * @param typeToSet the type to set
+     * @param bboxToSet the bounding box to set
      */
     public GameObjectImpl(final Integer lifesToSet, final Vector2D vel, final TypeObj typeToSet, final T bboxToSet) {
         this.vel = vel;
@@ -46,7 +48,7 @@ public abstract class GameObjectImpl<T extends BoundingBox> implements GameObjec
     public void setLife(final Integer lifes) {
         this.lifes = lifes;
     }
-    
+
     /**
      * {@inheritDoc}
      */

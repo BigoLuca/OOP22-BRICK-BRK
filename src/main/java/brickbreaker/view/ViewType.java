@@ -1,5 +1,8 @@
 package brickbreaker.view;
 
+/**
+ * This enum contains all the possible views.
+ */
 public enum ViewType {
 
     HOME("HomeView"),
@@ -21,10 +24,20 @@ public enum ViewType {
 
     private String fileName;
 
+    /**
+     * Constructor of the enum.
+     * 
+     * @param s the name of the file
+     */
     ViewType (final String s) {
         this.fileName = s;
     }
 
+    /**
+     * This method is used to get the path of the view.
+     * 
+     * @return the path of the view
+     */
     public String getPath() {
         return DIRECTORY + this.fileName + FORMAT;
     }

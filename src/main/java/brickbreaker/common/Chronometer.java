@@ -22,7 +22,7 @@ public class Chronometer extends Thread {
     /**
      * @return the time elapsed from the start in seconds
      */
-    public Integer getElepsedTime() {
+    public Integer getElapsedTime() {
         return this.time / 10;
     }
     
@@ -31,6 +31,7 @@ public class Chronometer extends Thread {
             this.start();
         }
         this.isRunning = true;
+        this.exit = false;
     }
 
     /**

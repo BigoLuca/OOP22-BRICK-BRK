@@ -21,6 +21,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 
+/**
+ * Implementation of {@link View} for the ranks menu.
+ */
 public class RanksView extends ViewImpl {
 
     @FXML
@@ -57,9 +60,11 @@ public class RanksView extends ViewImpl {
     private Integer endlessLevelsIndex;
     private Integer rankIndex;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void init() {
-
 
         this.endlessLevelsIndex = 0;
         this.endlessLevels = new Image[2];
@@ -78,6 +83,9 @@ public class RanksView extends ViewImpl {
         this.setRank();
     }
 
+    /**
+     * Method that sets the rank table.
+     */
     private void tableViewInit() {
         this.currentRank.setEditable(false);
         this.columnPlayers.setEditable(false);
@@ -85,29 +93,34 @@ public class RanksView extends ViewImpl {
         this.columnPlayers.setSortable(false);
         this.columnScores.setSortable(false);
 
-        this.columnPlayers.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, Integer>, String>, ObservableValue<String>>() {
+        this.columnPlayers.setCellValueFactory(
+                new Callback<TableColumn.CellDataFeatures<Map.Entry<String, Integer>, String>, ObservableValue<String>>() {
 
-            @Override
-            public ObservableValue<String> call(CellDataFeatures<Entry<String, Integer>, String> param) {
-                return new SimpleStringProperty(param.getValue().getKey());
-            }
-            
-        });
+                    @Override
+                    public ObservableValue<String> call(CellDataFeatures<Entry<String, Integer>, String> param) {
+                        return new SimpleStringProperty(param.getValue().getKey());
+                    }
 
-        this.columnScores.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, Integer>, Integer>, ObservableValue<Integer>>() {
+                });
 
-            @Override
-            public ObservableValue<Integer> call(CellDataFeatures<Entry<String, Integer>, Integer> param) {
-                return new SimpleIntegerProperty(param.getValue().getValue()).asObject();
-            }
+        this.columnScores.setCellValueFactory(
+                new Callback<TableColumn.CellDataFeatures<Map.Entry<String, Integer>, Integer>, ObservableValue<Integer>>() {
 
-        });
+                    @Override
+                    public ObservableValue<Integer> call(CellDataFeatures<Entry<String, Integer>, Integer> param) {
+                        return new SimpleIntegerProperty(param.getValue().getValue()).asObject();
+                    }
 
-        //Loading an initial rank.
+                });
+
+        // Loading an initial rank.
         this.bindData(this.getController().getRankController().getEndlessRank(0));
-        
+
     }
 
+    /**
+     * Method that changes the rank mode between endless and levels.
+     */
     public void changeMode() {
         this.endlessLevelsIndex = this.endlessLevelsIndex == 0 ? 1 : 0;
         this.imgChange.setImage(this.endlessLevels[this.endlessLevelsIndex]);
@@ -116,11 +129,20 @@ public class RanksView extends ViewImpl {
         setRank();
     }
 
-    private Integer getMaxIndex(){
-        return this.endlessLevelsIndex == 0 ? this.getController().getRankController().getEndlessRankQuantity() : this.getController().getRankController().getLevelsRankQuantity();
+    /**
+     * Method that returns the max index of the rank based on the current mode.
+     * 
+     * @return the max index of the rank.
+     */
+    private Integer getMaxIndex() {
+        return this.endlessLevelsIndex == 0 ? this.getController().getRankController().getEndlessRankQuantity()
+                : this.getController().getRankController().getLevelsRankQuantity();
     }
 
-    private void setRank(){
+    /**
+     * Method that sets the rank based on the current mode and the current index.
+     */
+    private void setRank() {
         GameRank r;
         Integer q = getMaxIndex();
         if (q != 0) {
@@ -136,14 +158,22 @@ public class RanksView extends ViewImpl {
             this.bindData(r);
             this.lblTitle.setText(s);
         }
-       
+
     }
 
+    /**
+     * Listener for the next button.
+     * Switches to the next rank of the current mode.
+     */
     public void clickNext() {
         this.rankIndex++;
         setRank();
     }
 
+    /**
+     * Listener for the previous button.
+     * Switches to the previous rank of the current mode.
+     */
     public void clickPrevious() {
         if (this.rankIndex == 0) {
             this.rankIndex = getMaxIndex();
@@ -153,10 +183,19 @@ public class RanksView extends ViewImpl {
         setRank();
     }
 
+    /**
+     * Listener for the back button.
+     * Switches to the home menu.
+     */
     public void clickBack() {
         ViewSwitcher.getInstance().switchView(this.getStage(), ViewType.HOME);
     }
 
+    /**
+     * Method that binds the rank data to the table.
+     * 
+     * @param r the rank to bind.
+     */
     public void bindData(final GameRank r) {
         ObservableList<Map.Entry<String, Integer>> obRank = FXCollections.observableArrayList(r.getRank().entrySet());
         this.currentRank.setItems(obRank);

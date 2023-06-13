@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="root" minHeight="520.0" minWidth="642.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="brickbreaker.view.LevelsMenuView">
+<AnchorPane fx:id="root" minHeight="520.0" minWidth="642.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/15" xmlns:fx="http://javafx.com/fxml/1" fx:controller="brickbreaker.view.LevelsMenuView">
    <children>
       <VBox fx:id="vbContainer" alignment="CENTER" layoutX="-1.0" layoutY="15.0" prefHeight="520.0" prefWidth="642.0" spacing="50.0" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="15.0">
          <children>

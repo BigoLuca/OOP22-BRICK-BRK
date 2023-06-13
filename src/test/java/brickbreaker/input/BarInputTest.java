@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import brickbreaker.common.Vector2D;
-import brickbreaker.controllers.input.InputController;
+import brickbreaker.controllers.InputController;
 import brickbreaker.model.factory.WorldFactory;
 import brickbreaker.model.world.World;
 

@@ -1,5 +1,6 @@
-package brickbreaker.controllers.input;
+package brickbreaker.model.input;
 
+import brickbreaker.controllers.InputController;
 import brickbreaker.model.world.gameObjects.Bar;
 
 /**

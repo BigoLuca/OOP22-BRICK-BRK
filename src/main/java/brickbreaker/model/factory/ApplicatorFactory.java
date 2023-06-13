@@ -8,18 +8,10 @@ import brickbreaker.model.world.gameObjects.collision.powerUpApplicator.*;
  */
 public class ApplicatorFactory {
 
-    private static ApplicatorFactory instance;
-
     /**
-     * @return the instance of ApplicatorFactory if it not exists yet.
+     * Applicator factory constructor.
      */
-    public static ApplicatorFactory getInstance() {
-        if (instance == null) {
-            instance = new ApplicatorFactory();
-        }
-
-        return instance;
-    }
+    public ApplicatorFactory() {}
 
     /**
      * Method to apply powerUp that collides with bar. Create a specific class but return the interface.

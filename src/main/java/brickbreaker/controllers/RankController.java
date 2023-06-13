@@ -23,6 +23,13 @@ public class RankController {
      */
     public RankController() {
         //Loading all the global ranks.
+        this.setRanks();
+    }
+
+    /**
+     * Method to set the rank from the file.
+     */
+    private void setRanks() {
         this.endlessRanks = this.loadEndless();
         this.levelsRanks = this.loadLevels();
     }
@@ -58,6 +65,7 @@ public class RankController {
         } else {
             ResourceLoader.getInstance().writeRank(LEVEL_RANKS, level, username, newScore);
         }
+        setRanks();
     }
 
     /**

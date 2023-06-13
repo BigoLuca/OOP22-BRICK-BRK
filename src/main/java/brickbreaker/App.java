@@ -28,7 +28,8 @@ public class App extends Application{
         Rectangle2D bounds = screen.getVisualBounds();
         double centerX = bounds.getMaxX() / 3.5;
         double centerY = bounds.getMinY() + 20;
-        
+
+        primaryStage.setResizable(true);
         primaryStage.setX(centerX);
         primaryStage.setY(centerY);
 
@@ -38,6 +39,7 @@ public class App extends Application{
 
         ViewSwitcher.getInstance().switchView(primaryStage, ViewType.SETUP);
 
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 

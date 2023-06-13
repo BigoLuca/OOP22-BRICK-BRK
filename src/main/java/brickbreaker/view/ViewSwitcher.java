@@ -12,7 +12,6 @@ import javafx.stage.Stage;
 
 public final class ViewSwitcher {
     
-    private boolean firstSwitch = true;
     private static ViewSwitcher instance;
     private View currentView;
     private Controller mainController = new Controller();
@@ -36,13 +35,7 @@ public final class ViewSwitcher {
             e.printStackTrace();
         }
 
-        Scene newScene;
-        if (this.firstSwitch) {
-            newScene = new Scene(root);
-            this.firstSwitch = false;
-        } else {
-            newScene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
-        }
+        Scene newScene = new Scene(root);
 
         stage.setScene(newScene);
         stage.getScene().getStylesheets().clear();

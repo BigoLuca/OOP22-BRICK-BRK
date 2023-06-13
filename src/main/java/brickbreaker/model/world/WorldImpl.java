@@ -57,6 +57,7 @@ public class WorldImpl implements World {
         this.activePowerUps = new HashMap<>();
         this.score = 0;
         this.event = new WorldEvent();
+        this.factory = new ApplicatorFactory();
         destructibleBrick = true;
     }
 

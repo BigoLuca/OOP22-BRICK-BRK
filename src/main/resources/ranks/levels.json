@@ -4,7 +4,7 @@
     "scores": [
       {
         "name": "mario",
-        "score": 1136
+        "score": 1638
       },
       {
         "name": "nando",
@@ -16,7 +16,7 @@
       },
       {
         "name": "Paolo",
-        "score": 1192
+        "score": 1532
       }
     ]
   },
@@ -34,6 +34,10 @@
       {
         "name": "fra",
         "score": 1418
+      },
+      {
+        "name": "Frenci",
+        "score": 2480
       }
     ]
   }

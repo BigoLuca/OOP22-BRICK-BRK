@@ -19,7 +19,6 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
 public class RanksView extends ViewImpl {
@@ -34,10 +33,13 @@ public class RanksView extends ViewImpl {
     private TableColumn<Map.Entry<String, Integer>, Integer> columnScores;
 
     @FXML
-    private VBox vbTitle;
+    private VBox vbContainer;
 
     @FXML
-    private ImageView imgBack;
+    private ImageView imgTitle;
+
+    @FXML
+    private Label lblTitle;
 
     @FXML
     private ImageView imgNext;
@@ -46,12 +48,14 @@ public class RanksView extends ViewImpl {
     private ImageView imgPrevious;
 
     @FXML
-    private ImageView imgChangeEndlessLevel;
+    private ImageView imgBack;
+
+    @FXML
+    private ImageView imgChange;
 
     private Image[] endlessLevels;
     private Integer endlessLevelsIndex;
     private Integer rankIndex;
-    private Label lable = new Label();
 
     @Override
     public void init() {
@@ -62,11 +66,13 @@ public class RanksView extends ViewImpl {
         this.endlessLevels[0] = GameImages.ENDLESS_MODE_CHOICE.getImage();
         this.endlessLevels[1] = GameImages.LEVELS_LABEL.getImage();
 
-        this.imgBack.setImage(GameImages.PREVIOUS.getImage());
+        //this.imgBack.setImage(GameImages.PREVIOUS.getImage());
         this.imgNext.setImage(GameImages.RIGHT_ARROW.getImage());
         this.imgPrevious.setImage(GameImages.LEFT_ARROW.getImage());
-        this.imgChangeEndlessLevel.setImage(GameImages.ENDLESS_MODE_CHOICE.getImage());
-
+        this.imgChange.setImage(GameImages.ENDLESS_MODE_CHOICE.getImage());
+        this.imgTitle.setImage(GameImages.ENDLESS_MODE_CHOICE.getImage());
+        this.imgBack.setImage(GameImages.BACK_ARROW.getImage());
+        
         this.rankIndex = 0;
         this.tableViewInit();
         this.setRank();
@@ -104,7 +110,8 @@ public class RanksView extends ViewImpl {
 
     public void changeMode() {
         this.endlessLevelsIndex = this.endlessLevelsIndex == 0 ? 1 : 0;
-        this.imgChangeEndlessLevel.setImage(this.endlessLevels[this.endlessLevelsIndex]);
+        this.imgChange.setImage(this.endlessLevels[this.endlessLevelsIndex]);
+        this.imgChange.setImage(this.endlessLevels[this.endlessLevelsIndex]);
         this.rankIndex = 0;
         setRank();
     }
@@ -118,13 +125,16 @@ public class RanksView extends ViewImpl {
         Integer q = getMaxIndex();
         if (q != 0) {
             this.rankIndex %= q;
-            r = this.endlessLevelsIndex == 0 ? this.getController().getRankController().getEndlessRank(this.rankIndex) : this.getController().getRankController().getLevelsRank(this.rankIndex);
+
+            if (this.endlessLevelsIndex == 0) {
+                r = this.getController().getRankController().getEndlessRank(this.rankIndex);
+            } else {
+                r = this.getController().getRankController().getLevelsRank(this.rankIndex);
+            }
+
             String s = this.endlessLevelsIndex == 0 ? Difficulty.values()[this.rankIndex].toString() : this.getController().getLevelController().getLevelName(this.rankIndex);
-            this.lable.setText(s);
-            this.lable.setTextFill(Color.WHITE);
-            this.vbTitle.getChildren().clear();
-            this.vbTitle.getChildren().add(this.lable);
             this.bindData(r);
+            this.lblTitle.setText(s);
         }
        
     }

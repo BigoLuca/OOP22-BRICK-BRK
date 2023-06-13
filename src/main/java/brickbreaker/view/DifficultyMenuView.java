@@ -62,7 +62,7 @@ public class DifficultyMenuView extends ViewImpl {
 
         this.imgUpArrow.setImage(GameImages.UP_ARROW.getImage());
         this.imgDownArrow.setImage(GameImages.DOWN_ARROW.getImage());
-        this.imgBack.setImage(GameImages.PREVIOUS.getImage());
+        this.imgBack.setImage(GameImages.BACK_ARROW.getImage());
     }
 
     public void chooseDifficulty(final boolean up) {

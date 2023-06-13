@@ -38,7 +38,7 @@ public final class LevelsMenuView extends ViewImpl {
         this.imgChooseLevel.setImage(GameImages.PICK_A_LEVEL.getImage());
         this.imgGoBack.setImage(GameImages.LEFT_ARROW.getImage());
         this.imgGoForward.setImage(GameImages.RIGHT_ARROW.getImage());
-        this.imgBack.setImage(GameImages.PREVIOUS.getImage());
+        this.imgBack.setImage(GameImages.BACK_ARROW.getImage());
 
         this.gplevelsGrid.setVgap(30);
         this.refreshLevels(true);

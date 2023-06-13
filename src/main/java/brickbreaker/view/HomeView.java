@@ -1,7 +1,6 @@
 package brickbreaker.view;
 
 import brickbreaker.common.GameImages;
-import brickbreaker.common.Mode;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -44,7 +43,7 @@ public class HomeView extends ViewImpl {
         this.imgLevel.setImage(GameImages.LEVELS_MODE_CHOICE.getImage());
         this.imgEndless.setImage(GameImages.ENDLESS_MODE_CHOICE.getImage());
         this.imgLeaderboards.setImage(GameImages.LEADERBOARD_CHOICE.getImage());
-        this.imgBack.setImage(GameImages.PREVIOUS.getImage());
+        this.imgBack.setImage(GameImages.BACK_ARROW.getImage());
     }
 
     public void switchToLevel() {

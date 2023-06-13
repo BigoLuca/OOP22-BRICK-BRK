@@ -91,7 +91,6 @@ public final class LevelsMenuView extends ViewImpl {
                         @Override
                         public void handle(Event event) {
                             currentLevelSelected = ((Label) levelControl.getChildren().get(1)).getText();
-                            System.out.println(currentLevelSelected);
                         }
 
                     });

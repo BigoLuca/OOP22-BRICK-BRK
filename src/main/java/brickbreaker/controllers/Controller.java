@@ -22,7 +22,7 @@ public class Controller extends AbstractController {
     private Mode mode;
     private User user;
 
-    private final Chronometer chrono;
+    private Chronometer chrono;
     private Integer oldScore;
 
     /**
@@ -30,11 +30,11 @@ public class Controller extends AbstractController {
      */
     public Controller() {
         super();
+        this.chrono = new Chronometer();
         this.gameController = new GameController(this);
         this.model = null;
         this.user = null;
         this.oldScore = 0;
-        this.chrono = new Chronometer();
     }
 
     /**
@@ -142,7 +142,7 @@ public class Controller extends AbstractController {
      */
     private void play() {
         this.model.setState(State.PLAYING);
-         chrono.startChrono();
+        chrono.startChrono();
         gameController.startGame();
     }
 
@@ -171,6 +171,7 @@ public class Controller extends AbstractController {
      */
     public void stop() {
         chrono.stopChrono();
+        this.chrono = new Chronometer();
         this.gameController.stopGame();
         this.gameView.isOver();
     }

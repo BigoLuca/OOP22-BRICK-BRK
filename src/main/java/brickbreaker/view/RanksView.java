@@ -75,7 +75,7 @@ public class RanksView extends ViewImpl {
         this.imgNext.setImage(GameImages.RIGHT_ARROW.getImage());
         this.imgPrevious.setImage(GameImages.LEFT_ARROW.getImage());
         this.imgChange.setImage(GameImages.ENDLESS_MODE_CHOICE.getImage());
-        this.imgTitle.setImage(GameImages.ENDLESS_MODE_CHOICE.getImage());
+        this.imgTitle.setImage(GameImages.LEADERBOARD_CHOICE.getImage());
         this.imgBack.setImage(GameImages.BACK_ARROW.getImage());
         
         this.rankIndex = 0;

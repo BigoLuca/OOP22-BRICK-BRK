@@ -113,7 +113,7 @@ public class Controller extends AbstractController {
             this.stop();
             if (this.mode.equals(Mode.ENDLESS)) {
                 this.getRankController().addRank(
-                    mode, this.model.getId(), user.getName(), this.getScore());
+                    mode, this.getLevelController().getSettedDifficulty().ordinal(), user.getName(), this.getScore());
             }
         } else if (this.getModel().getState().equals(State.WIN)) {
             if (this.mode.equals(Mode.ENDLESS)) {

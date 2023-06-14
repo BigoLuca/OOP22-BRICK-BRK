@@ -39,6 +39,10 @@ public class LevelController {
         }
     }
 
+    protected Difficulty getSettedDifficulty() {
+        return this.defaultDifficulty;
+    }
+
     /**
      * Method to get a level.
      * @return the level generated

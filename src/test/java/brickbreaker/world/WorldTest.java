@@ -26,6 +26,7 @@ public class WorldTest {
     void setUp() {
         world = WorldFactory.getInstance().getWorld(1);
         ball = new Ball(new Vector2D(0, 0), new Vector2D(1, 1));
+        factory = new ApplicatorFactory();
     }
 
     @Test

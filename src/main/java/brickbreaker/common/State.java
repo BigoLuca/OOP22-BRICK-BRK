@@ -11,6 +11,6 @@ public enum State {
     WIN,
     /** Lost. */
     LOST,
-    /** Wait */
+    /** Wait. */
     WAIT
 }

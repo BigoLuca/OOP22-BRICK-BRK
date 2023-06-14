@@ -23,6 +23,13 @@ public class RankController {
      */
     public RankController() {
         //Loading all the global ranks.
+        this.setRanks();
+    }
+
+    /**
+     * Method to set the rank from the file.
+     */
+    private void setRanks() {
         this.endlessRanks = this.loadEndless();
         this.levelsRanks = this.loadLevels();
     }
@@ -33,7 +40,10 @@ public class RankController {
      * @return a List<GameRank> object that contains all the endless mode ranks.
      */
     private List<GameRank> loadEndless() {
-        return ResourceLoader.getInstance().getAllRanks(ENDLESS_RANKS).stream().map(item -> new GameRank(item)).collect(Collectors.toList());
+        return ResourceLoader.getInstance().getAllRanks(ENDLESS_RANKS)
+                                           .stream()
+                                           .map(item -> new GameRank(item))
+                                           .collect(Collectors.toList());
     }
 
     /**
@@ -42,7 +52,10 @@ public class RankController {
      * @return a List<GameRank> object that contains all the levels mode ranks.
      */
     private List<GameRank> loadLevels() {
-        return ResourceLoader.getInstance().getAllRanks(LEVEL_RANKS).stream().map(item -> new GameRank(item)).collect(Collectors.toList());
+        return ResourceLoader.getInstance().getAllRanks(LEVEL_RANKS)
+                                           .stream()
+                                           .map(item -> new GameRank(item))
+                                           .collect(Collectors.toList());
     }
 
     /**
@@ -52,12 +65,13 @@ public class RankController {
      * @param username the username of the user
      * @param newScore the new score of the user
      */
-    protected void addRank(Mode mode, Integer level, String username, Integer newScore) {
+    protected void addRank(final Mode mode, final Integer level, final String username, final Integer newScore) {
         if (mode.equals(Mode.ENDLESS)) {
             ResourceLoader.getInstance().writeRank(ENDLESS_RANKS, level, username, newScore);
         } else {
             ResourceLoader.getInstance().writeRank(LEVEL_RANKS, level, username, newScore);
         }
+        setRanks();
     }
 
     /**
@@ -65,7 +79,7 @@ public class RankController {
      * @param index the index of the rank
      * @return a GameRank
      */
-    public GameRank getEndlessRank(Integer index) {
+    public GameRank getEndlessRank(final Integer index) {
         return this.endlessRanks.get(index);
     }
 
@@ -78,7 +92,7 @@ public class RankController {
 
         try {
             q = this.endlessRanks.size();
-        } catch(NullPointerException e) {
+        } catch (NullPointerException e) {
             q = 0;
         }
 
@@ -90,7 +104,7 @@ public class RankController {
      * @param index
      * @return a GameRank
      */
-    public GameRank getLevelsRank(Integer index)  {
+    public GameRank getLevelsRank(final Integer index)  {
         return this.levelsRanks.get(index);
     }
 
@@ -103,7 +117,7 @@ public class RankController {
 
         try {
             q = this.levelsRanks.size();
-        } catch(NullPointerException e) {
+        } catch (NullPointerException e) {
             q = 0;
         }
 

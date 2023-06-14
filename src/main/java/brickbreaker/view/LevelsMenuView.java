@@ -89,7 +89,7 @@ public final class LevelsMenuView extends ViewImpl {
                     levelControl.setOnMouseEntered(new EventHandler<Event>() {
 
                         @Override
-                        public void handle(Event event) {
+                        public void handle(final Event event) {
                             currentLevelSelected = ((Label) levelControl.getChildren().get(1)).getText();
                         }
 

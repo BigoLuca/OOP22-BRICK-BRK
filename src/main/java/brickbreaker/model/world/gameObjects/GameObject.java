@@ -18,8 +18,9 @@ public interface GameObject<T> {
 
     /**
      * Sets the lifes of the current game object.
+     * @param lifes
      */
-    void setLife(final Integer lifes);
+    void setLife(Integer lifes);
 
     /**
      * decrease lives by 1.

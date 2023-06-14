@@ -43,7 +43,7 @@ public class WorldImpl implements World {
     private boolean destructibleBrick;
     
     private final Double mulELAPSED = 0.001;
-    private final Integer BRICK_SCORE = 100;
+    private final Integer brickScore = 100;
 
     /**
      * World constructor.
@@ -152,7 +152,7 @@ public class WorldImpl implements World {
     private void checkCollisionWithBall() {
         Vector2D ul = mainBBox.getULCorner();
         Vector2D br = mainBBox.getBRCorner();
-        
+
         Iterator<Ball> ballIt = balls.iterator();
         while (ballIt.hasNext()) {
             Ball ball = ballIt.next();
@@ -184,7 +184,7 @@ public class WorldImpl implements World {
                 while (brickIt.hasNext()) {
                     Brick brick = brickIt.next();
                     if (brick.getBBox().isCollidingWith(ball.getBBox())) {
-                        if (found){
+                        if (found) {
                             this.event.process(ball, brick);
                             found = false;
                         }
@@ -195,7 +195,7 @@ public class WorldImpl implements World {
                                     this.powerUps.add(new PowerUp(brick.getBBox().getP2d(), brick.getPowerUp()));
                                 }
                                 brickIt.remove();
-                                this.addToScore(BRICK_SCORE);
+                                this.addToScore(brickScore);
                             }
                         }
                     }
@@ -260,7 +260,7 @@ public class WorldImpl implements World {
      * {@inheritDoc}
      */
     @Override
-    public void setDestructibleBrick(boolean b) {
+    public void setDestructibleBrick(final boolean b) {
         this.destructibleBrick = b;
     }
 

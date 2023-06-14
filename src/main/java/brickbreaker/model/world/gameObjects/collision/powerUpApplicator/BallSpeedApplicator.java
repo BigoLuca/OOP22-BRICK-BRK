@@ -24,7 +24,7 @@ public final class BallSpeedApplicator implements PowerUpApplicator {
      */
     @Override
     public void applyPowerUp(final World world) {
-        Double acceleration = bonus ? DELTA : 1/DELTA;
+        Double acceleration = bonus ? DELTA : 1 / DELTA;
         world.getBalls().stream().forEach(b -> b.setSpeed(b.getSpeed().mul(acceleration)));
     }
 }

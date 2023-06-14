@@ -12,8 +12,15 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import java.util.Iterator;
-import com.google.gson.*;
 
 import brickbreaker.common.Difficulty;
 import brickbreaker.common.Error;
@@ -28,8 +35,8 @@ import javafx.scene.image.Image;
  */
 public class ResourceLoader {
 
-    public final Integer MAP_COLUMNS_FILE_FORMAT = 6;
-    public final Integer MAP_ROWS_FILE_FORMAT = 6;
+    public final Integer map_COLUMNS_FILE_FORMAT = 6;
+    public final Integer map_ROWS_FILE_FORMAT = 6;
 
     private final String NAME = "name";
     private final String SCORE = "score";
@@ -76,7 +83,7 @@ public class ResourceLoader {
             value.setImage(new Image(ClassLoader.getSystemResourceAsStream(value.getFilePath())));
         });
     }
-    
+
     /**
      * @return the list of name map files in the directory
      */
@@ -91,8 +98,8 @@ public class ResourceLoader {
             String landScape = e.get("landscape").getAsString();
             List<Integer> map = new ArrayList<>();
 
-            for (Integer i = 0; i < MAP_ROWS_FILE_FORMAT; i++) {
-                for (Integer j = 0; j < MAP_COLUMNS_FILE_FORMAT; j++) {
+            for (Integer i = 0; i < map_ROWS_FILE_FORMAT; i++) {
+                for (Integer j = 0; j < map_COLUMNS_FILE_FORMAT; j++) {
                     map.add(e.get("map").getAsJsonArray().get(i).getAsJsonArray().get(j).getAsInt());
                 }
             }
@@ -111,14 +118,14 @@ public class ResourceLoader {
      * @return the number of bricks for each line
      */
     public Integer getMapColumns() {
-        return this.MAP_COLUMNS_FILE_FORMAT;
+        return this.map_COLUMNS_FILE_FORMAT;
     }
 
     /**
      * @return the number of bricks for each column
      */
     public Integer getMapRows() {
-        return this.MAP_ROWS_FILE_FORMAT;
+        return this.map_ROWS_FILE_FORMAT;
     }
 
     /**
@@ -128,7 +135,7 @@ public class ResourceLoader {
      * @param err      the error to notify
      * @return the ranking of the game
      */
-    private JsonArray loadJson(final String filePath, Error err) {
+    private JsonArray loadJson(final String filePath, final Error err) {
         try {
             return JsonParser.parseReader(new FileReader(filePath)).getAsJsonArray();
         } catch (Exception e) {
@@ -155,7 +162,6 @@ public class ResourceLoader {
         }
     }
 
-
     /**
      * Method to get the index of the user in the ranking.
      * 
@@ -175,8 +181,7 @@ public class ResourceLoader {
 
     /**
      * Method to get from a file the map landscape.
-     * @param file
-     * @param level
+     * @param mapName
      * @return GameImages rappresenting the landscape of the map
      */
     public GameImages getMapLandscape(final String mapName) {

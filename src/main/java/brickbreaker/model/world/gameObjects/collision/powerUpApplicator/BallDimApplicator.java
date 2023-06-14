@@ -25,9 +25,9 @@ public class BallDimApplicator implements PowerUpApplicator {
      */
     @Override
     public void applyPowerUp(final World world) {
-        Double d = bonus ? DELTA : -DELTA;
+        Double d = bonus ? DELTA : - DELTA;
         world.getBalls().stream().forEach(b -> {
-            if (b.getRadius() > d && b.getRadius() < Ball.RADIUS*2) {
+            if (b.getRadius() > d && b.getRadius() < Ball.RADIUS * 2) {
                 b.setRadius(b.getRadius() + d);
             }
         });

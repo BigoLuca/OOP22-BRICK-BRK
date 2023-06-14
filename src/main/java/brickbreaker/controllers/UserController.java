@@ -16,7 +16,7 @@ public class UserController {
     /**
      * Empy UserController constructor.
      */
-    public UserController() {}
+    public UserController() { }
 
     /**
      * Methdo to get all the name of the user saved.

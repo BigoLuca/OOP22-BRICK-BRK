@@ -12,7 +12,7 @@ public enum Difficulty {
     /** Hard. */
     HARD(70, 30, 10),
     /** Random. */
-    RANDOM(0,0,0);
+    RANDOM(0, 0, 0);
 
     private final Integer brickP;
     private final Integer bP;
@@ -29,7 +29,7 @@ public enum Difficulty {
         this.bP = bonusPercentage;
         this.mlP = maxBrickLife;
     }
-    
+
     /**
      * This method returns the bonus percentage that every brick could have
      * in this difficulty category.

@@ -13,11 +13,15 @@ import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
  */
 public class Brick extends GameObjectImpl<RectBoundingBox> {
 
+    /** number of bricks coluns. */
     public static final Integer BRICKS_COL = ResourceLoader.getInstance().getMapColumns();
+    /** number of bricks rows. */
     public static final Integer BRICKS_ROW = ResourceLoader.getInstance().getMapRows();
 
+    /** Width of the brick. */
     public static final Double BRICK_WIDTH = WorldFactory.BOUNDARIES_SIZE/ BRICKS_COL;
-    public static final Double BRICK_HEIGHT = WorldFactory.BOUNDARIES_SIZE/ (BRICKS_ROW*2); // Times two since we use half of the height
+    /** Height of the brick. */
+    public static final Double BRICK_HEIGHT = WorldFactory.BOUNDARIES_SIZE/ (BRICKS_ROW * 2);
     private TypePower powerUp;
 
     /**

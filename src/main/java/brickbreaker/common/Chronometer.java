@@ -25,7 +25,10 @@ public class Chronometer extends Thread {
     public Integer getElapsedTime() {
         return this.time / 10;
     }
-    
+
+    /*
+     * Method to start the chronometer.
+     */
     public void startChrono() {
         if (!this.isAlive()) {
             this.start();
@@ -49,6 +52,9 @@ public class Chronometer extends Thread {
         this.exit = true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void run() {
         while (!exit) {

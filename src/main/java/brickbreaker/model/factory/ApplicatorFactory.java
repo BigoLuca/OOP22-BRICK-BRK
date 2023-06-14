@@ -11,15 +11,16 @@ public class ApplicatorFactory {
     /**
      * Applicator factory constructor.
      */
-    public ApplicatorFactory() {}
+    public ApplicatorFactory() { }
 
     /**
      * Method to apply powerUp that collides with bar. Create a specific class but return the interface.
+     * @param power
      * @param type
      * @return a PowerUpApplicator
      */
     public PowerUpApplicator createApplicator(final TypePower power, final boolean type) {
-        
+
         switch (power) {
             case FASTBALL:
             case SLOWBALL:

@@ -16,6 +16,9 @@ import brickbreaker.model.world.gameObjects.Brick;
 import brickbreaker.model.world.gameObjects.PowerUp;
 import brickbreaker.model.world.gameObjects.collision.WorldEvent;
 
+/**
+ * Collision test.
+ */
 public class CollisionTest {
 
     private Brick brick;
@@ -24,12 +27,11 @@ public class CollisionTest {
     private PowerUp powerUp;
     private WorldEvent event;
 
-    
     @BeforeEach
     void setUp() {
         brick = new Brick(new Vector2D(2, 2), 3);
         ball = new Ball(new Vector2D(0, 0), new Vector2D(1, 1));
-        bar = new Bar(new Vector2D(5,5), 3);
+        bar = new Bar(new Vector2D(5, 5), 3);
         powerUp = new PowerUp(new Vector2D(0, 0), TypePower.NULL);
         event = new WorldEvent();
     }
@@ -42,7 +44,7 @@ public class CollisionTest {
         assertTrue(brick.getBBox().isCollidingWith(ball.getBBox()));
         Double xSpeed = ball.getSpeed().getX();
         event.process(ball, brick);
-        assertEquals(-xSpeed, ball.getSpeed().getX());
+        assertEquals(- xSpeed, ball.getSpeed().getX());
         assertEquals(1, ball.getSpeed().getY());
 
     }
@@ -53,8 +55,8 @@ public class CollisionTest {
         assertTrue(bar.getBBox().isCollidingWith(ball.getBBox()));
         Double ySpeed = ball.getSpeed().getY();
         event.process(ball, bar);
-        assertEquals(-ySpeed, ball.getSpeed().getY());
-        ball.setPosition(new Vector2D(WorldFactory.BOUNDARIES_SIZE- 100, WorldFactory.BOUNDARIES_SIZE- 100));
+        assertEquals(- ySpeed, ball.getSpeed().getY());
+        ball.setPosition(new Vector2D(WorldFactory.BOUNDARIES_SIZE - 100, WorldFactory.BOUNDARIES_SIZE - 100));
         assertFalse(bar.getBBox().isCollidingWith(ball.getBBox()));
     }
 

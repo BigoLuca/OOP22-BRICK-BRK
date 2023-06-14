@@ -8,6 +8,7 @@ import brickbreaker.model.world.gameObjects.Bar;
 public class BarInput implements InputComponent {
 
     private final Double move = 150.0;
+    private final Integer scale = 5000;
 
     /**
      * {@inheritDoc}
@@ -15,7 +16,7 @@ public class BarInput implements InputComponent {
     @Override
     public void update(final Bar bar, final Double rb, final InputController c, final Double elapsed) {
 
-        Long value = Math.round(move * (elapsed / 5000.0));
+        Long value = Math.round(move * (elapsed / scale));
 
         if (c.isMoveLeft()) {
             if (bar.getBBox().getULCorner().getX() >= value) {

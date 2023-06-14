@@ -113,7 +113,7 @@ public class Controller extends AbstractController {
             this.stop();
             if (this.mode.equals(Mode.ENDLESS)) {
                 this.getRankController().addRank(
-                    mode, this.model.getId(), user.getName(), this.getScore());
+                    mode, this.getLevelController().getSettedDifficulty().ordinal(), user.getName(), this.getScore());
             }
         } else if (this.getModel().getState().equals(State.WIN)) {
             if (this.mode.equals(Mode.ENDLESS)) {
@@ -132,6 +132,10 @@ public class Controller extends AbstractController {
         }
     }
 
+    /**
+     * Method to get the score related to the time.
+     * @return integer
+     */
     public Integer getScore() {
         return Math.max(0, this.model.getWorld().getScore() - DEC_SCORE_TIMER * this.chrono.getElapsedTime());
     }

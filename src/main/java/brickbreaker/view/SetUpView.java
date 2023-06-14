@@ -2,7 +2,10 @@ package brickbreaker.view;
 
 import java.util.List;
 
+import brickbreaker.ResourceLoader;
 import brickbreaker.model.user.User;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -40,6 +43,9 @@ public class SetUpView extends ViewImpl {
     @FXML
     private Button btnAdd;
 
+    @FXML
+    private Button btnRemove;
+
     private List<String> users;
 
     /**
@@ -54,6 +60,17 @@ public class SetUpView extends ViewImpl {
         cbUsersList.getItems().addAll(this.users);
         cbUsersList.setPromptText("Type your nick");
         cbUsersList.setEditable(true);
+
+        cbUsersList.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                btnRemove.setVisible(true);
+            }
+            
+        });
+
+        this.btnRemove.setVisible(false);
     }
 
     /**
@@ -62,7 +79,6 @@ public class SetUpView extends ViewImpl {
     @FXML
     public void switchToHome() {
         String nick = cbUsersList.getEditor().getText();
-        this.getController().setUser(nick);
 
         if (nick.isEmpty()) {
             Dialog<String> d = new Dialog<>();
@@ -76,7 +92,24 @@ public class SetUpView extends ViewImpl {
                 this.getController().getUserController().addUser(u);
                 this.getController().setUser(nick);
             }
+
+            this.getController().setUser(nick);
             ViewSwitcher.getInstance().switchView(getStage(), ViewType.HOME);
         }
+    }
+
+    public void deleteSelectedUser() {
+
+        Dialog<String> d = new Dialog<>();
+
+        ResourceLoader.getInstance().removeUser(cbUsersList.getEditor().getText());
+
+        d.setTitle("Success");
+        d.setContentText("Player deleted.");
+        d.getDialogPane().getButtonTypes().add(new ButtonType("OK", ButtonData.OK_DONE));
+        d.showAndWait();
+
+        cbUsersList.getItems().remove(cbUsersList.getEditor().getText());
+        cbUsersList.getEditor().clear();
     }
 }

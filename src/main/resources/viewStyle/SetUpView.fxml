@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="root" minHeight="400.0" minWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/15" xmlns:fx="http://javafx.com/fxml/1" fx:controller="brickbreaker.view.SetUpView">
+<AnchorPane fx:id="root" minHeight="400.0" minWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="brickbreaker.view.SetUpView">
    <children>
       <VBox fx:id="vBoxMainContainer" alignment="CENTER" layoutX="33.0" layoutY="18.0" prefHeight="264.0" prefWidth="519.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -35,6 +35,7 @@
                </padding>
             </HBox>
             <Button fx:id="btnAdd" mnemonicParsing="false" onMouseClicked="#switchToHome" text="SELECT" />
+            <Button fx:id="btnRemove" mnemonicParsing="false" text="DELETE" onMouseClicked="#deleteSelectedUser"/>
          </children>
       </VBox>
    </children>

@@ -10,24 +10,26 @@ import javafx.stage.Stage;
 /**
  * Main project class.
  */
-public class App extends Application{
+public class App extends Application {
 
     /**
      * Entry point.
-     * @param args command line args
+     * @param primaryStage
      */
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(final Stage primaryStage) throws Exception {
         try {
             ResourceLoader.getInstance().start();
         } catch (Exception e) {
             System.out.println("Error while loading resources");
         }
-        
+
         Screen screen = Screen.getPrimary();
         Rectangle2D bounds = screen.getVisualBounds();
-        double centerX = bounds.getMaxX() / 3.5;
-        double centerY = bounds.getMinY() + 20;
+        Double d = 3.5;
+        Integer b = 20;
+        double centerX = bounds.getMaxX() / d;
+        double centerY = bounds.getMinY() + b;
 
         primaryStage.setResizable(true);
         primaryStage.setX(centerX);

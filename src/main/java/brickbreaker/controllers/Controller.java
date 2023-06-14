@@ -132,6 +132,10 @@ public class Controller extends AbstractController {
         }
     }
 
+    /**
+     * Method to get the score related to the time.
+     * @return integer
+     */
     public Integer getScore() {
         return Math.max(0, this.model.getWorld().getScore() - DEC_SCORE_TIMER * this.chrono.getElapsedTime());
     }

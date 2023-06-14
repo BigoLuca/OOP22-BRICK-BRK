@@ -40,7 +40,7 @@ public enum GameImages {
     /** Nickname label. */
     NICKNAME_LABEL("nickname.png"),
 
-    /** Type your name label */
+    /** Type your name label. */
     TYPE_YOUR_NAME_LABEL("typeYourName.png"),
 
     /** Pick a level. */
@@ -82,7 +82,7 @@ public enum GameImages {
     /** Left arrow. */
     LEFT_ARROW("leftArrow.png"),
 
-    /** Back arrow */
+    /** Back arrow. */
     BACK_ARROW("backArrow.png"),
 
     /** Player lost label. */
@@ -128,6 +128,7 @@ public enum GameImages {
 
     /**
      * Method to get the absolute path.
+     * @return path
      */
     public String getFilePath() {
         return RES_PATH + this.fileName;

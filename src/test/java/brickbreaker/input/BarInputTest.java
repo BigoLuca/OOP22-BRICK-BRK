@@ -10,10 +10,14 @@ import brickbreaker.controllers.InputController;
 import brickbreaker.model.factory.WorldFactory;
 import brickbreaker.model.world.World;
 
+/**
+ * Bar input test for the {@link BarInput} class.
+ */
 public class BarInputTest {
     
     private World world;
     private InputController controller;
+    private final Double ELAPSED = 200.0;
 
     @BeforeEach
     void setUp() {
@@ -25,7 +29,7 @@ public class BarInputTest {
     void testMove() {
         Vector2D pos = world.getBar().getPosition();
         controller.notifyMoveLeft();
-        world.getBar().updateInput(200.0, controller, world.getMainBBox().getBRCorner().getX());
+        world.getBar().updateInput(ELAPSED, controller, world.getMainBBox().getBRCorner().getX());
         assertFalse(pos.getX() == world.getBar().getPosition().getX());
         assertFalse(pos.getY() == world.getBar().getPosition().getY());
     }

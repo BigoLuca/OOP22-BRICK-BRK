@@ -27,26 +27,36 @@ public abstract class AbstractController {
     /**
      * @return a UserController
      */
-    public UserController getUserController() { return this.userController; }
+    public UserController getUserController() {
+        return this.userController; 
+    }
 
     /**
      * @return an InputController
      */
-    public InputController getInputController() { return this.inputController; }
+    public InputController getInputController() {
+        return this.inputController;
+    }
 
     /**
      * @return an ErrorListener
      */
-    public ErrorListener getErrorListener() { return this.errListener; }
+    public ErrorListener getErrorListener() {
+        return this.errListener;
+    }
 
     /**
      * @return a LevelController
      */
-    public LevelController getLevelController() { return this.levelController; }
+    public LevelController getLevelController() {
+        return this.levelController;
+    }
 
     /**
      * @return a RankController
      */
-    public RankController getRankController() { return this.rankController; }
+    public RankController getRankController() {
+        return this.rankController;
+    }
 
 }

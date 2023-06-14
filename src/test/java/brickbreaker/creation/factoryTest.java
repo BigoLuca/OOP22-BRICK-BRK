@@ -18,6 +18,9 @@ import brickbreaker.model.world.gameObjects.Ball;
 import brickbreaker.model.world.gameObjects.Bar;
 import brickbreaker.model.world.gameObjects.Brick;
 
+/**
+ * Factory test for the {@link WorldFactory} class.
+ */
 public class factoryTest {
     
     private GameFactory g;

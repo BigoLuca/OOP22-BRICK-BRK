@@ -44,7 +44,7 @@ public class LevelController {
      * @return the level generated
      */
     protected Level getLevel() {
-        if(this.level.isPresent() && level.get() < this.mapList.size()){
+        if (this.level.isPresent() && level.get() < this.mapList.size()) {
             return new Level(level.get(), WorldFactory.getInstance().getWorld(this.level.get()));
         }
         return new Level(0, WorldFactory.getInstance().getRandomWorld(this.getDifficulty()));
@@ -94,12 +94,12 @@ public class LevelController {
         Optional<MapInfo> m = this.mapList.stream().filter(map -> map.getName().equals(name)).findFirst();
         return m.get().getIndex();
     }
-    
+
     /**
      * Method to get the map list lenght.
      * @return the map list lenght
      */
-    public Integer getListMapLenght(){
+    public Integer getListMapLenght() {
         return this.mapList.size();
     }
 

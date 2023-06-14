@@ -15,7 +15,7 @@ public class ErrorListener {
     /**
      * Error listener constructor.
      */
-    public ErrorListener(){
+    public ErrorListener() {
         error = new ArrayList<Error>();
     }
 
@@ -23,21 +23,21 @@ public class ErrorListener {
      * Method add the error to the list of detected errors.
      * @param maploaderError
      */
-    public static void notifyError(Error maploaderError){
+    public static void notifyError(Error maploaderError) {
         error.add(maploaderError);
     }
 
     /**
      * @return if there was an error
      */
-    public boolean getErrorPresent(){
+    public boolean getErrorPresent() {
         return error.size() > 0;
     }
 
     /**
      * @return the list of detected errors
      */
-    public List<Error> getErrorList(){
+    public List<Error> getErrorList() {
         return ErrorListener.error;
     }
 

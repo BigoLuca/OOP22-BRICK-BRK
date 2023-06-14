@@ -10,10 +10,13 @@ import brickbreaker.common.Vector2D;
 import brickbreaker.model.Level;
 import brickbreaker.model.factory.WorldFactory;
 
+/**
+ * State test for the {@link Level} change state.
+ */
 public class StateTest {
 
-    Level level;
-    
+    private Level level;
+
     @BeforeEach
     void setUp() {
         level = new Level(1, WorldFactory.getInstance().getWorld(1));
@@ -42,7 +45,8 @@ public class StateTest {
         assertEquals(1, level.getWorld().getBar().getLife());
         level.getWorld().getBar().incLife();
         assertEquals(2, level.getWorld().getBar().getLife());
-        level.getWorld().getBalls().get(0).setPosition(new Vector2D(WorldFactory.BOUNDARIES_SIZE / 2, WorldFactory.BOUNDARIES_SIZE - 1));
+        level.getWorld().getBalls().get(0).setPosition(
+            new Vector2D(WorldFactory.BOUNDARIES_SIZE / 2, WorldFactory.BOUNDARIES_SIZE - 1));
         level.getWorld().checkCollision();
         assertEquals(0, level.getWorld().getBalls().size());
         assertEquals(State.WAIT, level.getState());

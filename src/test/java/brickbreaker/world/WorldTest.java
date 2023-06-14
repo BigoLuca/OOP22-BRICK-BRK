@@ -13,6 +13,9 @@ import brickbreaker.model.world.World;
 import brickbreaker.model.world.gameObjects.Ball;
 import brickbreaker.model.world.gameObjects.PowerUp;
 
+/**
+ * World test.
+ */
 public class WorldTest {
     
     private World world;

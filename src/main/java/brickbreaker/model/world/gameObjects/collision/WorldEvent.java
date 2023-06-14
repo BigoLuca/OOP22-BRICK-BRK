@@ -39,9 +39,14 @@ public class WorldEvent {
         }
     }
 
+    /**
+     * Process the ball collision with the bar.
+     * @param ball
+     * @param bar
+     */
     public void process(final Ball ball, final Bar bar) {
         Vector2D oldPos = ball.getPosition();
-        ball.setPosition(new Vector2D(oldPos.getX(), oldPos.getY() - bar.getHeight() / 2 ));
+        ball.setPosition(new Vector2D(oldPos.getX(), oldPos.getY() - bar.getHeight() / 2));
         ball.flipVelOnY();
         Double distX = ball.getPosition().orizDist(bar.getPosition()) / (bar.getWidth() / 2);
         Vector2D oldSpeed = ball.getSpeed();
@@ -56,7 +61,7 @@ public class WorldEvent {
      * Process the ball collision with and object [brick, bar].
      * Flip the speed of the ball.
      * @param ball
-     * @param obj
+     * @param brick
      */
     public void process(final Ball ball, final Brick brick) {
         Double distY = ball.getPosition().vertDist(brick.getPosition());

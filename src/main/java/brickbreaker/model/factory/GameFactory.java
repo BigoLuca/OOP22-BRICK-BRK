@@ -16,6 +16,7 @@ import brickbreaker.model.world.gameObjects.Brick;
  */
 public class GameFactory {
 
+    /** Life bar start. */
     public static final Integer LIFE_BAR = 1;
     private static GameFactory instance;
 
@@ -52,21 +53,31 @@ public class GameFactory {
             for (int x = 0; x < col; x++) {
                 life = list.get(x + y * col);
                 if (life > 0) {
-                    result.add(new Brick(new Vector2D(x*Brick.BRICK_WIDTH + (Brick.BRICK_WIDTH / 2), y*Brick.BRICK_HEIGHT + (Brick.BRICK_HEIGHT / 2)), life));
+                    result.add(new Brick(
+                        new Vector2D(x * Brick.BRICK_WIDTH + (Brick.BRICK_WIDTH / 2), y * Brick.BRICK_HEIGHT + (Brick.BRICK_HEIGHT / 2)),
+                        life));
                 }
             }
         }
         return result;
     }
 
+    /**
+     * @param d
+     * @param col
+     * @param row
+     * @return a list of brick objects
+     */
 	public List<Brick> createRandomBricks(final Difficulty d, final Integer cols, final Integer rows) {
 		Random r = new Random();
 		List<Brick> bricks = new LinkedList<>();
 
         for (int i = 0; i < cols ; i++) {
-            for (int j = 0 ; j < rows ; j++){
+            for (int j = 0 ; j < rows ; j++) {
                 if (r.nextInt(100) < d.getBrickPercentage()) {
-                    bricks.add(new Brick(new Vector2D(i  * Brick.BRICK_WIDTH + Brick.BRICK_WIDTH / 2, j * Brick.BRICK_HEIGHT + Brick.BRICK_HEIGHT / 2), r.nextInt(d.getMaxBrickLife() + 1)));
+                    bricks.add(new Brick(
+                        new Vector2D(i * Brick.BRICK_WIDTH + Brick.BRICK_WIDTH / 2, j * Brick.BRICK_HEIGHT + Brick.BRICK_HEIGHT / 2),
+                        r.nextInt(d.getMaxBrickLife() + 1)));
                 }
             }
         }

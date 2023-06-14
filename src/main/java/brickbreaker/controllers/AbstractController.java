@@ -1,11 +1,13 @@
 package brickbreaker.controllers;
 
 import brickbreaker.controllers.listener.ErrorListener;
+import javafx.animation.Animation;
+import javafx.animation.AnimationTimer;
 
 /**
  * The abstract controller to relater with the other controllers.
  */
-public abstract class AbstractController {
+public abstract class AbstractController extends AnimationTimer {
 
     private UserController userController;
     private ErrorListener errListener;

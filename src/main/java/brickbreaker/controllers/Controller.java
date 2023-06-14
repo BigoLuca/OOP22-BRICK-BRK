@@ -16,7 +16,6 @@ public class Controller extends AbstractController {
     private final Double ELAPSED = 200.0;
     private final Integer DEC_SCORE_TIMER = 2;
 
-    private final GameController gameController;
     private GameView gameView;
     private Level model;
     private Mode mode;
@@ -31,10 +30,86 @@ public class Controller extends AbstractController {
     public Controller() {
         super();
         this.chrono = new Chronometer();
-        this.gameController = new GameController(this);
         this.model = null;
         this.user = null;
         this.oldScore = 0;
+    }
+
+
+    /**
+     * This method check the state after the update.
+     */
+    private void checkState() {
+        State s = this.getModel().getState();
+        if (s.equals(State.WAIT)) {
+            this.pauseLoop();
+            this.render();
+        } else if (this.getModel().getState().equals(State.LOST)) {
+            this.stopLoop();
+            if (this.mode.equals(Mode.ENDLESS)) {
+                this.getRankController().addRank(
+                    mode, this.getLevelController().getSettedDifficulty().ordinal(), user.getName(), this.getScore());
+            }
+        } else if (this.getModel().getState().equals(State.WIN)) {
+            if (this.mode.equals(Mode.ENDLESS)) {
+                this.pauseLoop();
+                Integer barLife = this.model.getWorld().getBar().getLife();
+                this.oldScore += this.model.getWorld().getScore();
+                this.model = this.getLevelController().getLevel();
+                this.model.getWorld().addToScore(oldScore);
+                this.model.getWorld().getBar().setLife(barLife);
+                this.render();
+            } else if (this.mode.equals(Mode.LEVELS)) {
+                this.getRankController().addRank(
+                    mode, this.model.getId(), user.getName(), this.getScore());
+                this.stopLoop();
+            }
+        }
+    }
+
+    /**
+     * Method to start or resume the game.
+     */
+    private void playLoop() {
+        this.model.setState(State.PLAYING);
+        chrono.startChrono();
+        this.start();
+    }
+
+    /**
+     * Method to pause the game.
+     */
+    private void pauseLoop() {
+        this.model.setState(State.WAIT);
+        chrono.pauseChrono();
+        this.stop();
+    }
+
+    /**
+     * Method to stop the game.
+     */
+    private void stopLoop() {
+        chrono.stopChrono();
+        this.chrono = new Chronometer();
+        this.stop();
+        this.gameView.isOver();
+    }
+
+    /**
+     * This method processes all the commands triggered by the user.
+     */
+    protected void processCommands() {
+        World w = this.model.getWorld();
+        w.getBar().updateInput(ELAPSED, this.getInputController(), w.getMainBBox().getBRCorner().getX());
+    }
+
+    /**
+     * This method updates the current Game.
+     */
+    protected void updateGame() {
+        this.model.updateGame(ELAPSED.intValue());
+        this.model.getWorld().checkCollision();
+        this.checkState();
     }
 
     /**
@@ -84,54 +159,6 @@ public class Controller extends AbstractController {
         return this.model;
     }
 
-     /**
-     * This method processes all the commands triggered by the user.
-     */
-    protected void processCommands() {
-        World w = this.model.getWorld();
-        w.getBar().updateInput(ELAPSED, this.getInputController(), w.getMainBBox().getBRCorner().getX());
-    }
-
-    /**
-     * This method updates the current Game.
-     */
-    protected void updateGame() {
-        this.model.updateGame(ELAPSED.intValue());
-        this.model.getWorld().checkCollision();
-        this.checkState();
-    }
-
-    /**
-     * This method check the state after the update.
-     */
-    private void checkState() {
-        State s = this.getModel().getState();
-        if (s.equals(State.WAIT)) {
-            this.pause();
-            this.render();
-        } else if (this.getModel().getState().equals(State.LOST)) {
-            this.stop();
-            if (this.mode.equals(Mode.ENDLESS)) {
-                this.getRankController().addRank(
-                    mode, this.getLevelController().getSettedDifficulty().ordinal(), user.getName(), this.getScore());
-            }
-        } else if (this.getModel().getState().equals(State.WIN)) {
-            if (this.mode.equals(Mode.ENDLESS)) {
-                this.pause();
-                Integer barLife = this.model.getWorld().getBar().getLife();
-                this.oldScore += this.model.getWorld().getScore();
-                this.model = this.getLevelController().getLevel();
-                this.model.getWorld().addToScore(oldScore);
-                this.model.getWorld().getBar().setLife(barLife);
-                this.render();
-            } else if (this.mode.equals(Mode.LEVELS)) {
-                this.getRankController().addRank(
-                    mode, this.model.getId(), user.getName(), this.getScore());
-                this.stop();
-            }
-        }
-    }
-
     /**
      * Method to get the score related to the time.
      * @return integer
@@ -141,42 +168,14 @@ public class Controller extends AbstractController {
     }
 
     /**
-     * Method to start or resume the game.
-     */
-    private void play() {
-        this.model.setState(State.PLAYING);
-        chrono.startChrono();
-        gameController.startGame();
-    }
-
-    /**
-     * Method to pause the game.
-     */
-    private void pause() {
-        this.model.setState(State.WAIT);
-        chrono.pauseChrono();
-        gameController.pauseGame();
-    }
-
-    /**
      * Method to start and pause the game.
      */
     public void toggle() {
         if (this.getModel().getState().equals(State.PLAYING)) {
-            this.pause();
+            this.pauseLoop();
         } else {
-            this.play();
+            this.playLoop();
         }
-    }
-
-    /**
-     * Method to stop the game.
-     */
-    public void stop() {
-        chrono.stopChrono();
-        this.chrono = new Chronometer();
-        this.gameController.stopGame();
-        this.gameView.isOver();
     }
 
     /**
@@ -184,5 +183,12 @@ public class Controller extends AbstractController {
      */
     public void render() {
         gameView.render(this.getScore().toString());
+    }
+
+    @Override
+    public void handle(final long now){
+        this.processCommands();
+        this.updateGame();
+        this.render();
     }
 }

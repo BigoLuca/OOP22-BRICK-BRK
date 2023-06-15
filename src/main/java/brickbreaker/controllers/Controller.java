@@ -54,7 +54,7 @@ public class Controller extends AbstractController {
             if (this.mode.equals(Mode.ENDLESS)) {
                 this.pauseLoop();
                 Integer barLife = this.model.getWorld().getBar().getLife();
-                this.oldScore += this.model.getWorld().getScore();
+                this.oldScore = this.model.getWorld().getScore();
                 this.model = this.getLevelController().getLevel();
                 this.model.getWorld().addToScore(oldScore);
                 this.model.getWorld().getBar().setLife(barLife);

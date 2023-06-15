@@ -25,9 +25,9 @@ import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
 public class WorldFactory {
 
     /** X start speed ball. */
-    public static final Double X_SPEED = 0.1;
+    public static final Double X_SPEED = 0.0;
     /** Y start speed ball. */
-    public static final Double Y_SPEED = -15.0;
+    public static final Double Y_SPEED = -20.0;
 
     public static final Double BOUNDARIES_SIZE = 600.0;
 

@@ -18,6 +18,9 @@ public class Bar extends GameObjectImpl<RectBoundingBox> {
     public static final Double BAR_WIDTH = WorldFactory.BOUNDARIES_SIZE / 3;
     /** Height of the bar. */
     public static final Double BAR_HEIGHT = WorldFactory.BOUNDARIES_SIZE / 25;
+    /** Speed of the bar. */
+    private static final Double BAR_SPEED = 2.0;
+    /** Input component of the bar. */
     private InputComponent input;
 
     /**
@@ -57,7 +60,7 @@ public class Bar extends GameObjectImpl<RectBoundingBox> {
      * @param m the movement to set
      */
     public void move(final Long m) {
-        this.setPosition(new Vector2D(this.getPosition().getX() + m, this.getPosition().getY()));
+        this.setPosition(new Vector2D(this.getPosition().getX() + m * BAR_SPEED, this.getPosition().getY()));
     }
 
     /**

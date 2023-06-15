@@ -28,8 +28,10 @@ public class WorldFactory {
     public static final Double X_SPEED = 0.0;
     /** Y start speed ball. */
     public static final Double Y_SPEED = -20.0;
-
+    /** Size of the world. */
     public static final Double BOUNDARIES_SIZE = 600.0;
+    /** Offset of the bar. */
+    public static final Integer BAR_OFFSET = 20;
 
     private static WorldFactory instance;
 
@@ -47,14 +49,17 @@ public class WorldFactory {
     /**
      * This method gets a new game world without any brick.
      * The resulting world will only have a Bar object and a Ball object.
+     * 
      * @return a new empty World object.
      */
     private World getEmptyWorld() {
         Bar newBar = GameFactory.getInstance()
-            .createBar(new Vector2D(BOUNDARIES_SIZE / 2, BOUNDARIES_SIZE - 20));
+                .createBar(new Vector2D(BOUNDARIES_SIZE / 2, BOUNDARIES_SIZE - BAR_OFFSET));
         Ball newBall = GameFactory.getInstance()
-            .createBall(new Vector2D(BOUNDARIES_SIZE / 2, BOUNDARIES_SIZE - newBar.getHeight() - Ball.RADIUS), new Vector2D(X_SPEED, Y_SPEED));
-        RectBoundingBox boundary = new RectBoundingBox(new Vector2D(BOUNDARIES_SIZE / 2, BOUNDARIES_SIZE / 2), BOUNDARIES_SIZE, BOUNDARIES_SIZE);
+                .createBall(new Vector2D(BOUNDARIES_SIZE / 2, BOUNDARIES_SIZE - newBar.getHeight() - Ball.RADIUS),
+                        new Vector2D(X_SPEED, Y_SPEED));
+        RectBoundingBox boundary = new RectBoundingBox(new Vector2D(BOUNDARIES_SIZE / 2, BOUNDARIES_SIZE / 2),
+                BOUNDARIES_SIZE, BOUNDARIES_SIZE);
         World w = new WorldImpl(boundary);
 
         w.setBar(newBar);
@@ -63,9 +68,12 @@ public class WorldFactory {
     }
 
     /**
-     * This method gets a new game world where the bricks are created randomically, on the basis of the difficulty.
-     * Every brick created has random position (only legal positions, that do not 
-     * overcome the world boundaries) and a random lifes quantity (a value between 1 or 9).
+     * This method gets a new game world where the bricks are created randomically,
+     * on the basis of the difficulty.
+     * Every brick created has random position (only legal positions, that do not
+     * overcome the world boundaries) and a random lifes quantity (a value between 1
+     * or 9).
+     * 
      * @param d the difficulty that describe how the game world will be.
      * @return a new World object.
      */
@@ -78,18 +86,21 @@ public class WorldFactory {
 
     /**
      * This method gets a new game World object loading it from the maps database.
-     * The loaded map is used to create all the bricks on the basis of the map difficulty.
-     * @param index an Integer value which will function as an index to get the map from database.
+     * The loaded map is used to create all the bricks on the basis of the map
+     * difficulty.
+     * 
+     * @param index an Integer value which will function as an index to get the map
+     *              from database.
      * @return a new World object.
      */
     public World getWorld(final Integer index) {
         World w = this.getEmptyWorld();
         MapInfo i = ResourceLoader.getInstance()
-            .getMapsInfo().stream().filter(item -> item.getIndex() == index).findFirst().get();
+                .getMapsInfo().stream().filter(item -> item.getIndex() == index).findFirst().get();
         w.addBricks(GameFactory.getInstance()
-            .createBricks(i.getBricksData(), 
-                            ResourceLoader.getInstance().map_COLUMNS_FILE_FORMAT,
-                            ResourceLoader.getInstance().map_ROWS_FILE_FORMAT));
+                .createBricks(i.getBricksData(),
+                        ResourceLoader.MAP_COLUMNS_FILE_FORMAT,
+                        ResourceLoader.MAP_ROWS_FILE_FORMAT));
         randomPowerUpAssignment(i.getDifficulty(), w.getBricks());
         return w;
     }
@@ -97,21 +108,21 @@ public class WorldFactory {
     /**
      * This method assign random power ups (bonuses or maluses) to a list of brick
      * on the basis of the Difficulty value passed as parameter.
+     * 
      * @param d a Difficulty value which describes the power ups quantity
      *          and how many has to be bonuses or not.
-     * @param b a List<Brick> object which contains the bricks where the power ups has to
+     * @param b a List<Brick> object which contains the bricks where the power ups
+     *          has to
      *          be stored.
      */
     private void randomPowerUpAssignment(final Difficulty d, final List<Brick> b) {
         Random r = new Random();
-
         Integer numPowerUp = b.size() - (b.size() / 4);
         List<TypePower> p = this.getWorldPowerUp(numPowerUp, d.getBonusPercentage());
-        
         List<Integer> val = IntStream.range(0, b.size())
-        .boxed()
-        .collect(Collectors.toList());
-        
+                .boxed()
+                .collect(Collectors.toList());
+
         for (TypePower i : p) {
             b.get(val.remove(r.nextInt(val.size()))).setPowerUp(i);
         }
@@ -120,14 +131,15 @@ public class WorldFactory {
     /**
      * This method returns a list of TypePower which are the power up types that are
      * present in the current World.
+     * 
      * @param pQuantity is the power up quantity value.
-     * @param bonus is true if the powerup to fill 
+     * @param bonus     is true if the powerup to fill
      * @return a list of Typepower
      */
     private List<TypePower> getWorldPowerUp(final Integer pQuantity, final Integer bonus) {
         Random r = new Random();
         List<TypePower> ret = new ArrayList<>();
-        
+
         Integer positive = pQuantity * bonus / 100;
         List<TypePower> p = TypePower.getElement(TypePowerUp.POSITIVE);
         for (int i = 0; i < positive; i++) {

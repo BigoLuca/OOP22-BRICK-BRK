@@ -7,12 +7,13 @@ import brickbreaker.model.world.World;
  * Implements the {@link PowerUpApplicator} interface.
  */
 public class ScoreApplicator implements PowerUpApplicator {
-    
+
     private Integer delta;
 
     /**
      * Score applicator constructor.
-     * @param bonusToSet if increase or decrease the score
+     * 
+     * @param val the value to add or subtract to the score
      */
     public ScoreApplicator(final Integer val) {
         this.delta = val;

@@ -10,22 +10,36 @@ public class GameRank implements Rank {
 
     private Map<String, Integer> r;
 
-    public GameRank(Map<String, Integer> r) {
+    /**
+     * GameRank constructor.
+     * 
+     * @param r the rank
+     */
+    public GameRank(final Map<String, Integer> r) {
         this.r = r;
     }
-    
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Map<String, Integer> getRank() {
         return this.r;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setRank(Map<String, Integer> r) {
+    public void setRank(final Map<String, Integer> r) {
         this.r = r;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean addUser(String user, Integer score) {
+    public boolean addUser(final String user, final Integer score) {
         boolean result = false;
 
         if (this.r.containsKey(user) && this.r.get(user) < score) {

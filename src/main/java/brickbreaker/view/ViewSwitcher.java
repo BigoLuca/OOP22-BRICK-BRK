@@ -14,7 +14,7 @@ import javafx.stage.Stage;
  * This class is used to switch between views.
  */
 public final class ViewSwitcher {
-    
+
     private static ViewSwitcher instance;
     private View currentView;
     private Controller mainController = new Controller();
@@ -23,8 +23,7 @@ public final class ViewSwitcher {
      * This method is used to get the current instance of the ViewSwitcher.
      * It use the singleton pattern.
      * 
-     * @param stage    the stage to set the new scene
-     * @param viewType the type of the view to switch to
+     * @return the current instance of the ViewSwitcher
      */
     public static ViewSwitcher getInstance() {
         if (instance == null) {
@@ -74,8 +73,8 @@ public final class ViewSwitcher {
     /**
      * This method is used to switch between views.
      * 
-     * @param stage    the stage to set the new scene
-     * @param viewType the type of the view to switch to
+     * @param stage the stage to set the new scene
+     * @param type  the type of the view to switch to
      */
     public void switchView(final Stage stage, final ViewType type) {
         currentView = this.loadStyle(stage, type);

@@ -12,6 +12,9 @@ import javafx.stage.Stage;
  */
 public class App extends Application {
 
+    private static final Double POSITION_X = 3.5;
+    private static final Integer POSITION_Y = 20;
+
     /**
      * Entry point.
      * @param primaryStage
@@ -26,10 +29,8 @@ public class App extends Application {
 
         Screen screen = Screen.getPrimary();
         Rectangle2D bounds = screen.getVisualBounds();
-        Double d = 3.5;
-        Integer b = 20;
-        double centerX = bounds.getMaxX() / d;
-        double centerY = bounds.getMinY() + b;
+        double centerX = bounds.getMaxX() / POSITION_X;
+        double centerY = bounds.getMinY() + POSITION_Y;
 
         primaryStage.setResizable(true);
         primaryStage.setX(centerX);

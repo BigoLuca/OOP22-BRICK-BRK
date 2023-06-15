@@ -8,11 +8,18 @@ import brickbreaker.model.world.World;
  */
 public class LifeIncApplicator implements PowerUpApplicator {
 
-    public LifeIncApplicator() {}
+    /**
+     * Life increese constructor.
+     */
+    public LifeIncApplicator() {
+    }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void applyPowerUp(World world) {
+    public void applyPowerUp(final World world) {
         world.getBar().incLife();
     }
-    
+
 }

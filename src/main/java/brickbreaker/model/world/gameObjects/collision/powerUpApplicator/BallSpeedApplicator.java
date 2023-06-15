@@ -8,11 +8,12 @@ import brickbreaker.model.world.World;
  */
 public final class BallSpeedApplicator implements PowerUpApplicator {
 
-    private final Double DELTA = 1.5;
+    private static final Double DELTA = 1.5;
     private boolean bonus;
 
     /**
      * Ball Speed constructor.
+     * 
      * @param bonusToSet if increase or decrease the Ball speed
      */
     public BallSpeedApplicator(final boolean bonusToSet) {

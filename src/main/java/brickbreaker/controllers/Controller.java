@@ -13,8 +13,8 @@ import brickbreaker.view.GameView;
  */
 public class Controller extends AbstractController {
 
-    private final Double ELAPSED = 200.0;
-    private final Integer DEC_SCORE_TIMER = 2;
+    private static final Double ELAPSED = 200.0;
+    private static final Integer DEC_SCORE_TIMER = 2;
 
     private GameView gameView;
     private Level model;
@@ -35,7 +35,6 @@ public class Controller extends AbstractController {
         this.oldScore = 0;
     }
 
-
     /**
      * This method check the state after the update.
      */
@@ -48,7 +47,8 @@ public class Controller extends AbstractController {
             this.stopLoop();
             if (this.mode.equals(Mode.ENDLESS)) {
                 this.getRankController().addRank(
-                    mode, this.getLevelController().getSettedDifficulty().ordinal(), user.getName(), this.getScore());
+                        mode, this.getLevelController().getSettedDifficulty().ordinal(), user.getName(),
+                        this.getScore());
             }
         } else if (this.getModel().getState().equals(State.WIN)) {
             if (this.mode.equals(Mode.ENDLESS)) {
@@ -61,7 +61,7 @@ public class Controller extends AbstractController {
                 this.render();
             } else if (this.mode.equals(Mode.LEVELS)) {
                 this.getRankController().addRank(
-                    mode, this.model.getId(), user.getName(), this.getScore());
+                        mode, this.model.getId(), user.getName(), this.getScore());
                 this.stopLoop();
             }
         }
@@ -114,6 +114,7 @@ public class Controller extends AbstractController {
 
     /**
      * Method to set the mode after the user input.
+     * 
      * @param mode
      */
     public void setMode(final Mode mode) {
@@ -122,6 +123,7 @@ public class Controller extends AbstractController {
 
     /**
      * This method gets the current game mode.
+     * 
      * @return a Mode enum value which represent the mode.
      */
     public Mode getMode() {
@@ -130,6 +132,7 @@ public class Controller extends AbstractController {
 
     /**
      * Method to set the user.
+     * 
      * @param username
      */
     public void setUser(final String username) {
@@ -138,6 +141,7 @@ public class Controller extends AbstractController {
 
     /**
      * Method to set the GameView.
+     * 
      * @param gameView
      */
     public void setGameView(final GameView gameView) {
@@ -153,6 +157,7 @@ public class Controller extends AbstractController {
 
     /**
      * Methdo to get the model.
+     * 
      * @return an instance of the model.
      */
     public Level getModel() {
@@ -161,6 +166,7 @@ public class Controller extends AbstractController {
 
     /**
      * Method to get the score related to the time.
+     * 
      * @return integer
      */
     public Integer getScore() {
@@ -185,8 +191,13 @@ public class Controller extends AbstractController {
         gameView.render(this.getScore().toString());
     }
 
+    /**
+     * Method to handle the game loop.
+     * 
+     * @param now the current time
+     */
     @Override
-    public void handle(final long now){
+    public void handle(final long now) {
         this.processCommands();
         this.updateGame();
         this.render();

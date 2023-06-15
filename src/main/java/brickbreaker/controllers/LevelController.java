@@ -39,6 +39,10 @@ public class LevelController {
         }
     }
 
+    /**
+     * Method to get the setted difficulty at the beginning.
+     * @return the setted difficulty
+     */
     protected Difficulty getSettedDifficulty() {
         return this.defaultDifficulty;
     }

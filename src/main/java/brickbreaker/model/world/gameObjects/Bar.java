@@ -67,6 +67,7 @@ public class Bar extends GameObjectImpl<RectBoundingBox> {
      * Method to update the player input commands.
      * @param c the input controller
      * @param rightBorder the right border of the game
+     * @param elapsed the elapsed time
      */
     public void updateInput(final Double elapsed, final InputController c, final Double rightBorder) {
         input.update(this, rightBorder, c, elapsed);

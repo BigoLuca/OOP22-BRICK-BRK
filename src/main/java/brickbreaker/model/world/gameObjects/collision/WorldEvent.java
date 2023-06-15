@@ -11,10 +11,14 @@ import brickbreaker.model.world.gameObjects.Brick;
  */
 public class WorldEvent {
 
+    /**
+     * The speed of the ball when it hits the bar.
+     */
+    public static final Integer SCALE_SPEED = 15;
 
-    public final Integer SCALE_SPEED = 15;
     /**
      * Process the collision of the ball with the border side.
+     * 
      * @param ball
      * @param side
      * @param newPos
@@ -41,6 +45,7 @@ public class WorldEvent {
 
     /**
      * Process the ball collision with the bar.
+     * 
      * @param ball
      * @param bar
      */
@@ -60,6 +65,7 @@ public class WorldEvent {
     /**
      * Process the ball collision with and object [brick, bar].
      * Flip the speed of the ball.
+     * 
      * @param ball
      * @param brick
      */

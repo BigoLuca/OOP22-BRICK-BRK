@@ -8,12 +8,13 @@ import brickbreaker.model.world.gameObjects.Ball;
  * Implements the {@link PowerUpApplicator} interface.
  */
 public class BallDimApplicator implements PowerUpApplicator {
-    
-    private final Double DELTA = Ball.RADIUS / 3;
+
+    private static final Double DELTA = Ball.RADIUS / 3;
     private boolean bonus;
 
     /**
      * Ball Dimension constructor.
+     * 
      * @param bonusToSet if increase or decrease the Ball dimension
      */
     public BallDimApplicator(final boolean bonusToSet) {
@@ -25,7 +26,7 @@ public class BallDimApplicator implements PowerUpApplicator {
      */
     @Override
     public void applyPowerUp(final World world) {
-        Double d = bonus ? DELTA : - DELTA;
+        Double d = bonus ? DELTA : -DELTA;
         world.getBalls().stream().forEach(b -> {
             if (b.getRadius() > d && b.getRadius() < Ball.RADIUS * 2) {
                 b.setRadius(b.getRadius() + d);

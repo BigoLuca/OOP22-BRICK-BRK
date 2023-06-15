@@ -1,6 +1,5 @@
 package brickbreaker.model.world;
 
-
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +28,9 @@ public class WorldImpl implements World {
     /**
      * Indicates on which side the collision occurred.
      */
-    public enum SideCollision { TOP, BOTTOM, LEFT, RIGHT }
+    public enum SideCollision {
+        TOP, BOTTOM, LEFT, RIGHT
+    }
 
     private List<Ball> balls;
     private Bar bar;
@@ -41,12 +42,13 @@ public class WorldImpl implements World {
     private ApplicatorFactory factory;
     private Integer score;
     private boolean destructibleBrick;
-    
+
     private final Double mulELAPSED = 0.001;
     private final Integer brickScore = 100;
 
     /**
      * World constructor.
+     * 
      * @param mainBbox
      */
     public WorldImpl(final RectBoundingBox mainBbox) {
@@ -160,25 +162,25 @@ public class WorldImpl implements World {
             Double r = ball.getRadius();
 
             if (pos.getY() - r < ul.getY()) {
-                //TOP-BORDER
+                // TOP-BORDER
                 this.event.process(ball, SideCollision.TOP, ul.getY());
             } else if (pos.getY() + r > br.getY()) {
-                //BOTTOM-BORDER
+                // BOTTOM-BORDER
                 ballIt.remove();
                 if (this.balls.size() <= 0) {
                     this.bar.decLife();
                 }
             } else if (pos.getX() - r < ul.getX()) {
-                //LEFT-BORDER
+                // LEFT-BORDER
                 this.event.process(ball, SideCollision.LEFT, ul.getX());
             } else if (pos.getX() + r > br.getX()) {
-                //RIGHT-BORDER
+                // RIGHT-BORDER
                 this.event.process(ball, SideCollision.RIGHT, br.getX());
             } else if (bar.getBBox().isCollidingWith(ball.getBBox())) {
-                //BAR
+                // BAR
                 this.event.process(ball, this.bar);
             } else {
-                //BRICK
+                // BRICK
                 Iterator<Brick> brickIt = bricks.iterator();
                 boolean found = true;
                 while (brickIt.hasNext()) {
@@ -202,7 +204,7 @@ public class WorldImpl implements World {
                 }
             }
         }
-     }
+    }
 
     /*
      * Power up collision with bar
@@ -218,8 +220,8 @@ public class WorldImpl implements World {
                 this.factory.createApplicator(p.getPowerUp(), type).applyPowerUp(this);
                 if (p.getPowerUp().getDuration() > 0) {
                     this.activePowerUps.put(
-                        this.factory.createApplicator(p.getPowerUp(), !type), 
-                        p.getPowerUp().getDuration());
+                            this.factory.createApplicator(p.getPowerUp(), !type),
+                            p.getPowerUp().getDuration());
                 }
                 powerIt.remove();
             }

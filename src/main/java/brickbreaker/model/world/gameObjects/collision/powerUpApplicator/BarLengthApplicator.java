@@ -14,6 +14,7 @@ public class BarLengthApplicator implements PowerUpApplicator {
 
     /**
      * Bar length constructor.
+     * 
      * @param bonusToSet if increase or decrease the Bar length
      */
     public BarLengthApplicator(final boolean bonusToSet) {
@@ -25,7 +26,7 @@ public class BarLengthApplicator implements PowerUpApplicator {
      */
     @Override
     public void applyPowerUp(final World world) {
-        Double delta = bonus ? DELTA : - DELTA;
+        Double delta = bonus ? DELTA : -DELTA;
 
         Double barWidth = world.getBar().getWidth();
         while (barWidth < delta) {
@@ -33,5 +34,4 @@ public class BarLengthApplicator implements PowerUpApplicator {
         }
         world.getBar().setWidth(barWidth + delta);
     }
-    
 }

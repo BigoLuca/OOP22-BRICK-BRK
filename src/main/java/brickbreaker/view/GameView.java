@@ -30,6 +30,12 @@ public class GameView extends ViewImpl {
 
     private static final Integer ANIMATION_TIMER = 10;
 
+    private static final Integer IMAGE_BRICK_SIZE = 9;
+    private static final Integer IMAGE_BRICK_OFFSET_START = 0;
+    private static final Integer IMAGE_BRICK_OFFSET_END = 10;
+    private static final Integer IMAGE_OFFSET_START = 10;
+    private static final Integer IMAGE_OFFSET_END = 22;
+
     private static final Double CANVAS_HEIGHT = WorldFactory.BOUNDARIES_SIZE;
     private static final Double CANVAS_WIDTH = WorldFactory.BOUNDARIES_SIZE;
 
@@ -93,7 +99,7 @@ public class GameView extends ViewImpl {
         this.barAnimationIndex = 0;
 
         this.frameCounter = 0;
-        
+
         // Start the game
         this.getController().render();
     }
@@ -104,8 +110,8 @@ public class GameView extends ViewImpl {
     public void setUpBrickImages() {
         this.brickImages = new HashMap<>(10);
 
-        for (Integer i = 0; i < 10; i++) {
-            this.brickImages.put(Integer.valueOf(i + 1), GameObjectsImages.values()[9 - i].getImage());
+        for (Integer i = IMAGE_BRICK_OFFSET_START; i < IMAGE_BRICK_OFFSET_END; i++) {
+            this.brickImages.put(Integer.valueOf(i + 1), GameObjectsImages.values()[IMAGE_BRICK_SIZE - i].getImage());
         }
     }
 
@@ -114,8 +120,8 @@ public class GameView extends ViewImpl {
      */
     public void setUpPowerUpImages() {
         this.ppImages = new HashMap<>();
-        for (Integer i = 10; i < 22; i++) {
-            TypePower t = TypePower.values()[i - 9];
+        for (Integer i = IMAGE_OFFSET_START; i < IMAGE_OFFSET_END; i++) {
+            TypePower t = TypePower.values()[i - IMAGE_BRICK_SIZE];
             Image s = GameObjectsImages.values()[i].getImage();
             this.ppImages.put(t, s);
         }
@@ -194,7 +200,7 @@ public class GameView extends ViewImpl {
      * 
      * @param keyCode the key pressed.
      */
-    public void handleKeyPressed(KeyCode keyCode) {
+    public void handleKeyPressed(final KeyCode keyCode) {
         if (keyCode == KeyCode.LEFT) {
             this.getController().getInputController().notifyMoveLeft();
         } else if (keyCode == KeyCode.RIGHT) {

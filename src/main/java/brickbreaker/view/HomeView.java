@@ -38,7 +38,7 @@ public class HomeView extends ViewImpl {
 
     @FXML
     private ImageView imgBack;
-    
+
     /**
      * {@inheritDoc}
      */

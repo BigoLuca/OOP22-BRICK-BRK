@@ -5,20 +5,21 @@ package brickbreaker.view;
  */
 public enum ViewType {
 
+    /** The home view. */
     HOME("HomeView"),
-
+    /** The levels menu view. */
     LEVEL("LevelsMenuView"),
-
+    /** The difficulty menu view for endless mode. */
     DIFFICULTY("DifficultyMenuView"),
-
+    /** The Leaderboard view. */
     RANK("RankView"),
-
+    /** The game view. */
     MATCH("GameView"),
-
+    /** The selection user view. */
     SETUP("SetUpView"),
-
+    /** The end game view. */
     GAMEOVER("EndGameView");
-    
+
     private static final String DIRECTORY = "viewStyle/";
     private static final String FORMAT = ".fxml";
 
@@ -29,7 +30,7 @@ public enum ViewType {
      * 
      * @param s the name of the file
      */
-    ViewType (final String s) {
+    ViewType(final String s) {
         this.fileName = s;
     }
 

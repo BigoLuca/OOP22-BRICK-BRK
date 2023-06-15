@@ -19,14 +19,15 @@ public class Brick extends GameObjectImpl<RectBoundingBox> {
     public static final Integer BRICKS_ROW = ResourceLoader.getInstance().getMapRows();
 
     /** Width of the brick. */
-    public static final Double BRICK_WIDTH = WorldFactory.BOUNDARIES_SIZE/ BRICKS_COL;
+    public static final Double BRICK_WIDTH = WorldFactory.BOUNDARIES_SIZE / BRICKS_COL;
     /** Height of the brick. */
-    public static final Double BRICK_HEIGHT = WorldFactory.BOUNDARIES_SIZE/ (BRICKS_ROW * 2);
+    public static final Double BRICK_HEIGHT = WorldFactory.BOUNDARIES_SIZE / (BRICKS_ROW * 2);
     private TypePower powerUp;
 
     /**
      * Brick constructor.
-     * @param pos the position of the Brick
+     * 
+     * @param pos       the position of the Brick
      * @param lifeToSet the life to set
      */
     public Brick(final Vector2D pos, final int lifeToSet) {

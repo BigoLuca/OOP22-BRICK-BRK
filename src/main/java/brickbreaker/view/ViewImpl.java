@@ -11,10 +11,20 @@ public abstract class ViewImpl implements View {
     private Stage currentStage;
     private Controller controller;
 
+    /**
+     * Method to get the current stage.
+     * 
+     * @return the current stage
+     */
     public Stage getStage() {
         return this.currentStage;
     }
 
+    /**
+     * Method to set the current stage.
+     * 
+     * @param stageToSet the stage to set
+     */
     public void setStage(final Stage stageToSet) {
         this.currentStage = stageToSet;
     }

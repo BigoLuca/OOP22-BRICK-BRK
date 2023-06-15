@@ -16,7 +16,7 @@ public enum GameObjectsImages {
     /** Brick purple image name. */
     PURPLE_BRICK("purpleBrick.png"),
 
-    /** Brick red image name */
+    /** Brick red image name. */
     RED_BRICK("redBrick.png"),
 
     /** Brick orange image name. */

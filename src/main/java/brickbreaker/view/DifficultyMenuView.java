@@ -53,6 +53,9 @@ public class DifficultyMenuView extends ViewImpl {
     private Image[] imgDifficulties;
     private Integer difficultyIndex;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void init() {
         this.difficultyIndex = 0;
@@ -76,8 +79,8 @@ public class DifficultyMenuView extends ViewImpl {
      * @param up true if the difficulty level has to be increased, false otherwise
      */
     public void chooseDifficulty(final boolean up) {
-        Integer d = up ? 1 : (difficultyIndex == 0 ? 3 : -1);
-        this.difficultyIndex = (this.difficultyIndex + d) % 4;
+        Integer d = up ? 1 : (difficultyIndex == 0 ? Difficulty.values().length - 1 : -1);
+        this.difficultyIndex = (this.difficultyIndex + d) % Difficulty.values().length;
         this.imgSelectedDifficulty.setImage(this.imgDifficulties[this.difficultyIndex]);
     }
 

@@ -64,10 +64,10 @@ public class SetUpView extends ViewImpl {
         cbUsersList.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
-            public void handle(ActionEvent event) {
+            public void handle(final ActionEvent event) {
                 btnRemove.setVisible(true);
             }
-            
+
         });
 
         this.btnRemove.setVisible(false);
@@ -98,6 +98,9 @@ public class SetUpView extends ViewImpl {
         }
     }
 
+    /**
+     * Method to delete the selected user.
+     */
     public void deleteSelectedUser() {
 
         Dialog<String> d = new Dialog<>();

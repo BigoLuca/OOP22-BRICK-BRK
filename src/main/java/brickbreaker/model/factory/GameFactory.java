@@ -46,7 +46,6 @@ public class GameFactory {
      * @return a list of brick objects
      */
     public List<Brick> createBricks(final List<Integer> list, final Integer col, final Integer row) {
-        
         List<Brick> result = new ArrayList<>();
         Integer life;
         for (int y = 0; y < row; y++) {
@@ -54,8 +53,9 @@ public class GameFactory {
                 life = list.get(x + y * col);
                 if (life > 0) {
                     result.add(new Brick(
-                        new Vector2D(x * Brick.BRICK_WIDTH + (Brick.BRICK_WIDTH / 2), y * Brick.BRICK_HEIGHT + (Brick.BRICK_HEIGHT / 2)),
-                        life));
+                            new Vector2D(x * Brick.BRICK_WIDTH + (Brick.BRICK_WIDTH / 2), y *
+                                    Brick.BRICK_HEIGHT + (Brick.BRICK_HEIGHT / 2)),
+                            life));
                 }
             }
         }
@@ -63,31 +63,32 @@ public class GameFactory {
     }
 
     /**
-     * @param d
-     * @param col
-     * @param row
-     * @return a list of brick objects
+     * @param d    difficulty
+     * @param cols columns
+     * @param rows rows
+     * @return a list of random brick objects
      */
-	public List<Brick> createRandomBricks(final Difficulty d, final Integer cols, final Integer rows) {
-		Random r = new Random();
-		List<Brick> bricks = new LinkedList<>();
+    public List<Brick> createRandomBricks(final Difficulty d, final Integer cols, final Integer rows) {
+        Random r = new Random();
+        List<Brick> bricks = new LinkedList<>();
 
-        for (int i = 0; i < cols ; i++) {
-            for (int j = 0 ; j < rows ; j++) {
+        for (int i = 0; i < cols; i++) {
+            for (int j = 0; j < rows; j++) {
                 if (r.nextInt(100) < d.getBrickPercentage()) {
                     bricks.add(new Brick(
-                        new Vector2D(i * Brick.BRICK_WIDTH + Brick.BRICK_WIDTH / 2, j * Brick.BRICK_HEIGHT + Brick.BRICK_HEIGHT / 2),
-                        r.nextInt(d.getMaxBrickLife()) + 1));
+                            new Vector2D(i * Brick.BRICK_WIDTH + Brick.BRICK_WIDTH / 2, j *
+                                    Brick.BRICK_HEIGHT + Brick.BRICK_HEIGHT / 2),
+                            r.nextInt(d.getMaxBrickLife()) + 1));
                 }
             }
         }
-		return bricks;
-	}
+        return bricks;
+    }
 
-	/**
-	 * @param posToSet
-	 * @return a new Bar object
-	 */
+    /**
+     * @param posToSet
+     * @return a new Bar object
+     */
     public Bar createBar(final Vector2D posToSet) {
         return new Bar(posToSet, LIFE_BAR);
     }

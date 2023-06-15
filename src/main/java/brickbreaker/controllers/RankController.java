@@ -12,8 +12,8 @@ import brickbreaker.model.rank.GameRank;
  */
 public class RankController {
 
-    private final String ENDLESS_RANKS = "endless.json";
-    private final String LEVEL_RANKS = "levels.json";
+    private static final String ENDLESS_RANKS = "endless.json";
+    private static final String LEVEL_RANKS = "levels.json";
 
     private List<GameRank> endlessRanks;
     private List<GameRank> levelsRanks;

@@ -23,7 +23,7 @@ public class ErrorListener {
      * Method add the error to the list of detected errors.
      * @param maploaderError
      */
-    public static void notifyError(Error maploaderError) {
+    public static void notifyError(final Error maploaderError) {
         error.add(maploaderError);
     }
 

@@ -71,13 +71,13 @@ public class RanksView extends ViewImpl {
         this.endlessLevels[0] = GameImages.ENDLESS_MODE_CHOICE.getImage();
         this.endlessLevels[1] = GameImages.LEVELS_LABEL.getImage();
 
-        //this.imgBack.setImage(GameImages.PREVIOUS.getImage());
+        // this.imgBack.setImage(GameImages.PREVIOUS.getImage());
         this.imgNext.setImage(GameImages.RIGHT_ARROW.getImage());
         this.imgPrevious.setImage(GameImages.LEFT_ARROW.getImage());
         this.imgChange.setImage(GameImages.ENDLESS_MODE_CHOICE.getImage());
         this.imgTitle.setImage(GameImages.LEADERBOARD_CHOICE.getImage());
         this.imgBack.setImage(GameImages.BACK_ARROW.getImage());
-        
+
         this.rankIndex = 0;
         this.tableViewInit();
         this.setRank();
@@ -97,7 +97,7 @@ public class RanksView extends ViewImpl {
                 new Callback<TableColumn.CellDataFeatures<Map.Entry<String, Integer>, String>, ObservableValue<String>>() {
 
                     @Override
-                    public ObservableValue<String> call(CellDataFeatures<Entry<String, Integer>, String> param) {
+                    public ObservableValue<String> call(final CellDataFeatures<Entry<String, Integer>, String> param) {
                         return new SimpleStringProperty(param.getValue().getKey());
                     }
 
@@ -107,7 +107,8 @@ public class RanksView extends ViewImpl {
                 new Callback<TableColumn.CellDataFeatures<Map.Entry<String, Integer>, Integer>, ObservableValue<Integer>>() {
 
                     @Override
-                    public ObservableValue<Integer> call(CellDataFeatures<Entry<String, Integer>, Integer> param) {
+                    public ObservableValue<Integer> call(
+                            final CellDataFeatures<Entry<String, Integer>, Integer> param) {
                         return new SimpleIntegerProperty(param.getValue().getValue()).asObject();
                     }
 
@@ -154,7 +155,8 @@ public class RanksView extends ViewImpl {
                 r = this.getController().getRankController().getLevelsRank(this.rankIndex);
             }
 
-            String s = this.endlessLevelsIndex == 0 ? Difficulty.values()[this.rankIndex].toString() : this.getController().getLevelController().getLevelName(this.rankIndex);
+            String s = this.endlessLevelsIndex == 0 ? Difficulty.values()[this.rankIndex].toString()
+                    : this.getController().getLevelController().getLevelName(this.rankIndex);
             this.bindData(r);
             this.lblTitle.setText(s);
         }

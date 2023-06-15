@@ -11,7 +11,7 @@ import brickbreaker.model.user.User;
  */
 public class UserController {
 
-    private final int MAX_PLAYER = 5;
+    private static final int MAX_PLAYER = 5;
 
     /**
      * Empy UserController constructor.

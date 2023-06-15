@@ -35,14 +35,16 @@ import javafx.scene.image.Image;
  */
 public class ResourceLoader {
 
-    public final Integer map_COLUMNS_FILE_FORMAT = 6;
-    public final Integer map_ROWS_FILE_FORMAT = 6;
+    /** Map file format. */
+    public static final Integer MAP_COLUMNS_FILE_FORMAT = 6;
+    /** Map file format. */
+    public static final Integer MAP_ROWS_FILE_FORMAT = 6;
 
-    private final String NAME = "name";
-    private final String SCORE = "score";
-    private final String SCORES = "scores";
-    private final String LEVEL_REACHED = "levelReached";
-    private final String LEVEL = "level";
+    private static final String NAME = "name";
+    private static final String SCORE = "score";
+    private static final String SCORES = "scores";
+    private static final String LEVEL_REACHED = "levelReached";
+    private static final String LEVEL = "level";
 
     private static ResourceLoader instance;
     private String mapsPath;
@@ -98,8 +100,8 @@ public class ResourceLoader {
             String landScape = e.get("landscape").getAsString();
             List<Integer> map = new ArrayList<>();
 
-            for (Integer i = 0; i < map_ROWS_FILE_FORMAT; i++) {
-                for (Integer j = 0; j < map_COLUMNS_FILE_FORMAT; j++) {
+            for (Integer i = 0; i < MAP_ROWS_FILE_FORMAT; i++) {
+                for (Integer j = 0; j < MAP_COLUMNS_FILE_FORMAT; j++) {
                     map.add(e.get("map").getAsJsonArray().get(i).getAsJsonArray().get(j).getAsInt());
                 }
             }
@@ -118,14 +120,14 @@ public class ResourceLoader {
      * @return the number of bricks for each line
      */
     public Integer getMapColumns() {
-        return this.map_COLUMNS_FILE_FORMAT;
+        return ResourceLoader.MAP_COLUMNS_FILE_FORMAT;
     }
 
     /**
      * @return the number of bricks for each column
      */
     public Integer getMapRows() {
-        return this.map_ROWS_FILE_FORMAT;
+        return ResourceLoader.MAP_ROWS_FILE_FORMAT;
     }
 
     /**
@@ -152,7 +154,7 @@ public class ResourceLoader {
      * @param jsonArray the JsonArray of the ranking
      * @param err       the error to notify
      */
-    private void writeJson(final String filePath, final JsonArray jsonArray, Error err) {
+    private void writeJson(final String filePath, final JsonArray jsonArray, final Error err) {
         try (FileWriter fileWriter = new FileWriter(filePath)) {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             gson.toJson(jsonArray, fileWriter);
@@ -177,10 +179,11 @@ public class ResourceLoader {
             }
         }
         return -1;
-    }    
+    }
 
     /**
      * Method to get from a file the map landscape.
+     * 
      * @param mapName
      * @return GameImages rappresenting the landscape of the map
      */
@@ -196,13 +199,13 @@ public class ResourceLoader {
 
     /**
      * Method to get from a file the difficulty of a level.
-     * @param file
-     * @param level
-     * @return Optional of Difficulty 
+     * 
+     * @param mapName the name of the map
+     * @return Optional of Difficulty
      */
     public Optional<Difficulty> getMapDifficulty(final String mapName) {
         try {
-            JsonObject f =  JsonParser.parseReader(new FileReader(mapsPath + sep + mapName)).getAsJsonObject();
+            JsonObject f = JsonParser.parseReader(new FileReader(mapsPath + sep + mapName)).getAsJsonObject();
             String d = f.get("difficulty").getAsString();
             return Optional.of(Difficulty.valueOf(d));
         } catch (FileNotFoundException e) {
@@ -222,12 +225,13 @@ public class ResourceLoader {
 
     /**
      * Method to get from a file a level rank list of players in descending order.
+     * 
      * @param file
      * @param level
      * @return a list of players stats
      */
-    public Map<String,Integer> getRank(final String file, final Integer level) {
-        Map<String,Integer> rank = new HashMap<>();
+    public Map<String, Integer> getRank(final String file, final Integer level) {
+        Map<String, Integer> rank = new HashMap<>();
         JsonArray js = loadJson(this.ranksPath + sep + file, Error.RANKLOADER_ERROR);
         try {
             JsonArray scoresArray = js.get(level).getAsJsonObject().getAsJsonArray(SCORES);
@@ -254,7 +258,9 @@ public class ResourceLoader {
     }
 
     /**
-     * Method to get from a file a list of all level rank list of players in descending order.
+     * Method to get from a file a list of all level rank list of players in
+     * descending order.
+     * 
      * @param filename
      * @return a list of players stats
      */
@@ -271,9 +277,10 @@ public class ResourceLoader {
         }
         return rawRanks;
     }
-    
+
     /**
      * Method to write on a file the list of players stats passed.
+     * 
      * @param file
      * @param level
      * @param playerName
@@ -314,6 +321,7 @@ public class ResourceLoader {
 
     /**
      * Method to read on a file the list of users.
+     * 
      * @return a list of users
      */
     public List<User> getUsers() {
@@ -329,6 +337,7 @@ public class ResourceLoader {
 
     /**
      * Method to get the level reached by the user.
+     * 
      * @param playerName
      * @return an Integer representing the level
      */
@@ -343,7 +352,8 @@ public class ResourceLoader {
 
     /**
      * Method to increment the level reached by the user.
-     * @param playerName
+     * 
+     * @param playerName the name of the player
      */
     public void incLevelReached(final String playerName) {
         JsonArray js = this.loadJson(this.userPath, Error.USERLOADER_ERROR);
@@ -359,7 +369,8 @@ public class ResourceLoader {
 
     /**
      * Method to add a new user to the json user file.
-     * @param playerName
+     * 
+     * @param newUser the new user to add
      */
     public void addUser(final User newUser) {
 
@@ -375,14 +386,16 @@ public class ResourceLoader {
 
     /**
      * Method to remove a user from the json user file and from rank.
+     * 
      * @param playerName
      */
     public void removeUser(final String playerName) {
-        
+
         JsonArray js = this.loadJson(this.userPath, Error.USERLOADER_ERROR);
         try {
             js.remove(getIdxUserName(playerName, js));
-        } catch (IndexOutOfBoundsException e) {}
+        } catch (IndexOutOfBoundsException e) {
+        }
         this.writeJson(this.userPath, js, Error.USERWRITER_ERROR);
 
         for (String s : this.getRanksFileName()) {

@@ -18,7 +18,7 @@ public class Chronometer extends Thread {
         this.isRunning = false;
         this.exit = false;
     }
-    
+
     /**
      * @return the time elapsed from the start in seconds
      */
@@ -26,7 +26,7 @@ public class Chronometer extends Thread {
         return this.time / 10;
     }
 
-    /*
+    /**
      * Method to start the chronometer.
      */
     public void startChrono() {

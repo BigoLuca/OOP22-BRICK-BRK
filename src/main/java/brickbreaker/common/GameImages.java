@@ -96,7 +96,7 @@ public enum GameImages {
     /** Continue label. */
     CONTINUE("continue.png");
 
-    private final String RES_PATH = "images/";
+    private static final String RES_PATH = "images/";
     private String fileName;
     private Image image;
 

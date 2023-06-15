@@ -21,6 +21,11 @@ import javafx.scene.layout.VBox;
  */
 public final class LevelsMenuView extends ViewImpl {
 
+    private static final Double LEVELS_IMAGI_HEIGHT = 82.0;
+    private static final Double LEVELS_IMAGI_WIDTH = 100.0;
+
+    private static final Double VGAP = 30.0;
+
     @FXML
     private AnchorPane root;
     @FXML
@@ -47,14 +52,16 @@ public final class LevelsMenuView extends ViewImpl {
      */
     @Override
     public void init() {
-        rowIndex = columnIndex = 0;
+
+        this.rowIndex = 0;
+        this.columnIndex = 0;
 
         this.imgChooseLevel.setImage(GameImages.PICK_A_LEVEL.getImage());
         this.imgGoBack.setImage(GameImages.LEFT_ARROW.getImage());
         this.imgGoForward.setImage(GameImages.RIGHT_ARROW.getImage());
         this.imgBack.setImage(GameImages.BACK_ARROW.getImage());
 
-        this.gplevelsGrid.setVgap(30);
+        this.gplevelsGrid.setVgap(VGAP);
         this.refreshLevels(true);
     }
 
@@ -81,8 +88,8 @@ public final class LevelsMenuView extends ViewImpl {
                     VBox levelControl = new VBox();
 
                     imgLevel.setPreserveRatio(true);
-                    imgLevel.setFitHeight(82.0);
-                    imgLevel.setFitWidth(100.0);
+                    imgLevel.setFitHeight(LEVELS_IMAGI_HEIGHT);
+                    imgLevel.setFitWidth(LEVELS_IMAGI_WIDTH);
 
                     levelControl.setAlignment(Pos.CENTER);
                     levelControl.getChildren().addAll(imgLevel, mapName);

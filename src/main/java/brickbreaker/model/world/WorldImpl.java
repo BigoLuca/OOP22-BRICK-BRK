@@ -29,7 +29,14 @@ public class WorldImpl implements World {
      * Indicates on which side the collision occurred.
      */
     public enum SideCollision {
-        TOP, BOTTOM, LEFT, RIGHT
+        /** Top side. */
+        TOP,
+        /** Bottom side. */
+        BOTTOM,
+        /** Left side. */
+        LEFT,
+        /** Right side. */
+        RIGHT;
     }
 
     private List<Ball> balls;

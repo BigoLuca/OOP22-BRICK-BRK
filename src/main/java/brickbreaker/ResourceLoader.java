@@ -33,7 +33,7 @@ import javafx.scene.image.Image;
 /**
  * Class to load the resources: map files, game icons, ranking stats.
  */
-public class ResourceLoader {
+public final class ResourceLoader {
 
     /** Map file format. */
     public static final Integer MAP_COLUMNS_FILE_FORMAT = 6;

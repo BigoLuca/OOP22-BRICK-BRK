@@ -29,6 +29,8 @@ public class User {
 
     /**
      * Method to get the level reached by the user.
+     * 
+     * @return the level reached
      */
     public Integer getLevelReached() {
         return ResourceLoader.getInstance().getLevelReached(this.userName);

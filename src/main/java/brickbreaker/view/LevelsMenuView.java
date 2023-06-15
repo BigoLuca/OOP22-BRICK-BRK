@@ -105,7 +105,7 @@ public final class LevelsMenuView extends ViewImpl {
                     levelControl.setOnMouseClicked(new EventHandler<Event>() {
 
                         @Override
-                        public void handle(Event event) {
+                        public void handle(final Event event) {
                             switchToLevelMatch();
                         }
 

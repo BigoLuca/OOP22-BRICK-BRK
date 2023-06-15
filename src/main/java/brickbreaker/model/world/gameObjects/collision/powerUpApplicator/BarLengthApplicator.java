@@ -9,7 +9,7 @@ import brickbreaker.model.world.gameObjects.Bar;
  */
 public class BarLengthApplicator implements PowerUpApplicator {
 
-    private final Double DELTA = Bar.BAR_WIDTH / 3;
+    private static final Double DELTA = Bar.BAR_WIDTH / 3;
     private boolean bonus;
 
     /**

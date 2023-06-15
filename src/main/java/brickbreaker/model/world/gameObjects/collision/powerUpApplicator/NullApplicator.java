@@ -10,8 +10,6 @@ public class NullApplicator implements PowerUpApplicator {
 
     /**
      * Bar length constructor.
-     * 
-     * @param bonusToSet if increase or decrease the Bar length
      */
     public NullApplicator() {
     }

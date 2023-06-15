@@ -1,7 +1,7 @@
 package brickbreaker.input;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -30,7 +30,7 @@ public class BarInputTest {
         Vector2D pos = world.getBar().getPosition();
         controller.notifyMoveLeft();
         world.getBar().updateInput(ELAPSED, controller, world.getMainBBox().getBRCorner().getX());
-        assertFalse(pos.getX() == world.getBar().getPosition().getX());
-        assertFalse(pos.getY() == world.getBar().getPosition().getY());
+        assertNotEquals(pos.getX(), world.getBar().getPosition().getX());
+        assertEquals(pos.getY(), world.getBar().getPosition().getY());
     }
 }

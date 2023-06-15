@@ -26,12 +26,12 @@ public class WorldTest {
     void setUp() {
         world = WorldFactory.getInstance().getWorld(1);
         ball = new Ball(new Vector2D(0, 0), new Vector2D(1, 1));
+        ball.setPosition(new Vector2D(100, 120));
         factory = new ApplicatorFactory();
     }
 
     @Test
     void testIncrementScore() {
-        ball.setPosition(new Vector2D(100, 120));
         world.addBall(ball);
         int sizeBricks = world.getBricks().size();
         world.checkCollision();

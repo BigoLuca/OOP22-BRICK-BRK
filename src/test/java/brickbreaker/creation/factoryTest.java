@@ -9,32 +9,37 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import brickbreaker.common.Difficulty;
 import brickbreaker.common.Vector2D;
 import brickbreaker.model.factory.GameFactory;
 import brickbreaker.model.factory.WorldFactory;
 import brickbreaker.model.world.World;
-import brickbreaker.model.world.gameObjects.Ball;
-import brickbreaker.model.world.gameObjects.Bar;
+import brickbreaker.model.world.WorldImpl;
 import brickbreaker.model.world.gameObjects.Brick;
+import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
 
 /**
  * Factory test for the {@link WorldFactory} class.
  */
-public class factoryTest {
+public class FactoryTest {
     
     private GameFactory g;
     private WorldFactory w;
+    private World world;
+    private World wo;
 
     @BeforeEach
     void setUp() {
         g = GameFactory.getInstance();
         w = WorldFactory.getInstance();
+        world = new WorldImpl(new RectBoundingBox(new Vector2D(0, 0), 0.0, 0.0));
+        world.addBall(g.createBall(new Vector2D(0, 0), new Vector2D(0, 0)));
+        world.setBar(g.createBar(new Vector2D(0, 0)));
+        wo = (w.getWorld(1));
     }
 
     @Test
     void testCreateBall() {
-        assertTrue(g.createBall(new Vector2D(0, 0), new Vector2D(0, 0)) instanceof Ball);
+        assertEquals(1, world.getBalls().size());
     }
 
     @Test
@@ -44,18 +49,18 @@ public class factoryTest {
         list.add(1);
         list.add(1);
         List<Brick> b = g.createBricks(list, 1, 3);
-        assertTrue(b.get(1) instanceof Brick);
         assertEquals(3, b.size());
     }
 
     @Test
     void testCreateBar() {
-        assertTrue(g.createBar(new Vector2D(0, 0)) instanceof Bar);
+        assertTrue(world.getBar() != null);
     }
 
     @Test
     void testCreateWorld() {
-        assertTrue(w.getWorld(1) instanceof World);
-        assertTrue(w.getRandomWorld(Difficulty.EASY) instanceof World);
+        assertEquals(1, wo.getBalls().size());
+        assertEquals(1, wo.getBar().getLife());
+        assertEquals(16, wo.getBricks().size());
     }
 }

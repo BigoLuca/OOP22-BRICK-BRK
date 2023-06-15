@@ -12,7 +12,7 @@ import brickbreaker.model.world.gameObjects.Brick;
 public class WorldEvent {
 
 
-    public final Integer SCALE_SPEED = 12;
+    public final Integer SCALE_SPEED = 15;
     /**
      * Process the collision of the ball with the border side.
      * @param ball

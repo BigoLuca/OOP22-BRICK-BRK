@@ -3,28 +3,16 @@
     "level": "easy",
     "scores": [
       {
-        "name": "Fabretti",
-        "score": 0
-      },
-      {
-        "name": "Pippo",
+        "name": "Luca",
         "score": 10
       },
       {
-        "name": "fra",
-        "score": 20
+        "name": "Pietro",
+        "score": 300
       },
       {
-        "name": "Frenci",
-        "score": 5
-      },
-      {
-        "name": "Paolo",
-        "score": 1150
-      },
-      {
-        "name": "nando",
-        "score": 5350
+        "name": "Francesco",
+        "score": 500
       }
     ]
   },
@@ -32,17 +20,27 @@
     "level": "medium",
     "scores": [
       {
-        "name": "Giancarlo",
+        "name": "Luca",
         "score": 100
       }
     ]
   },
   {
     "level": "hard",
-    "scores": []
+    "scores": [
+      {
+        "name": "Francesco",
+        "score": 40
+      }
+    ]
   },
   {
     "level": "random",
-    "scores": []
+    "scores": [
+      {
+        "name": "Pietro",
+        "score": 900
+      }
+    ]
   }
 ]

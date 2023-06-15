@@ -3,24 +3,16 @@
     "level": 0,
     "scores": [
       {
-        "name": "mario",
+        "name": "Luca",
         "score": 2032
       },
       {
-        "name": "nando",
+        "name": "Pietro",
         "score": 1168
       },
       {
-        "name": "hjg",
+        "name": "Francesco",
         "score": 1288
-      },
-      {
-        "name": "Paolo",
-        "score": 1532
-      },
-      {
-        "name": "Frenci",
-        "score": 1938
       }
     ]
   },
@@ -28,20 +20,16 @@
     "level": 1,
     "scores": [
       {
-        "name": "mario",
+        "name": "Francesco",
         "score": 1528
       },
       {
-        "name": "Paolo",
+        "name": "Luca",
         "score": 1392
       },
       {
-        "name": "fra",
+        "name": "Pietro",
         "score": 1418
-      },
-      {
-        "name": "Frenci",
-        "score": 2480
       }
     ]
   }

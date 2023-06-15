@@ -1,7 +1,6 @@
 package brickbreaker.controllers;
 
 import brickbreaker.controllers.listener.ErrorListener;
-import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
 
 /**

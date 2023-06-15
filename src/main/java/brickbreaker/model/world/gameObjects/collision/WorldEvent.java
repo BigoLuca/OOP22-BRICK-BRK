@@ -65,19 +65,20 @@ public class WorldEvent {
      */
     public void process(final Ball ball, final Brick brick) {
         Double distY = ball.getPosition().vertDist(brick.getPosition());
+        Vector2D oldPos = ball.getPosition();
         if (Math.abs(distY) > brick.getBBox().getHeight() / 2) {
             if (distY > 0) {
-                ball.getPosition().sum(new Vector2D(0, distY));
+                ball.setPosition(new Vector2D(oldPos.getX(), oldPos.getY() + ball.getRadius() / 2));
             } else {
-                ball.getPosition().sum(new Vector2D(0, -distY));
+                ball.setPosition(new Vector2D(oldPos.getX(), oldPos.getY() - ball.getRadius() / 2));
             }
             ball.flipVelOnY();
         } else {
             Double distX = ball.getPosition().orizDist(brick.getPosition());
             if (distX > 0) {
-                ball.getPosition().sum(new Vector2D(distX, 0));
+                ball.setPosition(new Vector2D(oldPos.getX() + ball.getRadius() / 2, oldPos.getY()));
             } else {
-                ball.getPosition().sum(new Vector2D(-distX, 0));
+                ball.setPosition(new Vector2D(oldPos.getX() - ball.getRadius() / 2, oldPos.getY()));
             }
             ball.flipVelOnX();
         }

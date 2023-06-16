@@ -149,8 +149,8 @@ public final class ResourceLoader {
      */
     private JsonArray loadJson(final String filePath, final Error err) {
         try (InputStream inputStream = new FileInputStream(filePath);
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
-            JsonReader jsonReader = new JsonReader(inputStreamReader)) {
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+                JsonReader jsonReader = new JsonReader(inputStreamReader)) {
 
             return JsonParser.parseReader(jsonReader).getAsJsonArray();
         } catch (IOException e) {
@@ -161,7 +161,6 @@ public final class ResourceLoader {
         return new JsonArray();
     }
 
-
     /**
      * Method save in a json file the ranking of the game.
      * 
@@ -171,9 +170,9 @@ public final class ResourceLoader {
      */
     private void writeJson(final String filePath, final JsonArray jsonArray, final Error err) {
         try (OutputStream outputStream = new FileOutputStream(filePath);
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8);
-            BufferedWriter writer = new BufferedWriter(outputStreamWriter)) {
-            
+                OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8);
+                BufferedWriter writer = new BufferedWriter(outputStreamWriter)) {
+
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             gson.toJson(jsonArray, writer);
         } catch (IOException e) {

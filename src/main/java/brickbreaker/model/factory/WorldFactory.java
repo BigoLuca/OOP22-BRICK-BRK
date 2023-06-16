@@ -97,7 +97,7 @@ public class WorldFactory {
     public World getWorld(final Integer index) {
         World w = this.getEmptyWorld();
         MapInfo i = ResourceLoader.getInstance()
-                .getMapsInfo().stream().filter(item -> item.getIndex() == index).findFirst().get();
+                .getMapsInfo().stream().filter(item -> item.getIndex().equals(index)).findFirst().get();
         w.addBricks(GameFactory.getInstance()
                 .createBricks(i.getBricksData(),
                         ResourceLoader.MAP_COLUMNS_FILE_FORMAT,

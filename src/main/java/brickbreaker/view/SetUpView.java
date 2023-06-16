@@ -3,6 +3,7 @@ package brickbreaker.view;
 import java.util.List;
 
 import brickbreaker.ResourceLoader;
+import brickbreaker.common.GameImages;
 import brickbreaker.model.user.User;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -53,6 +54,9 @@ public class SetUpView extends ViewImpl {
      */
     @Override
     public void init() {
+
+        this.imgChoose.setImage(GameImages.TYPE_YOUR_NAME_LABEL.getImage());
+        this.imgNickname.setImage(GameImages.NICKNAME_LABEL.getImage());
 
         this.users = this.getController().getUserController().getUsersName();
 

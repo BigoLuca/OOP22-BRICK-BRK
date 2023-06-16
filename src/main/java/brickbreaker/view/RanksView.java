@@ -5,7 +5,7 @@ import java.util.Map.Entry;
 
 import brickbreaker.common.Difficulty;
 import brickbreaker.common.GameImages;
-import brickbreaker.model.rank.GameRank;
+import brickbreaker.model.rank.Rank;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -115,7 +115,7 @@ public class RanksView extends ViewImpl {
                 });
 
         // Loading an initial rank.
-        this.bindData(this.getController().getRankController().getEndlessRank(0));
+        this.bindData(this.getController().getRankController().getEndlessRank(Difficulty.EASY));
 
     }
 
@@ -144,23 +144,16 @@ public class RanksView extends ViewImpl {
      * Method that sets the rank based on the current mode and the current index.
      */
     private void setRank() {
-        GameRank r;
-        Integer q = getMaxIndex();
-        if (q != 0) {
-            this.rankIndex %= q;
-
-            if (this.endlessLevelsIndex == 0) {
-                r = this.getController().getRankController().getEndlessRank(this.rankIndex);
-            } else {
-                r = this.getController().getRankController().getLevelsRank(this.rankIndex);
-            }
-
-            String s = this.endlessLevelsIndex == 0 ? Difficulty.values()[this.rankIndex].toString()
-                    : this.getController().getLevelController().getLevelName(this.rankIndex);
-            this.bindData(r);
-            this.lblTitle.setText(s);
+        if(endlessLevelsIndex == 0) {
+            this.rankIndex %= this.getController().getRankController().getEndlessRankQuantity();
+            this.bindData(this.getController().getRankController().getEndlessRank(Difficulty.values()[this.rankIndex]));
+        } else {
+            this.rankIndex %= this.getController().getRankController().getLevelsRankQuantity();
+            this.bindData(this.getController().getRankController().getLevelsRank(this.rankIndex));
         }
-
+        String s = this.endlessLevelsIndex == 0 ? Difficulty.values()[this.rankIndex].toString()
+                    : this.getController().getLevelController().getLevelName(this.rankIndex);
+            this.lblTitle.setText(s);
     }
 
     /**
@@ -198,8 +191,9 @@ public class RanksView extends ViewImpl {
      * 
      * @param r the rank to bind.
      */
-    public void bindData(final GameRank r) {
+    public void bindData(final Rank r) {
         ObservableList<Map.Entry<String, Integer>> obRank = FXCollections.observableArrayList(r.getRank().entrySet());
         this.currentRank.setItems(obRank);
     }
+
 }

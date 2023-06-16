@@ -1,36 +1,18 @@
 [
   {
     "level": 0,
-    "scores": [
-      {
-        "name": "Luca",
-        "score": 2032
-      },
-      {
-        "name": "Pietro",
-        "score": 1168
-      },
-      {
-        "name": "Francesco",
-        "score": 1288
-      }
-    ]
+    "scores": {
+      "Luca": 2032,
+      "Pietro": 1984,
+      "Francesco": 1920
+    }
   },
   {
     "level": 1,
-    "scores": [
-      {
-        "name": "Francesco",
-        "score": 1528
-      },
-      {
-        "name": "Luca",
-        "score": 1392
-      },
-      {
-        "name": "Pietro",
-        "score": 1418
-      }
-    ]
+    "scores": {
+      "Luca": 1111,
+      "Pietro": 3333,
+      "Francesco": 2222
+    }
   }
 ]

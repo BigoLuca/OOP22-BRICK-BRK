@@ -34,6 +34,7 @@ public class WorldFactory {
     public static final Integer BAR_OFFSET = 20;
 
     private static WorldFactory instance;
+    private Random r = new Random();
 
     /**
      * @return the instance of WorldFactory if it not exists yet.
@@ -116,7 +117,6 @@ public class WorldFactory {
      *          be stored.
      */
     private void randomPowerUpAssignment(final Difficulty d, final List<Brick> b) {
-        Random r = new Random();
         Integer numPowerUp = b.size() - (b.size() / 4);
         List<TypePower> p = this.getWorldPowerUp(numPowerUp, d.getBonusPercentage());
         List<Integer> val = IntStream.range(0, b.size())
@@ -137,7 +137,6 @@ public class WorldFactory {
      * @return a list of Typepower
      */
     private List<TypePower> getWorldPowerUp(final Integer pQuantity, final Integer bonus) {
-        Random r = new Random();
         List<TypePower> ret = new ArrayList<>();
 
         Integer positive = pQuantity * bonus / 100;

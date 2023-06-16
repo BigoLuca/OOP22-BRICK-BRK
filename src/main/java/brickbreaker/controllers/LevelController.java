@@ -18,6 +18,7 @@ public class LevelController {
     private List<MapInfo> mapList;
     private Difficulty defaultDifficulty = Difficulty.RANDOM;
     private Optional<Integer> level = Optional.empty();
+    private Random randomDiff = new Random();
 
     /**
      * LevelController constructor.
@@ -27,7 +28,6 @@ public class LevelController {
     }
 
     private Difficulty getRandomDifficulty() {
-        Random randomDiff = new Random();
         return Difficulty.values()[randomDiff.nextInt(Difficulty.values().length)];
     }
 

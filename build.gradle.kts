@@ -64,3 +64,11 @@ application {
     // Define the main class for the application
     mainClass.set("brickbreaker.Launcher")
 }
+
+tasks.jar {
+    val mainResources = sourceSets.getByName("main").resources
+    from(mainResources) {
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    }
+}
+

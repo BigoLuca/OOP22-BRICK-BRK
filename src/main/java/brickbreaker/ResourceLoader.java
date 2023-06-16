@@ -86,6 +86,7 @@ public final class ResourceLoader {
      * Method to load the json file.
      */
     public void start() {
+
         Arrays.stream(GameImages.values()).forEach(value -> {
             value.setImage(new Image(ClassLoader.getSystemResourceAsStream(value.getFilePath())));
         });

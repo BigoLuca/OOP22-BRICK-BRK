@@ -55,11 +55,7 @@ public class WorldEvent {
         ball.flipVelOnY();
         Double distX = ball.getPosition().orizDist(bar.getPosition()) / (bar.getWidth() / 2);
         Vector2D oldSpeed = ball.getSpeed();
-        if (oldSpeed.getX() > 0) {
-            ball.setSpeed(new Vector2D(distX * SCALE_SPEED, oldSpeed.getY()));
-        } else {
-            ball.setSpeed(new Vector2D(distX * SCALE_SPEED, oldSpeed.getY()));
-        }
+        ball.setSpeed(new Vector2D(distX * SCALE_SPEED, oldSpeed.getY()));
     }
 
     /**

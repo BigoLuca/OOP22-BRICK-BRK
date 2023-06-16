@@ -236,15 +236,16 @@ public class WorldImpl implements World {
     }
 
     private void disablePowerUp() {
-        Iterator<PowerUpApplicator> iterator = this.activePowerUps.keySet().iterator();
+        Iterator<Map.Entry<PowerUpApplicator, Integer>> iterator = activePowerUps.entrySet().iterator();
         while (iterator.hasNext()) {
-            PowerUpApplicator key = iterator.next();
-            int value = activePowerUps.get(key) - 1;
+            Map.Entry<PowerUpApplicator, Integer> entry = iterator.next();
+            PowerUpApplicator key = entry.getKey();
+            int value = entry.getValue() - 1;
             if (value <= 0) {
                 key.applyPowerUp(this);
                 iterator.remove();
             } else {
-                activePowerUps.put(key, value);
+                entry.setValue(value);
             }
         }
     }

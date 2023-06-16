@@ -1,9 +1,17 @@
 package brickbreaker;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,6 +27,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonReader;
 
 import java.util.Iterator;
 
@@ -136,16 +145,22 @@ public final class ResourceLoader {
      * @param filePath the path of the file
      * @param err      the error to notify
      * @return the ranking of the game
+     * @throws IOException
      */
     private JsonArray loadJson(final String filePath, final Error err) {
-        try {
-            return JsonParser.parseReader(new FileReader(filePath)).getAsJsonArray();
-        } catch (Exception e) {
+        try (InputStream inputStream = new FileInputStream(filePath);
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+            JsonReader jsonReader = new JsonReader(inputStreamReader)) {
+
+            return JsonParser.parseReader(jsonReader).getAsJsonArray();
+        } catch (IOException e) {
             ErrorListener.notifyError(err);
             e.printStackTrace();
         }
+
         return new JsonArray();
     }
+
 
     /**
      * Method save in a json file the ranking of the game.
@@ -155,10 +170,13 @@ public final class ResourceLoader {
      * @param err       the error to notify
      */
     private void writeJson(final String filePath, final JsonArray jsonArray, final Error err) {
-        try (FileWriter fileWriter = new FileWriter(filePath)) {
+        try (OutputStream outputStream = new FileOutputStream(filePath);
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8);
+            BufferedWriter writer = new BufferedWriter(outputStreamWriter)) {
+            
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            gson.toJson(jsonArray, fileWriter);
-        } catch (Exception e) {
+            gson.toJson(jsonArray, writer);
+        } catch (IOException e) {
             ErrorListener.notifyError(err);
             e.printStackTrace();
         }

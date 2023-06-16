@@ -7,15 +7,12 @@ import brickbreaker.ResourceLoader;
  */
 public class User {
 
-    private String userName;
+    private String name;
+    private Integer levelReached;
 
-    /**
-     * User constructor.
-     * 
-     * @param nameToSet the name of the user
-     */
-    public User(final String nameToSet) {
-        this.userName = nameToSet;
+    public User(String userName) {
+        this.name = userName;
+        this.levelReached = 1;
     }
 
     /**
@@ -24,7 +21,7 @@ public class User {
      * @return the name of the user
      */
     public String getName() {
-        return this.userName;
+        return this.name;
     }
 
     /**
@@ -33,13 +30,6 @@ public class User {
      * @return the level reached
      */
     public Integer getLevelReached() {
-        return ResourceLoader.getInstance().getLevelReached(this.userName);
-    }
-
-    /**
-     * Method to increment the level reached by the user.
-     */
-    public void incLevelReached() {
-        ResourceLoader.getInstance().incLevelReached(this.userName);
+        return this.levelReached;
     }
 }

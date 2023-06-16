@@ -3,7 +3,10 @@ package brickbreaker.controllers;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.google.gson.reflect.TypeToken;
+
 import brickbreaker.ResourceLoader;
+import brickbreaker.common.LoadJson;
 import brickbreaker.model.user.User;
 
 /**
@@ -12,18 +15,21 @@ import brickbreaker.model.user.User;
 public class UserController {
 
     private static final int MAX_PLAYER = 5;
+    private final List<User> users;
 
     /**
      * Empy UserController constructor.
      */
-    public UserController() { }
+    public UserController() {
+        this.users = LoadJson.load(new TypeToken<List<User>>(){}.getType(), "users/user.json");
+    }
 
     /**
      * Methdo to get all the name of the user saved.
      * @return the List of name
      */
     public List<String> getUsersName() {
-        return ResourceLoader.getInstance().getUsers().stream().map(User::getName).collect(Collectors.toList());
+        return this.users.stream().map(User::getName).collect(Collectors.toList());
     }
 
     /**
@@ -41,7 +47,8 @@ public class UserController {
      * @param newUser
      */
     public void addUser(final User newUser) {
-        ResourceLoader.getInstance().addUser(newUser);
+        this.users.add(newUser);
+        LoadJson.write(newUser, "users/user.json");
     }
 
     /**

@@ -3,30 +3,46 @@ package brickbreaker.model.rank;
 import java.util.Map;
 
 /**
- * Interface for work with rank.
+ * Class representing the rank.
+ * Implements the {@link Rank} interface.
  */
-public interface Rank {
+public class Rank {
+
+    private Integer level;
+    private Map<String, Integer> scores;
 
     /**
-     * Method to get the current rank.
+     * GameRank constructor.
      * 
-     * @return the current rank
+     * @param name  the name of the rank
+     * @param scores the score of the rank
      */
-    Map<String, Integer> getRank();
+    public Rank(final String name, final Integer scores) {
+        this.scores.put(name, scores);
+    }
 
     /**
-     * Method to set the current rank.
+     * Method to get the rank.
      * 
-     * @param r
+     * @return the Map<String, Integer> object representing the rank
      */
-    void setRank(Map<String, Integer> r);
+    public Map<String, Integer> getRank() {
+        return this.scores;
+    }
 
     /**
-     * Method to add a new player stats to the rank.
+     * Method to get the level of the rank.
      * 
-     * @param playerName
-     * @param newScore
-     * @return after the add, if the player is in the rank
+     * @return the level of the rank
      */
-    boolean addUser(String playerName, Integer newScore);
+    public Integer getIndex() {
+        return this.level;
+    }
+
+    /**
+     * Method to add a new score to the rank.
+     */
+    public void addScore(final String name, final Integer score) {
+        this.scores.put(name, score);
+    }
 }

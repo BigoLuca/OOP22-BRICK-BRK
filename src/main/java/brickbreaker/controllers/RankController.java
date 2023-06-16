@@ -1,126 +1,124 @@
 package brickbreaker.controllers;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-import brickbreaker.ResourceLoader;
-import brickbreaker.common.Mode;
-import brickbreaker.model.rank.GameRank;
+import com.google.gson.reflect.TypeToken;
+
+import brickbreaker.common.Difficulty;
+import brickbreaker.common.LoadJson;
+import brickbreaker.model.rank.Rank;
 
 /**
  * The controller of the ranks.
  */
 public class RankController {
 
-    private static final String ENDLESS_RANKS = "endless.json";
-    private static final String LEVEL_RANKS = "levels.json";
+    private static final String ENDLESS_RANKS_FILE = "ranks/endless.json";
+    private static final String LEVEL_RANKS_FILE = "ranks/levels.json";
 
-    private List<GameRank> endlessRanks;
-    private List<GameRank> levelsRanks;
+    private List<Rank> endlessRanks;
+    private List<Rank> levelsRanks;
 
     /**
      * RankController constructor.
      */
     public RankController() {
-        //Loading all the global ranks.
-        this.setRanks();
+        this.endlessRanks = LoadJson.load(new TypeToken<List<Rank>>() {
+        }.getType(), ENDLESS_RANKS_FILE);
+        this.levelsRanks = LoadJson.load(new TypeToken<List<Rank>>() {
+        }.getType(), LEVEL_RANKS_FILE);
     }
 
     /**
-     * Method to set the rank from the file.
+     * Method to save the ranks.
      */
-    private void setRanks() {
-        this.endlessRanks = this.loadEndless();
-        this.levelsRanks = this.loadLevels();
+    public void saveRanks() {
+        LoadJson.save(this.endlessRanks, ENDLESS_RANKS_FILE);
+        LoadJson.save(this.levelsRanks, LEVEL_RANKS_FILE);
     }
 
     /**
-     * This method loads all the endless mode ranks from Json file, which function as database,
-     * and creates a List<GameRank> object.
-     * @return a List<GameRank> object that contains all the endless mode ranks.
+     * Method to get all the endless mode ranks.
+     * 
+     * @return a List<GameRank> object
      */
-    private List<GameRank> loadEndless() {
-        return ResourceLoader.getInstance().getAllRanks(ENDLESS_RANKS)
-                                           .stream()
-                                           .map(item -> new GameRank(item))
-                                           .collect(Collectors.toList());
+    public List<Rank> getEndlessRanks() {
+        return this.endlessRanks;
     }
 
     /**
-     * This method loads all the levels mode ranks from Json file, which function as database,
-     * and creates a List<GameRank> object.
-     * @return a List<GameRank> object that contains all the levels mode ranks.
+     * Method to get all the levels mode ranks.
+     * 
+     * @return a List<GameRank> object
      */
-    private List<GameRank> loadLevels() {
-        return ResourceLoader.getInstance().getAllRanks(LEVEL_RANKS)
-                                           .stream()
-                                           .map(item -> new GameRank(item))
-                                           .collect(Collectors.toList());
+    public List<Rank> getLevelsRanks() {
+        return this.levelsRanks;
     }
 
     /**
-     * Method to add on json file the new score of the user.
-     * @param mode the mode of the game
-     * @param level the level of the game
-     * @param username the username of the user
-     * @param newScore the new score of the user
+     * Method to add a new score to the endless rank.
+     * The method add the score in the rank of the difficulty passed.
+     * 
+     * @param difficulty
+     * @param username
+     * @param newScore
      */
-    protected void addRank(final Mode mode, final Integer level, final String username, final Integer newScore) {
-        if (mode.equals(Mode.ENDLESS)) {
-            ResourceLoader.getInstance().writeRank(ENDLESS_RANKS, level, username, newScore);
-        } else {
-            ResourceLoader.getInstance().writeRank(LEVEL_RANKS, level, username, newScore);
-        }
-        setRanks();
+    public void addScoreInEndlessRank(Difficulty difficulty, String username, Integer newScore) {
+        this.endlessRanks.stream().filter(r -> r.getIndex().equals(difficulty.ordinal())).findFirst().orElse(null)
+                .addScore(username, newScore);
+        LoadJson.save(this.endlessRanks, ENDLESS_RANKS_FILE);
     }
+
+    /**
+     * Method to add a new score to the levels rank.
+     * The method add the score in the rank of the difficulty passed.
+     * 
+     * @param level
+     * @param username
+     * @param newScore
+     */
+    public void addScoreInLevelsRank(Integer level, String username, Integer newScore) {
+        this.levelsRanks.stream().filter(r -> r.getIndex().equals(level)).findFirst().orElse(null)
+                .addScore(username, newScore);
+        LoadJson.save(this.levelsRanks, LEVEL_RANKS_FILE);
+    }
+
 
     /**
      * Method to get the EndlessRank.
+     * 
      * @param index the index of the rank
      * @return a GameRank
      */
-    public GameRank getEndlessRank(final Integer index) {
-        return this.endlessRanks.get(index);
+    public Rank getEndlessRank(final Difficulty difficulty) {
+        return this.endlessRanks.stream().filter(r -> r.getIndex().equals(difficulty.ordinal())).findFirst().orElse(null);
     }
 
     /**
      * Method to get the size of endless rank.
+     * 
      * @return an integer size
      */
     public Integer getEndlessRankQuantity() {
-        Integer q;
-
-        try {
-            q = this.endlessRanks.size();
-        } catch (NullPointerException e) {
-            q = 0;
-        }
-
-        return q;
+        return this.endlessRanks.size();
     }
 
     /**
      * Method to get the LevelsRank.
+     * 
      * @param index
      * @return a GameRank
      */
-    public GameRank getLevelsRank(final Integer index)  {
-        return this.levelsRanks.get(index);
+    public Rank getLevelsRank(final Integer level) {
+        return this.levelsRanks.stream().filter(r -> r.getIndex().equals(level)).findFirst().orElse(null);
     }
 
     /**
      * Method to get the size of levels rank.
+     * 
      * @return an integer size
      */
     public Integer getLevelsRankQuantity() {
-        Integer q;
-
-        try {
-            q = this.levelsRanks.size();
-        } catch (NullPointerException e) {
-            q = 0;
-        }
-
-        return q;
+        return this.levelsRanks.size();
     }
 }

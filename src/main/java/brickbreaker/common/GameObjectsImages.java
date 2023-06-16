@@ -85,7 +85,7 @@ public enum GameObjectsImages {
     /** Bar image name. */
     BAR_ANIMATION_3("barAnimation2.png");
 
-    private static final String RES_PATH = "images//sprites/";
+    private static final String RES_PATH = "images/sprites/";
     private String fileName;
     private Image i;
 

@@ -59,7 +59,7 @@ public final class ResourceLoader {
     private String mapsPath;
     private String ranksPath;
     private String userPath;
-    private String sep;
+    private String sep = File.separator;
 
     /**
      * @return the instance of ResourceLoader if it not exists yet.
@@ -76,10 +76,9 @@ public final class ResourceLoader {
      * Initializes path.
      */
     private ResourceLoader() {
-        this.sep = File.separator + File.separator;
-        this.mapsPath = "." + sep + "src" + sep + "main" + sep + "resources" + sep + "mapsFile";
-        this.ranksPath = "." + sep + "src" + sep + "main" + sep + "resources" + sep + "ranks";
-        this.userPath = "." + sep + "src" + sep + "main" + sep + "resources" + sep + "users" + sep + "user.json";
+        this.mapsPath = "mapsFile";
+        this.ranksPath = "ranks";
+        this.userPath = "users" + sep + "user.json";
     }
 
     /**

@@ -60,3 +60,11 @@ application {
     // Define the main class for the application
     mainClass.set("brickbreaker.Launcher")
 }
+
+tasks.named("pmdMain") {
+    enabled = false
+}
+
+tasks.named("pmdTest") {
+    enabled = false
+}

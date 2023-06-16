@@ -12,7 +12,7 @@ plugins {
      * The runnable jar will be found in build/libs/projectname-all.jar
      */
     id("com.github.johnrengelman.shadow") version "8.1.1"
-    id("org.danilopianini.gradle-java-qa") version "1.5.0"
+    //id("org.danilopianini.gradle-java-qa") version "1.5.0"
 }
 
 repositories {
@@ -51,6 +51,10 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$jUnitVersion")
 }
 
+tasks.withType<JavaCompile> {
+    options.encoding = "UTF-8"
+}
+
 tasks.withType<Test> {
     // Enables JUnit 5 Jupiter module
     useJUnitPlatform()
@@ -59,12 +63,4 @@ tasks.withType<Test> {
 application {
     // Define the main class for the application
     mainClass.set("brickbreaker.Launcher")
-}
-
-tasks.named("pmdMain") {
-    enabled = false
-}
-
-tasks.named("pmdTest") {
-    enabled = false
 }

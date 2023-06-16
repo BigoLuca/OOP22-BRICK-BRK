@@ -14,17 +14,23 @@ import brickbreaker.model.world.World;
  * Bar input test for the {@link BarInput} class.
  */
 public class BarInputTest {
-    
+
     private World world;
     private InputController controller;
-    private final Double ELAPSED = 200.0;
+    private static final Double ELAPSED = 200.0;
 
+    /**
+     * Set up the test.
+     */
     @BeforeEach
     void setUp() {
         world = WorldFactory.getInstance().getWorld(1);
         controller = new InputController();
     }
 
+    /**
+     * Test the {@link BarInput} class.
+     */
     @Test
     void testMove() {
         Vector2D pos = world.getBar().getPosition();

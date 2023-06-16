@@ -21,12 +21,15 @@ import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
  * Factory test for the {@link WorldFactory} class.
  */
 public class FactoryTest {
-    
+
     private GameFactory g;
     private WorldFactory w;
     private World world;
     private World wo;
 
+    /**
+     * Set up the test.
+     */
     @BeforeEach
     void setUp() {
         g = GameFactory.getInstance();
@@ -37,11 +40,17 @@ public class FactoryTest {
         wo = (w.getWorld(1));
     }
 
+    /**
+     * Test the {@link WorldFactory} class.
+     */
     @Test
     void testCreateBall() {
         assertEquals(1, world.getBalls().size());
     }
 
+    /**
+     * Test the {@link WorldFactory} class.
+     */
     @Test
     void testCreateBricks() {
         List<Integer> list = new ArrayList<Integer>();
@@ -52,11 +61,17 @@ public class FactoryTest {
         assertEquals(3, b.size());
     }
 
+    /**
+     * Test the {@link WorldFactory} class.
+     */
     @Test
     void testCreateBar() {
         assertTrue(world.getBar() != null);
     }
 
+    /**
+     * Test the {@link WorldFactory} class.
+     */
     @Test
     void testCreateWorld() {
         assertEquals(1, wo.getBalls().size());

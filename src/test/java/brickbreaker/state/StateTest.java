@@ -17,11 +17,17 @@ public class StateTest {
 
     private Level level;
 
+    /**
+     * Set up the test.
+     */
     @BeforeEach
     void setUp() {
         level = new Level(1, WorldFactory.getInstance().getWorld(1));
     }
 
+    /**
+     * Test the {@link Level} class.
+     */
     @Test
     void testWin() {
         assertEquals(State.WAIT, level.getState());
@@ -29,6 +35,9 @@ public class StateTest {
         assertEquals(State.WIN, level.getState());
     }
 
+    /**
+     * Test the {@link Level} class.
+     */
     @Test
     void testLost() {
         assertEquals(State.WAIT, level.getState());
@@ -37,6 +46,9 @@ public class StateTest {
         assertEquals(State.LOST, level.getState());
     }
 
+    /**
+     * Test the {@link Level} class.
+     */
     @Test
     void testWait() {
         assertEquals(State.WAIT, level.getState());
@@ -46,7 +58,7 @@ public class StateTest {
         level.getWorld().getBar().incLife();
         assertEquals(2, level.getWorld().getBar().getLife());
         level.getWorld().getBalls().get(0).setPosition(
-            new Vector2D(WorldFactory.BOUNDARIES_SIZE / 2, WorldFactory.BOUNDARIES_SIZE - 1));
+                new Vector2D(WorldFactory.BOUNDARIES_SIZE / 2, WorldFactory.BOUNDARIES_SIZE - 1));
         level.getWorld().checkCollision();
         assertEquals(0, level.getWorld().getBalls().size());
         assertEquals(State.WAIT, level.getState());

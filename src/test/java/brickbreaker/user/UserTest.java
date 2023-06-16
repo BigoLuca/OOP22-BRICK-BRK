@@ -17,16 +17,25 @@ public class UserTest {
     private UserController userController;
     private final Integer maxUser = 6;
 
+    /**
+     * Set up the test.
+     */
     @BeforeEach
     void setUp() {
         userController = new UserController();
     }
 
+    /**
+     * Test the {@link UserController} class.
+     */
     @Test
     void testLenghtUser() {
         assertTrue(userController.getUsersName().size() <= maxUser);
     }
 
+    /**
+     * Test the {@link UserController} class.
+     */
     @Test
     void testAddRemoveUser() {
         int i = userController.getUsersName().size();
@@ -36,6 +45,9 @@ public class UserTest {
         assertEquals(userController.getUsersName().size(), i);
     }
 
+    /**
+     * Test the {@link UserController} class.
+     */
     @Test
     void testUsereLevelReached() {
         userController.addUser(new User("prova"));

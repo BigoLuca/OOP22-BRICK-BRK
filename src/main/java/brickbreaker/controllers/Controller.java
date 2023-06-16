@@ -46,23 +46,21 @@ public class Controller extends AbstractController {
         } else if (this.getModel().getState().equals(State.LOST)) {
             this.stopLoop();
             if (this.mode.equals(Mode.ENDLESS)) {
-                this.getRankController().addRank(
-                        mode, this.getLevelController().getSettedDifficulty().ordinal(), user.getName(),
-                        this.getScore());
-            }
-        } else if (this.getModel().getState().equals(State.WIN)) {
-            if (this.mode.equals(Mode.ENDLESS)) {
-                this.pauseLoop();
-                Integer barLife = this.model.getWorld().getBar().getLife();
-                this.oldScore = this.model.getWorld().getScore();
-                this.model = this.getLevelController().getLevel();
-                this.model.getWorld().addToScore(oldScore);
-                this.model.getWorld().getBar().setLife(barLife);
-                this.render();
-            } else if (this.mode.equals(Mode.LEVELS)) {
-                this.getRankController().addRank(
-                        mode, this.model.getId(), user.getName(), this.getScore());
-                this.stopLoop();
+                this.getRankController().addScoreInEndlessRank(this.getLevelController().getSettedDifficulty(),
+                        user.getName(), this.getScore());
+            } else if (this.getModel().getState().equals(State.WIN)) {
+                if (this.mode.equals(Mode.ENDLESS)) {
+                    this.pauseLoop();
+                    Integer barLife = this.model.getWorld().getBar().getLife();
+                    this.oldScore = this.model.getWorld().getScore();
+                    this.model = this.getLevelController().getLevel();
+                    this.model.getWorld().addToScore(oldScore);
+                    this.model.getWorld().getBar().setLife(barLife);
+                    this.render();
+                } else if (this.mode.equals(Mode.LEVELS)) {
+                    this.getRankController().addScoreInLevelsRank(this.model.getId(), user.getName(), this.getScore());
+                    this.stopLoop();
+                }
             }
         }
     }

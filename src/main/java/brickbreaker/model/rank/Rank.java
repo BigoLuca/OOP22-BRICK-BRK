@@ -40,9 +40,11 @@ public class Rank {
     }
 
     /**
-     * Method to add a new score to the rank.
+     * Method to add a new score to the rank only if better.
      */
     public void addScore(final String name, final Integer score) {
-        this.scores.put(name, score);
+        if (score > this.scores.getOrDefault(name, Integer.MIN_VALUE)) {
+            this.scores.put(name, score);
+        }
     }
 }

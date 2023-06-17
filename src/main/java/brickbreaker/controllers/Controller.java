@@ -40,7 +40,6 @@ public class Controller extends AbstractController {
      */
     private void checkState() {
         State s = this.getModel().getState();
-        System.out.println(s);
         if (s.equals(State.WAIT)) {
             this.pauseLoop();
             this.render();

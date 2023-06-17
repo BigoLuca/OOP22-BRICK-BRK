@@ -1,27 +1,24 @@
 package brickbreaker.common;
 
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import brickbreaker.model.rank.Rank;
+import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 
-public class JsonUtils{
+public class JsonUtils {
+
+    private static final String DEFAULT_DATA = "data/";
 
     public static <E> E load(Type type, String filepath) {
         // Carica il file JSON come stream di input
@@ -56,44 +53,21 @@ public class JsonUtils{
         }
     }
 
-    public static void extractJsonFromJar(String sourcePath, String destinationPath) throws IOException {
-        try (
-            InputStream inputStream = ClassLoader.getSystemResourceAsStream(sourcePath);
-            OutputStream outputStream = new FileOutputStream(destinationPath)
-        ) {
-            byte[] buffer = new byte[8192];
-            int bytesRead;
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, bytesRead);
-            }
-        }
-    }
-
-    public static List<Rank> loadScores(final String filePath) {
-        List<Rank> rank = new ArrayList<>();
+    public static <E> E loadData(final Type type, final String filePath) {
 
         try (FileReader fileReader = new FileReader(filePath)) {
             Gson gson = new Gson();
-            Rank[] playerScoreArray = gson.fromJson(fileReader, Rank[].class);
-            if (playerScoreArray != null) {
-                for (Rank playerScore : playerScoreArray) {
-                    rank.add(playerScore);
-                }
-            }
+            return gson.fromJson(fileReader, type);
         } catch (IOException e) {
-            e.printStackTrace();
+            return JsonUtils.load(type, DEFAULT_DATA + filePath);
         }
-
-        return rank;
     }
 
-    public static void saveScores(final List<Rank> rank, final String filePath) {
+    public static <E> void saveData(final List<E> data, final String filePath) {
         try (FileWriter fileWriter = new FileWriter(filePath)) {
-            // Serializza l'oggetto Rank in formato JSON
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            String json = gson.toJson(rank);
+            String json = gson.toJson(data);
 
-            // Scrivi il JSON nel file esterno
             fileWriter.write(json);
             System.out.println("Salvataggio");
         } catch (IOException e) {

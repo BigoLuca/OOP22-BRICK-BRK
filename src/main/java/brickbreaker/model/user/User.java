@@ -1,7 +1,5 @@
 package brickbreaker.model.user;
 
-import brickbreaker.ResourceLoader;
-
 /**
  * Class representing a user.
  */

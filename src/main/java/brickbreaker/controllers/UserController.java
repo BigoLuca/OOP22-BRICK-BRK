@@ -5,8 +5,7 @@ import java.util.stream.Collectors;
 
 import com.google.gson.reflect.TypeToken;
 
-import brickbreaker.ResourceLoader;
-import brickbreaker.common.LoadJson;
+import brickbreaker.common.JsonUtils;
 import brickbreaker.model.user.User;
 
 /**
@@ -22,7 +21,7 @@ public class UserController {
      * Empy UserController constructor.
      */
     public UserController() {
-        this.users = LoadJson.load(new TypeToken<List<User>>() {
+        this.users = JsonUtils.load(new TypeToken<List<User>>() {
         }.getType(), USER_FILE);
     }
 
@@ -30,7 +29,7 @@ public class UserController {
      * Method to save the users.
      */
     public void saveUsers() {
-        LoadJson.save(this.users, USER_FILE);
+        JsonUtils.save(this.users, USER_FILE);
     }
 
     /**
@@ -77,6 +76,6 @@ public class UserController {
      * @return true if less than MAX_PLAYER
      */
     public boolean isMaxUser() {
-        return ResourceLoader.getInstance().getUsers().size() < MAX_PLAYER;
+        return this.users.size() < MAX_PLAYER;
     }
 }

@@ -36,6 +36,10 @@ public class App extends Application {
         primaryStage.setX(centerX);
         primaryStage.setY(centerY);
 
+        primaryStage.setOnCloseRequest(event -> {
+            System.exit(0);
+        });
+
         ViewSwitcher.getInstance().switchView(primaryStage, ViewType.SETUP);
 
         primaryStage.setResizable(false);

@@ -17,22 +17,6 @@ public class MapInfo {
     private Integer index;
 
     /**
-     * Map info constructor.
-     * @param i
-     * @param b
-     * @param d
-     * @param name
-     * @param landscape
-     */
-    public MapInfo(final Integer i, final List<Integer> b, final Difficulty d, final String name, final String landscape) {
-        this.index = i;
-        this.map = b;
-        this.difficulty = d;
-        this.name = name;
-        this.landscape = GameImages.valueOf(landscape);
-    }
-
-    /**
      * Method to get landscape.
      * @return GameImages landscape
      */

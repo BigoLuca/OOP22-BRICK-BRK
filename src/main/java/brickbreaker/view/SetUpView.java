@@ -2,7 +2,6 @@ package brickbreaker.view;
 
 import java.util.List;
 
-import brickbreaker.ResourceLoader;
 import brickbreaker.common.GameImages;
 import brickbreaker.model.user.User;
 import javafx.event.ActionEvent;
@@ -109,7 +108,7 @@ public class SetUpView extends ViewImpl {
 
         Dialog<String> d = new Dialog<>();
 
-        ResourceLoader.getInstance().removeUser(cbUsersList.getEditor().getText());
+        this.getController().getUserController().removeUser(cbUsersList.getEditor().getText());
 
         d.setTitle("Success");
         d.setContentText("Player deleted.");

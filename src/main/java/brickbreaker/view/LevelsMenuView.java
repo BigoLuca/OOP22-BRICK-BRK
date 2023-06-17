@@ -2,7 +2,7 @@ package brickbreaker.view;
 
 import java.util.Optional;
 
-import brickbreaker.MapInfo;
+import brickbreaker.model.map.MapData;
 import brickbreaker.common.GameImages;
 import brickbreaker.common.Mode;
 import javafx.event.Event;
@@ -82,8 +82,8 @@ public final class LevelsMenuView extends ViewImpl {
             for (Integer i = this.rowIndex; i < this.gplevelsGrid.getRowCount(); i++) {
                 for (Integer j = this.columnIndex; j < this.gplevelsGrid.getColumnCount(); j++) {
 
-                    MapInfo m = this.getController().getLevelController().getMapInfo(i + j);
-                    ImageView imgLevel = new ImageView(m.getLandscapeData().getImage());
+                    MapData m = this.getController().getLevelController().getMapInfo(i + j);
+                    ImageView imgLevel = new ImageView(m.getLandscape().getImage());
                     Label mapName = new Label(m.getName());
                     VBox levelControl = new VBox();
 

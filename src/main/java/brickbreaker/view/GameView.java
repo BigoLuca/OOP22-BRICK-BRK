@@ -78,7 +78,7 @@ public class GameView extends ViewImpl {
         this.getController().setGameView(this);
 
         Integer m = this.getController().getModel().getId();
-        this.backGround.setImage(this.getController().getLevelController().getMapInfo(m).getLandscapeData().getImage());
+        this.backGround.setImage(this.getController().getLevelController().getMapInfo(m).getLandscape().getImage());
 
         this.foreGround.setHeight(CANVAS_HEIGHT);
         this.foreGround.setWidth(CANVAS_WIDTH);

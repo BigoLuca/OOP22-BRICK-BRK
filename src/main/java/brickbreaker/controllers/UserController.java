@@ -14,14 +14,14 @@ import brickbreaker.model.user.User;
 public class UserController {
 
     private static final int MAX_PLAYER = 5;
-    private static final String USER_FILE = "users/user.json";
+    private static final String USER_FILE = "user.json";
     private final List<User> users;
 
     /**
      * Empy UserController constructor.
      */
     public UserController() {
-        this.users = JsonUtils.load(new TypeToken<List<User>>() {
+        this.users = JsonUtils.loadData(new TypeToken<List<User>>() {
         }.getType(), USER_FILE);
     }
 
@@ -29,7 +29,7 @@ public class UserController {
      * Method to save the users.
      */
     public void saveUsers() {
-        JsonUtils.save(this.users, USER_FILE);
+        JsonUtils.saveData(this.users, USER_FILE);
     }
 
     /**
@@ -57,8 +57,9 @@ public class UserController {
      * @param newUser
      */
     public void addUser(final User newUser) {
-        this.users.add(newUser);
-        saveUsers();
+        if (!this.isMaxUser()) {
+            this.users.add(newUser);
+        }
     }
 
     /**
@@ -76,6 +77,6 @@ public class UserController {
      * @return true if less than MAX_PLAYER
      */
     public boolean isMaxUser() {
-        return this.users.size() < MAX_PLAYER;
+        return this.users.size() >= MAX_PLAYER;
     }
 }

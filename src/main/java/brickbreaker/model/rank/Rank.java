@@ -43,7 +43,7 @@ public class Rank {
      * Method to add a new score to the rank only if better.
      */
     public void addScore(final String name, final Integer score) {
-        if (score > this.scores.getOrDefault(name, Integer.MIN_VALUE)) {
+        if (score > this.scores.getOrDefault(name, -1)) {
             this.scores.put(name, score);
         }
     }

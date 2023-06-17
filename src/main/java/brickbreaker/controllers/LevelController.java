@@ -4,18 +4,22 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
-import brickbreaker.MapInfo;
-import brickbreaker.ResourceLoader;
+import com.google.gson.reflect.TypeToken;
+
 import brickbreaker.common.Difficulty;
+import brickbreaker.common.JsonUtils;
 import brickbreaker.model.Level;
 import brickbreaker.model.factory.WorldFactory;
+import brickbreaker.model.map.MapData;
 
 /**
  * The controller of the levels generation.
  */
 public class LevelController {
 
-    private List<MapInfo> mapList;
+    private static final String MAPS_FILE = "mapsFile/levels.json";
+
+    private List<MapData> mapList;
     private Difficulty defaultDifficulty = Difficulty.RANDOM;
     private Optional<Integer> level = Optional.empty();
     private Random randomDiff = new Random();
@@ -24,7 +28,8 @@ public class LevelController {
      * LevelController constructor.
      */
     public LevelController() {
-        this.mapList = ResourceLoader.getInstance().getMapsInfo();
+        this.mapList = JsonUtils.load(new TypeToken<List<MapData>>() {
+        }.getType(), MAPS_FILE);
     }
 
     private Difficulty getRandomDifficulty() {
@@ -41,6 +46,7 @@ public class LevelController {
 
     /**
      * Method to get the setted difficulty at the beginning.
+     * 
      * @return the setted difficulty
      */
     protected Difficulty getSettedDifficulty() {
@@ -49,17 +55,19 @@ public class LevelController {
 
     /**
      * Method to get a level.
+     * 
      * @return the level generated
      */
     protected Level getLevel() {
         if (this.level.isPresent() && level.get() < this.mapList.size()) {
-            return new Level(level.get(), WorldFactory.getInstance().getWorld(this.level.get()));
+            return new Level(level.get(), WorldFactory.getInstance().getWorld(this.mapList.get(level.get())));
         }
         return new Level(0, WorldFactory.getInstance().getRandomWorld(this.getDifficulty()));
     }
 
     /**
      * Method to set the level.
+     * 
      * @param level
      */
     public void setLevel(final Optional<Integer> level) {
@@ -86,25 +94,28 @@ public class LevelController {
 
     /**
      * Method to the the map level information.
+     * 
      * @param i
      * @return a MapInfo
      */
-    public MapInfo getMapInfo(final Integer i) {
+    public MapData getMapInfo(final Integer i) {
         return this.mapList.get(i);
     }
 
     /**
      * Method to get the map index.
+     * 
      * @param name the name of the map
      * @return the index of the map
      */
     public Integer getMapIndex(final String name) {
-        Optional<MapInfo> m = this.mapList.stream().filter(map -> map.getName().equals(name)).findFirst();
+        Optional<MapData> m = this.mapList.stream().filter(map -> map.getName().equals(name)).findFirst();
         return m.get().getIndex();
     }
 
     /**
      * Method to get the map list lenght.
+     * 
      * @return the map list lenght
      */
     public Integer getListMapLenght() {
@@ -113,6 +124,7 @@ public class LevelController {
 
     /**
      * Method to set the level difficulty.
+     * 
      * @param diff the difficulty
      */
     public void setDifficultyLevel(final Difficulty diff) {
@@ -121,10 +133,20 @@ public class LevelController {
 
     /**
      * Method to get the level name.
+     * 
      * @param i the level index
      * @return the level name
      */
     public String getLevelName(final Integer i) {
         return this.mapList.get(i).getName();
+    }
+
+    /**
+     * Method to get all the map info.
+     * 
+     * @return the List of MapInfo
+     */
+    public List<MapData> getMapList() {
+        return this.mapList;
     }
 }

@@ -6,12 +6,11 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import brickbreaker.MapInfo;
-import brickbreaker.ResourceLoader;
 import brickbreaker.common.Difficulty;
 import brickbreaker.common.TypePower;
 import brickbreaker.common.TypePowerUp;
 import brickbreaker.common.Vector2D;
+import brickbreaker.model.map.MapData;
 import brickbreaker.model.world.World;
 import brickbreaker.model.world.WorldImpl;
 import brickbreaker.model.world.gameObjects.Ball;
@@ -94,15 +93,11 @@ public class WorldFactory {
      *              from database.
      * @return a new World object.
      */
-    public World getWorld(final Integer index) {
+    public World getWorld(final MapData map) {
         World w = this.getEmptyWorld();
-        MapInfo i = ResourceLoader.getInstance()
-                .getMapsInfo().stream().filter(item -> item.getIndex().equals(index)).findFirst().get();
         w.addBricks(GameFactory.getInstance()
-                .createBricks(i.getBricksData(),
-                        ResourceLoader.MAP_COLUMNS_FILE_FORMAT,
-                        ResourceLoader.MAP_ROWS_FILE_FORMAT));
-        randomPowerUpAssignment(i.getDifficulty(), w.getBricks());
+                .createBricks(map.getMap(), MapData.MAP_COLUMNS_FILE_FORMAT, MapData.MAP_ROWS_FILE_FORMAT));
+        randomPowerUpAssignment(map.getDifficulty(), w.getBricks());
         return w;
     }
 

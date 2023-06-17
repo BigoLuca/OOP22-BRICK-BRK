@@ -1,5 +1,6 @@
 package brickbreaker.model.rank;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -17,8 +18,9 @@ public class Rank {
      * @param name  the name of the rank
      * @param scores the score of the rank
      */
-    public Rank(final String name, final Integer scores) {
-        this.scores.put(name, scores);
+    public Rank(final Integer l) {
+        this.level = l;
+        this.scores = new HashMap<>();
     }
 
     /**

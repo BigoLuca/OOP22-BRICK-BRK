@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import brickbreaker.common.TypePower;
 import brickbreaker.common.Vector2D;
 import brickbreaker.controllers.LevelController;
-import brickbreaker.model.Level;
 import brickbreaker.model.factory.ApplicatorFactory;
 import brickbreaker.model.factory.WorldFactory;
 import brickbreaker.model.world.World;

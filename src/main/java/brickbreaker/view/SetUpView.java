@@ -64,6 +64,10 @@ public class SetUpView extends ViewImpl {
         cbUsersList.setPromptText("Type your nick");
         cbUsersList.setEditable(true);
 
+        if (this.getController().getUserController().isMaxUser()){
+            cbUsersList.getEditor().setEditable(false);
+        }
+
         cbUsersList.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -83,6 +87,12 @@ public class SetUpView extends ViewImpl {
     public void switchToHome() {
         String nick = cbUsersList.getEditor().getText();
 
+        if (this.getController().getUserController().isMaxUser()){
+            cbUsersList.getEditor().setEditable(false);
+        } else {
+            cbUsersList.getEditor().setEditable(true);
+        }
+
         if (nick.isEmpty()) {
             Dialog<String> d = new Dialog<>();
             d.setTitle("Empty user name.");
@@ -95,7 +105,6 @@ public class SetUpView extends ViewImpl {
                 this.getController().getUserController().addUser(u);
                 this.getController().setUser(nick);
             }
-
             this.getController().setUser(nick);
             ViewSwitcher.getInstance().switchView(getStage(), ViewType.HOME);
         }
@@ -117,5 +126,7 @@ public class SetUpView extends ViewImpl {
 
         cbUsersList.getItems().remove(cbUsersList.getEditor().getText());
         cbUsersList.getEditor().clear();
+
+        btnRemove.setVisible(false);
     }
 }

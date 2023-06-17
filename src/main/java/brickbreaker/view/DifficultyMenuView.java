@@ -24,7 +24,7 @@ public class DifficultyMenuView extends ViewImpl {
     private VBox vbLayout;
 
     @FXML
-    private ImageView imgEndlessMode;
+    private ImageView imgModeTitle;
 
     @FXML
     private HBox hbDifficulty;
@@ -61,16 +61,19 @@ public class DifficultyMenuView extends ViewImpl {
         this.difficultyIndex = 0;
         this.imgDifficulties = new Image[4];
 
+        this.imgDifficulty.setImage(GameImages.DIFFICULTY.getImage());
+        this.imgModeTitle.setImage(GameImages.ENDLESS_MODE_TITLE.getImage());
+        this.imgReady.setImage(GameImages.READY_TO_PLAY.getImage());
+        this.imgUpArrow.setImage(GameImages.UP_ARROW.getImage());
+        this.imgDownArrow.setImage(GameImages.DOWN_ARROW.getImage());
+        this.imgBack.setImage(GameImages.BACK_ARROW.getImage());
+
         this.imgDifficulties[3] = GameImages.MIX_DIFFICULTY.getImage();
         this.imgDifficulties[0] = GameImages.EASY_DIFFICULTY.getImage();
         this.imgDifficulties[1] = GameImages.MEDIUM_DIFFICULTY.getImage();
         this.imgDifficulties[2] = GameImages.HARD_DIFFICULTY.getImage();
 
         this.imgSelectedDifficulty.setImage(this.imgDifficulties[0]);
-
-        this.imgUpArrow.setImage(GameImages.UP_ARROW.getImage());
-        this.imgDownArrow.setImage(GameImages.DOWN_ARROW.getImage());
-        this.imgBack.setImage(GameImages.BACK_ARROW.getImage());
     }
 
     /**

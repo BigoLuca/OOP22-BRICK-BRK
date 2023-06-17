@@ -25,6 +25,9 @@ public enum GameImages {
     /** Game icon. */
     GAME_ICON("gameIcon.png"),
 
+    /** Difficulty */
+    DIFFICULTY("difficulty.png"),
+
     /** Easy difficulty. */
     EASY_DIFFICULTY("easy.png"),
 
@@ -61,6 +64,9 @@ public enum GameImages {
     /** Endless mode choice. */
     ENDLESS_MODE_CHOICE("endless.png"),
 
+    /** Endless mode title. */
+    ENDLESS_MODE_TITLE("endlessModeTitle.png"),
+
     /** Leevls label. */
     LEVELS_LABEL("levels.png"),
 
@@ -69,6 +75,9 @@ public enum GameImages {
 
     /** Leaderboard choice. */
     LEADERBOARD_CHOICE("leaderboards.png"),
+
+    /** Ready to play image. */
+    READY_TO_PLAY("ready.png"),
 
     /** Up arrow. */
     UP_ARROW("upArrow.png"),

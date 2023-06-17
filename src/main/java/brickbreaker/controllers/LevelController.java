@@ -68,7 +68,7 @@ public class LevelController {
     /**
      * Method to set the level.
      * 
-     * @param level
+     * @param level the level to set
      */
     public void setLevel(final Optional<Integer> level) {
         this.level = level;
@@ -95,7 +95,7 @@ public class LevelController {
     /**
      * Method to the the map level information.
      * 
-     * @param i
+     * @param i the index of the map
      * @return a MapInfo
      */
     public MapData getMapInfo(final Integer i) {

@@ -120,7 +120,8 @@ public enum GameImages {
 
     /**
      * Mathod to set the file Image.
-     * @param image
+     * 
+     * @param image the image
      */
     public void setImage(final Image image) {
         this.image = image;
@@ -137,6 +138,7 @@ public enum GameImages {
 
     /**
      * Method to get the absolute path.
+     * 
      * @return path
      */
     public String getFilePath() {

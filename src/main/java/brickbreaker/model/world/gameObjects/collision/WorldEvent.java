@@ -19,9 +19,9 @@ public class WorldEvent {
     /**
      * Process the collision of the ball with the border side.
      * 
-     * @param ball
-     * @param side
-     * @param newPos
+     * @param ball   the ball to process
+     * @param side   the side of the collision
+     * @param newPos the new position of the ball
      */
     public void process(final Ball ball, final SideCollision side, final Double newPos) {
 
@@ -46,8 +46,8 @@ public class WorldEvent {
     /**
      * Process the ball collision with the bar.
      * 
-     * @param ball
-     * @param bar
+     * @param ball the ball to process
+     * @param bar  the bar to process
      */
     public void process(final Ball ball, final Bar bar) {
         Vector2D oldPos = ball.getPosition();
@@ -62,8 +62,8 @@ public class WorldEvent {
      * Process the ball collision with and object [brick, bar].
      * Flip the speed of the ball.
      * 
-     * @param ball
-     * @param brick
+     * @param ball  the ball to process
+     * @param brick the brick to process
      */
     public void process(final Ball ball, final Brick brick) {
         Double distY = ball.getPosition().vertDist(brick.getPosition());

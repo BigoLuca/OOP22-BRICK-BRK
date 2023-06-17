@@ -43,7 +43,7 @@ public class RankController {
     /**
      * Method to get all the endless mode ranks.
      * 
-     * @return a List<GameRank> object
+     * @return a List of Rank of the endless
      */
     public List<Rank> getEndlessRanks() {
         return this.endlessRanks;
@@ -52,7 +52,7 @@ public class RankController {
     /**
      * Method to get all the levels mode ranks.
      * 
-     * @return a List<GameRank> object
+     * @return a List of Rank of the levels
      */
     public List<Rank> getLevelsRanks() {
         return this.levelsRanks;
@@ -62,9 +62,9 @@ public class RankController {
      * Method to add a new score to the endless rank.
      * The method add the score in the rank of the difficulty passed.
      * 
-     * @param difficulty
-     * @param username
-     * @param newScore
+     * @param difficulty the difficulty of the rank
+     * @param username   the username of the player
+     * @param newScore   the new score
      */
     public void addScoreInEndlessRank(Difficulty difficulty, String username, Integer newScore) {
         this.endlessRanks.stream().filter(r -> r.getIndex().equals(difficulty.ordinal()))
@@ -75,9 +75,9 @@ public class RankController {
      * Method to add a new score to the levels rank.
      * The method add the score in the rank of the difficulty passed.
      * 
-     * @param level
-     * @param username
-     * @param newScore
+     * @param level    the level of the rank
+     * @param username the username of the player
+     * @param newScore the new score
      */
     public void addScoreInLevelsRank(Integer level, String username, Integer newScore) {
         this.levelsRanks.stream().filter(r -> r.getIndex().equals(level))
@@ -87,18 +87,18 @@ public class RankController {
     /**
      * Method to remove a score in all the ranks.
      * 
-     * @param username
+     * @param username the username of the player
      */
     public void removeScoreInAllRanks(String username) {
         this.endlessRanks.forEach(r -> r.getRank().remove(username));
-        this.levelsRanks.forEach(r -> r.getRank().remove(username));        
+        this.levelsRanks.forEach(r -> r.getRank().remove(username));
     }
 
     /**
      * Method to get the EndlessRank.
      * 
-     * @param index the index of the rank
-     * @return a GameRank
+     * @param difficulty the difficulty of the rank
+     * @return a Rank
      */
     public Rank getEndlessRank(final Difficulty difficulty) {
         return this.endlessRanks.stream().filter(r -> r.getIndex().equals(difficulty.ordinal())).findFirst()
@@ -117,8 +117,8 @@ public class RankController {
     /**
      * Method to get the LevelsRank.
      * 
-     * @param index
-     * @return a GameRank
+     * @param level the level of the rank
+     * @return a Rank
      */
     public Rank getLevelsRank(final Integer level) {
         return this.levelsRanks.stream().filter(r -> r.getIndex().equals(level)).findFirst().orElse(null);

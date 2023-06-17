@@ -4,8 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Class representing the rank.
- * Implements the {@link Rank} interface.
+ * Class representing a rank.
  */
 public class Rank {
 
@@ -15,8 +14,7 @@ public class Rank {
     /**
      * GameRank constructor.
      * 
-     * @param name  the name of the rank
-     * @param scores the score of the rank
+     * @param l the level of the rank
      */
     public Rank(final Integer l) {
         this.level = l;
@@ -26,7 +24,7 @@ public class Rank {
     /**
      * Method to get the rank.
      * 
-     * @return the Map<String, Integer> object representing the rank
+     * @return a map with the name of the player and the score rapresenting the rank
      */
     public Map<String, Integer> getRank() {
         return this.scores;
@@ -43,6 +41,9 @@ public class Rank {
 
     /**
      * Method to add a new score to the rank only if better.
+     * 
+     * @param name  the name of the score
+     * @param score the score
      */
     public void addScore(final String name, final Integer score) {
         if (score > this.scores.getOrDefault(name, -1)) {

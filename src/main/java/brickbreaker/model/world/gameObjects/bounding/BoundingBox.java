@@ -13,7 +13,7 @@ public interface BoundingBox {
     Vector2D getP2d();
 
     /**
-     * @param pos
+     * @param pos a point 2D
      */
     void setP2d(Vector2D pos);
 

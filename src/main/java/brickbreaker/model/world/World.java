@@ -17,41 +17,57 @@ import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
 public interface World {
 
     /**
-     * @param ball
+     * Method to add a ball to the world.
+     * 
+     * @param ball the ball to add
      */
     void addBall(Ball ball);
 
     /**
+     * Method to get the list of ball in play.
+     * 
      * @return the list of ball in play
      */
     List<Ball> getBalls();
 
     /**
+     * Method to get the bar.
+     * 
      * @return the bar
      */
     Bar getBar();
 
     /**
-     * @param bar
+     * Method to set the bar.
+     * 
+     * @param bar the bar to set
      */
     void setBar(Bar bar);
 
     /**
-     * @param bricks
+     * Method to add a brick to the world.
+     * 
+     * @param bricks the list of bricks to add
      */
     void addBricks(List<Brick> bricks);
 
     /**
+     * Method to get the list of bricks.
+     * 
      * @return the list of live bricks
      */
     List<Brick> getBricks();
 
     /**
+     * Method to get the list of falling powerUps.
+     * 
      * @return the list of falling powerUps
      */
     List<PowerUp> getPowerUp();
 
     /**
+     * Method to get the main Bounding Box.
+     * 
      * @return the main Bounding Box
      */
     RectBoundingBox getMainBBox();

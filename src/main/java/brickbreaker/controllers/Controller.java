@@ -113,7 +113,7 @@ public class Controller extends AbstractController {
     /**
      * Method to set the mode after the user input.
      * 
-     * @param mode
+     * @param mode the mode to set
      */
     public void setMode(final Mode mode) {
         this.mode = mode;
@@ -131,7 +131,7 @@ public class Controller extends AbstractController {
     /**
      * Method to set the user.
      * 
-     * @param username
+     * @param username the username to set
      */
     public void setUser(final String username) {
         this.user = this.getUserController().getUser(username);
@@ -140,7 +140,7 @@ public class Controller extends AbstractController {
     /**
      * Remove the user.
      * 
-     * @param username
+     * @param username the username to remove
      */
     public void removePlayer(final String username) {
         this.getRankController().removeScoreInAllRanks(username);
@@ -150,7 +150,7 @@ public class Controller extends AbstractController {
     /**
      * Method to set the GameView.
      * 
-     * @param gameView
+     * @param gameView the gameView to set
      */
     public void setGameView(final GameView gameView) {
         this.gameView = gameView;

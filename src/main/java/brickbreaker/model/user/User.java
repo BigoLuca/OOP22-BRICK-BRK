@@ -8,6 +8,11 @@ public class User {
     private String name;
     private Integer levelReached;
 
+    /**
+     * User constructor.
+     * 
+     * @param userName the name of the user
+     */
     public User(String userName) {
         this.name = userName;
         this.levelReached = 1;

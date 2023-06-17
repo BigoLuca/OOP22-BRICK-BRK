@@ -56,7 +56,7 @@ public class WorldImpl implements World {
     /**
      * World constructor.
      * 
-     * @param mainBbox
+     * @param mainBbox the main bounding box of the world.
      */
     public WorldImpl(final RectBoundingBox mainBbox) {
         this.balls = new ArrayList<>();

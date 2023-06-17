@@ -13,9 +13,10 @@ public class RectBoundingBox implements BoundingBox {
 
     /**
      * RectBoundingBox constructor.
-     * @param pos
-     * @param width
-     * @param height
+     * 
+     * @param pos    position
+     * @param width  width
+     * @param height height
      */
     public RectBoundingBox(final Vector2D pos, final Double width, final Double height) {
         this.pos = pos;
@@ -48,7 +49,7 @@ public class RectBoundingBox implements BoundingBox {
 
     /**
      * @param width
-     * Method to set the width
+     *              Method to set the width
      */
     public void setWidth(final Double width) {
         this.width = width;
@@ -62,14 +63,14 @@ public class RectBoundingBox implements BoundingBox {
     }
 
     /**
-     * @return the top-left corner
+     * @return a Vector2D representing the upper-left corner
      */
     public Vector2D getULCorner() {
         return new Vector2D(pos.getX() - width / 2, pos.getY() - height / 2);
     }
 
     /**
-     * @return the bottom-right corner
+     * @return a Vector2D representing the bottom-right corner
      */
     public Vector2D getBRCorner() {
         return new Vector2D(pos.getX() + width / 2, pos.getY() + height / 2);
@@ -77,7 +78,8 @@ public class RectBoundingBox implements BoundingBox {
 
     /**
      * {@inheritDoc}
-     * Detect the collision between a rectangle and another shape: rectangles or circles
+     * Detect the collision between a rectangle and another shape: rectangles or
+     * circles
      */
     @Override
     public boolean isCollidingWith(final BoundingBox obj) {
@@ -90,14 +92,13 @@ public class RectBoundingBox implements BoundingBox {
             Vector2D pbr = new Vector2D(rect.pos.getX() + rect.width / 2, rect.pos.getY() + rect.height / 2);
 
             return (ul.getX() <= pul.getX()
-                    && ul.getY() <= pul.getY() 
-                    && br.getX() >= pbr.getX() 
-                    && br.getY() >= pbr.getY()
-                    ) || (
-                    ul.getX() <= pbr.getX() 
-                    && ul.getY() <= pbr.getY() 
-                    && br.getX() >= pul.getX() 
-                    && br.getY() >= pul.getY());
+                    && ul.getY() <= pul.getY()
+                    && br.getX() >= pbr.getX()
+                    && br.getY() >= pbr.getY())
+                    || (ul.getX() <= pbr.getX()
+                            && ul.getY() <= pbr.getY()
+                            && br.getX() >= pul.getX()
+                            && br.getY() >= pul.getY());
 
         } else if (obj instanceof CircleBoundingBox) {
 

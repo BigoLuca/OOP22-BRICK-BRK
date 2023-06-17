@@ -89,8 +89,7 @@ public class WorldFactory {
      * The loaded map is used to create all the bricks on the basis of the map
      * difficulty.
      * 
-     * @param index an Integer value which will function as an index to get the map
-     *              from database.
+     * @param map the map data object that contains the map to load.
      * @return a new World object.
      */
     public World getWorld(final MapData map) {

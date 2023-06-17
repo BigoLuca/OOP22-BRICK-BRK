@@ -31,8 +31,10 @@ public class GameFactory {
     }
 
     /**
-     * @param posToSet
-     * @param velToSet
+     * Method to create a ball object.
+     * 
+     * @param posToSet position
+     * @param velToSet velocity
      * @return a new Ball object
      */
     public Ball createBall(final Vector2D posToSet, final Vector2D velToSet) {
@@ -40,9 +42,11 @@ public class GameFactory {
     }
 
     /**
+     * Method to create the bricks.
+     * 
      * @param list of bricks life
-     * @param col
-     * @param row
+     * @param col  columns
+     * @param row  rows
      * @return a list of brick objects
      */
     public List<Brick> createBricks(final List<Integer> list, final Integer col, final Integer row) {
@@ -63,6 +67,8 @@ public class GameFactory {
     }
 
     /**
+     * Method to assign radom life to bricks.
+     * 
      * @param d    difficulty
      * @param cols columns
      * @param rows rows
@@ -86,7 +92,9 @@ public class GameFactory {
     }
 
     /**
-     * @param posToSet
+     * Method to create a bar object.
+     * 
+     * @param posToSet position
      * @return a new Bar object
      */
     public Bar createBar(final Vector2D posToSet) {

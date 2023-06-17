@@ -10,8 +10,9 @@ public class Vector2D {
 
     /**
      * P2d constructor.
-     * @param x
-     * @param y
+     * 
+     * @param x the x coordinate
+     * @param y the y coordinate
      */
     public Vector2D(final double x, final double y) {
         this.x = x;
@@ -33,8 +34,9 @@ public class Vector2D {
     }
 
     /**
-     * Method to sum the velocity to the position.
-     * @param v
+     * Method to sum a vector to another.
+     * 
+     * @param v the vector to sum
      * @return a new position
      */
     public Vector2D sum(final Vector2D v) {
@@ -42,8 +44,9 @@ public class Vector2D {
     }
 
     /**
-     * Method to multiply a factor by velocity.
-     * @param value
+     * Method to multiply a vector by a value.
+     * 
+     * @param value the value to multiply
      * @return a new vector
      */
     public Vector2D mul(final double value) {
@@ -51,7 +54,9 @@ public class Vector2D {
     }
 
     /**
-     * @param xp
+     * Method to calculate the distance between two points.
+     * 
+     * @param xp the second point
      * @return the horizontal distance between two point
      */
     public Double orizDist(final Vector2D xp) {
@@ -59,7 +64,9 @@ public class Vector2D {
     }
 
     /**
-     * @param yp
+     * Method to calculate the distance between two points.
+     * 
+     * @param yp the second point
      * @return the vertical distance between two point
      */
     public Double vertDist(final Vector2D yp) {

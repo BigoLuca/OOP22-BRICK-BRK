@@ -31,16 +31,16 @@ public enum TypePower {
     /** Score increase. */
     INC_500(-1, TypePowerUp.POSITIVE),
 
-     /** Score decrease. */
+    /** Score decrease. */
     DEC_50(-1, TypePowerUp.NEGATIVE),
     /** Score decrease. */
     DEC_100(-1, TypePowerUp.NEGATIVE),
     /** Score decrease. */
-    //DEC_250(-1, TypePowerUp.NEGATIVE),
+    // DEC_250(-1, TypePowerUp.NEGATIVE),
     /** Score decrease. */
-    //DEC_500(-1, TypePowerUp.NEGATIVE),
+    // DEC_500(-1, TypePowerUp.NEGATIVE),
 
-     /** Life increese. */
+    /** Life increese. */
     LIFE_INC(-1, TypePowerUp.POSITIVE),
 
     /** Multi ball. */
@@ -70,7 +70,8 @@ public enum TypePower {
 
     /**
      * This method returns a list of positive or negative powerUp type.
-     * @param typePass
+     * 
+     * @param typePass type of powerUp
      * @return a list of powerUp type
      */
     public static List<TypePower> getElement(final TypePowerUp typePass) {

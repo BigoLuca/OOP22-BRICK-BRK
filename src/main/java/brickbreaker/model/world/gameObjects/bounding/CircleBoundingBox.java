@@ -13,8 +13,9 @@ public class CircleBoundingBox implements BoundingBox {
 
     /**
      * CircleBoundingBox constructor.
-     * @param pos
-     * @param radius
+     * 
+     * @param pos    position
+     * @param radius radius
      */
     public CircleBoundingBox(final Vector2D pos, final Double radius) {
         this.pos = pos;
@@ -45,8 +46,9 @@ public class CircleBoundingBox implements BoundingBox {
     }
 
     /**
-     * @param radius
-     * Method to set the radius
+     * Method to set the radius.
+     * 
+     * @param radius radius to set
      */
     public void setRadius(final Double radius) {
         this.radius = radius;

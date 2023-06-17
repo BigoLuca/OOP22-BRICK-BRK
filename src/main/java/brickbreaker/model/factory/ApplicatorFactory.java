@@ -24,12 +24,15 @@ public class ApplicatorFactory {
     /**
      * Applicator factory constructor.
      */
-    public ApplicatorFactory() { }
+    public ApplicatorFactory() {
+    }
 
     /**
-     * Method to apply powerUp that collides with bar. Create a specific class but return the interface.
-     * @param power
-     * @param type
+     * Method to apply powerUp that collides with bar. Create a specific class but
+     * return the interface.
+     * 
+     * @param power powerUp type
+     * @param type  true if powerUp is positive, false if powerUp is negative
      * @return a PowerUpApplicator
      */
     public PowerUpApplicator createApplicator(final TypePower power, final boolean type) {
@@ -51,15 +54,15 @@ public class ApplicatorFactory {
             case INC_50:
                 return new ScoreApplicator(SCORE_50);
             case INC_100:
-            return new ScoreApplicator(SCORE_100);
+                return new ScoreApplicator(SCORE_100);
             case INC_250:
                 return new ScoreApplicator(SCORE_250);
             case INC_500:
-            return new ScoreApplicator(SCORE_500);
+                return new ScoreApplicator(SCORE_500);
             case DEC_50:
-            return new ScoreApplicator(-SCORE_50);
+                return new ScoreApplicator(-SCORE_50);
             case DEC_100:
-            return new ScoreApplicator(-SCORE_100);
+                return new ScoreApplicator(-SCORE_100);
             case LIFE_INC:
                 return new LifeIncApplicator();
             default:

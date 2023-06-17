@@ -44,7 +44,7 @@ public class UserController {
     /**
      * Method to get a user passing the name.
      * 
-     * @param username
+     * @param username the name of the user
      * @return a User
      */
     public User getUser(final String username) {
@@ -54,7 +54,7 @@ public class UserController {
     /**
      * Method to add a new user to json file.
      * 
-     * @param newUser
+     * @param newUser the user to add
      */
     public void addUser(final User newUser) {
         if (!this.isMaxUser()) {
@@ -65,7 +65,7 @@ public class UserController {
     /**
      * Method to remove user and his ranks from json file.
      * 
-     * @param username
+     * @param username the name of the user to remove
      */
     public void removeUser(final String username) {
         this.users.removeIf(u -> u.getName().equals(username));

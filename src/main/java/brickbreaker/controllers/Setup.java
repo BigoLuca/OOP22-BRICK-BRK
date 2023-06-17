@@ -21,7 +21,7 @@ public class Setup extends Application {
     /**
      * Entry point.
      * 
-     * @param primaryStage
+     * @param primaryStage the primary stage
      */
     @Override
     public void start(final Stage primaryStage) throws Exception {

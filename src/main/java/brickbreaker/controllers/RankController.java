@@ -5,7 +5,7 @@ import java.util.List;
 import com.google.gson.reflect.TypeToken;
 
 import brickbreaker.common.Difficulty;
-import brickbreaker.common.LoadJson;
+import brickbreaker.common.JsonUtils;
 import brickbreaker.model.rank.Rank;
 
 /**
@@ -23,9 +23,9 @@ public class RankController {
      * RankController constructor.
      */
     public RankController() {
-        this.endlessRanks = LoadJson.load(new TypeToken<List<Rank>>() {
+        this.endlessRanks = JsonUtils.load(new TypeToken<List<Rank>>() {
         }.getType(), ENDLESS_RANKS_FILE);
-        this.levelsRanks = LoadJson.load(new TypeToken<List<Rank>>() {
+        this.levelsRanks = JsonUtils.load(new TypeToken<List<Rank>>() {
         }.getType(), LEVEL_RANKS_FILE);
     }
 
@@ -33,8 +33,8 @@ public class RankController {
      * Method to save the ranks.
      */
     public void saveRanks() {
-        LoadJson.save(this.endlessRanks, ENDLESS_RANKS_FILE);
-        LoadJson.save(this.levelsRanks, LEVEL_RANKS_FILE);
+        JsonUtils.save(this.endlessRanks, ENDLESS_RANKS_FILE);
+        JsonUtils.save(this.levelsRanks, LEVEL_RANKS_FILE);
     }
 
     /**
@@ -66,7 +66,7 @@ public class RankController {
     public void addScoreInEndlessRank(Difficulty difficulty, String username, Integer newScore) {
         this.endlessRanks.stream().filter(r -> r.getIndex().equals(difficulty.ordinal())).findFirst().orElse(null)
                 .addScore(username, newScore);
-        LoadJson.save(this.endlessRanks, ENDLESS_RANKS_FILE);
+        JsonUtils.save(this.endlessRanks, ENDLESS_RANKS_FILE);
     }
 
     /**
@@ -80,7 +80,7 @@ public class RankController {
     public void addScoreInLevelsRank(Integer level, String username, Integer newScore) {
         this.levelsRanks.stream().filter(r -> r.getIndex().equals(level)).findFirst().orElse(null)
                 .addScore(username, newScore);
-        LoadJson.save(this.levelsRanks, LEVEL_RANKS_FILE);
+        JsonUtils.save(this.levelsRanks, LEVEL_RANKS_FILE);
     }
 
 

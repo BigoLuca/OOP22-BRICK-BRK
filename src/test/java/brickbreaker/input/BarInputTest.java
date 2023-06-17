@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import brickbreaker.common.Vector2D;
 import brickbreaker.controllers.InputController;
+import brickbreaker.controllers.LevelController;
 import brickbreaker.model.factory.WorldFactory;
 import brickbreaker.model.world.World;
 
@@ -24,7 +25,8 @@ public class BarInputTest {
      */
     @BeforeEach
     void setUp() {
-        world = WorldFactory.getInstance().getWorld(1);
+        LevelController controll = new LevelController();
+        world = WorldFactory.getInstance().getWorld(controll.getMapInfo(1));
         controller = new InputController();
     }
 

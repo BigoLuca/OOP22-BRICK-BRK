@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 
 import brickbreaker.common.TypePower;
 import brickbreaker.common.Vector2D;
+import brickbreaker.controllers.LevelController;
+import brickbreaker.model.Level;
 import brickbreaker.model.factory.ApplicatorFactory;
 import brickbreaker.model.factory.WorldFactory;
 import brickbreaker.model.world.World;
@@ -31,7 +33,8 @@ public class WorldTest {
      */
     @BeforeEach
     void setUp() {
-        world = WorldFactory.getInstance().getWorld(1);
+        LevelController controller = new LevelController();
+        world = WorldFactory.getInstance().getWorld(controller.getMapInfo(1));
         ball = new Ball(new Vector2D(VALUES0, VALUES0), new Vector2D(1, 1));
         ball.setPosition(new Vector2D(VALUES100, VALUES120));
         factory = new ApplicatorFactory();

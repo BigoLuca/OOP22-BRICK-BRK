@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import brickbreaker.common.Vector2D;
+import brickbreaker.controllers.LevelController;
 import brickbreaker.model.factory.GameFactory;
 import brickbreaker.model.factory.WorldFactory;
 import brickbreaker.model.world.World;
@@ -32,12 +33,13 @@ public class FactoryTest {
      */
     @BeforeEach
     void setUp() {
+        LevelController controller = new LevelController();
         g = GameFactory.getInstance();
         w = WorldFactory.getInstance();
         world = new WorldImpl(new RectBoundingBox(new Vector2D(0, 0), 0.0, 0.0));
         world.addBall(g.createBall(new Vector2D(0, 0), new Vector2D(0, 0)));
         world.setBar(g.createBar(new Vector2D(0, 0)));
-        wo = (w.getWorld(1));
+        wo = (w.getWorld(controller.getMapInfo(1)));
     }
 
     /**

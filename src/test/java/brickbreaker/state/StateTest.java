@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import brickbreaker.common.State;
 import brickbreaker.common.Vector2D;
+import brickbreaker.controllers.LevelController;
 import brickbreaker.model.Level;
 import brickbreaker.model.factory.WorldFactory;
 
@@ -22,7 +23,8 @@ public class StateTest {
      */
     @BeforeEach
     void setUp() {
-        level = new Level(1, WorldFactory.getInstance().getWorld(1));
+        LevelController controller = new LevelController();
+        level = new Level(1, WorldFactory.getInstance().getWorld(controller.getMapInfo(1)));
     }
 
     /**

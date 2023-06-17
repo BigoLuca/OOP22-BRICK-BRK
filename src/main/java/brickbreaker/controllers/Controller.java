@@ -40,6 +40,7 @@ public class Controller extends AbstractController {
      */
     private void checkState() {
         State s = this.getModel().getState();
+        System.out.println(s);
         if (s.equals(State.WAIT)) {
             this.pauseLoop();
             this.render();
@@ -48,19 +49,19 @@ public class Controller extends AbstractController {
             if (this.mode.equals(Mode.ENDLESS)) {
                 this.getRankController().addScoreInEndlessRank(this.getLevelController().getSettedDifficulty(),
                         user.getName(), this.getScore());
-            } else if (this.getModel().getState().equals(State.WIN)) {
-                if (this.mode.equals(Mode.ENDLESS)) {
-                    this.pauseLoop();
-                    Integer barLife = this.model.getWorld().getBar().getLife();
-                    this.oldScore = this.model.getWorld().getScore();
-                    this.model = this.getLevelController().getLevel();
-                    this.model.getWorld().addToScore(oldScore);
-                    this.model.getWorld().getBar().setLife(barLife);
-                    this.render();
-                } else if (this.mode.equals(Mode.LEVELS)) {
-                    this.getRankController().addScoreInLevelsRank(this.model.getId(), user.getName(), this.getScore());
-                    this.stopLoop();
-                }
+            }
+        } else if (this.getModel().getState().equals(State.WIN)) {
+            if (this.mode.equals(Mode.ENDLESS)) {
+                this.pauseLoop();
+                Integer barLife = this.model.getWorld().getBar().getLife();
+                this.oldScore = this.model.getWorld().getScore();
+                this.model = this.getLevelController().getLevel();
+                this.model.getWorld().addToScore(oldScore);
+                this.model.getWorld().getBar().setLife(barLife);
+                this.render();
+            } else if (this.mode.equals(Mode.LEVELS)) {
+                this.getRankController().addScoreInLevelsRank(this.model.getId(), user.getName(), this.getScore());
+                this.stopLoop();
             }
         }
     }

@@ -15,7 +15,10 @@ public enum Error {
     /** Rank load error. */
     USERLOADER_ERROR("User not loaded correctly"),
     /** User write error. */
-    USERWRITER_ERROR("User not writed correctly");
+    USERWRITER_ERROR("User not writed correctly"),
+    /** Image load error. */
+    LOAD_IMAGE_ERROR("Image not loaded correctly");
+
 
     private final String message;
     Error(final String m) {

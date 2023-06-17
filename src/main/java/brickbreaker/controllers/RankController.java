@@ -85,6 +85,16 @@ public class RankController {
     }
 
     /**
+     * Method to remove a score in all the ranks.
+     * 
+     * @param username
+     */
+    public void removeScoreInAllRanks(String username) {
+        this.endlessRanks.forEach(r -> r.getRank().remove(username));
+        this.levelsRanks.forEach(r -> r.getRank().remove(username));        
+    }
+
+    /**
      * Method to get the EndlessRank.
      * 
      * @param index the index of the rank

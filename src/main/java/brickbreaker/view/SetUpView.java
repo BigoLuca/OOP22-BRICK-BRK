@@ -117,7 +117,7 @@ public class SetUpView extends ViewImpl {
 
         Dialog<String> d = new Dialog<>();
 
-        this.getController().getUserController().removeUser(cbUsersList.getEditor().getText());
+        this.getController().removePlayer(cbUsersList.getEditor().getText());
 
         d.setTitle("Success");
         d.setContentText("Player deleted.");

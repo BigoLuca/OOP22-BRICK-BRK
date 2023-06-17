@@ -138,6 +138,16 @@ public class Controller extends AbstractController {
     }
 
     /**
+     * Remove the user.
+     * 
+     * @param username
+     */
+    public void removePlayer(final String username) {
+        this.getRankController().removeScoreInAllRanks(username);
+        this.getUserController().removeUser(username);
+    }
+
+    /**
      * Method to set the GameView.
      * 
      * @param gameView

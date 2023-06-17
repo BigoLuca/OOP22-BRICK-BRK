@@ -62,7 +62,7 @@ tasks.withType<Test> {
 
 application {
     // Define the main class for the application
-    mainClass.set("brickbreaker.Launcher")
+    mainClass.set("brickbreaker.App")
 }
 
 tasks.jar {

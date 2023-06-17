@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.net.URL;
@@ -69,7 +68,7 @@ public class JsonUtils {
             String json = gson.toJson(data);
 
             fileWriter.write(json);
-            System.out.println("Salvataggio");
+            System.out.println("Saving Data");
         } catch (IOException e) {
             e.printStackTrace();
         }

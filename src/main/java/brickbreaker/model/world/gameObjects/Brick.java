@@ -1,10 +1,10 @@
 package brickbreaker.model.world.gameObjects;
 
-import brickbreaker.ResourceLoader;
 import brickbreaker.common.TypeObj;
 import brickbreaker.common.TypePower;
 import brickbreaker.common.Vector2D;
 import brickbreaker.model.factory.WorldFactory;
+import brickbreaker.model.map.MapData;
 import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
 
 /**
@@ -14,9 +14,9 @@ import brickbreaker.model.world.gameObjects.bounding.RectBoundingBox;
 public class Brick extends GameObjectImpl<RectBoundingBox> {
 
     /** number of bricks coluns. */
-    public static final Integer BRICKS_COL = ResourceLoader.getInstance().getMapColumns();
+    public static final Integer BRICKS_COL = MapData.MAP_COLUMNS_FILE_FORMAT;
     /** number of bricks rows. */
-    public static final Integer BRICKS_ROW = ResourceLoader.getInstance().getMapRows();
+    public static final Integer BRICKS_ROW = MapData.MAP_ROWS_FILE_FORMAT;
 
     /** Width of the brick. */
     public static final Double BRICK_WIDTH = WorldFactory.BOUNDARIES_SIZE / BRICKS_COL;

@@ -6,6 +6,7 @@ This software is developed by:
  - [Pietro Tellarini]()
 ### Building and running the project
 You can build using Gradle:
+
 Unix-based systems:
 ```
 chmod +x gradlew
@@ -13,5 +14,9 @@ chmod +x gradlew
 ```
 Windows:
 ```
-gradlew.bat build
+./gradlew.bat build
+```
+You can run using Gradle or with the .jar file:
+```
+./gradlew run
 ```
